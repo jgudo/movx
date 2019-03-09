@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Pagination from 'react-js-pagination';
 
 import TopProgressLoader from '../layout/TopProgressLoader'; 
 import MovieCard from '../card/MovieCard';
+
+// actions
+import { fetchMovies, isCurrentlyFetching } from '../../actions/actions';
 
 const tmdb = 'https://api.themoviedb.org/3';
 const tmdbKey = process.env.TMDB_KEY;
@@ -16,51 +19,22 @@ class TrendingMovies extends Component {
   };
 
   componentDidMount() {
-    this.fetchMovies();
-  }
-
-  fetchMovies = (page = 1) => {
-    axios({
-      url: `${tmdb}/trending/all/day?api_key=${tmdbKey}&page=${page}`,
-      method: 'GET',
-      onUploadProgress: (e) => {
-        console.log(e)
-      }
-    })
-      .then((response) => {
-        console.log(response.data);
-        const trendingMovies = response.data;
-        this.setState(() => ({
-          movies: {
-            trending: {
-              activePage: trendingMovies.page,
-              collection: trendingMovies.results,
-              total_pages: trendingMovies.total_pages,
-              total_results: trendingMovies.total_results
-            }
-          },
-          isLoading: false
-        }));
-      })
-      .catch((err) => {
-        console.error(err);
-        this.setState(() => ({ isLoading: false }));
-      });
+    this.props.fetchMovies(`${tmdb}/trending/all/day?api_key=${tmdbKey}`, 1);
   }
 
   handlePageChange = (e) => {
-    if (this.state.movies.trending.activePage !== e) {
-      this.setState(() => ({ isLoading: true }));
-      this.fetchMovies(e);
+    if (this.props.fetchMovies.activePage !== e) {
+      this.props.isCurrentlyFetching();
+      this.props.fetchMovies(`${tmdb}/trending/all/day?api_key=${tmdbKey}`, e);
     }
   };
 
   render() {
-    const { trending } = this.state.movies;
-
+    const { trendingMovies, isLoading } = this.props;
+  
     return (
       <React.Fragment>
-        <TopProgressLoader isLoading={this.state.isLoading} />
+        <TopProgressLoader isLoading={isLoading} />
         <div 
             className="container" 
             /* eslint no-return-assign: 0 */
@@ -71,7 +45,7 @@ class TrendingMovies extends Component {
             <h1>Trending Movies</h1>
           </div>
           <div className="movie__wrapper">
-            {trending && trending.collection.map((movie) => {
+            {trendingMovies.collection && trendingMovies.collection.map((movie) => {
               return (
                 <MovieCard 
                     key={movie.id}
@@ -80,11 +54,11 @@ class TrendingMovies extends Component {
               )
             })}
           </div>
-          {trending && (
+          {trendingMovies.collection && (
             <div className="pagination__wrapper">
-              <p>Page {trending.activePage}/{trending.total_pages}</p>
+              <p>Page {trendingMovies.activePage}/{trendingMovies.total_pages}</p>
               <Pagination
-                  activePage={trending.activePage || 1}
+                  activePage={trendingMovies.activePage || 1}
                   firstPageText={<FontAwesomeIcon icon={['fa', 'angle-double-left']} />}
                   itemsCountPerPage={10}
                   lastPageText={<FontAwesomeIcon icon={['fa', 'angle-double-right']} />}
@@ -92,7 +66,7 @@ class TrendingMovies extends Component {
                   onChange={this.handlePageChange}
                   pageRangeDisplayed={5}
                   prevPageText={<FontAwesomeIcon icon={['fa', 'angle-left']} />}
-                  totalItemsCount={trending.total_pages || 1000}
+                  totalItemsCount={trendingMovies.total_pages || 1000}
               />
             </div>
           )}
@@ -102,4 +76,14 @@ class TrendingMovies extends Component {
   }
 }
 
-export default TrendingMovies;
+const mapStateToProps = ({ trendingMovies, isLoading }) => ({
+  trendingMovies,
+  isLoading
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchMovies: (url, page) => dispatch(fetchMovies(url, page)),
+  isCurrentlyFetching: bool => dispatch(isCurrentlyFetching(bool))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(TrendingMovies);

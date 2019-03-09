@@ -58,6 +58,7 @@
     "react-router-dom": "^4.3.1",
     "react-star-ratings": "^2.3.0",
     "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0",
     "webfontloader": "^1.6.28"
   }
 }
