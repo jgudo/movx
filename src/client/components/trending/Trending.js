@@ -7,7 +7,7 @@ import TopProgressLoader from '../layout/TopProgressLoader';
 import MovieCard from '../card/MovieCard';
 
 const tmdb = 'https://api.themoviedb.org/3';
-const tmdbKey = '4377cb2eef06cc002bf39f55a2fb6421';
+const tmdbKey = process.env.TMDB_KEY;
 
 class TrendingMovies extends Component {
   state = {
