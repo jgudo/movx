@@ -1,0 +1,25 @@
+.navigation {
+  width: 100%;
+  height: 80px;  
+  padding: 0 $xl-size;
+  background: $dark-blue-0;
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+
+}
+
+.navigation__link {
+  color: #fff;
+  display: inline-block;
+  font-size: rem(28);
+  padding: $s-size $m-size;
+  text-decoration: none;
+}
+
+.navigation__active {
+  background: $blue;
+  border-radius: 10px;
+}

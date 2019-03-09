@@ -1,0 +1,21 @@
+// -------
+// Base declaration
+
+@import './base/settings';
+@import './base/base';
+
+// -------
+// Functions & mixins
+@import './functions/functions';
+@import './mixins/mixins';
+
+// -------
+// Components
+@import './components/loadingscreen';
+@import './components/progressloader';
+@import './components/pagination';
+@import './components/image-loader';
+@import './components/card';
+@import './components/container';
+@import './components/navigation';
+@import './pages/movies';

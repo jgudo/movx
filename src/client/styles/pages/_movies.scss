@@ -1,0 +1,11 @@
+.movie__wrapper {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 0;
+  justify-items: center;
+  padding: $l-size;
+}
+
+.movie__header {
+  padding: $m-size $l-size;
+}
