@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Trending from './components/trending/Trending';
-import Discover from './components/discover/Discover';
+import Trending from './components/movies/Trending';
+import Discover from './components/movies/Discover';
 
 const App = () => (
   <div>

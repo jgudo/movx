@@ -39,6 +39,7 @@ class DiscoverMovies extends Component {
             {discoverMovies.collection && discoverMovies.collection.map((movie) => {
               return (
                 <MovieCard 
+                    category="movie"
                     key={movie.id}
                     movie={movie} 
                 />
