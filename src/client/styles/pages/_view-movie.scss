@@ -19,3 +19,16 @@
 .movie__view-details {
   padding: 0 $xl-size;
 }
+
+.movie__title {
+  font-size: $l-size;
+  margin-bottom: $s-size;
+
+  span {
+    opacity: .5;
+  }
+}
+
+.movie__rating {
+  margin-top: 0;
+}
