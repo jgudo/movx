@@ -1,12 +1,20 @@
 import axios from 'axios';
 
-export const fetchMovies = (url, page = 1) => {
+const tmdb = 'https://api.themoviedb.org/3/';
+const tmdbKey = process.env.TMDB_KEY;
+
+export const isCurrentlyFetching = (bool = true) => ({
+  type: 'IS_LOADING',
+  bool
+});
+
+export const fetchMovies = (action, query, page = 1) => {
   return (dispatch) => {
-    axios.get(`${url}&page=${page}`)
+    axios.get(`${tmdb + query}&api_key=${tmdbKey}&page=${page}`)
       .then((response) => {
         const movie = response.data;
         dispatch({
-          type: 'FETCH_TRENDING_MOVIES',
+          type: action,
           movies: {
             activePage: movie.page,
             collection: movie.results,
@@ -18,12 +26,10 @@ export const fetchMovies = (url, page = 1) => {
       })
       .catch((err) => {
         console.error(err);
-        this.setState(() => ({ isLoading: false }));
+        dispatch({
+          type: 'IS_LOADING',
+          bool: false
+        });
       });
   }; 
 };
-
-export const isCurrentlyFetching = (bool = true) => ({
-  type: 'IS_LOADING',
-  bool
-});

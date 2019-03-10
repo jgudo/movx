@@ -9,9 +9,6 @@ import MovieCard from '../card/MovieCard';
 // actions
 import { fetchMovies, isCurrentlyFetching } from '../../actions/actions';
 
-const tmdb = 'https://api.themoviedb.org/3';
-const tmdbKey = process.env.TMDB_KEY;
-
 class TrendingMovies extends Component {
   state = {
     movies: {},
@@ -19,13 +16,13 @@ class TrendingMovies extends Component {
   };
 
   componentDidMount() {
-    this.props.fetchMovies(`${tmdb}/trending/all/day?api_key=${tmdbKey}`, 1);
+    this.props.fetchMovies('FETCH_TRENDING_MOVIES', 'trending/all/day?');
   }
 
   handlePageChange = (e) => {
-    if (this.props.fetchMovies.activePage !== e) {
+    if (this.props.trendingMovies.activePage !== e) {
       this.props.isCurrentlyFetching();
-      this.props.fetchMovies(`${tmdb}/trending/all/day?api_key=${tmdbKey}`, e);
+      this.props.fetchMovies('FETCH_TRENDING_MOVIES', 'trending/all/day?', e);
     }
   };
 
@@ -82,7 +79,7 @@ const mapStateToProps = ({ trendingMovies, isLoading }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchMovies: (url, page) => dispatch(fetchMovies(url, page)),
+  fetchMovies: (action, url, page) => dispatch(fetchMovies(action, url, page)),
   isCurrentlyFetching: bool => dispatch(isCurrentlyFetching(bool))
 });
 
