@@ -8,14 +8,14 @@ export const isCurrentlyFetching = (bool = true) => ({
   bool
 });
 
-export const fetchMovies = (action, query, page = 1) => {
+export const fetchRequest = (action, query, page = 1) => {
   return (dispatch) => {
     axios.get(`${tmdb + query}&api_key=${tmdbKey}&page=${page}`)
       .then((response) => {
         const movie = response.data;
         dispatch({
           type: action,
-          movies: {
+          data: {
             activePage: movie.page,
             collection: movie.results,
             total_pages: movie.total_pages,

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Pagination from 'react-js-pagination';
 
-import { fetchMovies, isCurrentlyFetching } from '../../actions/actions';
+import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
 import TopProgressLoader from '../layout/TopProgressLoader'; 
 import MovieCard from '../card/MovieCard';
 
@@ -15,13 +15,13 @@ class DiscoverMovies extends Component {
   };
 
   componentDidMount() {
-    this.props.fetchMovies('FETCH_DISCOVER_MOVIES', queryString);
+    this.props.fetchRequest('FETCH_DISCOVER_MOVIES', queryString);
   }
 
   handlePageChange = (e) => {
     if (this.props.discoverMovies.activePage !== e) {
       this.props.isCurrentlyFetching();
-      this.props.fetchMovies('FETCH_DISCOVER_MOVIES', queryString, e);
+      this.props.fetchRequest('FETCH_DISCOVER_MOVIES', queryString, e);
     }
   };
 
@@ -32,34 +32,36 @@ class DiscoverMovies extends Component {
       <React.Fragment>
         <TopProgressLoader isLoading={isLoading} />
         <div className="container">
-          <div className="movie__header">
-            <h1>Discover</h1>
-          </div>    
-          <div className="movie__wrapper">
-            {discoverMovies.collection && discoverMovies.collection.map((movie) => {
-              return (
-                <MovieCard 
-                    category="movie"
-                    key={movie.id}
-                    movie={movie} 
-                />
-              )
-            })}
-          </div>
-          <div className="pagination__wrapper">
-          {discoverMovies.collection && (
-            <Pagination
-                activePage={discoverMovies.activePage || 1}
-                firstPageText={<FontAwesomeIcon icon={['fa', 'angle-double-left']} />}
-                itemsCountPerPage={10}
-                lastPageText={<FontAwesomeIcon icon={['fa', 'angle-double-right']} />}
-                nextPageText={<FontAwesomeIcon icon={['fa', 'angle-right']} />}
-                onChange={this.handlePageChange}
-                pageRangeDisplayed={5}
-                prevPageText={<FontAwesomeIcon icon={['fa', 'angle-left']} />}
-                totalItemsCount={discoverMovies.total_pages || 1000}
-            />
-          )}
+          <div className="container__wrapper">
+            <div className="movie__header">
+              <h1>Discover</h1>
+            </div>    
+            <div className="movie__wrapper">
+              {discoverMovies.collection && discoverMovies.collection.map((movie) => {
+                return (
+                  <MovieCard 
+                      category="movie"
+                      key={movie.id}
+                      movie={movie} 
+                  />
+                )
+              })}
+            </div>
+            <div className="pagination__wrapper">
+            {discoverMovies.collection && (
+              <Pagination
+                  activePage={discoverMovies.activePage || 1}
+                  firstPageText={<FontAwesomeIcon icon={['fa', 'angle-double-left']} />}
+                  itemsCountPerPage={10}
+                  lastPageText={<FontAwesomeIcon icon={['fa', 'angle-double-right']} />}
+                  nextPageText={<FontAwesomeIcon icon={['fa', 'angle-right']} />}
+                  onChange={this.handlePageChange}
+                  pageRangeDisplayed={5}
+                  prevPageText={<FontAwesomeIcon icon={['fa', 'angle-left']} />}
+                  totalItemsCount={discoverMovies.total_pages || 1000}
+              />
+            )}
+            </div>
           </div>
         </div>
       </React.Fragment>
@@ -73,7 +75,7 @@ const mapStateToProps = ({ discoverMovies, isLoading }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchMovies: (action, url, page) => dispatch(fetchMovies(action, url, page)),
+  fetchRequest: (action, url, page) => dispatch(fetchRequest(action, url, page)),
   isCurrentlyFetching: bool => dispatch(isCurrentlyFetching(bool))
 });
 

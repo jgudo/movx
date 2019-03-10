@@ -4,56 +4,59 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Pagination from 'react-js-pagination';
 
 import TopProgressLoader from '../layout/TopProgressLoader'; 
-import MovieCard from '../card/MovieCard';
+import PeopleCard from '../card/PeopleCard';
 
 // actions
 import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
 
-const queryString = 'discover/tv?&language=en-US&sort_by=popularity.desc&timezone=America%2FNew_York';
-
-class TvShows extends Component {
+class People extends Component {
   state = {
-    sortBy: 'popularity.desc'
+    movies: {},
+    isLoading: true
   };
 
   componentDidMount() {
-    this.props.fetchRequest('FETCH_TV_SHOWS', queryString);
+    this.props.fetchRequest('FETCH_PEOPLE', 'person/popular?');
   }
 
   handlePageChange = (e) => {
-    if (this.props.tvShows.activePage !== e) {
+    if (this.props.people.activePage !== e) {
       this.props.isCurrentlyFetching();
-      this.props.fetchRequest('FETCH_TV_SHOWS', queryString, e);
+      this.props.fetchRequest('FETCH_PEOPLE', 'person/popular?', e);
     }
   };
 
   render() {
-    const { tvShows, isLoading } = this.props;
+    const { people, isLoading } = this.props;
   
     return (
       <React.Fragment>
         <TopProgressLoader isLoading={isLoading} />
-        <div className="container">
+        <div 
+            className="container" 
+            /* eslint no-return-assign: 0 */
+            ref={el => this.container = el}
+        >
           <div className="container__wrapper">
             <div className="movie__header">
-              <h1>TV Shows</h1>
+              <h1>Popular People</h1>
             </div>
             <div className="movie__wrapper">
-              {tvShows.collection && tvShows.collection.map((show) => {
+              {people.collection && people.collection.map((person) => {
                 return (
-                  <MovieCard 
-                      key={show.id}
-                      category="tv"
-                      movie={show} 
+                  <PeopleCard 
+                      category="people"
+                      key={person.id}
+                      people={person} 
                   />
                 )
               })}
             </div>
-            {tvShows.collection && (
+            {people.collection && (
               <div className="pagination__wrapper">
-                <p>Page {tvShows.activePage}/{tvShows.total_pages}</p>
+                <p>Page {people.activePage}/{people.total_pages}</p>
                 <Pagination
-                    activePage={tvShows.activePage || 1}
+                    activePage={people.activePage || 1}
                     firstPageText={<FontAwesomeIcon icon={['fa', 'angle-double-left']} />}
                     itemsCountPerPage={10}
                     lastPageText={<FontAwesomeIcon icon={['fa', 'angle-double-right']} />}
@@ -61,19 +64,19 @@ class TvShows extends Component {
                     onChange={this.handlePageChange}
                     pageRangeDisplayed={5}
                     prevPageText={<FontAwesomeIcon icon={['fa', 'angle-left']} />}
-                    totalItemsCount={tvShows.total_pages || 1000}
+                    totalItemsCount={people.total_pages || 1000}
                 />
               </div>
             )}
-          </div>    
-        </div>
+          </div>  
+      </div>
       </React.Fragment>
     );
   }
 }
 
-const mapStateToProps = ({ tvShows, isLoading }) => ({
-  tvShows,
+const mapStateToProps = ({ people, isLoading }) => ({
+  people,
   isLoading
 });
 
@@ -82,4 +85,4 @@ const mapDispatchToProps = dispatch => ({
   isCurrentlyFetching: bool => dispatch(isCurrentlyFetching(bool))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TvShows);
+export default connect(mapStateToProps, mapDispatchToProps)(People);

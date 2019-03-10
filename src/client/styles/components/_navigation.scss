@@ -5,21 +5,47 @@
   background: $dark-blue-0;
   position: fixed;
   top: 0;
+  box-shadow: 0 8px 15px rgba(0,0,0,.1);
   z-index: 10;
+}
+
+.navigation__wrapper {
+  width: 85%;
+  height: 100%;
   display: flex;
   align-items: center;
+  margin: auto;
+}
 
+.navigation__items {
+  height: 100%;
+  display: flex;
+  align-items: center;
 }
 
 .navigation__link {
   color: #fff;
+  opacity: .7;
   display: inline-block;
   font-size: rem(28);
-  padding: $s-size $m-size;
+  margin: 0 $m-size;
   text-decoration: none;
+  position: relative;
 }
 
 .navigation__active {
+  font-weight: 700;
+  opacity: 1;
+}
+
+.navigation__active:after {
+  content: '';
+  position: absolute;
+  bottom: -30px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 100%;
+  height: 2px;
   background: $blue;
-  border-radius: 10px;
 }

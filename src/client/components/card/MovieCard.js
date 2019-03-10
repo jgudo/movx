@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ImageLoader from '../layout/ImageLoader';
 
-const tmdbPosterPath = 'https://image.tmdb.org/t/p/w300_and_h450_face/';
+const tmdbPosterPath = 'https://image.tmdb.org/t/p/w185_and_h278_face/';
 
 /* eslint-disable */
 const MovieCard = (props) => {
@@ -25,9 +25,9 @@ const MovieCard = (props) => {
   };
 
   return (
-    <div className="movie__card">
-      <Link to={`/${props.category}/${id}/${original_title || original_name || title}`} exact>
-        <div className="movie__card-image">
+    <div className="card">
+      <Link to={`/${props.category}/${id}/${original_title || original_name || title}`}>
+        <div className="card__image">
           <LazyLoad 
               width={180}
               height={250}
@@ -42,7 +42,7 @@ const MovieCard = (props) => {
           </LazyLoad>
         </div>
       </Link>
-      <div className="movie__card-details">
+      <div className="card__details">
         <StarRatings
           rating={vote_average}
           starRatedColor="yellow"
@@ -52,7 +52,7 @@ const MovieCard = (props) => {
           name='rating'
         />
         <h4>{original_title || original_name || title || 'Not Available'}</h4>
-        <div className="movie__card-footer">
+        <div className="card__footer">
           <p>
             {releaseYear(release_date) || 
             releaseYear(first_air_date) || 

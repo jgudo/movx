@@ -1,0 +1,15 @@
+.button--primary {
+  background: $blue;
+  color: #fff;
+  border: 1px solid $blue;
+  font-size: rem(24);
+
+  &:hover {
+    background: transparent;
+  }
+}
+
+.button--outlined {
+  border: 1px solid transparentize(#fff, .5);
+  color: #fff;
+}
