@@ -14,6 +14,7 @@ const Navigation = () => (
     <NavLink 
         activeClassName="navigation__active"
         className="navigation__link"
+        exact
         to="/trending" 
     >
       Trending
@@ -21,9 +22,18 @@ const Navigation = () => (
     <NavLink 
         activeClassName="navigation__active"
         className="navigation__link"
+        exact
         to="/discover" 
     >
       Discover
+    </NavLink>
+    <NavLink 
+        activeClassName="navigation__active"
+        className="navigation__link"
+        exact
+        to="/tv" 
+    >
+      TV Shows
     </NavLink>
   </div>
 );

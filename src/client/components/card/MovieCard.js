@@ -1,6 +1,7 @@
 import React from 'react';
 import LazyLoad from 'react-lazy-load';
 import StarRatings from 'react-star-ratings';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ImageLoader from '../layout/ImageLoader';
 
@@ -15,7 +16,8 @@ const MovieCard = (props) => {
     original_title,
     release_date,
     first_air_date,
-    vote_average
+    vote_average,
+    title
   } = props.movie;
 
   const releaseYear = (date) => {
@@ -24,20 +26,22 @@ const MovieCard = (props) => {
 
   return (
     <div className="movie__card">
-      <div className="movie__card-image">
-        <LazyLoad 
-            width={180}
-            height={250}
-            debounce={false}
-            offsetVertical={500}
-          >
-            <ImageLoader 
-                alt={original_name || original_title}
-                imgId={id} 
-                src={`${tmdbPosterPath + poster_path}`} 
-            />
-        </LazyLoad>
-      </div>
+      <Link to={`/${props.category}/${id}/${original_title || original_name || title}`} exact>
+        <div className="movie__card-image">
+          <LazyLoad 
+              width={180}
+              height={250}
+              debounce={false}
+              offsetVertical={500}
+            >
+              <ImageLoader 
+                  alt={original_title || original_name || title}
+                  imgId={id} 
+                  src={`${tmdbPosterPath + poster_path}`} 
+              />
+          </LazyLoad>
+        </div>
+      </Link>
       <div className="movie__card-details">
         <StarRatings
           rating={vote_average}
@@ -47,7 +51,7 @@ const MovieCard = (props) => {
           starSpacing="2px"
           name='rating'
         />
-        <h4>{original_title || original_name || 'Not Available'}</h4>
+        <h4>{original_title || original_name || title || 'Not Available'}</h4>
         <div className="movie__card-footer">
           <p>
             {releaseYear(release_date) || 

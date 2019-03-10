@@ -36,13 +36,6 @@ WebFont.load({
 });
 
 const store = configureStore();
-// const state = store.getState();
-
-// store.dispatch(fetchMovies('https://api.themoviedb.org/3/trending/all/day?api_key=4377cb2eef06cc002bf39f55a2fb6421', 1));
-
-// store.subscribe(() => {
-//   console.log(state);
-// });
 
 if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
   navigator.serviceWorker.register('/sw.js').then((registration) => {

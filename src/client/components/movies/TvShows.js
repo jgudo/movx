@@ -9,25 +9,26 @@ import MovieCard from '../card/MovieCard';
 // actions
 import { fetchMovies, isCurrentlyFetching } from '../../actions/actions';
 
-class TrendingMovies extends Component {
+const queryString = 'discover/tv?&language=en-US&sort_by=popularity.desc&timezone=America%2FNew_York';
+
+class TvShows extends Component {
   state = {
-    movies: {},
-    isLoading: true
+    sortBy: 'popularity.desc'
   };
 
   componentDidMount() {
-    this.props.fetchMovies('FETCH_TRENDING_MOVIES', 'trending/all/day?');
+    this.props.fetchMovies('FETCH_TV_SHOWS', queryString);
   }
 
   handlePageChange = (e) => {
-    if (this.props.trendingMovies.activePage !== e) {
+    if (this.props.tvShows.activePage !== e) {
       this.props.isCurrentlyFetching();
-      this.props.fetchMovies('FETCH_TRENDING_MOVIES', 'trending/all/day?', e);
+      this.props.fetchMovies('FETCH_TV_SHOWS', queryString, e);
     }
   };
 
   render() {
-    const { trendingMovies, isLoading } = this.props;
+    const { tvShows, isLoading } = this.props;
   
     return (
       <React.Fragment>
@@ -39,23 +40,24 @@ class TrendingMovies extends Component {
         >
             
           <div className="movie__header">
-            <h1>Trending Movies</h1>
+            <h1>TV Shows</h1>
           </div>
           <div className="movie__wrapper">
-            {trendingMovies.collection && trendingMovies.collection.map((movie) => {
+            {tvShows.collection && tvShows.collection.map((show) => {
               return (
                 <MovieCard 
-                    key={movie.id}
-                    movie={movie} 
+                    key={show.id}
+                    category="tv"
+                    movie={show} 
                 />
               )
             })}
           </div>
-          {trendingMovies.collection && (
+          {tvShows.collection && (
             <div className="pagination__wrapper">
-              <p>Page {trendingMovies.activePage}/{trendingMovies.total_pages}</p>
+              <p>Page {tvShows.activePage}/{tvShows.total_pages}</p>
               <Pagination
-                  activePage={trendingMovies.activePage || 1}
+                  activePage={tvShows.activePage || 1}
                   firstPageText={<FontAwesomeIcon icon={['fa', 'angle-double-left']} />}
                   itemsCountPerPage={10}
                   lastPageText={<FontAwesomeIcon icon={['fa', 'angle-double-right']} />}
@@ -63,7 +65,7 @@ class TrendingMovies extends Component {
                   onChange={this.handlePageChange}
                   pageRangeDisplayed={5}
                   prevPageText={<FontAwesomeIcon icon={['fa', 'angle-left']} />}
-                  totalItemsCount={trendingMovies.total_pages || 1000}
+                  totalItemsCount={tvShows.total_pages || 1000}
               />
             </div>
           )}
@@ -73,8 +75,8 @@ class TrendingMovies extends Component {
   }
 }
 
-const mapStateToProps = ({ trendingMovies, isLoading }) => ({
-  trendingMovies,
+const mapStateToProps = ({ tvShows, isLoading }) => ({
+  tvShows,
   isLoading
 });
 
@@ -83,4 +85,4 @@ const mapDispatchToProps = dispatch => ({
   isCurrentlyFetching: bool => dispatch(isCurrentlyFetching(bool))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TrendingMovies);
+export default connect(mapStateToProps, mapDispatchToProps)(TvShows);

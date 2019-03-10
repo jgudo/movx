@@ -1,6 +1,7 @@
 const moviesReducer = (state = {
   trendingMovies: {},
   discoverMovies: {},
+  tvShows: {},
   isLoading: true
 }, action) => {
   switch (action.type) {
@@ -15,7 +16,13 @@ const moviesReducer = (state = {
         ...state,
         discoverMovies: { ...action.movies },
         isLoading: false
-      };  
+      };
+    case 'FETCH_TV_SHOWS':
+      return {
+        ...state,
+        tvShows: { ...action.movies },
+        isLoading: false
+      };    
     case 'IS_LOADING':
       return {
         ...state,
