@@ -16,7 +16,8 @@ class People extends Component {
   };
 
   componentDidMount() {
-    this.props.fetchRequest('FETCH_PEOPLE', 'person/popular?');
+    if (this.isEmpty(this.props.people)) 
+      this.props.fetchRequest('FETCH_PEOPLE', 'person/popular?');
   }
 
   handlePageChange = (e) => {
@@ -25,6 +26,14 @@ class People extends Component {
       this.props.fetchRequest('FETCH_PEOPLE', 'person/popular?', e);
     }
   };
+
+  isEmpty = (obj) => {
+    for(let key in obj) {
+      if (obj.hasOwnProperty(key))
+        return false;
+    }
+    return true;
+  }
 
   render() {
     const { people, isLoading } = this.props;

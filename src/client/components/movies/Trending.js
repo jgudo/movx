@@ -16,7 +16,8 @@ class TrendingMovies extends Component {
   };
 
   componentDidMount() {
-    this.props.fetchRequest('FETCH_TRENDING_MOVIES', 'trending/all/day?');
+    if (this.isEmpty(this.props.trendingMovies))
+      this.props.fetchRequest('FETCH_TRENDING_MOVIES', 'trending/all/day?');
   }
 
   handlePageChange = (e) => {
@@ -25,6 +26,14 @@ class TrendingMovies extends Component {
       this.props.fetchRequest('FETCH_TRENDING_MOVIES', 'trending/all/day?', e);
     }
   };
+
+  isEmpty = (obj) => {
+    for(let key in obj) {
+      if (obj.hasOwnProperty(key))
+        return false;
+    }
+    return true;
+  }
 
   render() {
     const { trendingMovies, isLoading } = this.props;
@@ -41,6 +50,11 @@ class TrendingMovies extends Component {
             <div className="movie__header">
               <h1>Trending Movies</h1>
             </div>
+            {!trendingMovies.collection && (
+              <div className="loading__wrapper">
+                <div className="loading__circular"></div>
+              </div>
+            )}
             <div className="movie__wrapper">
               {trendingMovies.collection && trendingMovies.collection.map((movie) => {
                 return (

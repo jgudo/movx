@@ -15,7 +15,8 @@ class DiscoverMovies extends Component {
   };
 
   componentDidMount() {
-    this.props.fetchRequest('FETCH_DISCOVER_MOVIES', queryString);
+    if (this.isEmpty(this.props.discoverMovies))
+      this.props.fetchRequest('FETCH_DISCOVER_MOVIES', queryString);
   }
 
   handlePageChange = (e) => {
@@ -24,6 +25,14 @@ class DiscoverMovies extends Component {
       this.props.fetchRequest('FETCH_DISCOVER_MOVIES', queryString, e);
     }
   };
+
+  isEmpty = (obj) => {
+    for(let key in obj) {
+      if (obj.hasOwnProperty(key))
+        return false;
+    }
+    return true;
+  }
 
   render() {
     const { discoverMovies, isLoading } = this.props;

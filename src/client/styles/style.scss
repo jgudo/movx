@@ -2,6 +2,9 @@
 // Base declaration
 @import './base/settings';
 
+// ------
+// Libs
+@import 'node_modules/react-modal-video/scss/modal-video.scss';
 // -------
 // Functions & mixins
 @import './functions/functions';
@@ -19,5 +22,7 @@
 @import './components/card';
 @import './components/container';
 @import './components/navigation';
+@import './components/video-modal';
+
 @import './pages/movies';
 @import './pages/view-movie';

@@ -5,14 +5,15 @@ import ModalVideo from 'react-modal-video';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import LazyLoad from 'react-lazy-load';
 import ImageLoader from '../layout/ImageLoader';
+import { faPrescription } from '@fortawesome/free-solid-svg-icons';
 
 const tmdb = 'https://api.themoviedb.org/3/';
 const tmdbKey = process.env.TMDB_KEY;
 const tmdbPosterPath = 'https://image.tmdb.org/t/p/w300_and_h450_face/';
 
-class ViewMovie extends Component {
+class ViewPeople extends Component {
   state = {
-    movie: {},
+    person: {},
     loaded: false,
     error: undefined,
     isOpen: false
@@ -20,13 +21,12 @@ class ViewMovie extends Component {
 
   componentDidMount() {
     const movieId = this.props.match.params.id;
-    const movieCategory = this.props.match.params.category;
 
-    axios.get(`${tmdb + movieCategory}/${movieId}?api_key=${tmdbKey}&append_to_response=videos`)
+    axios.get(`${tmdb}person/${movieId}?api_key=${tmdbKey}`)
       .then((response) => {
-        const movie = response.data;
+        const person = response.data;
         this.setState(() => ({ 
-          movie,
+          person,
           loaded: true,
           error: undefined 
         }));
@@ -40,9 +40,13 @@ class ViewMovie extends Component {
       });
   }
 
-  openVideoModal = () => {
-    if (this.state.movie.videos) this.setState(() => ({ isOpen: true }));
-  };
+  isEmpty = (obj) => {
+    for(let key in obj) {
+      if (obj.hasOwnProperty(key))
+        return false;
+    }
+    return true;
+  }
   
   getReleaseYear = (date) => {
     if (date) {
@@ -55,7 +59,8 @@ class ViewMovie extends Component {
   };
 
   render() {
-    const { movie, isOpen, loaded, error } = this.state;
+    const { person, isOpen, loaded, error } = this.state;
+    console.log(person);
     return (
       <React.Fragment>
         {!loaded && (
@@ -63,17 +68,9 @@ class ViewMovie extends Component {
             <div className="loading__circular"></div>
           </div>
         )}
-        {(movie.videos && movie.videos.results.length > 1) && (
-        <ModalVideo 
-            channel='youtube' 
-            isOpen={isOpen}
-            videoId={movie.videos.results[0].key} 
-            onClose={() => this.setState({isOpen: false})} 
-        />
-        )}
         <div className="container">
           <div className="container__wrapper">
-            {(loaded && movie.id)  && (
+            {(loaded && !this.isEmpty(person))  && (
               <div className="movie__view">
                 <div className="movie__view-poster">
                   <LazyLoad 
@@ -83,34 +80,30 @@ class ViewMovie extends Component {
                       width={300}
                     >
                       <ImageLoader 
-                          alt={movie.original_title || movie.original_name || movie.title}
-                          imgId={movie.id} 
-                          src={`${tmdbPosterPath + movie.poster_path}`} 
+                          alt={person.name}
+                          imgId={person.id} 
+                          src={`${tmdbPosterPath + person.profile_path}`} 
                       />
                   </LazyLoad>
                 </div>
                 <div className="movie__view-details">
                   <h1 className="movie__title">
-                    {movie.original_title || movie.original_name}
-                    &nbsp;
-                    {movie.release_date && (
-                      <span>({this.getReleaseYear(movie.release_date)})</span>
-                    )}
+                    {person.name}
                   </h1>
-                  <p className="movie__rating">
+                  {/* <p className="movie__rating">
                     <FontAwesomeIcon icon={['fa', 'star']} color="yellow" />
                     &nbsp;{movie.vote_average} Rating
-                  </p>
-                  <h4>Overview</h4>
-                  <p>{movie.overview}</p>
-                  <button className="button--primary" onClick={this.openVideoModal}>
+                  </p> */}
+                  <h4>Biography</h4>
+                  <p>{person.biography}</p>
+                  {/* <button className="button--primary" onClick={this.openVideoModal}>
                     Watch Trailer
                     <FontAwesomeIcon icon={['fa', 'play-circle']} />
                   </button>
                   <button className="button--outlined">
                     Add To Favorites
                     <FontAwesomeIcon icon={['fa', 'heart']} />
-                  </button>
+                  </button> */}
                 </div>            
               </div>
             )}
@@ -131,4 +124,4 @@ class ViewMovie extends Component {
   }
 }
 
-export default withRouter(ViewMovie);
+export default withRouter(ViewPeople);

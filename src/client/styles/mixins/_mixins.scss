@@ -5,6 +5,13 @@
   transition: $prop $speed $func;
 }
 
+@mixin transform($prop, $func) {
+  -webkit-transform: $func;
+  -moz-transform: $func;
+  -ms-transform: $func;
+  transform: $func;
+}
+
 @mixin linearGradient($deg, $top, $bottom) {
   background: rgb(155,27,234);
   background: -moz-linear-gradient($deg, $top 15%, $bottom 100%);

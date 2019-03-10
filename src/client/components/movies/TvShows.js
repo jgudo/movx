@@ -17,7 +17,8 @@ class TvShows extends Component {
   };
 
   componentDidMount() {
-    this.props.fetchRequest('FETCH_TV_SHOWS', queryString);
+    if (this.isEmpty(this.props.tvShows))
+      this.props.fetchRequest('FETCH_TV_SHOWS', queryString);
   }
 
   handlePageChange = (e) => {
@@ -26,6 +27,14 @@ class TvShows extends Component {
       this.props.fetchRequest('FETCH_TV_SHOWS', queryString, e);
     }
   };
+
+  isEmpty = (obj) => {
+    for (let key in obj) {
+      if (obj.hasOwnProperty(key))
+        return false;
+    }
+    return true;
+  }
 
   render() {
     const { tvShows, isLoading } = this.props;

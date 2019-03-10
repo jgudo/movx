@@ -1,31 +1,16 @@
 import React, { Fragment } from 'react';
-import Loadable from 'react-loadable';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+// import Loadable from 'react-loadable';
 
 import App from '../App';
 import Navigation from '../components/layout/Navigation';
-import LoadingScreen from '../components/layout/LoadingScreen';
+import DiscoverMovies from '../components/movies/Discover';
+import TrendingMovies from '../components/movies/Trending';
+import TvShows from '../components/movies/TvShows';
+import People from '../components/people/People';
 import ViewMovie from '../components/movies/ViewMovie';
-
-const Discover = Loadable({
-  loader: () => import('../components/movies/Discover'),
-  loading: LoadingScreen
-});
-
-const Trending = Loadable({
-  loader: () => import('../components/movies/Trending'),
-  loading: LoadingScreen
-});
-
-const TvShows = Loadable({
-  loader: () => import('../components/movies/TvShows'),
-  loading: LoadingScreen
-});
-
-const People = Loadable({
-  loader: () => import('../components/people/People'),
-  loading: LoadingScreen
-});
+import ViewPeople from '../components/people/ViewPeople';
+// import LoadingScreen from '../components/layout/LoadingScreen';
 
 // const ViewMovie = Loadable({
 //   loader: () => import('../components/movies/ViewMovie'),
@@ -44,12 +29,12 @@ const AppRouter = () => (
             path="/" 
         />
         <Route 
-            component={Discover} 
+            component={DiscoverMovies} 
             exact={true}
             path="/discover" 
         />
         <Route 
-            component={Trending} 
+            component={TrendingMovies} 
             exact={true}
             path="/trending" 
         />
@@ -68,11 +53,11 @@ const AppRouter = () => (
             exact={true} 
             path="/people" 
         />
-        {/* <Route 
-            component={People}
-            exact="true" 
+        <Route 
+            component={ViewPeople}
+            exact={true}  
             path="/people/:id" 
-        /> */}
+        />
       </Switch>
     </Fragment>
   </Router>
