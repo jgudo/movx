@@ -22,11 +22,17 @@ const TvShows = Loadable({
   loading: LoadingScreen
 });
 
+const People = Loadable({
+  loader: () => import('../components/people/People'),
+  loading: LoadingScreen
+});
+
 // const ViewMovie = Loadable({
 //   loader: () => import('../components/movies/ViewMovie'),
 //   loading: LoadingScreen
 // });
 
+/* eslint-disable react/jsx-boolean-value */
 const AppRouter = () => (
   <Router>
     <Fragment>
@@ -34,29 +40,39 @@ const AppRouter = () => (
       <Switch>
         <Route 
             component={App} 
-            exact
+            exact={true}
             path="/" 
         />
         <Route 
             component={Discover} 
-            exact
+            exact={true}
             path="/discover" 
         />
         <Route 
             component={Trending} 
-            exact
+            exact={true}
             path="/trending" 
         />
         <Route 
             component={TvShows} 
-            exact
+            exact={true}
             path="/tv" 
         />
         <Route 
             component={ViewMovie}
-            exact 
+            exact={true} 
             path="/:category/:id/:name" 
         />
+        <Route 
+            component={People}
+            exact={true} 
+            path="/people" 
+        />
+        {/* <Route 
+            component={People}
+            exact="true" 
+            path="/people/:id" 
+        /> */}
       </Switch>
     </Fragment>
   </Router>

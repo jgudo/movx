@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 html {
     font-size: 62.5%;
 }
@@ -9,6 +13,24 @@ body {
     background: $dark-blue-1;
     color: #fff;
     overflow-x: hidden;
+}
+
+p {
+    line-height: 3rem;
+}
+
+button {
+    background: none;
+    border: none;
+    padding: $m-size $l-size;
+    border-radius: 5px;
+    font-weight: 700;
+    margin-right: $m-size;
+    @include transition();
+
+    svg {
+        margin-left: $m-size;
+    }
 }
 
 button:hover {

@@ -7,7 +7,7 @@ import TopProgressLoader from '../layout/TopProgressLoader';
 import MovieCard from '../card/MovieCard';
 
 // actions
-import { fetchMovies, isCurrentlyFetching } from '../../actions/actions';
+import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
 
 class TrendingMovies extends Component {
   state = {
@@ -16,13 +16,13 @@ class TrendingMovies extends Component {
   };
 
   componentDidMount() {
-    this.props.fetchMovies('FETCH_TRENDING_MOVIES', 'trending/all/day?');
+    this.props.fetchRequest('FETCH_TRENDING_MOVIES', 'trending/all/day?');
   }
 
   handlePageChange = (e) => {
     if (this.props.trendingMovies.activePage !== e) {
       this.props.isCurrentlyFetching();
-      this.props.fetchMovies('FETCH_TRENDING_MOVIES', 'trending/all/day?', e);
+      this.props.fetchRequest('FETCH_TRENDING_MOVIES', 'trending/all/day?', e);
     }
   };
 
@@ -37,37 +37,38 @@ class TrendingMovies extends Component {
             /* eslint no-return-assign: 0 */
             ref={el => this.container = el}
         >
-            
-          <div className="movie__header">
-            <h1>Trending Movies</h1>
-          </div>
-          <div className="movie__wrapper">
-            {trendingMovies.collection && trendingMovies.collection.map((movie) => {
-              return (
-                <MovieCard 
-                    category="movie"
-                    key={movie.id}
-                    movie={movie} 
-                />
-              )
-            })}
-          </div>
-          {trendingMovies.collection && (
-            <div className="pagination__wrapper">
-              <p>Page {trendingMovies.activePage}/{trendingMovies.total_pages}</p>
-              <Pagination
-                  activePage={trendingMovies.activePage || 1}
-                  firstPageText={<FontAwesomeIcon icon={['fa', 'angle-double-left']} />}
-                  itemsCountPerPage={10}
-                  lastPageText={<FontAwesomeIcon icon={['fa', 'angle-double-right']} />}
-                  nextPageText={<FontAwesomeIcon icon={['fa', 'angle-right']} />}
-                  onChange={this.handlePageChange}
-                  pageRangeDisplayed={5}
-                  prevPageText={<FontAwesomeIcon icon={['fa', 'angle-left']} />}
-                  totalItemsCount={trendingMovies.total_pages || 1000}
-              />
+          <div className="container__wrapper">
+            <div className="movie__header">
+              <h1>Trending Movies</h1>
             </div>
-          )}
+            <div className="movie__wrapper">
+              {trendingMovies.collection && trendingMovies.collection.map((movie) => {
+                return (
+                  <MovieCard 
+                      category="movie"
+                      key={movie.id}
+                      movie={movie} 
+                  />
+                )
+              })}
+            </div>
+            {trendingMovies.collection && (
+              <div className="pagination__wrapper">
+                <p>Page {trendingMovies.activePage}/{trendingMovies.total_pages}</p>
+                <Pagination
+                    activePage={trendingMovies.activePage || 1}
+                    firstPageText={<FontAwesomeIcon icon={['fa', 'angle-double-left']} />}
+                    itemsCountPerPage={10}
+                    lastPageText={<FontAwesomeIcon icon={['fa', 'angle-double-right']} />}
+                    nextPageText={<FontAwesomeIcon icon={['fa', 'angle-right']} />}
+                    onChange={this.handlePageChange}
+                    pageRangeDisplayed={5}
+                    prevPageText={<FontAwesomeIcon icon={['fa', 'angle-left']} />}
+                    totalItemsCount={trendingMovies.total_pages || 1000}
+                />
+              </div>
+            )}
+          </div>  
       </div>
       </React.Fragment>
     );
@@ -80,7 +81,7 @@ const mapStateToProps = ({ trendingMovies, isLoading }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchMovies: (action, url, page) => dispatch(fetchMovies(action, url, page)),
+  fetchRequest: (action, url, page) => dispatch(fetchRequest(action, url, page)),
   isCurrentlyFetching: bool => dispatch(isCurrentlyFetching(bool))
 });
 

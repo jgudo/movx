@@ -2,5 +2,10 @@
   width: 100%;
   height: auto;
   padding: $l-size $xl-size;
-  margin-top: rem(150);
+  margin-top: $xl-size;
+}
+
+.container__wrapper {
+  width: 85%;
+  margin: auto;
 }

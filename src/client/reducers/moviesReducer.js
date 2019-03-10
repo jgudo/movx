@@ -2,27 +2,34 @@ const moviesReducer = (state = {
   trendingMovies: {},
   discoverMovies: {},
   tvShows: {},
+  people: {},
   isLoading: true
 }, action) => {
   switch (action.type) {
     case 'FETCH_TRENDING_MOVIES':
       return {
         ...state,
-        trendingMovies: { ...action.movies },
+        trendingMovies: { ...action.data },
         isLoading: false
       };
     case 'FETCH_DISCOVER_MOVIES':
       return {
         ...state,
-        discoverMovies: { ...action.movies },
+        discoverMovies: { ...action.data },
         isLoading: false
       };
     case 'FETCH_TV_SHOWS':
       return {
         ...state,
-        tvShows: { ...action.movies },
+        tvShows: { ...action.data },
         isLoading: false
-      };    
+      };
+    case 'FETCH_PEOPLE':
+      return {
+        ...state,
+        people: { ...action.data },
+        isLoading: false
+      };      
     case 'IS_LOADING':
       return {
         ...state,

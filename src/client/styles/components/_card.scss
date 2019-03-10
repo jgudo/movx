@@ -1,10 +1,11 @@
-.movie__card {
-  max-width: 180px;
+.card {
+  max-width: 200px;
   max-height: 350px;
   margin-bottom: $l-size;
+  overflow: hidden;
 }
 
-.movie__card-image {
+.card__image {
   width: 100%;
   height: 250px;
   position: relative;
@@ -13,21 +14,21 @@
 
   img {
     border-radius: 6px;
-    box-shadow: 0 10px 20px rgba(0,0,0,.3);
+    box-shadow: 0 10px 30px rgba(0,0,0,.3);
   }
 }
 
-.movie__card-details {
+.card__details {
   h4 {
     margin-bottom: 0;
-    width: 100%;
+    width: 180px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 }
 
-.movie__card-footer {
+.card__footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -53,3 +54,4 @@
   }
 
 }
+
