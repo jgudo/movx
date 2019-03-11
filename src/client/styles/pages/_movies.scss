@@ -9,3 +9,9 @@
 .movie__header {
   padding: $m-size;
 }
+
+.movie__header-title {
+  h3 {
+    opacity: .4;
+  }
+}

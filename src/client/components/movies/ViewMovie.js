@@ -4,10 +4,12 @@ import { withRouter } from 'react-router-dom';
 import ModalVideo from 'react-modal-video';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import LazyLoad from 'react-lazy-load';
+
 import ImageLoader from '../layout/ImageLoader';
+import LoadingScreen from '../layout/LoadingScreen';
 
 // helpers
-import isEmpty from '../../helpers/helperFunctions';
+import { isEmpty } from '../../helpers/helperFunctions';
 
 const tmdb = 'https://api.themoviedb.org/3/';
 const tmdbKey = process.env.TMDB_KEY;
@@ -65,11 +67,7 @@ class ViewMovie extends Component {
     const { movie, isOpen, loaded, error } = this.state;
     return (
       <React.Fragment>
-        {!loaded && (
-          <div className="loading__wrapper">
-            <div className="loading__circular" />
-          </div>
-        )}
+        {!loaded && <LoadingScreen />}
         {(!isEmpty(movie) && movie.videos.results.length > 1) && (
         <ModalVideo 
             channel='youtube' 

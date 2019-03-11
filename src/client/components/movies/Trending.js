@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Pagination from 'react-js-pagination';
 
 import TopProgressLoader from '../layout/TopProgressLoader'; 
 import LoadingScreen from '../layout/LoadingScreen'; 
 import MovieCard from '../card/MovieCard';
+import PaginationBar from '../layout/PaginationBar';
 
 // actions
 import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
 
 // helpers
-import isEmpty from '../../helpers/helperFunctions';
+import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
 
 const queryString = 'trending/all/day?';
 
@@ -47,7 +46,13 @@ class TrendingMovies extends Component {
         >
           <div className="container__wrapper">
             <div className="movie__header">
-              <h1>Trending Movies</h1>
+              <div className="movie__header-title">
+                <h1>Trending Movies</h1>
+                {!isEmpty(trendingMovies) && (
+                  <h3>{numberWithCommas(trendingMovies.total_results)} Movies</h3>
+                )}
+              </div>
+
             </div>
             <div className="movie__wrapper">
               {!isEmpty(trendingMovies) && trendingMovies.collection.map((movie) => {
@@ -60,21 +65,15 @@ class TrendingMovies extends Component {
                 )
               })}
             </div>
-            {trendingMovies.collection && (
-              <div className="pagination__wrapper">
-                <p>Page {trendingMovies.activePage}/{trendingMovies.total_pages}</p>
-                <Pagination
-                    activePage={trendingMovies.activePage || 1}
-                    firstPageText={<FontAwesomeIcon icon={['fa', 'angle-double-left']} />}
-                    itemsCountPerPage={10}
-                    lastPageText={<FontAwesomeIcon icon={['fa', 'angle-double-right']} />}
-                    nextPageText={<FontAwesomeIcon icon={['fa', 'angle-right']} />}
-                    onChange={this.handlePageChange}
-                    pageRangeDisplayed={5}
-                    prevPageText={<FontAwesomeIcon icon={['fa', 'angle-left']} />}
-                    totalItemsCount={trendingMovies.total_pages || 1000}
-                />
-              </div>
+            {!isEmpty(trendingMovies) && (
+              <PaginationBar 
+                  activePage={trendingMovies.activePage}
+                  itemsCountPerPage={10}
+                  onChange={this.handlePageChange}
+                  pageRangeDisplayed={5}
+                  totalItemsCount={trendingMovies.total_pages}
+                  totalPage={trendingMovies.total_pages}
+              />
             )}
           </div>  
       </div>

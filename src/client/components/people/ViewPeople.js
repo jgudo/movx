@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
-import ModalVideo from 'react-modal-video';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import LazyLoad from 'react-lazy-load';
+
 import ImageLoader from '../layout/ImageLoader';
-import { faPrescription, faFilePrescription } from '@fortawesome/free-solid-svg-icons';
+import LoadingScreen from '../layout/LoadingScreen';
+
+// helpers
+import { isEmpty } from '../../helpers/helperFunctions';
+
 
 const tmdb = 'https://api.themoviedb.org/3/';
 const tmdbKey = process.env.TMDB_KEY;
@@ -15,14 +18,13 @@ class ViewPeople extends Component {
   state = {
     person: {},
     loaded: false,
-    error: undefined,
-    isOpen: false
+    error: undefined
   };
 
   componentDidMount() {
-    const movieId = this.props.match.params.id;
+    const personId = this.props.match.params.id;
 
-    axios.get(`${tmdb}person/${movieId}?api_key=${tmdbKey}`)
+    axios.get(`${tmdb}person/${personId}?api_key=${tmdbKey}`)
       .then((response) => {
         const person = response.data;
         this.setState(() => ({ 
@@ -35,19 +37,11 @@ class ViewPeople extends Component {
         console.log('Cannot fetch movie', e);
         this.setState(() => ({
           loaded: true,
-          error: 'Movie details cannot be loaded'
-         }));
+          error: 'Person\'s details cannot be loaded'
+        }));
       });
   }
 
-  isEmpty = (obj) => {
-    for(let key in obj) {
-      if (obj.hasOwnProperty(key))
-        return false;
-    }
-    return true;
-  }
-  
   getReleaseYear = (date) => {
     if (date) {
       return date.split('-')[0];
@@ -59,18 +53,14 @@ class ViewPeople extends Component {
   };
 
   render() {
-    const { person, isOpen, loaded, error } = this.state;
-    console.log(person);
+    const { person, loaded, error } = this.state;
+
     return (
       <React.Fragment>
-        {!loaded && (
-          <div className="loading__wrapper">
-            <div className="loading__circular"></div>
-          </div>
-        )}
+        {!loaded && <LoadingScreen />}
         <div className="container">
           <div className="container__wrapper">
-            {(loaded && !this.isEmpty(person))  && (
+            {(loaded && !isEmpty(person))  && (
               <div className="movie__view">
                 <div className="movie__view-poster">
                   <LazyLoad 

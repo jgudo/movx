@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Pagination from 'react-js-pagination';
 
 import TopProgressLoader from '../layout/TopProgressLoader'; 
 import LoadingScreen from '../layout/LoadingScreen'; 
 import MovieCard from '../card/MovieCard';
+import PaginationBar from '../layout/PaginationBar';
 
 // actions
 import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
 
 // helpers
-import isEmpty from '../../helpers/helperFunctions';
+import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
 
 const queryString = 'discover/tv?&language=en-US&sort_by=popularity.desc&timezone=America%2FNew_York';
 
@@ -42,7 +41,12 @@ class TvShows extends Component {
         <div className="container">
           <div className="container__wrapper">
             <div className="movie__header">
-              <h1>TV Shows</h1>
+              <div className="movie__header-title">
+                <h1>TV Shows</h1>
+                {!isEmpty(tvShows) && (
+                  <h3>{numberWithCommas(tvShows.total_results)} TV Shows</h3>
+                )}
+              </div>  
             </div>
             <div className="movie__wrapper">
               {!isEmpty(tvShows) && tvShows.collection.map((show) => {
@@ -56,20 +60,14 @@ class TvShows extends Component {
               })}
             </div>
             {!isEmpty(tvShows) && (
-              <div className="pagination__wrapper">
-                <p>Page {tvShows.activePage}/{tvShows.total_pages}</p>
-                <Pagination
-                    activePage={tvShows.activePage || 1}
-                    firstPageText={<FontAwesomeIcon icon={['fa', 'angle-double-left']} />}
-                    itemsCountPerPage={10}
-                    lastPageText={<FontAwesomeIcon icon={['fa', 'angle-double-right']} />}
-                    nextPageText={<FontAwesomeIcon icon={['fa', 'angle-right']} />}
-                    onChange={this.handlePageChange}
-                    pageRangeDisplayed={5}
-                    prevPageText={<FontAwesomeIcon icon={['fa', 'angle-left']} />}
-                    totalItemsCount={tvShows.total_pages || 1000}
-                />
-              </div>
+              <PaginationBar 
+                  activePage={tvShows.activePage}
+                  itemsCountPerPage={10}
+                  onChange={this.handlePageChange}
+                  pageRangeDisplayed={5}
+                  totalItemsCount={tvShows.total_pages}
+                  totalPage={tvShows.total_pages}
+              />
             )}
           </div>    
         </div>

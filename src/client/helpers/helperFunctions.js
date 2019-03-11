@@ -1,4 +1,4 @@
-const isEmpty = (obj) => {
+export const isEmpty = (obj) => {
   for(let key in obj) {
     if (obj.hasOwnProperty(key))
       return false;
@@ -6,4 +6,6 @@ const isEmpty = (obj) => {
   return true;
 };
 
-export default isEmpty;
+export const numberWithCommas = (x) => {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+};

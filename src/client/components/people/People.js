@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Pagination from 'react-js-pagination';
 
 import TopProgressLoader from '../layout/TopProgressLoader'; 
 import LoadingScreen from '../layout/LoadingScreen'; 
 import PeopleCard from '../card/PeopleCard';
+import PaginationBar from '../layout/PaginationBar';
 
 // actions
 import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
 
 // helpers
-import isEmpty from '../../helpers/helperFunctions';
+import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
 
 class People extends Component {
   state = {
@@ -19,8 +18,9 @@ class People extends Component {
   };
 
   componentDidMount() {
-    if (isEmpty(this.props.people)) 
+    if (isEmpty(this.props.people)) {
       this.props.fetchRequest('FETCH_PEOPLE', 'person/popular?');
+    } 
   }
 
   handlePageChange = (e) => {
@@ -37,14 +37,15 @@ class People extends Component {
       <React.Fragment>
         <TopProgressLoader isLoading={isLoading} />
         {isEmpty(people) && <LoadingScreen />}
-        <div 
-            className="container" 
-            /* eslint no-return-assign: 0 */
-            ref={el => this.container = el}
-        >
+        <div className="container">
           <div className="container__wrapper">
             <div className="movie__header">
-              <h1>Popular People</h1>
+              <div className="movie__header-title">
+                <h1>Popular People</h1>
+                {!isEmpty(people) && (
+                  <h3>{numberWithCommas(people.total_results)} People</h3>
+                )}
+              </div>
             </div>
             <div className="movie__wrapper">
               {!isEmpty(people) && people.collection.map((person) => {
@@ -58,20 +59,14 @@ class People extends Component {
               })}
             </div>
             {!isEmpty(people) && (
-              <div className="pagination__wrapper">
-                <p>Page {people.activePage}/{people.total_pages}</p>
-                <Pagination
-                    activePage={people.activePage || 1}
-                    firstPageText={<FontAwesomeIcon icon={['fa', 'angle-double-left']} />}
-                    itemsCountPerPage={10}
-                    lastPageText={<FontAwesomeIcon icon={['fa', 'angle-double-right']} />}
-                    nextPageText={<FontAwesomeIcon icon={['fa', 'angle-right']} />}
-                    onChange={this.handlePageChange}
-                    pageRangeDisplayed={5}
-                    prevPageText={<FontAwesomeIcon icon={['fa', 'angle-left']} />}
-                    totalItemsCount={people.total_pages || 1000}
-                />
-              </div>
+              <PaginationBar 
+                  activePage={people.activePage}
+                  itemsCountPerPage={10}
+                  onChange={this.handlePageChange}
+                  pageRangeDisplayed={5}
+                  totalItemsCount={people.total_pages}
+                  totalPage={people.total_pages}
+              />
             )}
           </div>  
       </div>

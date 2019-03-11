@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Pagination from 'react-js-pagination';
-
 
 import TopProgressLoader from '../layout/TopProgressLoader'; 
 import LoadingScreen from '../layout/LoadingScreen'; 
 import MovieCard from '../card/MovieCard';
+import PaginationBar from '../layout/PaginationBar';
 
 // actions
 import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
 
 // helpers
-import isEmpty from '../../helpers/helperFunctions';
+import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
 
 const queryString = 'discover/movie?language=en-US&sort_by=popularity.desc&include_video=false';
 
@@ -43,7 +41,12 @@ class DiscoverMovies extends Component {
         <div className="container">
           <div className="container__wrapper">
             <div className="movie__header">
-              <h1>Discover Movies</h1>
+              <div className="movie__header-title">
+                <h1>Discover Movies</h1>
+                {!isEmpty(discoverMovies) && (
+                  <h3>{numberWithCommas(discoverMovies.total_results)} Movies</h3>
+                )}
+              </div>
             </div>    
             <div className="movie__wrapper">
               {!isEmpty(discoverMovies) && discoverMovies.collection.map((movie) => {
@@ -58,16 +61,13 @@ class DiscoverMovies extends Component {
             </div>
             <div className="pagination__wrapper">
             {!isEmpty(discoverMovies) && (
-              <Pagination
-                  activePage={discoverMovies.activePage || 1}
-                  firstPageText={<FontAwesomeIcon icon={['fa', 'angle-double-left']} />}
+              <PaginationBar 
+                  activePage={discoverMovies.activePage}
                   itemsCountPerPage={10}
-                  lastPageText={<FontAwesomeIcon icon={['fa', 'angle-double-right']} />}
-                  nextPageText={<FontAwesomeIcon icon={['fa', 'angle-right']} />}
                   onChange={this.handlePageChange}
                   pageRangeDisplayed={5}
-                  prevPageText={<FontAwesomeIcon icon={['fa', 'angle-left']} />}
-                  totalItemsCount={discoverMovies.total_pages || 1000}
+                  totalItemsCount={discoverMovies.total_pages}
+                  totalPage={discoverMovies.total_pages}
               />
             )}
             </div>

@@ -33,6 +33,22 @@
   margin: auto;
 }
 
+.loading__body {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+
+  span {
+    font-size: 10px;
+    color: #cacaca;
+  }
+}
+
 .loading__circular {
   width: 40px;
   height: 40px;
@@ -40,11 +56,5 @@
   border-top: none;
   border-left: none;
   border-radius: 50%;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  margin: auto;
   @include animation(spin, .2s, linear, infinite);
 }

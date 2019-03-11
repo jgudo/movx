@@ -60,12 +60,20 @@ const Navigation = () => (
           >
             Genres
           </NavLink>
+          <NavLink 
+              activeClassName="navigation__active"
+              className="navigation__link"
+              strict
+              to="/favorites" 
+          >
+            Favorites
+          </NavLink>
         </div>
       </div>
       <div className="navigation__search">
         <input 
             className="search__input"
-            placeholder="Search for movie"
+            placeholder="Search for movie, tv show, or people"
             type="text" 
         />
         <button className="button--link search__button">
