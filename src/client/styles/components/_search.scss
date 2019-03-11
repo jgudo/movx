@@ -1,0 +1,17 @@
+.search__input {
+  color: #fff;
+  font-size: 18px;
+  letter-spacing: 1px;
+  text-align: right;
+}
+
+.search__button {
+  border-radius: 0;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-left: 1px solid rgba(255, 255, 255, .2);
+
+  &:hover path {
+    fill: #fff;
+  }
+}

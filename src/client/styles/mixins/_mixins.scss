@@ -32,11 +32,11 @@
   text-shadow:0 0 30px transparentize($color, .5);
 }
 
-@mixin animation($name, $duration, $count: 1) {
-  -webkit-animation: $name $duration ease $count;
-  -moz-animation: $name $duration ease $count;
-  -o-animation: $name $duration ease $count;
-   animation: $name $duration ease $count;
+@mixin animation($name, $duration, $timing: ease, $count: 1) {
+  -webkit-animation: $name $duration $timing $count;
+  -moz-animation: $name $duration $timing $count;
+  -o-animation: $name $duration $timing $count;
+   animation: $name $duration $timing $count;
 }
 
 @mixin keyframes($name) {

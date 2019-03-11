@@ -5,7 +5,7 @@ import ModalVideo from 'react-modal-video';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import LazyLoad from 'react-lazy-load';
 import ImageLoader from '../layout/ImageLoader';
-import { faPrescription } from '@fortawesome/free-solid-svg-icons';
+import { faPrescription, faFilePrescription } from '@fortawesome/free-solid-svg-icons';
 
 const tmdb = 'https://api.themoviedb.org/3/';
 const tmdbKey = process.env.TMDB_KEY;
@@ -77,7 +77,7 @@ class ViewPeople extends Component {
                       debounce={false}
                       height={450}
                       offsetVertical={500}
-                      width={300}
+                      width={300}faFilePrescription
                     >
                       <ImageLoader 
                           alt={person.name}
@@ -108,7 +108,7 @@ class ViewPeople extends Component {
               </div>
             )}
             {error && (
-              <div>
+              <div className="person__not-found">
                 <h1>{error}</h1>
                 <button 
                     className="button--primary"

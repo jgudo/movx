@@ -3,7 +3,7 @@ const moviesReducer = (state = {
   discoverMovies: {},
   tvShows: {},
   people: {},
-  isLoading: true
+  isLoading: false
 }, action) => {
   switch (action.type) {
     case 'FETCH_TRENDING_MOVIES':

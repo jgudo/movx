@@ -4,36 +4,34 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Pagination from 'react-js-pagination';
 
 import TopProgressLoader from '../layout/TopProgressLoader'; 
+import LoadingScreen from '../layout/LoadingScreen'; 
 import MovieCard from '../card/MovieCard';
 
 // actions
 import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
 
+// helpers
+import isEmpty from '../../helpers/helperFunctions';
+
+const queryString = 'trending/all/day?';
+
 class TrendingMovies extends Component {
   state = {
-    movies: {},
-    isLoading: true
+    movies: {}
   };
 
   componentDidMount() {
-    if (this.isEmpty(this.props.trendingMovies))
-      this.props.fetchRequest('FETCH_TRENDING_MOVIES', 'trending/all/day?');
+    if (isEmpty(this.props.trendingMovies)) {
+      this.props.fetchRequest('FETCH_TRENDING_MOVIES', queryString);
+    }
   }
 
   handlePageChange = (e) => {
     if (this.props.trendingMovies.activePage !== e) {
       this.props.isCurrentlyFetching();
-      this.props.fetchRequest('FETCH_TRENDING_MOVIES', 'trending/all/day?', e);
+      this.props.fetchRequest('FETCH_TRENDING_MOVIES', queryString, e);
     }
   };
-
-  isEmpty = (obj) => {
-    for(let key in obj) {
-      if (obj.hasOwnProperty(key))
-        return false;
-    }
-    return true;
-  }
 
   render() {
     const { trendingMovies, isLoading } = this.props;
@@ -41,6 +39,7 @@ class TrendingMovies extends Component {
     return (
       <React.Fragment>
         <TopProgressLoader isLoading={isLoading} />
+        {isEmpty(trendingMovies) && <LoadingScreen />}
         <div 
             className="container" 
             /* eslint no-return-assign: 0 */
@@ -50,13 +49,8 @@ class TrendingMovies extends Component {
             <div className="movie__header">
               <h1>Trending Movies</h1>
             </div>
-            {!trendingMovies.collection && (
-              <div className="loading__wrapper">
-                <div className="loading__circular"></div>
-              </div>
-            )}
             <div className="movie__wrapper">
-              {trendingMovies.collection && trendingMovies.collection.map((movie) => {
+              {!isEmpty(trendingMovies) && trendingMovies.collection.map((movie) => {
                 return (
                   <MovieCard 
                       category="movie"

@@ -4,19 +4,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Pagination from 'react-js-pagination';
 
 import TopProgressLoader from '../layout/TopProgressLoader'; 
+import LoadingScreen from '../layout/LoadingScreen'; 
 import PeopleCard from '../card/PeopleCard';
 
 // actions
 import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
 
+// helpers
+import isEmpty from '../../helpers/helperFunctions';
+
 class People extends Component {
   state = {
-    movies: {},
-    isLoading: true
+    movies: {}
   };
 
   componentDidMount() {
-    if (this.isEmpty(this.props.people)) 
+    if (isEmpty(this.props.people)) 
       this.props.fetchRequest('FETCH_PEOPLE', 'person/popular?');
   }
 
@@ -27,20 +30,13 @@ class People extends Component {
     }
   };
 
-  isEmpty = (obj) => {
-    for(let key in obj) {
-      if (obj.hasOwnProperty(key))
-        return false;
-    }
-    return true;
-  }
-
   render() {
     const { people, isLoading } = this.props;
   
     return (
       <React.Fragment>
         <TopProgressLoader isLoading={isLoading} />
+        {isEmpty(people) && <LoadingScreen />}
         <div 
             className="container" 
             /* eslint no-return-assign: 0 */
@@ -51,7 +47,7 @@ class People extends Component {
               <h1>Popular People</h1>
             </div>
             <div className="movie__wrapper">
-              {people.collection && people.collection.map((person) => {
+              {!isEmpty(people) && people.collection.map((person) => {
                 return (
                   <PeopleCard 
                       category="people"
@@ -61,7 +57,7 @@ class People extends Component {
                 )
               })}
             </div>
-            {people.collection && (
+            {!isEmpty(people) && (
               <div className="pagination__wrapper">
                 <p>Page {people.activePage}/{people.total_pages}</p>
                 <Pagination

@@ -15,6 +15,8 @@
 // -------
 // Components
 @import './components/button';
+@import './components/input';
+@import './components/search';
 @import './components/loadingscreen';
 @import './components/progressloader';
 @import './components/pagination';
@@ -26,3 +28,4 @@
 
 @import './pages/movies';
 @import './pages/view-movie';
+@import './pages/view-person';

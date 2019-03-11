@@ -3,9 +3,16 @@ import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Pagination from 'react-js-pagination';
 
-import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
+
 import TopProgressLoader from '../layout/TopProgressLoader'; 
+import LoadingScreen from '../layout/LoadingScreen'; 
 import MovieCard from '../card/MovieCard';
+
+// actions
+import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
+
+// helpers
+import isEmpty from '../../helpers/helperFunctions';
 
 const queryString = 'discover/movie?language=en-US&sort_by=popularity.desc&include_video=false';
 
@@ -15,7 +22,7 @@ class DiscoverMovies extends Component {
   };
 
   componentDidMount() {
-    if (this.isEmpty(this.props.discoverMovies))
+    if (isEmpty(this.props.discoverMovies))
       this.props.fetchRequest('FETCH_DISCOVER_MOVIES', queryString);
   }
 
@@ -26,27 +33,20 @@ class DiscoverMovies extends Component {
     }
   };
 
-  isEmpty = (obj) => {
-    for(let key in obj) {
-      if (obj.hasOwnProperty(key))
-        return false;
-    }
-    return true;
-  }
-
   render() {
     const { discoverMovies, isLoading } = this.props;
 
     return (
       <React.Fragment>
         <TopProgressLoader isLoading={isLoading} />
+        {isEmpty(discoverMovies) && <LoadingScreen />}
         <div className="container">
           <div className="container__wrapper">
             <div className="movie__header">
-              <h1>Discover</h1>
+              <h1>Discover Movies</h1>
             </div>    
             <div className="movie__wrapper">
-              {discoverMovies.collection && discoverMovies.collection.map((movie) => {
+              {!isEmpty(discoverMovies) && discoverMovies.collection.map((movie) => {
                 return (
                   <MovieCard 
                       category="movie"
@@ -57,7 +57,7 @@ class DiscoverMovies extends Component {
               })}
             </div>
             <div className="pagination__wrapper">
-            {discoverMovies.collection && (
+            {!isEmpty(discoverMovies) && (
               <Pagination
                   activePage={discoverMovies.activePage || 1}
                   firstPageText={<FontAwesomeIcon icon={['fa', 'angle-double-left']} />}

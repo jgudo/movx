@@ -6,6 +6,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import LazyLoad from 'react-lazy-load';
 import ImageLoader from '../layout/ImageLoader';
 
+// helpers
+import isEmpty from '../../helpers/helperFunctions';
+
 const tmdb = 'https://api.themoviedb.org/3/';
 const tmdbKey = process.env.TMDB_KEY;
 const tmdbPosterPath = 'https://image.tmdb.org/t/p/w300_and_h450_face/';
@@ -36,12 +39,16 @@ class ViewMovie extends Component {
         this.setState(() => ({
           loaded: true,
           error: 'Movie details cannot be loaded'
-         }));
+        }));
       });
   }
 
   openVideoModal = () => {
     if (this.state.movie.videos) this.setState(() => ({ isOpen: true }));
+  };
+
+  closeVideoModal = () => {
+    this.setState(() => ({ isOpen: false }));
   };
   
   getReleaseYear = (date) => {
@@ -60,20 +67,20 @@ class ViewMovie extends Component {
       <React.Fragment>
         {!loaded && (
           <div className="loading__wrapper">
-            <div className="loading__circular"></div>
+            <div className="loading__circular" />
           </div>
         )}
-        {(movie.videos && movie.videos.results.length > 1) && (
+        {(!isEmpty(movie) && movie.videos.results.length > 1) && (
         <ModalVideo 
             channel='youtube' 
             isOpen={isOpen}
             videoId={movie.videos.results[0].key} 
-            onClose={() => this.setState({isOpen: false})} 
+            onClose={this.closeVideoModal} 
         />
         )}
         <div className="container">
           <div className="container__wrapper">
-            {(loaded && movie.id)  && (
+            {(loaded && !isEmpty(movie)) && (
               <div className="movie__view">
                 <div className="movie__view-poster">
                   <LazyLoad 
@@ -115,7 +122,7 @@ class ViewMovie extends Component {
               </div>
             )}
             {error && (
-              <div>
+              <div className="movie__not-found">
                 <h1>{error}</h1>
                 <button 
                     className="button--primary"

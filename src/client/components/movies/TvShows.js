@@ -4,10 +4,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Pagination from 'react-js-pagination';
 
 import TopProgressLoader from '../layout/TopProgressLoader'; 
+import LoadingScreen from '../layout/LoadingScreen'; 
 import MovieCard from '../card/MovieCard';
 
 // actions
 import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
+
+// helpers
+import isEmpty from '../../helpers/helperFunctions';
 
 const queryString = 'discover/tv?&language=en-US&sort_by=popularity.desc&timezone=America%2FNew_York';
 
@@ -17,7 +21,7 @@ class TvShows extends Component {
   };
 
   componentDidMount() {
-    if (this.isEmpty(this.props.tvShows))
+    if (isEmpty(this.props.tvShows))
       this.props.fetchRequest('FETCH_TV_SHOWS', queryString);
   }
 
@@ -28,27 +32,20 @@ class TvShows extends Component {
     }
   };
 
-  isEmpty = (obj) => {
-    for (let key in obj) {
-      if (obj.hasOwnProperty(key))
-        return false;
-    }
-    return true;
-  }
-
   render() {
     const { tvShows, isLoading } = this.props;
   
     return (
       <React.Fragment>
         <TopProgressLoader isLoading={isLoading} />
+        {isEmpty(tvShows) && <LoadingScreen />}
         <div className="container">
           <div className="container__wrapper">
             <div className="movie__header">
               <h1>TV Shows</h1>
             </div>
             <div className="movie__wrapper">
-              {tvShows.collection && tvShows.collection.map((show) => {
+              {!isEmpty(tvShows) && tvShows.collection.map((show) => {
                 return (
                   <MovieCard 
                       key={show.id}
@@ -58,7 +55,7 @@ class TvShows extends Component {
                 )
               })}
             </div>
-            {tvShows.collection && (
+            {!isEmpty(tvShows) && (
               <div className="pagination__wrapper">
                 <p>Page {tvShows.activePage}/{tvShows.total_pages}</p>
                 <Pagination

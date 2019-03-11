@@ -13,3 +13,11 @@
   border: 1px solid transparentize(#fff, .5);
   color: #fff;
 }
+
+.button--link {
+  padding: $s-size;
+
+  svg {
+    margin: 0;
+  }
+}

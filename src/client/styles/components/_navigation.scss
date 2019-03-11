@@ -10,11 +10,23 @@
 }
 
 .navigation__wrapper {
-  width: 85%;
+  width: 90%;
   height: 100%;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   margin: auto;
+}
+
+.navigation__menu {
+  display: flex;
+  align-items: center;
+}
+
+
+.navigation__search {
+  display: flex;
+  align-items: center;
 }
 
 .navigation__items {
@@ -48,4 +60,13 @@
   width: 100%;
   height: 2px;
   background: $blue;
+}
+
+.navigation__logo {
+  margin-right: $l-size;
+  margin-left: $m-size;
+
+  h1 {
+    letter-spacing: 5px;
+  }
 }

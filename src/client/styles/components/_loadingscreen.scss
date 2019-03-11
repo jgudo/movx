@@ -36,8 +36,9 @@
 .loading__circular {
   width: 40px;
   height: 40px;
-  border: 2px solid $blue;
+  border: 3px solid $blue;
   border-top: none;
+  border-left: none;
   border-radius: 50%;
   position: absolute;
   left: 0;
@@ -45,5 +46,5 @@
   top: 0;
   bottom: 0;
   margin: auto;
-  @include animation(spin, .3s, infinite);
+  @include animation(spin, .2s, linear, infinite);
 }
