@@ -3,6 +3,8 @@ const moviesReducer = (state = {
   discoverMovies: {},
   tvShows: {},
   people: {},
+  genres: [],
+  favorites: {},
   isLoading: false
 }, action) => {
   switch (action.type) {
@@ -28,6 +30,12 @@ const moviesReducer = (state = {
       return {
         ...state,
         people: { ...action.data },
+        isLoading: false
+      };    
+    case 'FETCH_GENRES':
+      return {
+        ...state,
+        genres: action.data, 
         isLoading: false
       };      
     case 'IS_LOADING':

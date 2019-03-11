@@ -1,0 +1,7 @@
+.genre__wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: $m-size;
+  justify-items: center;
+  padding: $l-size $m-size;
+}

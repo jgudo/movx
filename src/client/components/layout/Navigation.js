@@ -56,7 +56,7 @@ const Navigation = () => (
               activeClassName="navigation__active"
               className="navigation__link"
               strict
-              to="/genres" 
+              to="/genre" 
           >
             Genres
           </NavLink>

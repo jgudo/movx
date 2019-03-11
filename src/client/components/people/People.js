@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import TopProgressLoader from '../layout/TopProgressLoader'; 
 import LoadingScreen from '../layout/LoadingScreen'; 
-import PeopleCard from '../card/PeopleCard';
+import PeopleCard from './PeopleCard';
 import PaginationBar from '../layout/PaginationBar';
 
 // actions

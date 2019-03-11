@@ -10,6 +10,8 @@ import TvShows from '../components/movies/TvShows';
 import People from '../components/people/People';
 import ViewMovie from '../components/movies/ViewMovie';
 import ViewPeople from '../components/people/ViewPeople';
+import Genres from '../components/genres/Genres';
+
 // import LoadingScreen from '../components/layout/LoadingScreen';
 
 // const ViewMovie = Loadable({
@@ -57,6 +59,11 @@ const AppRouter = () => (
             component={ViewPeople}
             exact={true}  
             path="/people/:id" 
+        />
+        <Route 
+            component={Genres}
+            exact={true}  
+            path="/genre" 
         />
       </Switch>
     </Fragment>

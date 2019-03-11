@@ -1,3 +1,11 @@
+.people__view {
+  position: relative;
+  z-index: 1;
+  padding: $m-size; 
+  display: flex;
+  margin: $xl-size 0;
+}
+
 .person__not-found {
   @extend .movie__not-found;
 }

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import TopProgressLoader from '../layout/TopProgressLoader'; 
 import LoadingScreen from '../layout/LoadingScreen'; 
-import MovieCard from '../card/MovieCard';
+import MovieCard from './MovieCard';
 import PaginationBar from '../layout/PaginationBar';
 
 // actions
@@ -20,8 +20,9 @@ class TvShows extends Component {
   };
 
   componentDidMount() {
-    if (isEmpty(this.props.tvShows))
+    if (isEmpty(this.props.tvShows)) {
       this.props.fetchRequest('FETCH_TV_SHOWS', queryString);
+    }
   }
 
   handlePageChange = (e) => {

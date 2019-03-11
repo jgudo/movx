@@ -1,6 +1,6 @@
 * {
     box-sizing: border-box;
-    letter-spacing: 1px;
+    letter-spacing: .5px;
 }
 
 html {
@@ -8,7 +8,7 @@ html {
 }
 
 body {
-    font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+    font-family: 'Yantramanav', Helvetica, Arial, sans-serif;
     font-size: 1.6rem;
     height: 100vh;
     background: $dark-blue-1;
@@ -57,4 +57,5 @@ body::-webkit-scrollbar-thumb {
 
 #app {
     display: flex;
+    flex-direction: column;
 }

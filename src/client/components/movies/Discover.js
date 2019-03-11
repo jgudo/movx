@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import TopProgressLoader from '../layout/TopProgressLoader'; 
 import LoadingScreen from '../layout/LoadingScreen'; 
-import MovieCard from '../card/MovieCard';
+import MovieCard from './MovieCard';
 import PaginationBar from '../layout/PaginationBar';
 
 // actions
@@ -20,8 +20,9 @@ class DiscoverMovies extends Component {
   };
 
   componentDidMount() {
-    if (isEmpty(this.props.discoverMovies))
+    if (isEmpty(this.props.discoverMovies)) {
       this.props.fetchRequest('FETCH_DISCOVER_MOVIES', queryString);
+    }
   }
 
   handlePageChange = (e) => {

@@ -61,13 +61,13 @@ class ViewPeople extends Component {
         <div className="container">
           <div className="container__wrapper">
             {(loaded && !isEmpty(person))  && (
-              <div className="movie__view">
+              <div className="people__view">
                 <div className="movie__view-poster">
                   <LazyLoad 
                       debounce={false}
                       height={450}
                       offsetVertical={500}
-                      width={300}faFilePrescription
+                      width={300}
                     >
                       <ImageLoader 
                           alt={person.name}

@@ -35,7 +35,7 @@ library.add(
 
 WebFont.load({
   google: {
-    families: ['Source Sans Pro: 400, 700']
+    families: ['Yantramanav: 400, 700']
   }
 });
 

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import TopProgressLoader from '../layout/TopProgressLoader'; 
 import LoadingScreen from '../layout/LoadingScreen'; 
-import MovieCard from '../card/MovieCard';
+import MovieCard from './MovieCard';
 import PaginationBar from '../layout/PaginationBar';
 
 // actions
@@ -39,11 +39,7 @@ class TrendingMovies extends Component {
       <React.Fragment>
         <TopProgressLoader isLoading={isLoading} />
         {isEmpty(trendingMovies) && <LoadingScreen />}
-        <div 
-            className="container" 
-            /* eslint no-return-assign: 0 */
-            ref={el => this.container = el}
-        >
+        <div className="container">
           <div className="container__wrapper">
             <div className="movie__header">
               <div className="movie__header-title">

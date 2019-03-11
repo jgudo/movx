@@ -14,6 +14,7 @@ import { isEmpty } from '../../helpers/helperFunctions';
 const tmdb = 'https://api.themoviedb.org/3/';
 const tmdbKey = process.env.TMDB_KEY;
 const tmdbPosterPath = 'https://image.tmdb.org/t/p/w300_and_h450_face/';
+const tmdbBackdropPath = 'https://image.tmdb.org/t/p/w1400_and_h450_face/';
 
 class ViewMovie extends Component {
   state = {
@@ -76,48 +77,57 @@ class ViewMovie extends Component {
             onClose={this.closeVideoModal} 
         />
         )}
-        <div className="container">
-          <div className="container__wrapper">
+        <div className="container container__backdrop">
+          <div className="container__wrapper container__backdrop-wrapper">
             {(loaded && !isEmpty(movie)) && (
-              <div className="movie__view">
-                <div className="movie__view-poster">
-                  <LazyLoad 
-                      debounce={false}
-                      height={450}
-                      offsetVertical={500}
-                      width={300}
-                    >
-                      <ImageLoader 
-                          alt={movie.original_title || movie.original_name || movie.title}
-                          imgId={movie.id} 
-                          src={`${tmdbPosterPath + movie.poster_path}`} 
-                      />
-                  </LazyLoad>
+              <React.Fragment>
+                <div className="backdrop__container">
+                  <img 
+                      className="backdrop__image"
+                      alt={movie.original_name || movie.original_title}
+                      src={`${tmdbBackdropPath + movie.backdrop_path}`} 
+                  />
                 </div>
-                <div className="movie__view-details">
-                  <h1 className="movie__title">
-                    {movie.original_title || movie.original_name}
-                    &nbsp;
-                    {movie.release_date && (
-                      <span>({this.getReleaseYear(movie.release_date)})</span>
-                    )}
-                  </h1>
-                  <p className="movie__rating">
-                    <FontAwesomeIcon icon={['fa', 'star']} color="yellow" />
-                    &nbsp;{movie.vote_average} Rating
-                  </p>
-                  <h4>Overview</h4>
-                  <p>{movie.overview}</p>
-                  <button className="button--primary" onClick={this.openVideoModal}>
-                    Watch Trailer
-                    <FontAwesomeIcon icon={['fa', 'play-circle']} />
-                  </button>
-                  <button className="button--outlined">
-                    Add To Favorites
-                    <FontAwesomeIcon icon={['fa', 'heart']} />
-                  </button>
-                </div>            
-              </div>
+                <div className="movie__view">
+                  <div className="movie__view-poster">
+                    <LazyLoad 
+                        debounce={false}
+                        height={450}
+                        offsetVertical={500}
+                        width={300}
+                      >
+                        <ImageLoader 
+                            alt={movie.original_title || movie.original_name || movie.title}
+                            imgId={movie.id} 
+                            src={`${tmdbPosterPath + movie.poster_path}`} 
+                        />
+                    </LazyLoad>
+                  </div>
+                  <div className="movie__view-details">
+                    <h1 className="movie__title">
+                      {movie.original_title || movie.original_name}
+                      &nbsp;
+                      {movie.release_date && (
+                        <span>({this.getReleaseYear(movie.release_date)})</span>
+                      )}
+                    </h1>
+                    <p className="movie__rating">
+                      <FontAwesomeIcon icon={['fa', 'star']} color="yellow" />
+                      &nbsp;{movie.vote_average} Rating
+                    </p>
+                    <h4>Overview</h4>
+                    <p>{movie.overview}</p>
+                    <button className="button--primary" onClick={this.openVideoModal}>
+                      Watch Trailer
+                      <FontAwesomeIcon icon={['fa', 'play-circle']} />
+                    </button>
+                    <button className="button--outlined">
+                      Add To Favorites
+                      <FontAwesomeIcon icon={['fa', 'heart']} />
+                    </button>
+                  </div>            
+                </div>
+              </React.Fragment>
             )}
             {error && (
               <div className="movie__not-found">

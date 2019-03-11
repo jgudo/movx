@@ -12,17 +12,25 @@ export const fetchRequest = (action, query, page = 1) => {
   return (dispatch) => {
     axios.get(`${tmdb + query}&api_key=${tmdbKey}&page=${page}`)
       .then((response) => {
-        const movie = response.data;
-        dispatch({
-          type: action,
-          data: {
-            activePage: movie.page,
-            collection: movie.results,
-            total_pages: movie.total_pages,
-            total_results: movie.total_results
-          },
-          isLoading: false
-        });
+        const tmdbData = response.data;
+        if (action === 'FETCH_GENRES') {
+          dispatch({
+            type: action,
+            data: tmdbData.genres,
+            isLoading: false
+          });    
+        } else {
+          dispatch({
+            type: action,
+            data: {
+              activePage: tmdbData.page,
+              collection: tmdbData.results,
+              total_pages: tmdbData.total_pages,
+              total_results: tmdbData.total_results
+            },
+            isLoading: false
+          });
+        }
       })
       .catch((err) => {
         console.error(err);
