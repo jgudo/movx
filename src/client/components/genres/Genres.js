@@ -22,18 +22,22 @@ class Genres extends Component {
         {genres.length === 0 && <LoadingScreen />}
         <div className="container">
           <div className="container__wrapper">
-            <h1>Genres</h1>
-            <div className="genre__wrapper">
-              {genres.length >= 1 && genres.map((genre) => {
-                return (
-                  <GenreCard 
-                      category="genre"
-                      genre={genre} 
-                      key={genre.id}
-                  />
-                )
-              })}
-            </div>
+            {genres.length >= 1 && (
+              <React.Fragment>
+                <h1>Genres</h1>
+                <div className="genre__wrapper">
+                  {genres.map((genre) => {
+                    return (
+                      <GenreCard 
+                          category="genre"
+                          genre={genre} 
+                          key={genre.id}
+                      />
+                    )
+                  })}
+                </div>
+              </React.Fragment>
+            )}
           </div>
         </div>
       </React.Fragment>

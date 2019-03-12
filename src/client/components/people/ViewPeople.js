@@ -94,6 +94,8 @@ class ViewPeople extends Component {
                     </p> */}
                     <h4>Biography</h4>
                     <p>{person.biography}</p>
+                    <br/>
+                    <br/>
                     <button className="button--primary">
                       Read Full Biography
                     </button>

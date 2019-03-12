@@ -8,6 +8,8 @@
 
 .movie__header {
   padding: $m-size;
+  display: flex;
+  justify-content: space-between;
 }
 
 .movie__header-title {

@@ -11,6 +11,7 @@ import People from '../components/people/People';
 import ViewMovie from '../components/movies/ViewMovie';
 import ViewPeople from '../components/people/ViewPeople';
 import Genres from '../components/genres/Genres';
+import Error from '../components/layout/Error';
 
 // import LoadingScreen from '../components/layout/LoadingScreen';
 
@@ -64,6 +65,11 @@ const AppRouter = () => (
             component={Genres}
             exact={true}  
             path="/genre" 
+        />
+        <Route 
+            component={Error}
+            exact={true}  
+            path="/error" 
         />
       </Switch>
     </Fragment>

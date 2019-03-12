@@ -17,7 +17,8 @@ export const fetchRequest = (action, query, page = 1) => {
           dispatch({
             type: action,
             data: tmdbData.genres,
-            isLoading: false
+            isLoading: false,
+            error: undefined
           });    
         } else {
           dispatch({
@@ -28,12 +29,13 @@ export const fetchRequest = (action, query, page = 1) => {
               total_pages: tmdbData.total_pages,
               total_results: tmdbData.total_results
             },
-            isLoading: false
+            isLoading: false,
+            error: undefined
           });
         }
       })
       .catch((err) => {
-        console.error(err);
+        console.log(err.response);
         dispatch({
           type: 'IS_LOADING',
           bool: false

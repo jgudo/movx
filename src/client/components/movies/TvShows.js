@@ -5,6 +5,7 @@ import TopProgressLoader from '../layout/TopProgressLoader';
 import LoadingScreen from '../layout/LoadingScreen'; 
 import MovieCard from './MovieCard';
 import PaginationBar from '../layout/PaginationBar';
+import Footer from '../layout/Footer';
 
 // actions
 import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
@@ -62,12 +63,13 @@ class TvShows extends Component {
               </div>
               <PaginationBar 
                   activePage={tvShows.activePage}
-                  itemsCountPerPage={10}
+                  itemsCountPerPage={1}
                   onChange={this.handlePageChange}
-                  pageRangeDisplayed={5}
+                  pageRangeDisplayed={10}
                   totalItemsCount={tvShows.total_pages}
                   totalPage={tvShows.total_pages}
               />
+              <Footer />
               </React.Fragment>
             )}
           </div>    

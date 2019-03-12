@@ -5,6 +5,8 @@ import TopProgressLoader from '../layout/TopProgressLoader';
 import LoadingScreen from '../layout/LoadingScreen'; 
 import MovieCard from './MovieCard';
 import PaginationBar from '../layout/PaginationBar';
+import Footer from '../layout/Footer';
+import Filter from '../layout/Filter';
 
 // actions
 import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
@@ -16,7 +18,7 @@ const queryString = 'trending/all/day?';
 
 class TrendingMovies extends Component {
   state = {
-    movies: {}
+    yearFilter: ''
   };
 
   componentDidMount() {
@@ -33,8 +35,8 @@ class TrendingMovies extends Component {
   };
 
   render() {
-    const { trendingMovies, isLoading } = this.props;
-  
+    const { trendingMovies, isLoading, error } = this.props;
+    const { yearFilter } = this.state;
     return (
       <React.Fragment>
         <TopProgressLoader isLoading={isLoading} />
@@ -48,6 +50,7 @@ class TrendingMovies extends Component {
                     <h1>Trending Movies</h1>
                     <h3>{numberWithCommas(trendingMovies.total_results)} Movies</h3>
                   </div>
+                  <Filter />
                 </div>
                 <div className="movie__wrapper">
                   {trendingMovies.collection.map((movie) => {
@@ -62,12 +65,13 @@ class TrendingMovies extends Component {
                 </div>
                 <PaginationBar 
                   activePage={trendingMovies.activePage}
-                  itemsCountPerPage={10}
+                  itemsCountPerPage={1}
                   onChange={this.handlePageChange}
-                  pageRangeDisplayed={5}
+                  pageRangeDisplayed={10}
                   totalItemsCount={trendingMovies.total_pages}
                   totalPage={trendingMovies.total_pages}
               />
+              <Footer />
               </React.Fragment>
             )}
           </div>  
@@ -77,9 +81,10 @@ class TrendingMovies extends Component {
   }
 }
 
-const mapStateToProps = ({ trendingMovies, isLoading }) => ({
+const mapStateToProps = ({ trendingMovies, isLoading, error }) => ({
   trendingMovies,
-  isLoading
+  isLoading,
+  error
 });
 
 const mapDispatchToProps = dispatch => ({

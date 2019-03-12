@@ -5,6 +5,7 @@ import TopProgressLoader from '../layout/TopProgressLoader';
 import LoadingScreen from '../layout/LoadingScreen'; 
 import PeopleCard from './PeopleCard';
 import PaginationBar from '../layout/PaginationBar';
+import Footer from '../layout/Footer';
 
 // actions
 import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
@@ -60,12 +61,13 @@ class People extends Component {
               </div>
               <PaginationBar 
                   activePage={people.activePage}
-                  itemsCountPerPage={10}
+                  itemsCountPerPage={1}
                   onChange={this.handlePageChange}
-                  pageRangeDisplayed={5}
+                  pageRangeDisplayed={10}
                   totalItemsCount={people.total_pages}
                   totalPage={people.total_pages}
               />
+              <Footer />
               </React.Fragment>
             )}
           </div>  

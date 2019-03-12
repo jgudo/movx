@@ -1,6 +1,13 @@
 .footer {
-  background: $dark-blue-0;
   padding: $l-size;
   display: flex;
+  justify-content: center;
   align-items: center;
+
+  a {
+    color: #fff;
+    text-decoration: none;
+
+    &:hover { color: $blue; }
+  }
 }

@@ -11,9 +11,9 @@ const PaginationBar = ({
   totalItemsCount
 }) => (
   <div className="pagination__wrapper">
-    <p>Page {activePage}/{totalPage}</p>
+    <p>Page {activePage}/{totalPage > 1000 ? 1000 : totalPage}</p>
     <Pagination
-        activePage={activePage || 1}
+        activePage={activePage}
         firstPageText={<FontAwesomeIcon icon={['fa', 'angle-double-left']} />}
         itemsCountPerPage={itemsCountPerPage}
         lastPageText={<FontAwesomeIcon icon={['fa', 'angle-double-right']} />}
@@ -21,7 +21,7 @@ const PaginationBar = ({
         onChange={onChange}
         pageRangeDisplayed={pageRangeDisplayed}
         prevPageText={<FontAwesomeIcon icon={['fa', 'angle-left']} />}
-        totalItemsCount={totalItemsCount}
+        totalItemsCount={totalItemsCount > 1000 ? 1000 : totalItemsCount}
     />
   </div>
 );
