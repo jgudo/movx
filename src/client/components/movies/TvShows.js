@@ -41,26 +41,25 @@ class TvShows extends Component {
         {isEmpty(tvShows) && <LoadingScreen />}
         <div className="container">
           <div className="container__wrapper">
-            <div className="movie__header">
-              <div className="movie__header-title">
-                <h1>TV Shows</h1>
-                {!isEmpty(tvShows) && (
-                  <h3>{numberWithCommas(tvShows.total_results)} TV Shows</h3>
-                )}
-              </div>  
-            </div>
-            <div className="movie__wrapper">
-              {!isEmpty(tvShows) && tvShows.collection.map((show) => {
-                return (
-                  <MovieCard 
-                      key={show.id}
-                      category="tv"
-                      movie={show} 
-                  />
-                )
-              })}
-            </div>
             {!isEmpty(tvShows) && (
+              <React.Fragment>
+                <div className="movie__header">
+                  <div className="movie__header-title">
+                    <h1>TV Shows</h1>
+                    <h3>{numberWithCommas(tvShows.total_results)} TV Shows</h3>
+                  </div>  
+                </div>
+              <div className="movie__wrapper">
+                {tvShows.collection.map((show) => {
+                  return (
+                    <MovieCard 
+                        key={show.id}
+                        category="tv"
+                        movie={show} 
+                    />
+                  )
+                })}
+              </div>
               <PaginationBar 
                   activePage={tvShows.activePage}
                   itemsCountPerPage={10}
@@ -69,6 +68,7 @@ class TvShows extends Component {
                   totalItemsCount={tvShows.total_pages}
                   totalPage={tvShows.total_pages}
               />
+              </React.Fragment>
             )}
           </div>    
         </div>

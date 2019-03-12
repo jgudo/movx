@@ -41,37 +41,35 @@ class DiscoverMovies extends Component {
         {isEmpty(discoverMovies) && <LoadingScreen />}
         <div className="container">
           <div className="container__wrapper">
-            <div className="movie__header">
-              <div className="movie__header-title">
-                <h1>Discover Movies</h1>
-                {!isEmpty(discoverMovies) && (
-                  <h3>{numberWithCommas(discoverMovies.total_results)} Movies</h3>
-                )}
-              </div>
-            </div>    
-            <div className="movie__wrapper">
-              {!isEmpty(discoverMovies) && discoverMovies.collection.map((movie) => {
-                return (
-                  <MovieCard 
-                      category="movie"
-                      key={movie.id}
-                      movie={movie} 
-                  />
-                )
-              })}
-            </div>
-            <div className="pagination__wrapper">
             {!isEmpty(discoverMovies) && (
-              <PaginationBar 
-                  activePage={discoverMovies.activePage}
-                  itemsCountPerPage={10}
-                  onChange={this.handlePageChange}
-                  pageRangeDisplayed={5}
-                  totalItemsCount={discoverMovies.total_pages}
-                  totalPage={discoverMovies.total_pages}
-              />
+              <React.Fragment>
+                <div className="movie__header">
+                  <div className="movie__header-title">
+                    <h1>Discover Movies</h1>
+                    <h3>{numberWithCommas(discoverMovies.total_results)} Movies</h3>
+                  </div>
+                </div>  
+                <div className="movie__wrapper">
+                  {discoverMovies.collection.map((movie) => {
+                    return (
+                      <MovieCard 
+                          category="movie"
+                          key={movie.id}
+                          movie={movie} 
+                      />
+                    )
+                  })}
+                </div>
+                <PaginationBar 
+                    activePage={discoverMovies.activePage}
+                    itemsCountPerPage={10}
+                    onChange={this.handlePageChange}
+                    pageRangeDisplayed={5}
+                    totalItemsCount={discoverMovies.total_pages}
+                    totalPage={discoverMovies.total_pages}
+                />
+              </React.Fragment>
             )}
-            </div>
           </div>
         </div>
       </React.Fragment>

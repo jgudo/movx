@@ -41,28 +41,26 @@ class TrendingMovies extends Component {
         {isEmpty(trendingMovies) && <LoadingScreen />}
         <div className="container">
           <div className="container__wrapper">
-            <div className="movie__header">
-              <div className="movie__header-title">
-                <h1>Trending Movies</h1>
-                {!isEmpty(trendingMovies) && (
-                  <h3>{numberWithCommas(trendingMovies.total_results)} Movies</h3>
-                )}
-              </div>
-
-            </div>
-            <div className="movie__wrapper">
-              {!isEmpty(trendingMovies) && trendingMovies.collection.map((movie) => {
-                return (
-                  <MovieCard 
-                      category="movie"
-                      key={movie.id}
-                      movie={movie} 
-                  />
-                )
-              })}
-            </div>
             {!isEmpty(trendingMovies) && (
-              <PaginationBar 
+              <React.Fragment>
+                <div className="movie__header">
+                  <div className="movie__header-title">
+                    <h1>Trending Movies</h1>
+                    <h3>{numberWithCommas(trendingMovies.total_results)} Movies</h3>
+                  </div>
+                </div>
+                <div className="movie__wrapper">
+                  {trendingMovies.collection.map((movie) => {
+                    return (
+                      <MovieCard 
+                          category="movie"
+                          key={movie.id}
+                          movie={movie} 
+                      />
+                    )
+                  })}
+                </div>
+                <PaginationBar 
                   activePage={trendingMovies.activePage}
                   itemsCountPerPage={10}
                   onChange={this.handlePageChange}
@@ -70,6 +68,7 @@ class TrendingMovies extends Component {
                   totalItemsCount={trendingMovies.total_pages}
                   totalPage={trendingMovies.total_pages}
               />
+              </React.Fragment>
             )}
           </div>  
       </div>

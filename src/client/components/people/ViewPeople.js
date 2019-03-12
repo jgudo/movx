@@ -58,44 +58,48 @@ class ViewPeople extends Component {
     return (
       <React.Fragment>
         {!loaded && <LoadingScreen />}
-        <div className="container">
-          <div className="container__wrapper">
+        <div className="container container__backdrop">
+          <div className="container__wrapper container__backdrop-wrapper">
             {(loaded && !isEmpty(person))  && (
-              <div className="people__view">
-                <div className="movie__view-poster">
-                  <LazyLoad 
-                      debounce={false}
-                      height={450}
-                      offsetVertical={500}
-                      width={300}
-                    >
-                      <ImageLoader 
-                          alt={person.name}
-                          imgId={person.id} 
-                          src={`${tmdbPosterPath + person.profile_path}`} 
-                      />
-                  </LazyLoad>
-                </div>
-                <div className="movie__view-details">
-                  <h1 className="movie__title">
-                    {person.name}
-                  </h1>
-                  {/* <p className="movie__rating">
-                    <FontAwesomeIcon icon={['fa', 'star']} color="yellow" />
-                    &nbsp;{movie.vote_average} Rating
-                  </p> */}
-                  <h4>Biography</h4>
-                  <p>{person.biography}</p>
-                  {/* <button className="button--primary" onClick={this.openVideoModal}>
-                    Watch Trailer
-                    <FontAwesomeIcon icon={['fa', 'play-circle']} />
+              <React.Fragment>
+                <div className="back__button">
+                  <button 
+                      className="button--back"
+                      onClick={this.goPreviousPage}>
+                    Back
                   </button>
-                  <button className="button--outlined">
-                    Add To Favorites
-                    <FontAwesomeIcon icon={['fa', 'heart']} />
-                  </button> */}
-                </div>            
-              </div>
+                </div>
+                <div className="view">
+                  <div className="view__poster">
+                    <LazyLoad 
+                        debounce={false}
+                        height={450}
+                        offsetVertical={500}
+                        width={300}
+                      >
+                        <ImageLoader 
+                            alt={person.name}
+                            imgId={person.id} 
+                            src={`${tmdbPosterPath + person.profile_path}`} 
+                        />
+                    </LazyLoad>
+                  </div>
+                  <div className="view__details">
+                    <h1 className="view__title">
+                      {person.name}
+                    </h1>
+                    {/* <p className="movie__rating">
+                      <FontAwesomeIcon icon={['fa', 'star']} color="yellow" />
+                      &nbsp;{movie.vote_average} Rating
+                    </p> */}
+                    <h4>Biography</h4>
+                    <p>{person.biography}</p>
+                    <button className="button--primary">
+                      Read Full Biography
+                    </button>
+                  </div> 
+                </div>           
+              </React.Fragment>
             )}
             {error && (
               <div className="person__not-found">

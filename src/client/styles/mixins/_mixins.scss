@@ -5,7 +5,7 @@
   transition: $prop $speed $func;
 }
 
-@mixin transform($prop, $func) {
+@mixin transform($func) {
   -webkit-transform: $func;
   -moz-transform: $func;
   -ms-transform: $func;

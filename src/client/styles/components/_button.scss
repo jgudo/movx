@@ -21,3 +21,38 @@
     margin: 0;
   }
 }
+
+.button--back {
+  color: #fff;
+  position: relative;
+  padding: 0 $m-size;
+  left: 0;
+  @include transition();
+
+  &:before {
+    content: '';
+    position: absolute;
+    left: -40px;
+    bottom: 10px;
+    margin: auto;
+    width: 40px;
+    height: 1px;
+    background: #fff;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    left: -40px;
+    bottom: 14px;
+    margin: auto;
+    width: 10px;
+    height: 1px;
+    background: #fff;
+    @include transform(rotate(-45deg));
+  }
+
+  &:hover {
+    left: -10px;
+  }
+}

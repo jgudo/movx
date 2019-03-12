@@ -39,26 +39,25 @@ class People extends Component {
         {isEmpty(people) && <LoadingScreen />}
         <div className="container">
           <div className="container__wrapper">
-            <div className="movie__header">
-              <div className="movie__header-title">
-                <h1>Popular People</h1>
-                {!isEmpty(people) && (
-                  <h3>{numberWithCommas(people.total_results)} People</h3>
-                )}
-              </div>
-            </div>
-            <div className="movie__wrapper">
-              {!isEmpty(people) && people.collection.map((person) => {
-                return (
-                  <PeopleCard 
-                      category="people"
-                      key={person.id}
-                      people={person} 
-                  />
-                )
-              })}
-            </div>
             {!isEmpty(people) && (
+              <React.Fragment>
+              <div className="movie__header">
+                <div className="movie__header-title">
+                  <h1>Popular People</h1>
+                  <h3>{numberWithCommas(people.total_results)} People</h3>
+                </div>
+              </div>
+              <div className="movie__wrapper">
+                {people.collection.map((person) => {
+                  return (
+                    <PeopleCard 
+                        category="people"
+                        key={person.id}
+                        people={person} 
+                    />
+                  )
+                })}
+              </div>
               <PaginationBar 
                   activePage={people.activePage}
                   itemsCountPerPage={10}
@@ -67,9 +66,10 @@ class People extends Component {
                   totalItemsCount={people.total_pages}
                   totalPage={people.total_pages}
               />
+              </React.Fragment>
             )}
           </div>  
-      </div>
+        </div>
       </React.Fragment>
     );
   }

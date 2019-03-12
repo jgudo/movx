@@ -1,6 +1,6 @@
 @include keyframes(spin) {
   to {
-    @include transform(spin, rotate(360deg));
+    @include transform(rotate(360deg));
   }
 }
 

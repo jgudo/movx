@@ -88,8 +88,15 @@ class ViewMovie extends Component {
                       src={`${tmdbBackdropPath + movie.backdrop_path}`} 
                   />
                 </div>
-                <div className="movie__view">
-                  <div className="movie__view-poster">
+                <div className="back__button">
+                  <button 
+                      className="button--back"
+                      onClick={this.goPreviousPage}>
+                    Back
+                  </button>
+                </div>
+                <div className="view">
+                  <div className="view__poster">
                     <LazyLoad 
                         debounce={false}
                         height={450}
@@ -103,15 +110,15 @@ class ViewMovie extends Component {
                         />
                     </LazyLoad>
                   </div>
-                  <div className="movie__view-details">
-                    <h1 className="movie__title">
+                  <div className="view__details">
+                    <h1 className="view__title">
                       {movie.original_title || movie.original_name}
                       &nbsp;
                       {movie.release_date && (
                         <span>({this.getReleaseYear(movie.release_date)})</span>
                       )}
                     </h1>
-                    <p className="movie__rating">
+                    <p className="view__rating">
                       <FontAwesomeIcon icon={['fa', 'star']} color="yellow" />
                       &nbsp;{movie.vote_average} Rating
                     </p>
@@ -130,7 +137,7 @@ class ViewMovie extends Component {
               </React.Fragment>
             )}
             {error && (
-              <div className="movie__not-found">
+              <div className="view__not-found">
                 <h1>{error}</h1>
                 <button 
                     className="button--primary"
