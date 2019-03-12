@@ -6,7 +6,6 @@ import LoadingScreen from '../layout/LoadingScreen';
 import MovieCard from './MovieCard';
 import PaginationBar from '../layout/PaginationBar';
 import Footer from '../layout/Footer';
-import Filter from '../layout/Filter';
 
 // actions
 import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
@@ -17,9 +16,7 @@ import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
 const queryString = 'trending/all/day?';
 
 class TrendingMovies extends Component {
-  state = {
-    yearFilter: ''
-  };
+  state = {};
 
   componentDidMount() {
     if (isEmpty(this.props.trendingMovies)) {
@@ -36,7 +33,7 @@ class TrendingMovies extends Component {
 
   render() {
     const { trendingMovies, isLoading, error } = this.props;
-    const { yearFilter } = this.state;
+    
     return (
       <React.Fragment>
         <TopProgressLoader isLoading={isLoading} />
@@ -50,7 +47,6 @@ class TrendingMovies extends Component {
                     <h1>Trending Movies</h1>
                     <h3>{numberWithCommas(trendingMovies.total_results)} Movies</h3>
                   </div>
-                  <Filter />
                 </div>
                 <div className="movie__wrapper">
                   {trendingMovies.collection.map((movie) => {

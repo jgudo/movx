@@ -1,6 +1,9 @@
 import React from 'react';
 
-const Filter = () => {
+const Filter = ({ 
+  onSortFilterChange,
+  onYearFilterChange 
+}) => {
   const yearToday = new Date().getFullYear();
   const years = [];
 
@@ -10,20 +13,29 @@ const Filter = () => {
 
   return (
     <div className="filter">
-      <select name="yearFilter" id="yearFilter">
+      <select 
+          id="yearFilter"
+          name="yearFilter"
+          onChange={onYearFilterChange} 
+      >
+        <option value="">None</option>
         {years.map(year => (
-          <option value={year}>{year}</option>
+          <option value={year} key={year}>{year}</option>
         ))}
       </select>
-      <select name="sortFilter" id="sortFilter">
+      <select 
+          id="sortFilter"
+          name="sortFilter"
+          onChange={onSortFilterChange} 
+      >
         <option value="popularity.desc">Popularity Desc</option>
         <option value="popularity.asc">Popularity Asc</option>
-        <option value="release_date.dsc">Release Date Dsc</option>
+        <option value="release_date.desc">Release Date Desc</option>
         <option value="release_date.asc">Release Date Asc</option>
-        <option value="vote_count.dsc">Vote Dsc</option>
+        <option value="vote_count.desc">Vote Desc</option>
         <option value="vote_count.asc">Vote Asc</option>
         <option value="original_title.asc">Title (A-Z)</option>
-        <option value="original_title.dsc">Title (Z-A)</option>
+        <option value="original_title.desc">Title (Z-A)</option>
       </select>
     </div>
   );
