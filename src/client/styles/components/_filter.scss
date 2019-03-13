@@ -1,3 +1,13 @@
 .filter {
   padding: $l-size;
+  display: flex;
+  flex-direction: row;
+}
+
+.filter__item {
+  span {
+    font-size: 12px;
+    opacity: .5;
+    padding-left: $s-size;
+  }
 }

@@ -91,11 +91,11 @@ class DiscoverMovies extends Component {
                   />
                 </div>  
                 <div className="movie__wrapper">
-                  {discoverMovies.collection.map((movie) => {
+                  {discoverMovies.collection.map((movie, index) => {
                     return (
                       <MovieCard 
                           category="movie"
-                          key={movie.id}
+                          key={`${movie.id}_${index}`}
                           movie={movie} 
                       />
                     )

@@ -8,10 +8,7 @@ select{
   height: 34px;
   background: $blue;
   color: #fff;
-  margin-left: $s-size;
-  // background: url('http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/white/16x16/br_down.png') no-repeat right #ddd;
-  // -webkit-appearance: none;
-  // background-position-x: 244px;
+  margin-right: $s-size;
 
   &:focus {
     outline: none;

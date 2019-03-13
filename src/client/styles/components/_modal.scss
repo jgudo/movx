@@ -1,0 +1,8 @@
+.modal__link {
+  @extend button;
+  @extend .button--primary; 
+  text-decoration: none;
+  display: block;
+  margin-top: $l-size;
+  margin: auto;
+}

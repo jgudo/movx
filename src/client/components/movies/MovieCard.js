@@ -26,11 +26,9 @@ const MovieCard = (props) => {
 
   return (
     <div className="card">
-      <Link to={`/${props.category}/${id}/${original_title || original_name || title}`}>
+      <Link to={`/view/${props.category}/${id}/${original_title || original_name || title}`}>
         <div className="card__image">
           <LazyLoad 
-              width={180}
-              height={250}
               debounce={false}
               offsetVertical={500}
             >

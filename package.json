@@ -56,6 +56,7 @@
     "react-loadable": "^5.5.0",
     "react-modal-video": "^1.2.1",
     "react-redux": "^6.0.1",
+    "react-responsive-modal": "^3.6.0",
     "react-router-dom": "^4.3.1",
     "react-star-ratings": "^2.3.0",
     "redux": "^4.0.1",

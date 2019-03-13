@@ -14,7 +14,9 @@ const PaginationBar = ({
     <p>Page {activePage}/{totalPage > 1000 ? 1000 : totalPage}</p>
     <Pagination
         activePage={activePage}
+        disabledClass="page--disabled"
         firstPageText={<FontAwesomeIcon icon={['fa', 'angle-double-left']} />}
+        hideNavigation={totalPage <= 1}
         itemsCountPerPage={itemsCountPerPage}
         lastPageText={<FontAwesomeIcon icon={['fa', 'angle-double-right']} />}
         nextPageText={<FontAwesomeIcon icon={['fa', 'angle-right']} />}

@@ -16,11 +16,9 @@ const PeopleCard = (props) => {
 
   return (
     <div className="card">
-      <Link to={`/people/${id}`}>
+      <Link to={`/view/people/${id}`}>
         <div className="card__image">
           <LazyLoad 
-              width={180}
-              height={250}
               debounce={false}
               offsetVertical={500}
             >

@@ -25,14 +25,14 @@ class TrendingMovies extends Component {
   }
 
   handlePageChange = (e) => {
-    if (this.props.trendingMovies.activePage !== e) {
+    if (this.props.trendingMovies.activePage !== e && !this.props.isLoading) {
       this.props.isCurrentlyFetching();
       this.props.fetchRequest('FETCH_TRENDING_MOVIES', queryString, e);
     }
   };
 
   render() {
-    const { trendingMovies, isLoading, error } = this.props;
+    const { trendingMovies, isLoading } = this.props;
     
     return (
       <React.Fragment>
@@ -49,11 +49,11 @@ class TrendingMovies extends Component {
                   </div>
                 </div>
                 <div className="movie__wrapper">
-                  {trendingMovies.collection.map((movie) => {
+                  {trendingMovies.collection.map((movie, index) => {
                     return (
                       <MovieCard 
                           category="movie"
-                          key={movie.id}
+                          key={`${movie.id}_${index}`}
                           movie={movie} 
                       />
                     )

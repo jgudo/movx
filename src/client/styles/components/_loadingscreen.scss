@@ -31,6 +31,7 @@
   top: 0;
   bottom: 0;
   margin: auto;
+  background: transparentize($dark-blue-1, .3);
   z-index: 11;
 }
 

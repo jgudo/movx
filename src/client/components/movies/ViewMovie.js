@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import ModalVideo from 'react-modal-video';
+import Modal from "react-responsive-modal";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import LazyLoad from 'react-lazy-load';
 
@@ -21,7 +22,8 @@ class ViewMovie extends Component {
     movie: {},
     loaded: false,
     error: undefined,
-    isOpen: false
+    isOpenVideoModal: false,
+    isOpenModal: false
   };
 
   componentDidMount() {
@@ -47,11 +49,25 @@ class ViewMovie extends Component {
   }
 
   openVideoModal = () => {
-    if (this.state.movie.videos) this.setState(() => ({ isOpen: true }));
+    const { movie } = this.state;
+
+    if (movie.videos.results.length >= 1) {
+      this.setState(() => ({ isOpenVideoModal: true }));
+    } else {
+      this.setState(() => ({ isOpenModal: true }));
+    }
   };
 
   closeVideoModal = () => {
-    this.setState(() => ({ isOpen: false }));
+    this.setState(() => ({ isOpenVideoModal: false }));
+  };
+
+  openModal = () => {
+    this.setState({ isOpenModal: true });
+  };
+
+  closeModal = () => {
+    this.setState({ isOpenModal: false });
   };
   
   getReleaseYear = (date) => {
@@ -65,18 +81,56 @@ class ViewMovie extends Component {
   };
 
   render() {
-    const { movie, isOpen, loaded, error } = this.state;
+    const { 
+      movie, 
+      isOpenModal, 
+      isOpenVideoModal, 
+      loaded, 
+      error 
+    } = this.state;
+
+    const youtube = 'https://www.youtube.com/results?search_query=';
+
     return (
       <React.Fragment>
         {!loaded && <LoadingScreen />}
-        {(!isEmpty(movie) && movie.videos.results.length > 1) && (
-        <ModalVideo 
-            channel='youtube' 
-            isOpen={isOpen}
-            videoId={movie.videos.results[0].key} 
-            onClose={this.closeVideoModal} 
-        />
+        {(!isEmpty(movie) && movie.videos.results.length >= 1) && (
+          <ModalVideo 
+              channel='youtube' 
+              isOpen={isOpenVideoModal}
+              videoId={movie.videos.results[0].key} 
+              onClose={this.closeVideoModal} 
+          />
         )}
+        <Modal 
+            center
+            onClose={this.closeModal} 
+            open={isOpenModal} 
+            styles={{
+              modal: {
+                background: '#272c30',
+                padding: '50px',
+                textAlign: 'center',
+                borderRadius: '6px'
+              },
+              closeButton: {
+                top: '10px',
+                right: '0'
+              },
+              closeIcon: {
+                fill: '#fff'
+              }  
+            }}
+        >
+          <h2>No Trailer Found</h2>
+          <p>View in youtube instead</p>
+          <a  
+              className="modal__link"
+              href={`${youtube + movie.original_title + this.getReleaseYear(movie.release_date)}`}
+              target="_blank">
+            Search in Youtube
+          </a>
+        </Modal>
         <div className="container container__backdrop">
           <div className="container__wrapper container__backdrop-wrapper">
             {(loaded && !isEmpty(movie)) && (
