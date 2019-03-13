@@ -4,6 +4,7 @@ const moviesReducer = (state = {
   tvShows: {},
   people: {},
   genres: [],
+  genreMovies: {},
   favorites: {},
   isLoading: false
 }, action) => {
@@ -36,6 +37,12 @@ const moviesReducer = (state = {
       return {
         ...state,
         genres: action.data, 
+        isLoading: false
+      }; 
+    case 'FETCH_GENRE_CATEGORY':
+      return {
+        ...state,
+        genreMovies: action.data, 
         isLoading: false
       };      
     case 'IS_LOADING':

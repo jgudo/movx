@@ -2,7 +2,6 @@
   max-width: 200px;
   max-height: 380px;
   margin-bottom: $l-size;
-  overflow: hidden;
 }
 
 .card__image {
@@ -14,11 +13,15 @@
 
   img {
     border-radius: 6px;
-    box-shadow: 0 10px 30px rgba(0,0,0,.3);
+    box-shadow: 0 10px 30px rgba(0,0,0,.4);
   }
 }
 
 .card__details {
+
+  .star-ratings {
+    margin-top: $m-size;
+  }
   h4 {
     margin-bottom: 0;
     width: 180px;

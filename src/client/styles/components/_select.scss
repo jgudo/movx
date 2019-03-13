@@ -1,5 +1,5 @@
 select{
-  padding: 0 $m-size;
+  padding-left: $s-size;
   padding-right: $l-size;
   font-size: 16px;
   line-height: 1;
@@ -27,3 +27,4 @@ select{
   outline: 1px solid lighten($blue, 10%);
   }
 }
+

@@ -14,12 +14,11 @@ import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
 // helpers
 import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
 
-const queryString = 'discover/movie?&sort_by=popularity.desc';
-
 class DiscoverMovies extends Component {
   state = {
     yearFilter: '',
     sortFilter: '',
+    genreFilter: '',
     query: 'discover/movie?'
   };
 
@@ -41,10 +40,11 @@ class DiscoverMovies extends Component {
   }
 
   updateQuery = () => {
-    const { yearFilter, sortFilter } = this.state;
-    let year = yearFilter ? `&year=${yearFilter}` : '';
-    let sort = sortFilter ? `&sort_by=${sortFilter}` : '';
-    let newQuery = `discover/movie?${year + sort}`;
+    const { yearFilter, sortFilter, genreFilter } = this.state;
+    const year = yearFilter ? `&year=${yearFilter}` : '';
+    const sort = sortFilter ? `&sort_by=${sortFilter}` : '';
+    const genre = genreFilter ? `&with_genres=${genreFilter}` : '';
+    const newQuery = `discover/movie?${year + sort + genre}`;
     this.setState({ query: newQuery });
   };
 
@@ -62,6 +62,13 @@ class DiscoverMovies extends Component {
     });
   };
 
+  onGenreFilterChange = (e) => {
+    const selected = e.target.value;
+    this.setState({ genreFilter: selected }, () => {
+      this.updateQuery();
+    });
+  };
+
   handlePageChange = (e) => {
     if (this.props.discoverMovies.activePage !== e) {
       this.fetchMovies(e);
@@ -70,7 +77,6 @@ class DiscoverMovies extends Component {
 
   render() {
     const { discoverMovies, isLoading } = this.props;
-    const { yearFilter } = this.state;
 
     return (
       <React.Fragment>
@@ -86,6 +92,7 @@ class DiscoverMovies extends Component {
                     <h3>{numberWithCommas(discoverMovies.total_results)} Movies</h3>
                   </div>
                   <Filter 
+                      onGenreFilterChange={this.onGenreFilterChange} 
                       onSortFilterChange={this.onSortFilterChange}
                       onYearFilterChange={this.onYearFilterChange} 
                   />

@@ -40,7 +40,7 @@ const GenreCard = (props) => {
           backgroundSize: 'cover'
         }}
     >
-      <Link to={`/genre/${id}/${name.replace(' ', '-')}`}>
+      <Link to={`/genre/${name.toLowerCase().replace(' ', '-')}/${id}`}>
         <div className="genre__card-details">
           <h1>{name || 'Not Available'}</h1>
           <div className="genre__card-footer">
