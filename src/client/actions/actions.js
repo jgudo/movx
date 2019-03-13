@@ -43,3 +43,32 @@ export const fetchRequest = (action, query, page = 1) => {
       });
   }; 
 };
+
+export const setYearFilter = (action, year) => (dispatch, getState) => {
+  dispatch({
+    type: action,
+    year
+  });
+  return Promise.resolve(getState());
+};
+
+export const setSortFilter = (action, sort) => (dispatch, getState) => {
+  dispatch({
+    type: action,
+    sort
+  });
+  return Promise.resolve(getState());
+};
+
+export const setGenreFilter = (action, genre) => (dispatch, getState) => {
+  dispatch({
+    type: action,
+    genre
+  });
+  return Promise.resolve(getState());
+}; 
+
+export const updateQuery = (action, query) => ({
+  type: action,
+  query
+});

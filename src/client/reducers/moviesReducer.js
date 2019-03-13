@@ -6,6 +6,20 @@ const moviesReducer = (state = {
   genres: [],
   genreMovies: {},
   favorites: {},
+  filter: {
+    tv: {
+      genre: '',
+      sort: '',
+      year: '',
+      query: ''
+    },
+    discover: {
+      genre: '',
+      sort: '',
+      year: '',
+      query: ''
+    }
+  },
   isLoading: false
 }, action) => {
   switch (action.type) {
@@ -44,7 +58,95 @@ const moviesReducer = (state = {
         ...state,
         genreMovies: action.data, 
         isLoading: false
-      };      
+      };
+    case 'SET_DISCOVER_YEAR_FILTER':
+      return {
+        ...state,
+        filter: {
+          ...state.filter,
+          discover: {
+            ...state.filter.discover,
+            year: action.year
+          }
+        }
+      };
+    case 'SET_TV_YEAR_FILTER':
+      return {
+        ...state,
+        filter: {
+          ...state.filter,
+          tv: {
+            ...state.filter.tv,
+            year: action.year
+          }
+        }
+      }; 
+    case 'SET_DISCOVER_SORT_FILTER':
+      return {
+        ...state,
+        filter: {
+          ...state.filter,
+          discover: {
+            ...state.filter.discover,
+            sort: action.sort
+          }
+        }
+      };
+    case 'SET_TV_SORT_FILTER':
+      return {
+        ...state,
+        filter: {
+          ...state.filter,
+          tv: {
+            ...state.filter.tv,
+            sort: action.sort
+          }
+        }
+      };
+    case 'SET_DISCOVER_GENRE_FILTER':
+      return {
+        ...state,
+        filter: {
+          ...state.filter,
+          discover: {
+            ...state.filter.discover,
+            genre: action.genre
+          }
+        }
+      };     
+    case 'SET_TV_GENRE_FILTER':
+      return {
+        ...state,
+        filter: {
+          ...state.filter,
+          tv: {
+            ...state.filter.tv,
+            genre: action.genre
+          }
+        }
+      };   
+    case 'UPDATE_DISCOVER_QUERY':
+      return {
+        ...state,
+        filter: {
+          ...state.filter,
+          discover: {
+            ...state.filter.discover,
+            query: action.query
+          }
+        }
+      };
+    case 'UPDATE_TV_QUERY':
+      return {
+        ...state,
+        filter: {
+          ...state.filter,
+          tv: {
+            ...state.filter.tv,
+            query: action.query
+          }
+        }
+      };                
     case 'IS_LOADING':
       return {
         ...state,

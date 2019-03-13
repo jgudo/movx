@@ -12,71 +12,39 @@ import Filter from '../layout/Filter';
 import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
 
 // helpers
-import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
+import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions'; 
+
+// let query = 'discover/movie?';
 
 class DiscoverMovies extends Component {
-  state = {
-    yearFilter: '',
-    sortFilter: '',
-    genreFilter: '',
-    query: 'discover/movie?'
-  };
-
   componentDidMount() {
     if (isEmpty(this.props.discoverMovies)) {
       this.fetchMovies();
     }
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.query !== this.state.query) {
-      this.fetchMovies();
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.filter.discover.query !== this.props.filter.discover.query) {
+      setTimeout(this.fetchMovies, 200);
     }
   }
 
   fetchMovies = (page = 1) => {
+    const { query } = this.props.filter.discover;
+    const path = 'discover/movie?';
+
     this.props.isCurrentlyFetching();
-    this.props.fetchRequest('FETCH_DISCOVER_MOVIES', this.state.query, page);
+    this.props.fetchRequest('FETCH_DISCOVER_MOVIES', path + query, page);
   }
-
-  updateQuery = () => {
-    const { yearFilter, sortFilter, genreFilter } = this.state;
-    const year = yearFilter ? `&year=${yearFilter}` : '';
-    const sort = sortFilter ? `&sort_by=${sortFilter}` : '';
-    const genre = genreFilter ? `&with_genres=${genreFilter}` : '';
-    const newQuery = `discover/movie?${year + sort + genre}`;
-    this.setState({ query: newQuery });
-  };
-
-  onYearFilterChange = (e) => {
-    const selected = e.target.value;
-    this.setState({ yearFilter: selected }, () => {
-      this.updateQuery();
-    });
-  };
-
-  onSortFilterChange = (e) => {
-    const selected = e.target.value;
-    this.setState({ sortFilter: selected }, () => {
-      this.updateQuery();
-    });
-  };
-
-  onGenreFilterChange = (e) => {
-    const selected = e.target.value;
-    this.setState({ genreFilter: selected }, () => {
-      this.updateQuery();
-    });
-  };
 
   handlePageChange = (e) => {
     if (this.props.discoverMovies.activePage !== e) {
-      this.fetchMovies(e);
+      this.fetchMovies(e)
     }
   };
 
   render() {
-    const { discoverMovies, isLoading } = this.props;
+    const { discoverMovies, isLoading, filter } = this.props;
 
     return (
       <React.Fragment>
@@ -92,9 +60,8 @@ class DiscoverMovies extends Component {
                     <h3>{numberWithCommas(discoverMovies.total_results)} Movies</h3>
                   </div>
                   <Filter 
-                      onGenreFilterChange={this.onGenreFilterChange} 
-                      onSortFilterChange={this.onSortFilterChange}
-                      onYearFilterChange={this.onYearFilterChange} 
+                      filterCategory="discover"
+                      filterData={filter.discover}
                   />
                 </div>  
                 <div className="movie__wrapper">
@@ -126,9 +93,10 @@ class DiscoverMovies extends Component {
   }
 }
 
-const mapStateToProps = ({ discoverMovies, isLoading }) => ({
+const mapStateToProps = ({ discoverMovies, isLoading, filter }) => ({
   discoverMovies,
-  isLoading
+  isLoading,
+  filter
 });
 
 const mapDispatchToProps = dispatch => ({

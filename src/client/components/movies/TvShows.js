@@ -6,14 +6,13 @@ import LoadingScreen from '../layout/LoadingScreen';
 import MovieCard from './MovieCard';
 import PaginationBar from '../layout/PaginationBar';
 import Footer from '../layout/Footer';
+import Filter from '../layout/Filter';
 
 // actions
 import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
 
 // helpers
 import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
-
-const queryString = 'discover/tv?&language=en-US&sort_by=popularity.desc&timezone=America%2FNew_York';
 
 class TvShows extends Component {
   state = {
@@ -22,19 +21,32 @@ class TvShows extends Component {
 
   componentDidMount() {
     if (isEmpty(this.props.tvShows)) {
-      this.props.fetchRequest('FETCH_TV_SHOWS', queryString);
+      this.fetchMovies();
     }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.filter.tv.query !== this.props.filter.tv.query) {
+      setTimeout(this.fetchMovies, 200);
+    }
+  }
+
+  fetchMovies = (page = 1) => {
+    const { query } = this.props.filter.tv;
+    const path = 'discover/tv?&language=en-US';
+
+    this.props.isCurrentlyFetching();
+    this.props.fetchRequest('FETCH_TV_SHOWS', path + query, page);
   }
 
   handlePageChange = (e) => {
     if (this.props.tvShows.activePage !== e) {
-      this.props.isCurrentlyFetching();
-      this.props.fetchRequest('FETCH_TV_SHOWS', queryString, e);
+      this.fetchMovies(e);
     }
   };
 
   render() {
-    const { tvShows, isLoading } = this.props;
+    const { tvShows, isLoading, filter } = this.props;
   
     return (
       <React.Fragment>
@@ -48,7 +60,11 @@ class TvShows extends Component {
                   <div className="movie__header-title">
                     <h1>TV Shows</h1>
                     <h3>{numberWithCommas(tvShows.total_results)} TV Shows</h3>
-                  </div>  
+                  </div> 
+                  <Filter 
+                      filterCategory="tv"
+                      filterData={filter.tv}
+                  /> 
                 </div>
               <div className="movie__wrapper">
                 {tvShows.collection.map((show) => {
@@ -79,9 +95,10 @@ class TvShows extends Component {
   }
 }
 
-const mapStateToProps = ({ tvShows, isLoading }) => ({
+const mapStateToProps = ({ tvShows, isLoading, filter }) => ({
   tvShows,
-  isLoading
+  isLoading,
+  filter
 });
 
 const mapDispatchToProps = dispatch => ({
