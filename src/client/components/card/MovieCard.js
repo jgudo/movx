@@ -1,12 +1,9 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import LazyLoad from 'react-lazy-load';
 import StarRatings from 'react-star-ratings';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ImageLoader from '../layout/ImageLoader';
-
-import { addToFavorites } from '../../actions/actions';
 
 const tmdbPosterPath = 'https://image.tmdb.org/t/p/w185_and_h278_face/';
 
@@ -29,9 +26,11 @@ const MovieCard = (props) => {
 
   return (
     <div className="card">
-      <Link to={`/view/${props.category}/${id}/${original_title || original_name || title}`}>
+      <Link to={`/${props.category}/${id}/${original_title || original_name || title}`}>
         <div className="card__image">
           <LazyLoad 
+              width={180}
+              height={250}
               debounce={false}
               offsetVertical={500}
             >
@@ -59,32 +58,13 @@ const MovieCard = (props) => {
             releaseYear(first_air_date) || 
             'Not Available'}
           </p>
-          <button
-              className="button--add-favorite"
-              onClick={() => {
-                props.addToFavorites(props.movie)
-              }}
-          >
-            <FontAwesomeIcon
-                color="#5b6166" 
-                icon={['fa', 'heart']} 
-            />
-          </button>
-          <div className="tooltip">
-            <span>Add To Favorites</span>
-          </div>
+          <FontAwesomeIcon 
+              icon={['fa', 'heart']} 
+          />
         </div>
       </div>
     </div>
   );
 }
 
-const mapStateToProps = ({ favorites }) => ({
-  favorites
-});
-
-const mapDispatchToProps = dispatch => ({
-  addToFavorites: favorites => dispatch(addToFavorites(favorites))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(MovieCard);
+export default MovieCard;

@@ -56,3 +56,14 @@
     left: -10px;
   }
 }
+
+.button--add-favorite {
+  padding: 0;
+}
+
+.button--favorites {
+  &:hover {
+    background: $red;
+    border: 1px solid $red;
+  }
+}

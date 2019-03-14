@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import TopProgressLoader from '../layout/TopProgressLoader'; 
@@ -15,73 +15,70 @@ import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
 
 const queryString = 'discover/movie?';
 
-class ViewGenre extends Component {
-  state = {};
+const ViewGenre = (props) => {
+  const { genreMovies, isLoading } = props;
+  const { genre } = props.match.params;
 
-  componentDidMount() {
-    this.fetchMovieGenre();
-  }
-
-  fetchMovieGenre = (page = 1) => {
-    const genreId = this.props.match.params.id;
+  const fetchMovieGenre = (page = 1) => {
+    const genreId = props.match.params.id;
     const fullQuery = `${queryString}&with_genres=${genreId}`;
 
-    this.props.isCurrentlyFetching();
-    this.props.fetchRequest('FETCH_GENRE_CATEGORY', fullQuery, page);
+    props.isCurrentlyFetching();
+    props.fetchRequest('FETCH_GENRE_CATEGORY', fullQuery, page);
   };
 
-  handlePageChange = (e) => {
-    if (this.props.genreMovies.activePage !== e && !this.props.isLoading) {
-      this.fetchMovieGenre(e);
+  useEffect(() => {
+    fetchMovieGenre();
+  }, []);
+
+
+  const handlePageChange = (e) => {
+    if (props.genreMovies.activePage !== e && !props.isLoading) {
+      fetchMovieGenre(e);
     }
   };
 
-  render() {
-    const { genreMovies, isLoading } = this.props;
-    const { genre } = this.props.match.params;
-
-    return (
-      <React.Fragment>
-        <TopProgressLoader isLoading={isLoading} />
-        {isEmpty(genreMovies) && <LoadingScreen />}
-        <div className="container">
-          <div className="container__wrapper">
-            {!isEmpty(genreMovies) && (
-              <React.Fragment>
-                <div className="movie__header">
-                  <div className="movie__header-title">
-                    <h1>{genre.replace('-', ' ')}</h1>
-                    <h3>{numberWithCommas(genreMovies.total_results)} Movies</h3>
-                  </div>
+  return (
+    <React.Fragment>
+      <TopProgressLoader isLoading={isLoading} />
+      {isEmpty(genreMovies) && <LoadingScreen />}
+      <div className="container">
+        <div className="container__wrapper">
+          {!isEmpty(genreMovies) && (
+            <React.Fragment>
+              <div className="movie__header">
+                <div className="movie__header-title">
+                  <h1>{genre.replace('-', ' ')}</h1>
+                  <h3>{numberWithCommas(genreMovies.total_results)} Movies</h3>
                 </div>
-                <div className="movie__wrapper">
-                  {genreMovies.collection.map((movie, index) => {
-                    return (
-                      <MovieCard 
-                          category="movie"
-                          key={`${movie.id}_${index}`}
-                          movie={movie} 
-                      />
-                    )
-                  })}
-                </div>
-                <PaginationBar 
-                  activePage={genreMovies.activePage}
-                  itemsCountPerPage={1}
-                  onChange={this.handlePageChange}
-                  pageRangeDisplayed={10}
-                  totalItemsCount={genreMovies.total_pages}
-                  totalPage={genreMovies.total_pages}
-              />
-              <Footer />
-              </React.Fragment>
-            )}
-          </div>  
-      </div>
-      </React.Fragment>
-    );
-  }
-}
+              </div>
+              <div className="movie__wrapper">
+                {genreMovies.collection.map((movie, index) => {
+                  return (
+                    <MovieCard 
+                        category="movie"
+                        key={`${movie.id}_${index}`}
+                        movie={movie} 
+                    />
+                  )
+                })}
+              </div>
+              <PaginationBar 
+                activePage={genreMovies.activePage}
+                itemsCountPerPage={1}
+                onChange={handlePageChange}
+                pageRangeDisplayed={10}
+                totalItemsCount={genreMovies.total_pages}
+                totalPage={genreMovies.total_pages}
+            />
+            <Footer />
+            </React.Fragment>
+          )}
+        </div>  
+    </div>
+    </React.Fragment>
+  );
+};
 
 const mapStateToProps = ({ genreMovies, isLoading, error }) => ({
   genreMovies,

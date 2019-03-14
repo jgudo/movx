@@ -120,15 +120,27 @@ const Navigation = (props) => {
           <input 
               autoComplete="off"
               className="search__input"
-              ref={searchInput}
               onBlur={onBlurChange}
               onChange={onInputChange}
               onFocus={onFocusChange}
               onKeyPress={onKeyEnter}
               placeholder="Search for movie, tv show, or people"
+              ref={searchInput}
               type="text" 
               value={searchQuery}
           />
+          <button 
+              className="search-clear clear--button"
+              onClick={() => {
+                setQuery('');
+                searchInput.current.focus();
+              }}
+              style={{
+                display: searchQuery ? 'block' : 'none'
+              }}
+          >
+            x
+          </button>
           <button 
               className="button--link search__button"
               onClick={onSubmitQuery}
@@ -150,7 +162,12 @@ const Navigation = (props) => {
                 </button>  
               </div>
               {props.recentSearch.map((search, index) => (
-                <Link to={`/search/movie/${search}`} key={search + index}>
+                <Link 
+                    key={search + index}
+                    onClick={() => { setQuery(search); }}
+                    to={`/search/movie/${search}`} 
+                >
+
                   {search}
                 </Link>
               ))}

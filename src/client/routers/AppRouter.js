@@ -13,6 +13,7 @@ import ViewPeople from '../components/people/ViewPeople';
 import Genres from '../components/genres/Genres';
 import ViewGenre from '../components/genres/ViewGenre';
 import Search from '../components/search/Search';
+import Favorites from '../components/favorites/Favorites';
 import PageNotFound from '../components/layout/PageNotFound';
 
 // import LoadingScreen from '../components/layout/LoadingScreen';
@@ -76,6 +77,11 @@ const AppRouter = () => (
             component={Search}
             exact={true}  
             path="/search/movie/:query" 
+        />
+        <Route 
+            component={Favorites}
+            exact={true}  
+            path="/favorites" 
         />
         <Route 
             component={PageNotFound}

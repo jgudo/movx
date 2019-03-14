@@ -35,6 +35,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 
   p {
     opacity: .5;
@@ -44,18 +45,17 @@
 
   svg {
     fill: #fff;
-    opacity: .5;
-  }
-
-  svg:hover {
-    cursor: pointer;
     opacity: 1;
   }
 
-  svg:hover path {
+  button:hover svg path {
     fill: $red;
   }
 
+  button:hover+.tooltip {
+    opacity: 1;
+    visibility: visible;
+  }
 }
 
 .genre__card {

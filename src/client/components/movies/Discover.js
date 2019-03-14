@@ -23,8 +23,8 @@ class DiscoverMovies extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.filter.discover.query !== this.props.filter.discover.query) {
+  componentDidUpdate(prevProps) {
+    if (prevProps.filter.discover.query !== this.props.filter.discover.query) {
       setTimeout(this.fetchMovies, 200);
     }
   }

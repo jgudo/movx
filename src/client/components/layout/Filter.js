@@ -24,7 +24,6 @@ const Filter = (props) => {
     const sortFilter = sortProps ? `&sort_by=${sortProps}` : '';
     const genreFilter = genreProps ? `&with_genres=${genreProps}` : '';
     const newQuery = `${yearFilter + sortFilter + genreFilter}`;
-    console.log(newQuery);
 
     switch (filterCategory) {
       case 'discover':

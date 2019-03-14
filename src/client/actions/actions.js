@@ -81,3 +81,8 @@ export const addSearchHistory = search => ({
 export const clearSearchHistory = () => ({
   type: 'CLEAR_SEARCH_HISTORY'
 });
+
+export const addToFavorites = favorites => ({
+  type: 'ADD_TO_FAVORITES',
+  favorites
+});

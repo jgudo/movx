@@ -18,6 +18,7 @@
 @import './components/select';
 @import './components/input';
 @import './components/search';
+@import './components/tooltip';
 @import './components/loadingscreen';
 @import './components/progressloader';
 @import './components/pagination';
@@ -36,4 +37,5 @@
 @import './pages/view-movie';
 @import './pages/view-person';
 @import './pages/genres';
+@import './pages/favorites';
 @import './pages/page-not-found';

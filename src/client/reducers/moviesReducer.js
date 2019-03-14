@@ -5,7 +5,7 @@ const moviesReducer = (state = {
   people: {},
   genres: [],
   genreMovies: {},
-  favorites: {},
+  favorites: [],
   filter: {
     tv: {
       genre: '',
@@ -160,7 +160,15 @@ const moviesReducer = (state = {
       return {
         ...state,
         recentSearch: []
-      };                      
+      };
+    case 'ADD_TO_FAVORITES':
+      return {
+        ...state,
+        favorites: [
+          ...state.favorites, 
+          action.favorites
+        ]
+      };                
     case 'IS_LOADING':
       return {
         ...state,

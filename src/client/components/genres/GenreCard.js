@@ -51,6 +51,6 @@ const GenreCard = (props) => {
       </Link>
     </div>
   );
-}
+};
 
 export default GenreCard;

@@ -1,0 +1,23 @@
+.tooltip {
+  position: absolute;
+  bottom: 50px;
+  right: 0;
+  padding: $s-size;
+  font-size: 12px;
+  background: $blue;
+  border-radius: 5px;
+  opacity: 0;
+  visibility: hidden;
+  @include transition();
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 100%; 
+    left: 80%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: $blue transparent transparent transparent;
+  }
+}

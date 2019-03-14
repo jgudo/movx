@@ -182,7 +182,7 @@ class ViewMovie extends Component {
                       Watch Trailer
                       <FontAwesomeIcon icon={['fa', 'play-circle']} />
                     </button>
-                    <button className="button--outlined">
+                    <button className="button--outlined button--favorites">
                       Add To Favorites
                       <FontAwesomeIcon icon={['fa', 'heart']} />
                     </button>

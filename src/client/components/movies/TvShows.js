@@ -15,18 +15,14 @@ import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
 import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
 
 class TvShows extends Component {
-  state = {
-    sortBy: 'popularity.desc'
-  };
-
   componentDidMount() {
     if (isEmpty(this.props.tvShows)) {
       this.fetchMovies();
     }
   }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.filter.tv.query !== this.props.filter.tv.query) {
+  
+  componentDidUpdate(prevProps) {
+    if (prevProps.filter.tv.query !== this.props.filter.tv.query) {
       setTimeout(this.fetchMovies, 200);
     }
   }
