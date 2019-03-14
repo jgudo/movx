@@ -4,6 +4,10 @@
   padding: $l-size $xl-size;
   margin-top: $xl-size;
   position: relative;
+
+  @media (max-width: 420px) {
+    padding: $l-size 0;
+  }
 }
 
 .container__wrapper {

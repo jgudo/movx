@@ -165,8 +165,8 @@ const moviesReducer = (state = {
       return {
         ...state,
         favorites: [
-          ...state.favorites, 
-          action.favorites
+          action.favorites,
+          ...state.favorites 
         ]
       };    
     case 'REMOVE_FROM_FAVORITES':

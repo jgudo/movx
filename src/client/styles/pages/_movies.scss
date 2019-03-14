@@ -4,6 +4,11 @@
   grid-gap: $s-size;
   justify-items: center;
   padding: $l-size $m-size;
+  
+  @media (max-width: $mobile) {
+    grid-template-columns: repeat(2, 1fr);
+    padding: $l-size 0;
+  }
 }
 
 .movie__header {
@@ -11,6 +16,10 @@
   padding-right: 0;
   display: flex;
   justify-content: space-between;
+
+  @media (max-width: $mobile) {
+    padding: $m-size 0;
+  }
 }
 
 .movie__header-title {

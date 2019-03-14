@@ -11,6 +11,11 @@
   margin: auto;
   margin-bottom: rem(50);
 
+  @media (max-width: $mobile) {
+    max-width: 100%;
+    padding-left: 0;
+  }
+
   li {
     list-style: none;
     width: 30px;

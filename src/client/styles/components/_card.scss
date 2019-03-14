@@ -2,6 +2,11 @@
   max-width: 200px;
   max-height: 380px;
   margin-bottom: $l-size;
+
+  @media (max-width: $mobile) {
+    max-width: 150px;
+    max-height: 320px;
+  }
 }
 
 .card__image {
@@ -10,6 +15,10 @@
   position: relative;
   background: #f1f1f1;
   border-radius: 6px;
+
+  @media (max-width: $mobile) {
+    height: 225px;
+  }
 
   img {
     border-radius: 6px;
@@ -21,13 +30,26 @@
 
   .star-ratings {
     margin-top: $m-size;
+
+    svg {
+      @media (max-width: $mobile) {
+        width: 10px !important;
+        height: 10px !important;
+      }
+    }
   }
+
   h4 {
     margin-bottom: 0;
     width: 180px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+
+    @media (max-width: $mobile) {
+      width: 100%;
+      margin-top: 10px;
+    }
   }
 }
 
