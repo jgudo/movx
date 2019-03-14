@@ -168,7 +168,13 @@ const moviesReducer = (state = {
           ...state.favorites, 
           action.favorites
         ]
-      };                
+      };    
+    case 'REMOVE_FROM_FAVORITES':
+      return {
+        ...state,
+        favorites: state.favorites.filter(favorite => favorite.id !== action.id)
+      };
+                     
     case 'IS_LOADING':
       return {
         ...state,

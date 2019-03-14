@@ -86,3 +86,8 @@ export const addToFavorites = favorites => ({
   type: 'ADD_TO_FAVORITES',
   favorites
 });
+
+export const removeFromFavorites = id => ({
+  type: 'REMOVE_FROM_FAVORITES',
+  id
+});

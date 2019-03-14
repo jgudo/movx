@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import ModalVideo from 'react-modal-video';
 import Modal from 'react-responsive-modal';
@@ -8,6 +9,9 @@ import LazyLoad from 'react-lazy-load';
 
 import ImageLoader from '../layout/ImageLoader';
 import LoadingScreen from '../layout/LoadingScreen';
+
+// actions
+import { addToFavorites, removeFromFavorites } from '../../actions/actions';
 
 // helpers
 import { isEmpty } from '../../helpers/helperFunctions';
@@ -56,6 +60,15 @@ class ViewMovie extends Component {
     } else {
       this.setState(() => ({ isOpenModal: true }));
     }
+  };
+
+  found = () => {
+    return this.props.favorites.some(item => item.id === this.state.movie.id);
+  };
+
+  onAddToFavorites = () => {
+    if (!this.found()) this.props.addToFavorites(this.state.movie);
+    else this.props.removeFromFavorites(this.state.movie.id); 
   };
 
   closeVideoModal = () => {
@@ -168,9 +181,8 @@ class ViewMovie extends Component {
                     <h1 className="view__title">
                       {movie.original_title || movie.original_name}
                       &nbsp;
-                      {movie.release_date && (
-                        <span>({this.getReleaseYear(movie.release_date)})</span>
-                      )}
+                      {movie.release_date && <span>{`(${this.getReleaseYear(movie.release_date)})`}</span>
+                      }
                     </h1>
                     <p className="view__rating">
                       <FontAwesomeIcon icon={['fa', 'star']} color="yellow" />
@@ -182,8 +194,15 @@ class ViewMovie extends Component {
                       Watch Trailer
                       <FontAwesomeIcon icon={['fa', 'play-circle']} />
                     </button>
-                    <button className="button--outlined button--favorites">
-                      Add To Favorites
+                    <button 
+                        className="button--outlined button--favorites"
+                        onClick={this.onAddToFavorites}
+                        style={{
+                          background: this.found() ? '#ff2e4f' : 'transparent',
+                          border: this.found() ? '1px solid #ff2e4f' : '1px solid #fff'
+                        }}
+                    >
+                      {this.found() ? 'Remove From Favorites' : 'Add To Favorites'}
                       <FontAwesomeIcon icon={['fa', 'heart']} />
                     </button>
                   </div>            
@@ -207,4 +226,13 @@ class ViewMovie extends Component {
   }
 }
 
-export default withRouter(ViewMovie);
+const mapStateToProps = ({ favorites }) => ({
+  favorites
+});
+
+const mapDispatchToProps = dispatch => ({
+  addToFavorites: favorites => dispatch(addToFavorites(favorites)),
+  removeFromFavorites: id => dispatch(removeFromFavorites(id))
+});
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ViewMovie));
