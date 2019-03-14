@@ -20,6 +20,7 @@ const moviesReducer = (state = {
       query: ''
     }
   },
+  recentSearch: ['alita', 'overlord'],
   isLoading: false
 }, action) => {
   switch (action.type) {
@@ -146,7 +147,20 @@ const moviesReducer = (state = {
             query: action.query
           }
         }
-      };                
+      };
+    case 'ADD_SEARCH_HISTORY':
+      return {
+        ...state,
+        recentSearch: [
+          ...state.recentSearch, 
+          action.search
+        ]
+      };
+    case 'CLEAR_SEARCH_HISTORY':
+      return {
+        ...state,
+        recentSearch: []
+      };                      
     case 'IS_LOADING':
       return {
         ...state,

@@ -6,7 +6,6 @@ import LoadingScreen from '../layout/LoadingScreen';
 import MovieCard from '../movies/MovieCard';
 import PaginationBar from '../layout/PaginationBar';
 import Footer from '../layout/Footer';
-import Filter from '../layout/Filter';
 
 // actions
 import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
@@ -54,7 +53,6 @@ class ViewGenre extends Component {
                     <h1>{genre.replace('-', ' ')}</h1>
                     <h3>{numberWithCommas(genreMovies.total_results)} Movies</h3>
                   </div>
-                  <Filter />
                 </div>
                 <div className="movie__wrapper">
                   {genreMovies.collection.map((movie, index) => {

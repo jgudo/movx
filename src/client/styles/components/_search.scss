@@ -13,3 +13,74 @@
     fill: #fff;
   }
 }
+
+.search-history {
+  position: absolute;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, .2);
+  width: 100%;
+  top: 70px;
+  left: 0;
+  background: $blue;
+  max-height: rem(500);
+  overflow-y: scroll;
+  opacity: 0;
+  visibility: hidden;
+  @include transition();
+
+  &::-webkit-scrollbar {
+    width: 7px;
+  }
+  
+  &::-webkit-scrollbar-track {
+      background: lighten($blue, 15%);
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background-color: darken($blue, 15%);
+    outline: 1px solid lighten($blue, 10%);
+  }
+
+  p {
+    padding-left: $s-size;
+  }
+
+  a {
+    display: block;
+    text-decoration: none;
+    color: #fff;
+    padding: $s-size;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  a:not(:last-child) {
+    border-bottom: 1px solid lighten($blue, 10%);
+  }
+
+  a:hover {
+    background: darken($blue, 5%);
+  }
+  
+  &.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.search-history-action {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.search-clear {
+  padding: 0;
+  color: #fff;
+  font-size: 14px;
+}
+
+.result__keyword {
+  color: $blue;
+}

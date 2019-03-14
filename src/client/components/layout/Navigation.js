@@ -1,11 +1,15 @@
 /* eslint-disable react/jsx-boolean-value */
-import React, { useState } from 'react';
-import { NavLink, withRouter } from 'react-router-dom';
+import React, { useState, useRef } from 'react';
+import { connect } from 'react-redux';
+import { NavLink, withRouter, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import { addSearchHistory, clearSearchHistory } from '../../actions/actions';
 
 const Navigation = (props) => {
   const [searchQuery, setQuery] = useState('');
-  
+  const searchHistory = useRef(null);
+  const searchInput = useRef(null);
   const onInputChange = (e) => {
     const query = e.target.value;
     setQuery(query);
@@ -13,7 +17,23 @@ const Navigation = (props) => {
 
   const onSubmitQuery = () => {
     if (searchQuery) {
+      searchInput.current.blur();
       props.history.push(`/search/movie/${searchQuery}`);
+      if (!props.recentSearch.includes(searchQuery.toLowerCase())) {
+        props.addSearchHistory(searchQuery.toLowerCase());
+      }
+    }
+  };
+
+  const onFocusChange = () => {
+    if (props.recentSearch.length >= 1) {
+      searchHistory.current.classList.add('visible');
+    }
+  };
+
+  const onBlurChange = () => {
+    if (props.recentSearch.length >= 1) {
+      searchHistory.current.classList.remove('visible');
     }
   };
 
@@ -35,7 +55,7 @@ const Navigation = (props) => {
             <NavLink 
                 activeClassName="navigation__active"
                 className="navigation__link"
-                exact={true}
+                exact
                 strict
                 to="/" 
             >
@@ -44,6 +64,7 @@ const Navigation = (props) => {
             <NavLink 
                 activeClassName="navigation__active"
                 className="navigation__link"
+                exact
                 strict
                 to="/trending" 
             >
@@ -52,6 +73,7 @@ const Navigation = (props) => {
             <NavLink 
                 activeClassName="navigation__active"
                 className="navigation__link"
+                exact
                 strict
                 to="/discover" 
             >
@@ -60,6 +82,7 @@ const Navigation = (props) => {
             <NavLink 
                 activeClassName="navigation__active"
                 className="navigation__link"
+                exact
                 strict
                 to="/tv" 
             >
@@ -68,6 +91,7 @@ const Navigation = (props) => {
             <NavLink 
                 activeClassName="navigation__active"
                 className="navigation__link"
+                exact
                 strict
                 to="/people" 
             >
@@ -76,7 +100,7 @@ const Navigation = (props) => {
             <NavLink 
                 activeClassName="navigation__active"
                 className="navigation__link"
-                strict
+                exact
                 to="/genre" 
             >
               Genres
@@ -84,6 +108,7 @@ const Navigation = (props) => {
             <NavLink 
                 activeClassName="navigation__active"
                 className="navigation__link"
+                exact
                 strict
                 to="/favorites" 
             >
@@ -93,8 +118,12 @@ const Navigation = (props) => {
         </div>
         <div className="navigation__search">
           <input 
+              autoComplete="off"
               className="search__input"
+              ref={searchInput}
+              onBlur={onBlurChange}
               onChange={onInputChange}
+              onFocus={onFocusChange}
               onKeyPress={onKeyEnter}
               placeholder="Search for movie, tv show, or people"
               type="text" 
@@ -106,10 +135,40 @@ const Navigation = (props) => {
           >
             <FontAwesomeIcon icon={['fa', 'search']} color="#dadada" />
           </button>
+          {props.recentSearch.length >= 1 && (
+            <div 
+                className="search-history"
+                ref={searchHistory}
+            >
+              <div className="search-history-action">
+                <p>Recent Searches</p>
+                <button 
+                    className="search-clear"
+                    onClick={props.clearSearchHistory}
+                >
+                  Clear
+                </button>  
+              </div>
+              {props.recentSearch.map((search, index) => (
+                <Link to={`/search/movie/${search}`} key={search + index}>
+                  {search}
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>
   );
 }
 
-export default withRouter(Navigation);
+const mapStateToProps = ({ recentSearch }) => ({
+  recentSearch
+});
+
+const mapDispatchToProps = dispatch => ({
+  addSearchHistory: search => dispatch(addSearchHistory(search)),
+  clearSearchHistory: () => dispatch(clearSearchHistory())
+});
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Navigation));

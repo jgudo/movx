@@ -72,3 +72,12 @@ export const updateQuery = (action, query) => ({
   type: action,
   query
 });
+
+export const addSearchHistory = search => ({
+  type: 'ADD_SEARCH_HISTORY',
+  search
+});
+
+export const clearSearchHistory = () => ({
+  type: 'CLEAR_SEARCH_HISTORY'
+});
