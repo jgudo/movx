@@ -20,7 +20,7 @@ const moviesReducer = (state = {
       query: ''
     }
   },
-  recentSearch: ['alita', 'overlord'],
+  recentSearch: [],
   isLoading: false
 }, action) => {
   switch (action.type) {

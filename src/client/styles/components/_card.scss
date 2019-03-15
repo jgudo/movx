@@ -7,6 +7,10 @@
     max-width: 150px;
     max-height: 320px;
   }
+
+  @media (max-width: $x-mobile) {
+    max-width: 130px;
+  }
 }
 
 .card__image {
@@ -17,7 +21,13 @@
   border-radius: 6px;
 
   @media (max-width: $mobile) {
+    width: 150px;
     height: 225px;
+  }
+
+  @media (max-width: $x-mobile) {
+    width: 130px;
+    height: 190px  
   }
 
   img {
@@ -35,6 +45,11 @@
       @media (max-width: $mobile) {
         width: 10px !important;
         height: 10px !important;
+      }
+
+      @media (max-width: $x-mobile) {
+        width: 8px !important;
+        height: 8px !important;
       }
     }
   }

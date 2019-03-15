@@ -14,7 +14,8 @@ import {
   faAngleRight,
   faAngleLeft,
   faPlayCircle,
-  faStar
+  faStar,
+  faFilter
 } from '@fortawesome/free-solid-svg-icons';
 import configureStore from './store/configureStore';
 import AppRouter from './routers/AppRouter';
@@ -30,7 +31,8 @@ library.add(
   faAngleRight,
   faAngleLeft,
   faPlayCircle,
-  faStar
+  faStar,
+  faFilter
 );
 
 WebFont.load({

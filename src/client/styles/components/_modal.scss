@@ -6,3 +6,9 @@
   margin-top: $l-size;
   margin: auto;
 }
+
+.styles_modal__gNwvD {
+  @media (max-width: $mobile) {
+    padding: $m-size !important;
+  }
+}

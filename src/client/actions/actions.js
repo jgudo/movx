@@ -33,6 +33,7 @@ export const fetchRequest = (action, query, page = 1) => {
             error: undefined
           });
         }
+        window.scrollTo(null, 0);
       })
       .catch((err) => {
         console.log(err.response);

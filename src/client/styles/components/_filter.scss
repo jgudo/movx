@@ -2,6 +2,27 @@
   padding: $l-size;
   display: flex;
   flex-direction: row;
+  @include transition();
+
+  @media (max-width: $tablet) {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    z-index: 2;
+    flex-direction: column;
+    padding: $m-size;
+    width: 100%;
+    background: $dark-blue-1;
+    transform-origin: top;
+    box-shadow: 0 10px 20px rgba(0,0,0, .2);
+    opacity: 0;
+    @include transform(scaleY(0));
+
+    &.open {
+      opacity: 1;
+      @include transform(scaleY(1));
+    }
+  }
 }
 
 .filter__item {
@@ -9,5 +30,52 @@
     font-size: 12px;
     opacity: .5;
     padding-left: $s-size;
+  }
+
+  select {
+    @media (max-width: $tablet) {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.filter__toggle {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, .2);
+  padding: $s-size;
+  margin: 0;
+  display: none;
+  margin-top: $m-size;
+  border: 1px solid #cacaca;
+
+  @media (max-width: $tablet) {
+    display: block;
+  }
+
+  svg { 
+    width: 15px;
+    height: 15px;
+    margin-left: 0; 
+  }
+}
+
+.filter__close {
+  color: #fff;
+  width: 100%;
+  padding: $s-size;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: $s-size;
+  display: none;
+
+  @media (max-width: $tablet) {
+    display: block;
   }
 }

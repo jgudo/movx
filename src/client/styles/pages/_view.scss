@@ -6,6 +6,10 @@
   display: flex;
   padding-top: $xl-size;
   padding-bottom: $xl-size;
+
+  @media (max-width: $mobile) {
+    flex-direction: column;
+  }
 }
 
 .view__poster {
@@ -14,7 +18,22 @@
   background: #f1f1f1;
   border-radius: 6px;
 
+  @media (max-width: $mobile) {
+    width: 100%;
+    margin: auto;
+  }
+
+  .LazyLoad {
+    width: 100% !important;
+    height: 450px;
+
+    @media (max-width: $mobile) {
+      width: 100%;
+    }
+  }
+
   img {
+    width: 100%;
     border-radius: 6px;
     box-shadow: 0 10px 30px rgba(0,0,0,.3);
   }
@@ -22,6 +41,10 @@
 
 .view__details {
   padding: 0 $xl-size;
+
+  @media (max-width: $mobile) {
+    padding: 0;
+  }
 
   p {
     width: 100%;
@@ -32,6 +55,13 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  button {
+    @media (max-width: $mobile) {
+      width: 100%;
+      margin-bottom: $m-size;
+    }
   }
 }
 
@@ -48,6 +78,15 @@
   margin-top: 0;
 }
 
+.view__actions {
+  display: flex;
+  align-items: center;
+
+  @media (max-width: $mobile) {
+    flex-direction: column;
+  }
+}
+
 .view__not-found {
   margin-top: rem(250);
   text-align: center;
@@ -61,4 +100,8 @@
   margin-top: rem(150);
   margin-left: auto;
   margin-right: auto;
+
+  @media (max-width: $mobile) {
+    left: $m-size;
+  }
 }

@@ -43,6 +43,7 @@ class Search extends Component {
           loaded: true,
           error: undefined 
         }));
+        window.scrollTo(null, 0);
       })
       .catch((e) => {
         console.log('Cannot perform search', e);

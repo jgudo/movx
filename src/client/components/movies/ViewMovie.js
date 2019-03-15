@@ -166,9 +166,7 @@ class ViewMovie extends Component {
                   <div className="view__poster">
                     <LazyLoad 
                         debounce={false}
-                        height={450}
                         offsetVertical={500}
-                        width={300}
                       >
                         <ImageLoader 
                             alt={movie.original_title || movie.original_name || movie.title}
@@ -190,21 +188,23 @@ class ViewMovie extends Component {
                     </p>
                     <h4>Overview</h4>
                     <p>{movie.overview}</p>
-                    <button className="button--primary" onClick={this.openVideoModal}>
-                      Watch Trailer
-                      <FontAwesomeIcon icon={['fa', 'play-circle']} />
-                    </button>
-                    <button 
-                        className="button--outlined button--favorites"
-                        onClick={this.onAddToFavorites}
-                        style={{
-                          background: this.found() ? '#ff2e4f' : 'transparent',
-                          border: this.found() ? '1px solid #ff2e4f' : '1px solid #fff'
-                        }}
-                    >
-                      {this.found() ? 'Remove From Favorites' : 'Add To Favorites'}
-                      <FontAwesomeIcon icon={['fa', 'heart']} />
-                    </button>
+                    <div className="view__actions">
+                      <button className="button--primary" onClick={this.openVideoModal}>
+                        Watch Trailer
+                        <FontAwesomeIcon icon={['fa', 'play-circle']} />
+                      </button>
+                      <button 
+                          className="button--outlined button--favorites"
+                          onClick={this.onAddToFavorites}
+                          style={{
+                            background: this.found() ? '#ff2e4f' : 'transparent',
+                            border: this.found() ? '1px solid #ff2e4f' : '1px solid #fff'
+                          }}
+                      >
+                        {this.found() ? 'Remove From Favorites' : 'Add To Favorites'}
+                        <FontAwesomeIcon icon={['fa', 'heart']} />
+                      </button>
+                    </div>
                   </div>            
                 </div>
               </React.Fragment>

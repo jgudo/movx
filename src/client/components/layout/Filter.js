@@ -5,7 +5,7 @@ import {
   setYearFilter, 
   setGenreFilter, 
   setSortFilter,
-  updateQuery 
+  updateQuery
 } from '../../actions/actions';
 
 const yearToday = new Date().getFullYear();
@@ -16,7 +16,11 @@ for (let i = yearToday; i >= 1883; i--) {
 }
 
 const Filter = (props) => {
-  const { filterCategory } = props;
+  const { 
+    filterCategory, 
+    filterRef,
+    onFilterClose 
+  } = props;
   const { year, sort, genre } = props.filterData;
 
   const updateQueryString = (yearProps, sortProps, genreProps) => {
@@ -40,6 +44,7 @@ const Filter = (props) => {
 
   const onYearFilterChange = (e) => {
     const selected = e.target.value;
+    onFilterClose();
     switch (filterCategory) {
       case 'discover':
         props.setYearFilter('SET_DISCOVER_YEAR_FILTER', selected)
@@ -62,6 +67,7 @@ const Filter = (props) => {
 
   const onSortFilterChange = (e) => {
     const selected = e.target.value;
+    onFilterClose();
     switch (filterCategory) {
       case 'discover':
         props.setSortFilter('SET_DISCOVER_SORT_FILTER', selected)
@@ -84,6 +90,7 @@ const Filter = (props) => {
 
   const onGenreFilterChange = (e) => {
     const selected = e.target.value;
+    onFilterClose();
     switch (filterCategory) {
       case 'discover':
         props.setGenreFilter('SET_DISCOVER_GENRE_FILTER', selected)
@@ -105,7 +112,10 @@ const Filter = (props) => {
   };
 
   return (
-    <div className="filter">
+    <div 
+        className="filter" 
+        ref={filterRef}
+    >
       <div className="filter__item">
         <span>Year</span>
         <br/>
@@ -170,6 +180,12 @@ const Filter = (props) => {
           <option value="37">Western</option>
         </select>
       </div>
+      <button 
+          className="filter__close"
+          onClick={onFilterClose}
+      >
+        Close
+      </button>
     </div>
   );
 };

@@ -4,10 +4,22 @@
   grid-gap: $s-size;
   justify-items: center;
   padding: $l-size $m-size;
+
+  @media (max-width: $laptop) {
+    grid-template-columns: repeat(4, 1fr);
+  }
   
+  @media (max-width: $tablet) {
+    grid-template-columns: repeat(3, 1fr);
+    padding: $l-size 0;
+  }
+
   @media (max-width: $mobile) {
     grid-template-columns: repeat(2, 1fr);
-    padding: $l-size 0;
+  }
+
+  @media (max-width: $x-mobile) {
+    grid-gap: 0;
   }
 }
 
@@ -15,6 +27,7 @@
   padding: $m-size;
   padding-right: 0;
   display: flex;
+  position: relative;
   justify-content: space-between;
 
   @media (max-width: $mobile) {

@@ -10,6 +10,9 @@ const Navigation = (props) => {
   const [searchQuery, setQuery] = useState('');
   const searchHistory = useRef(null);
   const searchInput = useRef(null);
+  const toggler = useRef(null);
+  const menu = useRef(null);
+  const searchMenu = useRef(null);
   const onInputChange = (e) => {
     const query = e.target.value;
     setQuery(query);
@@ -43,81 +46,111 @@ const Navigation = (props) => {
     }
   };
 
+  const onNavigationToggle = () => {
+    searchMenu.current.classList.remove('open');
+    toggler.current.classList.toggle('open');
+    menu.current.classList.toggle('open');
+  };
+
+  const onSearchToggle = () => {
+    searchMenu.current.classList.toggle('open');
+    toggler.current.classList.remove('open');
+    menu.current.classList.remove('open');
+  };
+
+  const onClickLink = (e) => {
+    const current = e.target;
+    if (current.nodeName === 'A') {
+      toggler.current.classList.remove('open');
+      menu.current.classList.remove('open');
+    }
+  };
 
   return (
-    <div className="navigation">
+    <div 
+        className="navigation"
+        onClick={onClickLink}
+    >
       <div className="navigation__wrapper">
+        <div 
+            className="navigation__toggle"
+            onClick={onNavigationToggle}
+            ref={toggler}
+        >
+          <div/><div/><div/>
+        </div>
         <div className="navigation__logo">
           <h1>MOVX</h1>
         </div>
         <div className="navigation__menu-wrapper">
-          <div className="navigation__menu">
-            <div className="navigation__items">
-              <NavLink 
-                  activeClassName="navigation__active"
-                  className="navigation__link"
-                  exact
-                  strict
-                  to="/" 
-              >
-                  Home
-              </NavLink>
-              <NavLink 
-                  activeClassName="navigation__active"
-                  className="navigation__link"
-                  exact
-                  strict
-                  to="/trending" 
-              >
-                Trending
-              </NavLink>
-              <NavLink 
-                  activeClassName="navigation__active"
-                  className="navigation__link"
-                  exact
-                  strict
-                  to="/discover" 
-              >
-                Discover
-              </NavLink>
-              <NavLink 
-                  activeClassName="navigation__active"
-                  className="navigation__link"
-                  exact
-                  strict
-                  to="/tv" 
-              >
-                TV Shows
-              </NavLink>
-              <NavLink 
-                  activeClassName="navigation__active"
-                  className="navigation__link"
-                  exact
-                  strict
-                  to="/people" 
-              >
-                People
-              </NavLink>
-              <NavLink 
-                  activeClassName="navigation__active"
-                  className="navigation__link"
-                  exact
-                  to="/genre" 
-              >
-                Genres
-              </NavLink>
-              <NavLink 
-                  activeClassName="navigation__active"
-                  className="navigation__link"
-                  exact
-                  strict
-                  to="/favorites" 
-              >
-                Favorites
-              </NavLink>
-            </div>
+          <div 
+              className="navigation__menu" 
+              ref={menu}
+          >
+            <NavLink 
+                activeClassName="navigation__active"
+                className="navigation__link"
+                exact
+                strict
+                to="/" 
+            >
+                Home
+            </NavLink>
+            <NavLink 
+                activeClassName="navigation__active"
+                className="navigation__link"
+                exact
+                strict
+                to="/trending" 
+            >
+              Trending
+            </NavLink>
+            <NavLink 
+                activeClassName="navigation__active"
+                className="navigation__link"
+                exact
+                strict
+                to="/discover" 
+            >
+              Discover
+            </NavLink>
+            <NavLink 
+                activeClassName="navigation__active"
+                className="navigation__link"
+                exact
+                strict
+                to="/tv" 
+            >
+              TV Shows
+            </NavLink>
+            <NavLink 
+                activeClassName="navigation__active"
+                className="navigation__link"
+                exact
+                strict
+                to="/people" 
+            >
+              People
+            </NavLink>
+            <NavLink 
+                activeClassName="navigation__active"
+                className="navigation__link"
+                exact
+                to="/genre" 
+            >
+              Genres
+            </NavLink>
+            <NavLink 
+                activeClassName="navigation__active"
+                className="navigation__link"
+                exact
+                strict
+                to="/favorites" 
+            >
+              Favorites
+            </NavLink>
           </div>
-          <div className="navigation__search">
+          <div className="navigation__search" ref={searchMenu}>
             <input 
                 autoComplete="off"
                 className="search__input"
@@ -176,6 +209,12 @@ const Navigation = (props) => {
             )}
           </div>
         </div>
+        <button 
+            className="button--link search__toggle"
+            onClick={onSearchToggle}
+        >
+          <FontAwesomeIcon icon={['fa', 'search']} color="#dadada" />
+        </button>
       </div>
     </div>
   );
