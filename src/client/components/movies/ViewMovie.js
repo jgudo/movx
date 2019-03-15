@@ -26,6 +26,7 @@ class ViewMovie extends Component {
   state = {
     movie: {},
     casts: [],
+    keywords: [],
     loaded: false,
     error: undefined,
     isOpenVideoModal: false,
@@ -40,6 +41,7 @@ class ViewMovie extends Component {
       try {
         const movieRequest = await axios.get(`${tmdb + movieCategory}/${movieId}?api_key=${tmdbKey}&append_to_response=videos`)
         const movie = await movieRequest.data;
+
         if (movie) {
           this.setState(() => ({ 
             movie,
@@ -47,11 +49,16 @@ class ViewMovie extends Component {
             error: undefined 
           }));
 
-          const creditsRequest = await axios.get(`${tmdb}movie/${movie.id}/credits?api_key=${tmdbKey}`);
+          const creditsRequest = await axios.get(`${tmdb + movieCategory}/${movie.id}/credits?api_key=${tmdbKey}`);
           const credits = await creditsRequest.data;
+          const keywordsRequest = await axios.get(`${tmdb + movieCategory}/${movie.id}/keywords?api_key=${tmdbKey}`);
+          const keywords = await keywordsRequest.data;
 
           if (credits) {
-            this.setState({ casts: credits.cast });
+            this.setState({ 
+              casts: credits.cast,
+              keywords: keywords.keywords
+            });
           }
         }
       } catch (e) {
@@ -109,6 +116,7 @@ class ViewMovie extends Component {
     const { 
       movie, 
       casts,
+      keywords,
       isOpenModal, 
       isOpenVideoModal, 
       loaded, 
@@ -258,10 +266,11 @@ class ViewMovie extends Component {
                 <div className="movie__details">
                   <div className="movie__details-genre">
                     <h4>Genres</h4>
-                    {movie.genres.map((genre) => {
+                    {movie.genres && movie.genres.map((genre) => {
                       const genreName = genre.name.toLowerCase().replace(' ', '-');
                       return (
                         <Link 
+                            className="button--key"
                             key={genre.id + genre.name}
                             to={`/genre/${genreName}/${genre.id}`} 
                         >
@@ -270,18 +279,56 @@ class ViewMovie extends Component {
                       );
                     })}
                   </div>
-                  <div className="movie__details-release">
-                    <h4>Release Date</h4>
-                    <p>{movie.release_date}</p>
+                  {movie.release_date && (
+                    <div className="movie__details-release">
+                      <h4>Release Date</h4>
+                      <p>{movie.release_date}</p>
+                    </div>
+                  )}
+                  {movie.budget && (
+                    <div className="movie__details-budget">
+                      <h4>Budget</h4>
+                      <p>${numberWithCommas(movie.budget)}</p>
+                    </div>
+                  )}
+                  {movie.revenue && (
+                    <div className="movie__details-revenue">
+                      <h4>Revenue</h4>
+                      <p>${numberWithCommas(movie.revenue)}</p>
+                    </div>
+                  )}
+                  {movie.runtime && (
+                    <div className="movie__details-runtime">
+                      <h4>Runtime</h4>
+                      <p>{toHrsMins(movie.runtime)}</p>
+                    </div>
+                  )}
+                  
+                  <div className="movie__details-keywords">
+                    <h4>Keywords</h4>
+                    {keywords ? keywords.map((keyword) => {
+                      return (
+                        <Link 
+                            className="button--key"
+                            key={keyword.id + keyword.name}
+                            to="/genre" 
+                        >
+                          #{keyword.name}
+                        </Link>
+                      );
+                    }) : (
+                      <p>No keywords found.</p>
+                    )}
                   </div>
-                  <div className="movie__details-budget">
-                    <h4>Budget</h4>
-                    <p>${numberWithCommas(movie.budget)}</p>
-                  </div>
-                  <div className="movie__details-runtime">
-                    <h4>Runtime</h4>
-                    <p>{toHrsMins(movie.runtime)}</p>
-                  </div>
+                  {/* <div className="movie__details-trailers">
+                    <h4>Videos</h4>
+                    {movie.videos.results.map(video => (
+                      <object 
+                          key={video.key}
+                          data={`http://www.youtube.com/embed/${video.key}`}
+                      />
+                    ))}
+                  </div> */}
                 </div>
               </div>
             </div>

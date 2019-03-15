@@ -94,17 +94,5 @@
 }
 
 .movie__details-genre {
-  a {
-    text-decoration: none;
-    color: #fff;
-    padding: $s-size;
-    border: 1px solid #fff;
-    border-radius: 15px;
-    display: inline-block;
-    margin-right: $s-size;
-
-    &:hover {
-      background: rgba(255, 255, 255, .2);
-    }
-  }
+  
 }
