@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import TopProgressLoader from '../layout/TopProgressLoader'; 
 import LoadingScreen from '../layout/LoadingScreen'; 
@@ -42,16 +41,6 @@ class TvShows extends Component {
     }
   };
 
-  onFilterToggle = () => {
-    this.filterRef.classList.toggle('open');
-  };
-
-  
-  onFilterClose = () => {
-    this.filterRef.classList.remove('open');
-  };
-
-
   render() {
     const { tvShows, isLoading, filter } = this.props;
   
@@ -71,19 +60,7 @@ class TvShows extends Component {
                   <Filter 
                       filterCategory="tv"
                       filterData={filter.tv}
-                      /* eslint no-return-assign: 0 */
-                      filterRef={el => this.filterRef = el}
-                      onFilterClose={this.onFilterClose}
                   /> 
-                  <button 
-                      className="filter__toggle"
-                      onClick={this.onFilterToggle}
-                  >
-                    <FontAwesomeIcon 
-                        icon={['fa', 'filter']} 
-                        color="#dadada" 
-                    />
-                  </button>
                 </div>
               <div className="movie__wrapper">
                 {tvShows.collection.map((show) => {

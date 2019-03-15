@@ -2,7 +2,17 @@
   padding: $l-size;
   display: flex;
   flex-direction: row;
+
+  @media (max-width: $tablet) {
+    padding: 0;
+  }
+}
+
+.filter__wrapper {
+  display: flex;
+  align-items: center;
   @include transition();
+
 
   @media (max-width: $tablet) {
     position: fixed;
@@ -23,9 +33,16 @@
       @include transform(scaleY(1));
     }
   }
+
+  @media (max-width: $tablet) {
+    flex-direction: column;
+  }
 }
 
 .filter__item {
+  @media (max-width: $tablet) {
+    width: 100%;
+  }
   span {
     font-size: 12px;
     opacity: .5;

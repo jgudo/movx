@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import ModalVideo from 'react-modal-video';
 import Modal from 'react-responsive-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import LazyLoad from 'react-lazy-load';
 
+import PeopleCard from '../people/PeopleCard';
 import ImageLoader from '../layout/ImageLoader';
 import LoadingScreen from '../layout/LoadingScreen';
 
@@ -14,7 +15,7 @@ import LoadingScreen from '../layout/LoadingScreen';
 import { addToFavorites, removeFromFavorites } from '../../actions/actions';
 
 // helpers
-import { isEmpty } from '../../helpers/helperFunctions';
+import { isEmpty, numberWithCommas, toHrsMins } from '../../helpers/helperFunctions';
 
 const tmdb = 'https://api.themoviedb.org/3/';
 const tmdbKey = process.env.TMDB_KEY;
@@ -24,6 +25,7 @@ const tmdbBackdropPath = 'https://image.tmdb.org/t/p/w1400_and_h450_face/';
 class ViewMovie extends Component {
   state = {
     movie: {},
+    casts: [],
     loaded: false,
     error: undefined,
     isOpenVideoModal: false,
@@ -34,22 +36,32 @@ class ViewMovie extends Component {
     const movieId = this.props.match.params.id;
     const movieCategory = this.props.match.params.category;
 
-    axios.get(`${tmdb + movieCategory}/${movieId}?api_key=${tmdbKey}&append_to_response=videos`)
-      .then((response) => {
-        const movie = response.data;
-        this.setState(() => ({ 
-          movie,
-          loaded: true,
-          error: undefined 
-        }));
-      })
-      .catch((e) => {
+    (async () => {
+      try {
+        const movieRequest = await axios.get(`${tmdb + movieCategory}/${movieId}?api_key=${tmdbKey}&append_to_response=videos`)
+        const movie = await movieRequest.data;
+        if (movie) {
+          this.setState(() => ({ 
+            movie,
+            loaded: true,
+            error: undefined 
+          }));
+
+          const creditsRequest = await axios.get(`${tmdb}movie/${movie.id}/credits?api_key=${tmdbKey}`);
+          const credits = await creditsRequest.data;
+
+          if (credits) {
+            this.setState({ casts: credits.cast });
+          }
+        }
+      } catch (e) {
         console.log('Cannot fetch movie', e);
         this.setState(() => ({
           loaded: true,
           error: 'Movie details cannot be loaded'
         }));
-      });
+      }
+    })();
   }
 
   openVideoModal = () => {
@@ -96,6 +108,7 @@ class ViewMovie extends Component {
   render() {
     const { 
       movie, 
+      casts,
       isOpenModal, 
       isOpenVideoModal, 
       loaded, 
@@ -220,6 +233,59 @@ class ViewMovie extends Component {
               </div>
             )}
           </div>
+          {casts.length >= 1 && (
+            <div className="movie__casts">
+              <div className="movie__casts-content">
+                <div className="movie__casts-wrapper">
+                  <div className="movie__casts-header">
+                    <h1>Top Billed Casts</h1>
+                  </div>
+                  <div className="movie__casts-grid">
+                    {casts.map((person, index) => {
+                      return index < 12 && (
+                          <PeopleCard 
+                              category="people"
+                              key={person.id + index}
+                              people={person}
+                          />
+                      );
+                    })}
+                  </div>
+                  <button className="button--primary">
+                    View All Casts
+                  </button>
+                </div>
+                <div className="movie__details">
+                  <div className="movie__details-genre">
+                    <h4>Genres</h4>
+                    {movie.genres.map((genre) => {
+                      const genreName = genre.name.toLowerCase().replace(' ', '-');
+                      return (
+                        <Link 
+                            key={genre.id + genre.name}
+                            to={`/genre/${genreName}/${genre.id}`} 
+                        >
+                          {genre.name}
+                        </Link>
+                      );
+                    })}
+                  </div>
+                  <div className="movie__details-release">
+                    <h4>Release Date</h4>
+                    <p>{movie.release_date}</p>
+                  </div>
+                  <div className="movie__details-budget">
+                    <h4>Budget</h4>
+                    <p>${numberWithCommas(movie.budget)}</p>
+                  </div>
+                  <div className="movie__details-runtime">
+                    <h4>Runtime</h4>
+                    <p>{toHrsMins(movie.runtime)}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </React.Fragment>
     );

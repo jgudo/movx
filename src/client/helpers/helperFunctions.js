@@ -9,3 +9,11 @@ export const isEmpty = (obj) => {
 export const numberWithCommas = (x) => {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
+
+export const toHrsMins = (mins) => {
+  let h = Math.floor(mins / 60);
+  let m = mins % 60;
+  h = h < 10 ? h : h;
+  m = m < 10 ? m : m;
+  return `${h}hr ${m}min`;
+};
