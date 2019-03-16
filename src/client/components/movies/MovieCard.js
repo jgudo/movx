@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import LazyLoad from 'react-lazy-load';
 import StarRatings from 'react-star-ratings';
 import { Link } from 'react-router-dom';
@@ -40,7 +41,7 @@ const MovieCard = (props) => {
 
   return (
     <div className="card">
-      <Link to={`/view/${props.category}/${id}/${original_title || original_name || title}`}>
+      <Link to={`/view/${props.category}/${id}`}>
         <div className="card__image">
           <LazyLoad 
               debounce={false}
@@ -87,6 +88,13 @@ const MovieCard = (props) => {
     </div>
   );
 }
+
+MovieCard.propTypes = {
+  addToFavorites: PropTypes.func,
+  favorites: PropTypes.arrayOf(PropTypes.object),
+  movie: PropTypes.object,
+  removeFromFavorites: PropTypes.func
+};
 
 const mapStateToProps = ({ favorites }) => ({
   favorites

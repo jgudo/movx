@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const GenreCard = (props) => {
   const { 
@@ -51,6 +52,13 @@ const GenreCard = (props) => {
       </Link>
     </div>
   );
+};
+
+GenreCard.propTypes = {
+  genre: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired
+  })
 };
 
 export default GenreCard;

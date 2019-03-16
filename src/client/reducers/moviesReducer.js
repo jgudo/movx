@@ -8,6 +8,7 @@ const moviesReducer = (state = {
   },
   tvShows: {},
   people: {},
+  person: {},
   genres: [],
   genreMovies: {},
   favorites: [],
@@ -69,6 +70,12 @@ const moviesReducer = (state = {
       return {
         ...state,
         current: action.data, 
+        isLoading: false
+      };
+    case 'FETCH_SELECTED_PERSON':
+      return {
+        ...state,
+        person: action.data, 
         isLoading: false
       };
     case 'SET_DISCOVER_YEAR_FILTER':

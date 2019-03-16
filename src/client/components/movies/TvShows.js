@@ -49,7 +49,7 @@ class TvShows extends Component {
         <TopProgressLoader isLoading={isLoading} />
         {isEmpty(tvShows) && <LoadingScreen />}
         <div className="container">
-          <div className="container__wrapper">
+          <div className="container__wrapper container__movies">
             {!isEmpty(tvShows) && (
               <React.Fragment>
                 <div className="movie__header">

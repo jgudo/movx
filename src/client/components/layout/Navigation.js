@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-boolean-value */
 import React, { useState, useRef } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { NavLink, withRouter, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -214,12 +215,21 @@ const Navigation = (props) => {
             className="button--link search__toggle"
             onClick={onSearchToggle}
         >
-          <FontAwesomeIcon icon={['fa', 'search']} color="#dadada" />
+          <FontAwesomeIcon 
+              color="#dadada"
+              icon={['fa', 'search']} 
+          />
         </button>
       </div>
     </div>
   );
-}
+};
+
+Navigation.propTypes = {
+  addSearchHistory: PropTypes.func,
+  clearSearchHistory: PropTypes.func,
+  recentSearch: PropTypes.arrayOf(PropTypes.string)
+};
 
 const mapStateToProps = ({ recentSearch }) => ({
   recentSearch

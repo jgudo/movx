@@ -37,7 +37,7 @@ class TrendingMovies extends Component {
         <TopProgressLoader isLoading={isLoading} />
         {isEmpty(trendingMovies) && <LoadingScreen />}
         <div className="container">
-          <div className="container__wrapper">
+          <div className="container__wrapper container__movies">
             {!isEmpty(trendingMovies) && (
               <React.Fragment>
                 <div className="movie__header">

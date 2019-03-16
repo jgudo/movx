@@ -7,6 +7,15 @@
   padding-top: $xl-size;
   padding-bottom: $xl-1-size;
 
+  @media (min-width: $desktop) {
+    width: 1360px;
+    padding: $xl-size;
+  }
+
+  @media (max-width: $tablet) {
+    width: 85%; 
+  }
+
   @media (max-width: $mobile) {
     flex-direction: column;
   }
@@ -42,6 +51,11 @@
 .view__details {
   padding: 0 $xl-size;
 
+  @media (max-width: $tablet) {
+    padding-right: 0;
+    padding-left: $m-size;
+  }
+
   @media (max-width: $mobile) {
     padding: 0;
   }
@@ -58,9 +72,13 @@
   }
 
   button {
-    @media (max-width: $mobile) {
+    @media (max-width: $tablet) {
       width: 100%;
       margin-bottom: $m-size;
+    }
+
+    @media (max-width: $mobile) {
+      margin-right: 0;
     }
   }
 }
@@ -82,7 +100,7 @@
   display: flex;
   align-items: center;
 
-  @media (max-width: $mobile) {
+  @media (max-width: $tablet) {
     flex-direction: column;
   }
 }
@@ -104,6 +122,10 @@
   margin-top: rem(150);
   margin-left: auto;
   margin-right: auto;
+
+  @media (min-width: $desktop) {
+    width: 1360px;
+  }
 
   @media (max-width: $mobile) {
     left: $m-size;

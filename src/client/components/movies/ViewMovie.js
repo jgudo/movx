@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import ModalVideo from 'react-modal-video';
@@ -49,9 +48,7 @@ class ViewMovie extends Component {
   }
 
   openVideoModal = () => {
-    const { movie } = this.props.movie;
-
-    if (movie.videos.results.length >= 1) {
+    if (this.props.movie.videos.results.length >= 1) {
       this.setState(() => ({ isOpenVideoModal: true }));
     } else {
       this.setState(() => ({ isOpenModal: true }));
@@ -59,12 +56,12 @@ class ViewMovie extends Component {
   };
 
   found = () => {
-    return this.props.favorites.some(item => item.id === this.state.movie.id);
+    return this.props.favorites.some(item => item.id === this.props.movie.id);
   };
 
   onAddToFavorites = () => {
-    if (!this.found()) this.props.addToFavorites(this.state.movie);
-    else this.props.removeFromFavorites(this.state.movie.id); 
+    if (!this.found()) this.props.addToFavorites(this.props.movie);
+    else this.props.removeFromFavorites(this.props.movie.id); 
   };
 
   closeVideoModal = () => {
@@ -232,7 +229,7 @@ class ViewMovie extends Component {
                       return index < 12 && (
                           <PeopleCard 
                               category="people"
-                              key={person.id + index}
+                              key={person.id + person.name}
                               people={person}
                           />
                       );
@@ -298,10 +295,6 @@ class ViewMovie extends Component {
                     }) : (
                       <p>No keywords found.</p>
                     )}
-                  </div>
-                  <div className="movie__details-trailers">
-                    <h4>Videos</h4>
-                    
                   </div>
                 </div>
               </div>

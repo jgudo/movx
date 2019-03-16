@@ -49,6 +49,7 @@
     "@fortawesome/react-fontawesome": "^0.1.4",
     "axios": "^0.18.0",
     "normalize.css": "^8.0.1",
+    "prop-types": "^15.7.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-js-pagination": "^3.0.2",

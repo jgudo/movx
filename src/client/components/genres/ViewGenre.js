@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import TopProgressLoader from '../layout/TopProgressLoader'; 
 import LoadingScreen from '../layout/LoadingScreen'; 
@@ -43,7 +44,7 @@ const ViewGenre = (props) => {
       <TopProgressLoader isLoading={isLoading} />
       {isEmpty(genreMovies) && <LoadingScreen />}
       <div className="container">
-        <div className="container__wrapper">
+        <div className="container__wrapper container__movies">
           {!isEmpty(genreMovies) && (
             <React.Fragment>
               <div className="movie__header">
@@ -64,12 +65,12 @@ const ViewGenre = (props) => {
                 })}
               </div>
               <PaginationBar 
-                activePage={genreMovies.activePage}
-                itemsCountPerPage={1}
-                onChange={handlePageChange}
-                pageRangeDisplayed={10}
-                totalItemsCount={genreMovies.total_pages}
-                totalPage={genreMovies.total_pages}
+                  activePage={genreMovies.activePage}
+                  itemsCountPerPage={1}
+                  onChange={handlePageChange}
+                  pageRangeDisplayed={10}
+                  totalItemsCount={genreMovies.total_pages}
+                  totalPage={genreMovies.total_pages}
             />
             <Footer />
             </React.Fragment>
@@ -78,6 +79,16 @@ const ViewGenre = (props) => {
     </div>
     </React.Fragment>
   );
+};
+
+ViewGenre.propTypes = {
+  genreMovies: PropTypes.shape({
+    total_results: PropTypes.number,
+    total_pages: PropTypes.number,
+    activePage: PropTypes.number,
+    collection: PropTypes.arrayOf(PropTypes.object)
+  }),
+  isLoading: PropTypes.bool
 };
 
 const mapStateToProps = ({ genreMovies, isLoading, error }) => ({

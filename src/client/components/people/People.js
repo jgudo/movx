@@ -34,7 +34,7 @@ const People = (props) => {
       <TopProgressLoader isLoading={isLoading} />
       {isEmpty(people) && <LoadingScreen />}
       <div className="container">
-        <div className="container__wrapper">
+        <div className="container__wrapper container__movies">
           {!isEmpty(people) && (
             <React.Fragment>
             <div className="movie__header">

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import LazyLoad from 'react-lazy-load';
 import Modal from 'react-responsive-modal';
@@ -7,35 +7,31 @@ import Modal from 'react-responsive-modal';
 import ImageLoader from '../layout/ImageLoader';
 import LoadingScreen from '../layout/LoadingScreen';
 
+import { fetchPerson, isCurrentlyFetching } from '../../actions/actions';
+
 // helpers
 import { isEmpty } from '../../helpers/helperFunctions';
 
 
-const tmdb = 'https://api.themoviedb.org/3/';
-const tmdbKey = process.env.TMDB_KEY;
 const tmdbPosterPath = 'https://image.tmdb.org/t/p/w300_and_h450_face/';
 
 const ViewPeople = (props) => {
-  const [person, setPerson] = useState({});
-  const [loaded, setLoaded] = useState(false);
+  const { person, isLoading } = props;
   const [error, setError] = useState(undefined);
   const [isOpenModal, setModalVisibility] = useState(false);
 
   useEffect(() => {
     const personId = props.match.params.id;
 
-    axios.get(`${tmdb}person/${personId}?api_key=${tmdbKey}`)
-      .then((response) => {
-        const personData = response.data;
-        setPerson(personData);
-        setLoaded(true);
-        setError(undefined);
-      })
-      .catch((e) => {
-        console.log('Cannot fetch movie', e);
-        setLoaded(true);
-        setError('Person\'s details cannot be loaded');
-      });
+    if (parseInt(personId, 10) !== props.person.id) {
+      props.isCurrentlyFetching();
+      props.fetchPerson(personId)
+        .then((status) => {
+          if (status === 404) {
+            setError('Person\'s details cannot be loaded');
+          }
+        });
+    }
   }, []);
 
   const goPreviousPage = () => {
@@ -52,10 +48,10 @@ const ViewPeople = (props) => {
 
   return (
     <React.Fragment>
-      {!loaded && <LoadingScreen />}
+      {isLoading && <LoadingScreen />}
       <div className="container container__backdrop">
         <div className="container__wrapper container__backdrop-wrapper">
-          {(loaded && !isEmpty(person)) && (
+          {(!isLoading && !isEmpty(person) && !error) && (
             <React.Fragment>
               <Modal 
                   center
@@ -144,4 +140,14 @@ const ViewPeople = (props) => {
   );
 };
 
-export default withRouter(ViewPeople);
+const mapStateToProps = ({ person, isLoading }) => ({
+  person,
+  isLoading
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchPerson: id => dispatch(fetchPerson(id)),
+  isCurrentlyFetching: () => dispatch(isCurrentlyFetching())
+});
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ViewPeople));

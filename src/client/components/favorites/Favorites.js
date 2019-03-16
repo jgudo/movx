@@ -1,12 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import MovieCard from '../movies/MovieCard';
 
 import { numberWithCommas } from '../../helpers/helperFunctions';
 
 const Favorites = ({ favorites }) => (
   <div className="container">
-    <div className="container__wrapper">
+    <div className="container__wrapper container__movies">
       {favorites.length >= 1 ? (
         <React.Fragment>
           <div className="movie__header">
@@ -33,6 +34,13 @@ const Favorites = ({ favorites }) => (
     </div>
   </div>
 );
+
+Favorites.propTypes = {
+  favorites: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number
+  }))
+};
+
 
 const mapStateToProps = ({ favorites }) => ({
   favorites

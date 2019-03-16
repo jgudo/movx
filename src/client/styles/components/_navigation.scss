@@ -20,6 +20,11 @@
   align-items: center;
   justify-content: space-between;
   margin: auto;
+
+  @media (min-width: $desktop) {
+    width: 1360px;
+  }
+  
 }
 
 .navigation__menu {

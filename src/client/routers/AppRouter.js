@@ -52,7 +52,7 @@ const AppRouter = () => (
         <Route 
             component={ViewMovie}
             exact={true} 
-            path="/view/:category/:id/:name" 
+            path="/view/:category/:id" 
         />
         <Route 
             component={People}
@@ -62,7 +62,7 @@ const AppRouter = () => (
         <Route 
             component={ViewPeople}
             exact={true}  
-            path="/view/people/:id" 
+            path="/view/people/:id/:name" 
         />
         <Route 
             component={Genres}

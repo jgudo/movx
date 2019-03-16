@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import TopProgressLoader from '../layout/TopProgressLoader'; 
 import LoadingScreen from '../layout/LoadingScreen'; 
@@ -51,7 +52,7 @@ class DiscoverMovies extends Component {
         {isEmpty(discoverMovies) && <LoadingScreen />}
         <TopProgressLoader isLoading={isLoading} />
         <div className="container">
-          <div className="container__wrapper">
+          <div className="container__wrapper container__movies">
             {!isEmpty(discoverMovies) && (
               <React.Fragment>
                 <div className="movie__header">
@@ -92,6 +93,12 @@ class DiscoverMovies extends Component {
     );
   }
 }
+
+DiscoverMovies.propTypes = {
+  discoverMovies: PropTypes.object,
+  filter: PropTypes.objectOf(PropTypes.object),
+  isLoading: PropTypes.bool
+};
 
 const mapStateToProps = ({ discoverMovies, isLoading, filter }) => ({
   discoverMovies,

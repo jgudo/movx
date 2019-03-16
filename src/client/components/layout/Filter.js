@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { 
@@ -206,6 +207,15 @@ const Filter = (props) => {
       </button>
     </div>
   );
+};
+
+Filter.propTypes = {
+  filterCategory: PropTypes.string,
+  filterData: PropTypes.objectOf(PropTypes.string),
+  setGenreFilter: PropTypes.func,
+  setSortFilter: PropTypes.func,
+  setYearFilter: PropTypes.func,
+  updateQuery: PropTypes.func
 };
 
 const mapDispatchToProps = dispatch => ({

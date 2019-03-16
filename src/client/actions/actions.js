@@ -80,6 +80,31 @@ export const fetchSelected = (category, movieId) => {
   };
 };
 
+export const fetchPerson = (id) => {
+  let response;
+  return async (dispatch) => {
+    try {
+      const personRequest = await axios.get(`${tmdb}person/${id}?api_key=${tmdbKey}`);
+      const person = await personRequest.data;
+
+      if (person) {
+        dispatch({
+          type: 'FETCH_SELECTED_PERSON',
+          data: person,
+          isLoading: false
+        });  
+      }
+    } catch (e) {
+      response = e.response.status;
+      dispatch({
+        type: 'IS_LOADING',
+        bool: false
+      });
+    }
+    return Promise.resolve(response); 
+  };
+};
+
 export const setYearFilter = (action, year) => (dispatch, getState) => {
   dispatch({
     type: action,

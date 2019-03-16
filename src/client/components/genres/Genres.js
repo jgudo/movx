@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
- 
+import PropTypes from 'prop-types';
+
 import LoadingScreen from '../layout/LoadingScreen'; 
 import GenreCard from './GenreCard'; 
 
@@ -20,7 +21,7 @@ const Genres = (props) => {
     <React.Fragment>
       {genres.length === 0 && <LoadingScreen />}
       <div className="container">
-        <div className="container__wrapper">
+        <div className="container__wrapper container__movies">
           {genres.length >= 1 && (
             <React.Fragment>
               <h1>Genres</h1>
@@ -41,6 +42,10 @@ const Genres = (props) => {
       </div>
     </React.Fragment>
   );
+};
+
+Genres.propTypes = {
+  genres: PropTypes.arrayOf(PropTypes.object)
 };
 
 const mapStateToProps = ({ genres }) => ({

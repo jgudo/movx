@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Pagination from 'react-js-pagination';
 
@@ -35,6 +36,15 @@ const PaginationBar = ({
       />
     </div>
   );
+};
+
+PaginationBar.propTypes = {
+  activePage: PropTypes.number,
+  itemsCountPerPage: PropTypes.number,
+  onChange: PropTypes.func,
+  pageRangeDisplayed: PropTypes.number,
+  totalItemsCount: PropTypes.number,
+  totalPage: PropTypes.number
 };
 
 export default PaginationBar;

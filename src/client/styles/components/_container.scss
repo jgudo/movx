@@ -20,6 +20,14 @@
   }
 }
 
+.container__movies {
+  @media (min-width: $desktop) {
+    width: 1360px;
+    padding: 0 $xl-size;
+    margin: auto;
+  }
+}
+
 .container__backdrop {
   padding: 0;
   margin-top: 0;
