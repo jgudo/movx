@@ -1,6 +1,11 @@
 const moviesReducer = (state = {
   trendingMovies: {},
   discoverMovies: {},
+  current: {
+    movie: {},
+    keywords: [],
+    casts: []
+  },
   tvShows: {},
   people: {},
   genres: [],
@@ -58,6 +63,12 @@ const moviesReducer = (state = {
       return {
         ...state,
         genreMovies: action.data, 
+        isLoading: false
+      };
+    case 'FETCH_SELECTED_MOVIE':
+      return {
+        ...state,
+        current: action.data, 
         isLoading: false
       };
     case 'SET_DISCOVER_YEAR_FILTER':

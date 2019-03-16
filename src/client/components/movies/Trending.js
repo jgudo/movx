@@ -16,8 +16,6 @@ import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
 const queryString = 'trending/all/day?';
 
 class TrendingMovies extends Component {
-  state = {};
-
   componentDidMount() {
     if (isEmpty(this.props.trendingMovies)) {
       this.props.fetchRequest('FETCH_TRENDING_MOVIES', queryString);

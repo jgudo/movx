@@ -51,12 +51,20 @@
 
 .movie__casts-content {
   display: flex;
+
+  @media (max-width: $tablet) {
+    flex-direction: column;
+  }
 }
 
 .movie__casts-wrapper {
   width: 75%;
   padding-left: 10%;
   padding-bottom: $xl-1-size;
+
+  @media (max-width: $tablet) {
+    width: 100%;
+  }
 }
 
 .movie__casts-header {
@@ -79,8 +87,17 @@
   width: 25%;
   padding: $xl-size $m-size;
 
+  @media (max-width: $tablet) {
+    width: 100%;
+  }
+
   div {
     margin-bottom: $l-size;
+
+    @media (max-width: $tablet) {
+      display: inline-block;
+      margin-right: $l-size;
+    }
   }
 
   h4 {

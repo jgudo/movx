@@ -9,10 +9,12 @@ export const isCurrentlyFetching = (bool = true) => ({
 });
 
 export const fetchRequest = (action, query, page = 1) => {
-  return (dispatch) => {
-    axios.get(`${tmdb + query}&api_key=${tmdbKey}&page=${page}`)
-      .then((response) => {
-        const tmdbData = response.data;
+  return async (dispatch) => {
+    try {
+      const request = await axios.get(`${tmdb + query}&api_key=${tmdbKey}&page=${page}`);
+      const tmdbData = await request.data;
+
+      if (tmdbData) {
         if (action === 'FETCH_GENRES') {
           dispatch({
             type: action,
@@ -34,15 +36,48 @@ export const fetchRequest = (action, query, page = 1) => {
           });
         }
         window.scrollTo(null, 0);
-      })
-      .catch((err) => {
-        console.log(err.response);
-        dispatch({
-          type: 'IS_LOADING',
-          bool: false
-        });
+      }
+    } catch (err) {
+      console.log(err.response);
+      dispatch({
+        type: 'IS_LOADING',
+        bool: false
       });
-  }; 
+    }  
+  };
+};
+
+export const fetchSelected = (category, movieId) => {
+  let response;
+  return async (dispatch) => {
+    try {
+      const movieRequest = await axios.get(`${tmdb + category}/${movieId}?api_key=${tmdbKey}&append_to_response=videos`);
+      const movie = await movieRequest.data;
+      const creditsRequest = await axios.get(`${tmdb + category}/${movie.id}/credits?api_key=${tmdbKey}`);
+      const credits = await creditsRequest.data;
+      const keywordsRequest = await axios.get(`${tmdb + category}/${movie.id}/keywords?api_key=${tmdbKey}`);
+      const keywords = await keywordsRequest.data;
+
+      if (movie) {
+        dispatch({
+          type: 'FETCH_SELECTED_MOVIE',
+          data: {
+            movie,
+            keywords: keywords.keywords,
+            casts: credits.cast
+          },
+          isLoading: false
+        });  
+      }
+    } catch (e) {
+      response = e.response.status;
+      dispatch({
+        type: 'IS_LOADING',
+        bool: false
+      });
+    }
+    return Promise.resolve(response);
+  };
 };
 
 export const setYearFilter = (action, year) => (dispatch, getState) => {

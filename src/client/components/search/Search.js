@@ -82,7 +82,7 @@ class Search extends Component {
                       &nbsp;
                       {numberWithCommas(search.total_results)} 
                       &nbsp;
-                      Result With Title: 
+                      Result With Keyword: 
                       <span className="result__keyword">
                         &nbsp;{this.props.match.params.query}
                       </span>

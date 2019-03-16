@@ -12,67 +12,44 @@ import ImageLoader from '../layout/ImageLoader';
 import LoadingScreen from '../layout/LoadingScreen';
 
 // actions
-import { addToFavorites, removeFromFavorites } from '../../actions/actions';
+import { 
+  addToFavorites, 
+  removeFromFavorites, 
+  fetchSelected, 
+  isCurrentlyFetching 
+} from '../../actions/actions';
 
 // helpers
 import { isEmpty, numberWithCommas, toHrsMins } from '../../helpers/helperFunctions';
 
-const tmdb = 'https://api.themoviedb.org/3/';
-const tmdbKey = process.env.TMDB_KEY;
 const tmdbPosterPath = 'https://image.tmdb.org/t/p/w300_and_h450_face/';
 const tmdbBackdropPath = 'https://image.tmdb.org/t/p/w1400_and_h450_face/';
 
 class ViewMovie extends Component {
   state = {
-    movie: {},
-    casts: [],
-    keywords: [],
-    loaded: false,
-    error: undefined,
     isOpenVideoModal: false,
-    isOpenModal: false
+    isOpenModal: false,
+    error: undefined
   };
 
   componentDidMount() {
     const movieId = this.props.match.params.id;
     const movieCategory = this.props.match.params.category;
-
-    (async () => {
-      try {
-        const movieRequest = await axios.get(`${tmdb + movieCategory}/${movieId}?api_key=${tmdbKey}&append_to_response=videos`)
-        const movie = await movieRequest.data;
-
-        if (movie) {
-          this.setState(() => ({ 
-            movie,
-            loaded: true,
-            error: undefined 
-          }));
-
-          const creditsRequest = await axios.get(`${tmdb + movieCategory}/${movie.id}/credits?api_key=${tmdbKey}`);
-          const credits = await creditsRequest.data;
-          const keywordsRequest = await axios.get(`${tmdb + movieCategory}/${movie.id}/keywords?api_key=${tmdbKey}`);
-          const keywords = await keywordsRequest.data;
-
-          if (credits) {
-            this.setState({ 
-              casts: credits.cast,
-              keywords: keywords.keywords
-            });
+    window.scrollTo(undefined, 0);
+  
+    if (parseInt(movieId, 10) !== this.props.movie.id) {
+      this.props.isCurrentlyFetching();
+      this.props.fetchSelected(movieCategory, movieId)
+        .then((state) => {
+          if (state === 404) {
+            this.setState({ error: 'Movie details cannot be found' });
           }
-        }
-      } catch (e) {
-        console.log('Cannot fetch movie', e);
-        this.setState(() => ({
-          loaded: true,
-          error: 'Movie details cannot be loaded'
-        }));
-      }
-    })();
+        });
+    }
   }
 
   openVideoModal = () => {
-    const { movie } = this.state;
+    const { movie } = this.props.movie;
 
     if (movie.videos.results.length >= 1) {
       this.setState(() => ({ isOpenVideoModal: true }));
@@ -114,20 +91,22 @@ class ViewMovie extends Component {
 
   render() {
     const { 
+      isOpenModal, 
+      isOpenVideoModal,
+      error
+    } = this.state;
+    const {
       movie, 
       casts,
       keywords,
-      isOpenModal, 
-      isOpenVideoModal, 
-      loaded, 
-      error 
-    } = this.state;
+      isLoading
+    } = this.props;
 
     const youtube = 'https://www.youtube.com/results?search_query=';
 
     return (
       <React.Fragment>
-        {!loaded && <LoadingScreen />}
+        {isLoading && <LoadingScreen />}
         {(!isEmpty(movie) && movie.videos.results.length >= 1) && (
           <ModalVideo 
               channel='youtube' 
@@ -167,7 +146,7 @@ class ViewMovie extends Component {
         </Modal>
         <div className="container container__backdrop">
           <div className="container__wrapper container__backdrop-wrapper">
-            {(loaded && !isEmpty(movie)) && (
+            {(!isLoading && !isEmpty(movie) && !error) && (
               <React.Fragment>
                 <div className="backdrop__container">
                   <img 
@@ -230,7 +209,7 @@ class ViewMovie extends Component {
                 </div>
               </React.Fragment>
             )}
-            {error && (
+            {(error && !isLoading) && (
               <div className="view__not-found">
                 <h1>{error}</h1>
                 <button 
@@ -241,7 +220,7 @@ class ViewMovie extends Component {
               </div>
             )}
           </div>
-          {casts.length >= 1 && (
+          {(casts.length >= 1 && !isLoading && !error) && (
             <div className="movie__casts">
               <div className="movie__casts-content">
                 <div className="movie__casts-wrapper">
@@ -311,7 +290,7 @@ class ViewMovie extends Component {
                         <Link 
                             className="button--key"
                             key={keyword.id + keyword.name}
-                            to="/genre" 
+                            to={`/search/movie/${keyword.name}`} 
                         >
                           #{keyword.name}
                         </Link>
@@ -320,15 +299,10 @@ class ViewMovie extends Component {
                       <p>No keywords found.</p>
                     )}
                   </div>
-                  {/* <div className="movie__details-trailers">
+                  <div className="movie__details-trailers">
                     <h4>Videos</h4>
-                    {movie.videos.results.map(video => (
-                      <object 
-                          key={video.key}
-                          data={`http://www.youtube.com/embed/${video.key}`}
-                      />
-                    ))}
-                  </div> */}
+                    
+                  </div>
                 </div>
               </div>
             </div>
@@ -339,13 +313,19 @@ class ViewMovie extends Component {
   }
 }
 
-const mapStateToProps = ({ favorites }) => ({
-  favorites
+const mapStateToProps = ({ favorites, current, isLoading }) => ({
+  favorites,
+  movie: current.movie,
+  casts: current.casts,
+  keywords: current.keywords,
+  isLoading
 });
 
 const mapDispatchToProps = dispatch => ({
   addToFavorites: favorites => dispatch(addToFavorites(favorites)),
-  removeFromFavorites: id => dispatch(removeFromFavorites(id))
+  removeFromFavorites: id => dispatch(removeFromFavorites(id)),
+  isCurrentlyFetching: () => dispatch(isCurrentlyFetching()),
+  fetchSelected: (category, id) => dispatch(fetchSelected(category, id))
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ViewMovie));

@@ -63,6 +63,7 @@ const Navigation = (props) => {
     if (current.nodeName === 'A') {
       toggler.current.classList.remove('open');
       menu.current.classList.remove('open');
+      window.scrollTo(undefined, 0);
     }
   };
 
