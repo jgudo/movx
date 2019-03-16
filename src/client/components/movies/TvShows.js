@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import TopProgressLoader from '../layout/TopProgressLoader'; 
 import LoadingScreen from '../layout/LoadingScreen'; 
@@ -90,6 +91,19 @@ class TvShows extends Component {
     );
   }
 }
+
+TvShows.propTypes = {
+  fetchRequest: PropTypes.func,
+  filter: PropTypes.objectOf(PropTypes.object),
+  isCurrentlyFetching: PropTypes.func,
+  isLoading: PropTypes.bool,
+  tvShows: PropTypes.shape({
+    activePage: PropTypes.number,
+    total_page: PropTypes.number,
+    total_results: PropTypes.number,
+    collection: PropTypes.arrayOf(PropTypes.object)
+  })
+};
 
 const mapStateToProps = ({ tvShows, isLoading, filter }) => ({
   tvShows,

@@ -18,7 +18,6 @@ class Search extends Component {
     search: {},
     loaded: false,
     isFetching: false,
-    isFetching: false,
     error: undefined
   };
   

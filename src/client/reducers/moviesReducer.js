@@ -6,6 +6,9 @@ const moviesReducer = (state = {
     keywords: [],
     casts: []
   },
+  popularMovies: {},
+  topRatedMovies: {},
+  upcomingMovies: {},
   tvShows: {},
   people: {},
   person: {},
@@ -76,6 +79,24 @@ const moviesReducer = (state = {
       return {
         ...state,
         person: action.data, 
+        isLoading: false
+      };
+    case 'FETCH_POPULAR_MOVIES':
+      return {
+        ...state,
+        popularMovies: action.data, 
+        isLoading: false
+      };
+    case 'FETCH_TOPRATED_MOVIES':
+      return {
+        ...state,
+        topRatedMovies: action.data, 
+        isLoading: false
+      };
+    case 'FETCH_UPCOMING_MOVIES':
+      return {
+        ...state,
+        upcomingMovies: action.data, 
         isLoading: false
       };
     case 'SET_DISCOVER_YEAR_FILTER':

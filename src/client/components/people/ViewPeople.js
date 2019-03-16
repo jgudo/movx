@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import LazyLoad from 'react-lazy-load';
 import Modal from 'react-responsive-modal';
@@ -138,6 +139,18 @@ const ViewPeople = (props) => {
       </div>
     </React.Fragment>
   );
+};
+
+ViewPeople.propTypes = {
+  isCurrentlyFetching: PropTypes.func,
+  isLoading: PropTypes.bool,
+  fetchPerson: PropTypes.func,
+  person: PropTypes.shape({
+    name: PropTypes.string,
+    id: PropTypes.number,
+    biography: PropTypes.string,
+    profile_path: PropTypes.string
+  })
 };
 
 const mapStateToProps = ({ person, isLoading }) => ({

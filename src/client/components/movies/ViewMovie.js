@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import ModalVideo from 'react-modal-video';
 import Modal from 'react-responsive-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -168,7 +169,7 @@ class ViewMovie extends Component {
                         <ImageLoader 
                             alt={movie.original_title || movie.original_name || movie.title}
                             imgId={movie.id} 
-                            src={`${tmdbPosterPath + movie.poster_path}`} 
+                            src={movie.poster_path ? `${tmdbPosterPath + movie.poster_path}` : '/images/img-placeholder.jpg'} 
                         />
                     </LazyLoad>
                   </div>
@@ -305,6 +306,18 @@ class ViewMovie extends Component {
     );
   }
 }
+
+ViewMovie.propTypes = {
+  addToFavorites: PropTypes.func,
+  casts: PropTypes.arrayOf(PropTypes.object),
+  favorites: PropTypes.arrayOf(PropTypes.object),
+  fetchSelected: PropTypes.func,
+  isCurrentlyFetching: PropTypes.func,
+  isLoading: PropTypes.bool,
+  keywords: PropTypes.arrayOf(PropTypes.object),
+  movie: PropTypes.object,
+  removeFromFavorites: PropTypes.func
+};
 
 const mapStateToProps = ({ favorites, current, isLoading }) => ({
   favorites,

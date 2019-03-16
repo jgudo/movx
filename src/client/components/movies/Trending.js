@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import TopProgressLoader from '../layout/TopProgressLoader'; 
 import LoadingScreen from '../layout/LoadingScreen'; 
@@ -58,12 +59,12 @@ class TrendingMovies extends Component {
                   })}
                 </div>
                 <PaginationBar 
-                  activePage={trendingMovies.activePage}
-                  itemsCountPerPage={1}
-                  onChange={this.handlePageChange}
-                  pageRangeDisplayed={10}
-                  totalItemsCount={trendingMovies.total_pages}
-                  totalPage={trendingMovies.total_pages}
+                    activePage={trendingMovies.activePage}
+                    itemsCountPerPage={1}
+                    onChange={this.handlePageChange}
+                    pageRangeDisplayed={10}
+                    totalItemsCount={trendingMovies.total_pages}
+                    totalPage={trendingMovies.total_pages}
               />
               <Footer />
               </React.Fragment>
@@ -75,10 +76,21 @@ class TrendingMovies extends Component {
   }
 }
 
-const mapStateToProps = ({ trendingMovies, isLoading, error }) => ({
+TrendingMovies.propTypes = {
+  fetchRequest: PropTypes.func,
+  isCurrentlyFetching: PropTypes.func,
+  isLoading: PropTypes.bool,
+  trendingMovies: PropTypes.shape({
+    activePage: PropTypes.number,
+    total_page: PropTypes.number,
+    total_results: PropTypes.number,
+    collection: PropTypes.arrayOf(PropTypes.object)
+  })
+};
+
+const mapStateToProps = ({ trendingMovies, isLoading }) => ({
   trendingMovies,
-  isLoading,
-  error
+  isLoading
 });
 
 const mapDispatchToProps = dispatch => ({

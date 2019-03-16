@@ -50,7 +50,7 @@ const MovieCard = (props) => {
               <ImageLoader 
                   alt={original_title || original_name || title}
                   imgId={id} 
-                  src={`${tmdbPosterPath + poster_path}`} 
+                  src={poster_path ? `${tmdbPosterPath + poster_path}` : '/images/img-placeholder.jpg'} 
               />
           </LazyLoad>
         </div>

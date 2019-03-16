@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import TopProgressLoader from '../layout/TopProgressLoader'; 
 import LoadingScreen from '../layout/LoadingScreen'; 
@@ -69,6 +70,18 @@ const People = (props) => {
       </div>
     </React.Fragment>
   );
+};
+
+People.propTypes = {
+  fetchRequest: PropTypes.func,
+  isCurrentlyFetching: PropTypes.func,
+  isLoading: PropTypes.bool,
+  people: PropTypes.shape({
+    collection: PropTypes.arrayOf(PropTypes.object),
+    activePage: PropTypes.number,
+    total_pages: PropTypes.number,
+    total_results: PropTypes.number
+  })
 };
 
 const mapStateToProps = ({ people, isLoading }) => ({

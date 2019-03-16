@@ -10,6 +10,7 @@ import { addSearchHistory, clearSearchHistory } from '../../actions/actions';
 const Navigation = (props) => {
   const [searchQuery, setQuery] = useState('');
   const searchHistory = useRef(null);
+  const navigation = useRef(null);
   const searchInput = useRef(null);
   const toggler = useRef(null);
   const menu = useRef(null);
@@ -68,10 +69,17 @@ const Navigation = (props) => {
     }
   };
 
+  window.addEventListener('scroll', () => {
+    if (window.pageYOffset === 0) {
+      navigation.current.style.background = 'transparent';
+    } else navigation.current.style.background = '#181b1d';
+  });
+
   return (
     <div 
         className="navigation"
         onClick={onClickLink}
+        ref={navigation}
     >
       <div className="navigation__wrapper">
         <div 

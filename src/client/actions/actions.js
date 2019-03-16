@@ -105,6 +105,31 @@ export const fetchPerson = (id) => {
   };
 };
 
+export const fetchMoviesBy = (action, query, page = 1) => {
+  let response;
+  return async (dispatch) => {
+    try {
+      const request = await axios.get(`${tmdb + query}api_key=${tmdbKey}&page=${page}`);
+      const data = await request.data;
+
+      if (data) {
+        dispatch({
+          type: action,
+          data,
+          isLoading: false
+        }); 
+      }
+    } catch (e) {
+      response = e.response.status;
+      dispatch({
+        type: 'IS_LOADING',
+        bool: false
+      });
+    }
+    return Promise.resolve(response); 
+  };
+};
+
 export const setYearFilter = (action, year) => (dispatch, getState) => {
   dispatch({
     type: action,

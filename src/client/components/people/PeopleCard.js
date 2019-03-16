@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import LazyLoad from 'react-lazy-load';
 import { Link } from 'react-router-dom';
 import ImageLoader from '../layout/ImageLoader';
@@ -11,7 +12,7 @@ const PeopleCard = (props) => {
     id,
     profile_path,
     name,
-    known_for
+    known_for_department
   } = props.people;
 
   return (
@@ -25,7 +26,7 @@ const PeopleCard = (props) => {
               <ImageLoader 
                   alt={name}
                   imgId={id} 
-                  src={`${tmdbPosterPath + profile_path}`} 
+                  src={profile_path ? `${tmdbPosterPath + profile_path}` : '/images/placeholder.jpg'} 
               />
           </LazyLoad>
         </div>
@@ -40,5 +41,14 @@ const PeopleCard = (props) => {
     </div>
   );
 }
+
+PeopleCard.propTypes = {
+  people: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    known_for_department: PropTypes.string,
+    profile_path: PropTypes.string
+  })
+};
 
 export default PeopleCard;
