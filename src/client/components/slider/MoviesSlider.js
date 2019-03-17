@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
 import PropTypes from 'prop-types';
 
 import SliderItem from './SliderItem';
 
 const MoviesSlider = ({ movies }) => {
+  const [isMobile, setIfMobile] = useState(false);
+
+  useEffect(() => {
+    if (window.screen.width <= 480) {
+      setIfMobile(true);
+    }
+  }, []);
   const settings = {
-    dots: false,
+    dots: isMobile,
     infinite: true,
     speed: 500,
     slidesToShow: 1,

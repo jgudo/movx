@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import TopProgressLoader from '../layout/TopProgressLoader'; 
 import LoadingScreen from '../layout/LoadingScreen'; 
-import MovieCard from './MovieCard';
+import MovieCard from '../movies/MovieCard';
 import PaginationBar from '../layout/PaginationBar';
 import Footer from '../layout/Footer';
 
@@ -14,41 +14,41 @@ import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
 // helpers
 import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
 
-const queryString = 'trending/all/day?';
+const queryString = 'movie/top_rated?';
 
-class TrendingMovies extends Component {
+class UpcomingMovies extends Component {
   componentDidMount() {
-    if (isEmpty(this.props.trendingMovies)) {
-      this.props.fetchRequest('FETCH_TRENDING_MOVIES', queryString);
+    if (isEmpty(this.props.upcomingMovies)) {
+      this.props.fetchRequest('FETCH_TOPRATED_MOVIES', queryString);
     }
   }
 
   handlePageChange = (e) => {
-    if (this.props.trendingMovies.page !== e && !this.props.isLoading) {
+    if (this.props.upcomingMovies.page !== e && !this.props.isLoading) {
       this.props.isCurrentlyFetching();
-      this.props.fetchRequest('FETCH_TRENDING_MOVIES', queryString, e);
+      this.props.fetchRequest('FETCH_TOPRATED_MOVIES', queryString, e);
     }
   };
 
   render() {
-    const { trendingMovies, isLoading } = this.props;
+    const { upcomingMovies, isLoading } = this.props;
     
     return (
       <React.Fragment>
         <TopProgressLoader isLoading={isLoading} />
-        {isEmpty(trendingMovies) && <LoadingScreen />}
+        {isEmpty(upcomingMovies) && <LoadingScreen />}
         <div className="container">
           <div className="container__wrapper container__movies">
-            {!isEmpty(trendingMovies) && (
+            {!isEmpty(upcomingMovies) && (
               <React.Fragment>
                 <div className="movie__header">
                   <div className="movie__header-title">
-                    <h1>Trending Movies</h1>
-                    <h3>{numberWithCommas(trendingMovies.total_results)} Movies</h3>
+                    <h1>Upcoming Movies</h1>
+                    <h3>{numberWithCommas(upcomingMovies.total_results)} Movies</h3>
                   </div>
                 </div>
                 <div className="movie__wrapper">
-                  {trendingMovies.results.map((movie, index) => {
+                  {upcomingMovies.results.map((movie, index) => {
                     return (
                       <MovieCard 
                           category="movie"
@@ -59,12 +59,12 @@ class TrendingMovies extends Component {
                   })}
                 </div>
                 <PaginationBar 
-                    activePage={trendingMovies.page}
+                    activePage={upcomingMovies.page}
                     itemsCountPerPage={1}
                     onChange={this.handlePageChange}
                     pageRangeDisplayed={10}
-                    totalItemsCount={trendingMovies.total_pages}
-                    totalPage={trendingMovies.total_pages}
+                    totalItemsCount={upcomingMovies.total_pages}
+                    totalPage={upcomingMovies.total_pages}
               />
               <Footer />
               </React.Fragment>
@@ -76,11 +76,11 @@ class TrendingMovies extends Component {
   }
 }
 
-TrendingMovies.propTypes = {
+UpcomingMovies.propTypes = {
   fetchRequest: PropTypes.func,
   isCurrentlyFetching: PropTypes.func,
   isLoading: PropTypes.bool,
-  trendingMovies: PropTypes.shape({
+  upcomingMovies: PropTypes.shape({
     page: PropTypes.number,
     total_page: PropTypes.number,
     total_results: PropTypes.number,
@@ -88,8 +88,8 @@ TrendingMovies.propTypes = {
   })
 };
 
-const mapStateToProps = ({ trendingMovies, isLoading }) => ({
-  trendingMovies,
+const mapStateToProps = ({ upcomingMovies, isLoading }) => ({
+  upcomingMovies,
   isLoading
 });
 
@@ -98,4 +98,4 @@ const mapDispatchToProps = dispatch => ({
   isCurrentlyFetching: bool => dispatch(isCurrentlyFetching(bool))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TrendingMovies);
+export default connect(mapStateToProps, mapDispatchToProps)(UpcomingMovies);

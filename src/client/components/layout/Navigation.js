@@ -3,7 +3,6 @@ import React, { useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { NavLink, withRouter, Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { addSearchHistory, clearSearchHistory } from '../../actions/actions';
 
@@ -189,7 +188,7 @@ const Navigation = (props) => {
                 className="button--link search__button"
                 onClick={onSubmitQuery}
             >
-              <FontAwesomeIcon icon={['fa', 'search']} color="#dadada" />
+            <span className="icon icon-search">🔍</span>
             </button>
             {props.recentSearch.length >= 1 && (
               <div 
@@ -223,10 +222,7 @@ const Navigation = (props) => {
             className="button--link search__toggle"
             onClick={onSearchToggle}
         >
-          <FontAwesomeIcon 
-              color="#dadada"
-              icon={['fa', 'search']} 
-          />
+          <span className="icon icon-search">🔍</span>
         </button>
       </div>
     </div>

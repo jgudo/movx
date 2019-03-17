@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { 
   setYearFilter, 
@@ -200,10 +199,7 @@ const Filter = (props) => {
           className="filter__toggle"
           onClick={onFilterToggle}
       >
-        <FontAwesomeIcon 
-            color="#dadada" 
-            icon={['fa', 'filter']} 
-        />
+      Filter
       </button>
     </div>
   );

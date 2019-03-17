@@ -37,7 +37,7 @@ class TvShows extends Component {
   }
 
   handlePageChange = (e) => {
-    if (this.props.tvShows.activePage !== e) {
+    if (this.props.tvShows.page !== e) {
       this.fetchMovies(e);
     }
   };
@@ -64,7 +64,7 @@ class TvShows extends Component {
                   /> 
                 </div>
               <div className="movie__wrapper">
-                {tvShows.collection.map((show) => {
+                {tvShows.results.map((show) => {
                   return (
                     <MovieCard 
                         key={show.id}
@@ -75,7 +75,7 @@ class TvShows extends Component {
                 })}
               </div>
               <PaginationBar 
-                  activePage={tvShows.activePage}
+                  activePage={tvShows.page}
                   itemsCountPerPage={1}
                   onChange={this.handlePageChange}
                   pageRangeDisplayed={10}
@@ -98,10 +98,10 @@ TvShows.propTypes = {
   isCurrentlyFetching: PropTypes.func,
   isLoading: PropTypes.bool,
   tvShows: PropTypes.shape({
-    activePage: PropTypes.number,
+    page: PropTypes.number,
     total_page: PropTypes.number,
     total_results: PropTypes.number,
-    collection: PropTypes.arrayOf(PropTypes.object)
+    results: PropTypes.arrayOf(PropTypes.object)
   })
 };
 

@@ -39,7 +39,7 @@ class DiscoverMovies extends Component {
   }
 
   handlePageChange = (e) => {
-    if (this.props.discoverMovies.activePage !== e) {
+    if (this.props.discoverMovies.page !== e) {
       this.fetchMovies(e)
     }
   };
@@ -66,7 +66,7 @@ class DiscoverMovies extends Component {
                   />
                 </div>  
                 <div className="movie__wrapper">
-                  {discoverMovies.collection.map((movie, index) => {
+                  {discoverMovies.results.map((movie, index) => {
                     return (
                       <MovieCard 
                           category="movie"
@@ -77,7 +77,7 @@ class DiscoverMovies extends Component {
                   })}
                 </div>
                 <PaginationBar 
-                    activePage={discoverMovies.activePage}
+                    activePage={discoverMovies.page}
                     itemsCountPerPage={1}
                     onChange={this.handlePageChange}
                     pageRangeDisplayed={10}

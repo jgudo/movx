@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Pagination from 'react-js-pagination';
 
 const PaginationBar = ({
@@ -24,14 +23,14 @@ const PaginationBar = ({
       <Pagination
           activePage={activePage}
           disabledClass="page--disabled"
-          firstPageText={<FontAwesomeIcon icon={['fa', 'angle-double-left']} />}
+          firstPageText="First"
           hideNavigation={totalPage <= 1}
           itemsCountPerPage={itemsCountPerPage}
-          lastPageText={<FontAwesomeIcon icon={['fa', 'angle-double-right']} />}
-          nextPageText={<FontAwesomeIcon icon={['fa', 'angle-right']} />}
+          lastPageText="Last"
+          nextPageText="Next"
           onChange={onChange}
           pageRangeDisplayed={isMobile ? '5' : pageRangeDisplayed}
-          prevPageText={<FontAwesomeIcon icon={['fa', 'angle-left']} />}
+          prevPageText="Prev"
           totalItemsCount={totalItemsCount > 1000 ? 1000 : totalItemsCount}
       />
     </div>

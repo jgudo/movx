@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import LazyLoad from 'react-lazy-load';
 import StarRatings from 'react-star-ratings';
 import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ImageLoader from '../layout/ImageLoader';
 
 import { addToFavorites, removeFromFavorites } from '../../actions/actions';

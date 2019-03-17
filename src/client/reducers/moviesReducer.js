@@ -12,7 +12,7 @@ const moviesReducer = (state = {
   tvShows: {},
   people: {},
   person: {},
-  genres: [],
+  genres: {},
   genreMovies: {},
   favorites: [],
   filter: {

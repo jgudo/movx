@@ -7,35 +7,8 @@ import 'slick-carousel/slick/slick.css';
 import './styles/style.scss';
 import WebFont from 'webfontloader';
 
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { 
-  faHeart, 
-  faSearch, 
-  faAngleDoubleRight, 
-  faAngleDoubleLeft, 
-  faAngleRight,
-  faAngleLeft,
-  faPlayCircle,
-  faStar,
-  faFilter
-} from '@fortawesome/free-solid-svg-icons';
 import configureStore from './store/configureStore';
 import AppRouter from './routers/AppRouter';
-
-// test action
-// import { fetchMovies } from './actions/actions';
-
-library.add(
-  faHeart, 
-  faSearch,
-  faAngleDoubleRight,
-  faAngleDoubleLeft,
-  faAngleRight,
-  faAngleLeft,
-  faPlayCircle,
-  faStar,
-  faFilter
-);
 
 WebFont.load({
   google: {

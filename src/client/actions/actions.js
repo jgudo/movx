@@ -9,32 +9,19 @@ export const isCurrentlyFetching = (bool = true) => ({
 });
 
 export const fetchRequest = (action, query, page = 1) => {
+  let response;
   return async (dispatch) => {
     try {
       const request = await axios.get(`${tmdb + query}&api_key=${tmdbKey}&page=${page}`);
       const tmdbData = await request.data;
 
       if (tmdbData) {
-        if (action === 'FETCH_GENRES') {
-          dispatch({
-            type: action,
-            data: tmdbData.genres,
-            isLoading: false,
-            error: undefined
-          });    
-        } else {
-          dispatch({
-            type: action,
-            data: {
-              activePage: tmdbData.page,
-              collection: tmdbData.results,
-              total_pages: tmdbData.total_pages,
-              total_results: tmdbData.total_results
-            },
-            isLoading: false,
-            error: undefined
-          });
-        }
+        dispatch({
+          type: action,
+          data: tmdbData,
+          isLoading: false,
+          error: undefined
+        });
         window.scrollTo(null, 0);
       }
     } catch (err) {
@@ -44,6 +31,7 @@ export const fetchRequest = (action, query, page = 1) => {
         bool: false
       });
     }  
+    return Promise.resolve(response); 
   };
 };
 
@@ -93,31 +81,6 @@ export const fetchPerson = (id) => {
           data: person,
           isLoading: false
         });  
-      }
-    } catch (e) {
-      response = e.response.status;
-      dispatch({
-        type: 'IS_LOADING',
-        bool: false
-      });
-    }
-    return Promise.resolve(response); 
-  };
-};
-
-export const fetchMoviesBy = (action, query, page = 1) => {
-  let response;
-  return async (dispatch) => {
-    try {
-      const request = await axios.get(`${tmdb + query}api_key=${tmdbKey}&page=${page}`);
-      const data = await request.data;
-
-      if (data) {
-        dispatch({
-          type: action,
-          data,
-          isLoading: false
-        }); 
       }
     } catch (e) {
       response = e.response.status;

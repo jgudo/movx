@@ -6,6 +6,8 @@ import App from '../App';
 import Navigation from '../components/layout/Navigation';
 import DiscoverMovies from '../components/movies/Discover';
 import TrendingMovies from '../components/movies/Trending';
+import TopRatedMovies from '../components/popular/TopRatedMovies';
+import UpcomingMovies from '../components/popular/UpcomingMovies';
 import TvShows from '../components/movies/TvShows';
 import People from '../components/people/People';
 import ViewMovie from '../components/movies/ViewMovie';
@@ -48,6 +50,16 @@ const AppRouter = () => (
             component={TvShows} 
             exact={true}
             path="/tv" 
+        />
+        <Route 
+            component={TopRatedMovies} 
+            exact={true}
+            path="/top_rated" 
+        />
+        <Route 
+            component={UpcomingMovies} 
+            exact={true}
+            path="/upcoming" 
         />
         <Route 
             component={ViewMovie}

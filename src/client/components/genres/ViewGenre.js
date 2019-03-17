@@ -34,7 +34,7 @@ const ViewGenre = (props) => {
 
 
   const handlePageChange = (e) => {
-    if (props.genreMovies.activePage !== e && !props.isLoading) {
+    if (props.genreMovies.page !== e && !props.isLoading) {
       fetchMovieGenre(e);
     }
   };
@@ -54,7 +54,7 @@ const ViewGenre = (props) => {
                 </div>
               </div>
               <div className="movie__wrapper">
-                {genreMovies.collection.map((movie, index) => {
+                {genreMovies.results.map((movie, index) => {
                   return (
                     <MovieCard 
                         category="movie"
@@ -65,7 +65,7 @@ const ViewGenre = (props) => {
                 })}
               </div>
               <PaginationBar 
-                  activePage={genreMovies.activePage}
+                  activePage={genreMovies.page}
                   itemsCountPerPage={1}
                   onChange={handlePageChange}
                   pageRangeDisplayed={10}
@@ -85,8 +85,8 @@ ViewGenre.propTypes = {
   genreMovies: PropTypes.shape({
     total_results: PropTypes.number,
     total_pages: PropTypes.number,
-    activePage: PropTypes.number,
-    collection: PropTypes.arrayOf(PropTypes.object)
+    page: PropTypes.number,
+    results: PropTypes.arrayOf(PropTypes.object)
   }),
   isLoading: PropTypes.bool
 };

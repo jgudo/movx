@@ -24,7 +24,7 @@ const People = (props) => {
   }, []);
 
   const handlePageChange = (e) => {
-    if (props.people.activePage !== e) {
+    if (props.people.page !== e) {
       props.isCurrentlyFetching();
       props.fetchRequest('FETCH_PEOPLE', 'person/popular?', e);
     }
@@ -45,7 +45,7 @@ const People = (props) => {
               </div>
             </div>
             <div className="movie__wrapper">
-              {people.collection.map((person) => {
+              {people.results.map((person) => {
                 return (
                   <PeopleCard 
                       category="people"
@@ -56,7 +56,7 @@ const People = (props) => {
               })}
             </div>
             <PaginationBar 
-                activePage={people.activePage}
+                activePage={people.page}
                 itemsCountPerPage={1}
                 onChange={handlePageChange}
                 pageRangeDisplayed={10}
@@ -77,8 +77,8 @@ People.propTypes = {
   isCurrentlyFetching: PropTypes.func,
   isLoading: PropTypes.bool,
   people: PropTypes.shape({
-    collection: PropTypes.arrayOf(PropTypes.object),
-    activePage: PropTypes.number,
+    results: PropTypes.arrayOf(PropTypes.object),
+    page: PropTypes.number,
     total_pages: PropTypes.number,
     total_results: PropTypes.number
   })

@@ -4,7 +4,6 @@ import { withRouter, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ModalVideo from 'react-modal-video';
 import Modal from 'react-responsive-modal';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import LazyLoad from 'react-lazy-load';
 
 import PeopleCard from '../people/PeopleCard';
@@ -142,8 +141,8 @@ class ViewMovie extends Component {
             Search in Youtube
           </a>
         </Modal>
-        <div className="container container__backdrop">
-          <div className="container__wrapper container__backdrop-wrapper">
+        <div className="container pt-0 mt-0">
+          <div className="container__wrapper w-100">
             {(!isLoading && !isEmpty(movie) && !error) && (
               <React.Fragment>
                 <div className="backdrop__container">

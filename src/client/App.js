@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import MoviesSlider from './components/slider/MoviesSlider';
 import MovieCard from './components/movies/MovieCard';
 import Footer from './components/layout/Footer';
+import LoadingScreen from './components/layout/LoadingScreen';
 
-import { fetchMoviesBy, isCurrentlyFetching } from './actions/actions';
+import { fetchRequest, isCurrentlyFetching } from './actions/actions';
 import { isEmpty } from './helpers/helperFunctions';
 
 const App = (props) => {
@@ -17,55 +19,79 @@ const App = (props) => {
   } = props;
 
   useEffect(() => {
-    if (isEmpty(popularMovies)) props.fetchMoviesBy('FETCH_POPULAR_MOVIES', 'movie/popular?');
-    if (isEmpty(topRatedMovies)) props.fetchMoviesBy('FETCH_TOPRATED_MOVIES', 'movie/top_rated?');
-    if (isEmpty(upcomingMovies)) props.fetchMoviesBy('FETCH_UPCOMING_MOVIES', 'movie/upcoming?');
+    if (isEmpty(popularMovies)) props.fetchRequest('FETCH_POPULAR_MOVIES', 'movie/popular?');
+    if (isEmpty(topRatedMovies)) props.fetchRequest('FETCH_TOPRATED_MOVIES', 'movie/top_rated?');
+    if (isEmpty(upcomingMovies)) props.fetchRequest('FETCH_UPCOMING_MOVIES', 'movie/upcoming?');
   }, []);
 
+  const onClickLink = (location) => {
+    props.history.push(location);
+    window.scrollTo(undefined, 0);
+  };
+
   return (
-    <div className="container container__root">
-      <MoviesSlider 
-        movies={popularMovies.results}
-      />
-      <div className="container__wrapper">
-        <div className="movie__header">
-          <div className="movie__header-title">
-            <br/>
-            <br/>
-            <h1>Upcoming Movies</h1>
+    <div className="container pt-0 mt-0">
+      {isEmpty(popularMovies) && <LoadingScreen />}
+      {(!isEmpty(popularMovies) && !isLoading) && (
+        <React.Fragment>
+          <MoviesSlider 
+              movies={popularMovies.results}
+          />
+          <div className="container__root">
+            <div className="container__wrapper">
+              <div className="movie__header">
+                <div className="movie__header-title">
+                  <br/>
+                  <br/>
+                  <h1>Upcoming Movies</h1>
+                </div>
+              </div>
+              <div className="movie__wrapper">
+                {!isEmpty(upcomingMovies) && upcomingMovies.results.map((movie, index) => {
+                  return index < 10 && (
+                    <MovieCard 
+                        category="movie"
+                        key={`${movie.id}_${index}`}
+                        movie={movie} 
+                    />
+                  );
+                })}
+              </div>
+              <button 
+                  className="button--primary m-auto"
+                  onClick={() => onClickLink('/upcoming')}
+              >
+              View All Upcoming Movies
+              </button>
+              <div className="movie__header">
+                <div className="movie__header-title">
+                  <br/>
+                  <br/>
+                  <h1>Top Rated Movies</h1>
+                </div>
+              </div>
+              <div className="movie__wrapper">
+                {!isEmpty(topRatedMovies) && topRatedMovies.results.map((movie, index) => {
+                  return index < 10 && (
+                    <MovieCard 
+                        category="movie"
+                        key={`${movie.id}_${index}`}
+                        movie={movie} 
+                    />
+                  );
+                })}
+              </div>
+              <button 
+                  className="button--primary m-auto"
+                  onClick={() => onClickLink('/top_rated')}
+              >
+              View All Top Rated Movies
+              </button>
+              <Footer />
+            </div>
           </div>
-        </div>
-        <div className="movie__wrapper">
-          {upcomingMovies.results.map((movie, index) => {
-            return index < 10 && (
-              <MovieCard 
-                  category="movie"
-                  key={`${movie.id}_${index}`}
-                  movie={movie} 
-              />
-            );
-          })}
-        </div>
-        <div className="movie__header">
-          <div className="movie__header-title">
-            <br/>
-            <br/>
-            <h1>Top Rated Movies</h1>
-          </div>
-        </div>
-        <div className="movie__wrapper">
-          {topRatedMovies.results.map((movie, index) => {
-            return index < 10 && (
-              <MovieCard 
-                  category="movie"
-                  key={`${movie.id}_${index}`}
-                  movie={movie} 
-              />
-            );
-          })}
-        </div>
-        <Footer />
-      </div>
+        </React.Fragment>
+      )}
     </div>
   );
 };
@@ -83,8 +109,8 @@ const mapStateToProps = ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchMoviesBy: (action, query, page) => dispatch(fetchMoviesBy(action, query, page)),
+  fetchRequest: (action, query, page) => dispatch(fetchRequest(action, query, page)),
   isCurrentlyFetching: () => dispatch(isCurrentlyFetching())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

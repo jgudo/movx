@@ -60,17 +60,6 @@
   @media (max-width: $mobile) {
     padding: 0;
   }
-
-  button {
-    @media (max-width: $tablet) {
-      width: 100%;
-      margin-bottom: $m-size;
-    }
-
-    @media (max-width: $mobile) {
-      margin-right: 0;
-    }
-  }
 }
 
 .view__overview {
@@ -117,6 +106,17 @@
   @media (max-width: $tablet) {
     flex-direction: column;
   }
+
+  button {
+    @media (max-width: $tablet) {
+      width: 100%;
+      margin-bottom: $m-size;
+    }
+
+    @media (max-width: $mobile) {
+      margin-right: 0;
+    }
+  }
 }
 
 .view__not-found {
@@ -148,6 +148,7 @@
 
 .icon {
   padding: 0 2px;
+  color: #fff;
 }
 .icon-star {
   color: yellow;

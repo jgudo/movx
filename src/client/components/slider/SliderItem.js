@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { addToFavorites, removeFromFavorites } from '../../actions/actions';
 
@@ -37,7 +36,6 @@ const SliderItem = ({
             &nbsp;{movie.vote_average} Rating
           </p>
           <p className="view__overview">{movie.overview}</p>
-          <br/>
           <br/>
           <div className="view__actions">
             <button 
