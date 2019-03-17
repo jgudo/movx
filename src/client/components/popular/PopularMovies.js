@@ -19,14 +19,14 @@ const queryString = 'movie/popular?';
 class PopularMovies extends Component {
   componentDidMount() {
     if (isEmpty(this.props.popularMovies)) {
-      this.props.fetchRequest('FETCH_TOPRATED_MOVIES', queryString);
+      this.props.fetchRequest('FETCH_POPULAR_MOVIES', queryString);
     }
   }
 
   handlePageChange = (e) => {
     if (this.props.popularMovies.page !== e && !this.props.isLoading) {
       this.props.isCurrentlyFetching();
-      this.props.fetchRequest('FETCH_TOPRATED_MOVIES', queryString, e);
+      this.props.fetchRequest('FETCH_POPULAR_MOVIES', queryString, e);
     }
   };
 

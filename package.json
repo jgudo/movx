@@ -4,6 +4,11 @@
   "main": "index.js",
   "author": "Julius Guevarra",
   "license": "MIT",
+  "engines": {
+    "node": "10.14.2",
+    "npm": "6.5.0"
+  },
+  "keywords": ["movie", "tmdb", "tmdb api", "movie browsing"],
   "scripts": {
     "serve": "live-server public/",
     "build": "cross-env NODE_ENV=production webpack --config webpack/prod.config.js",

@@ -147,8 +147,8 @@ class ViewMovie extends Component {
               <React.Fragment>
                 <div className="backdrop__container">
                   <img 
+                      alt=""
                       className="backdrop__image"
-                      alt={movie.original_name || movie.original_title}
                       src={`${tmdbBackdropPath + movie.backdrop_path}`} 
                   />
                 </div>

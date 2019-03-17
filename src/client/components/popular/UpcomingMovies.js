@@ -19,14 +19,14 @@ const queryString = 'movie/upcoming?';
 class UpcomingMovies extends Component {
   componentDidMount() {
     if (isEmpty(this.props.upcomingMovies)) {
-      this.props.fetchRequest('FETCH_TOPRATED_MOVIES', queryString);
+      this.props.fetchRequest('FETCH_UPCOMING_MOVIES', queryString);
     }
   }
 
   handlePageChange = (e) => {
     if (this.props.upcomingMovies.page !== e && !this.props.isLoading) {
       this.props.isCurrentlyFetching();
-      this.props.fetchRequest('FETCH_TOPRATED_MOVIES', queryString, e);
+      this.props.fetchRequest('FETCH_UPCOMING_MOVIES', queryString, e);
     }
   };
 

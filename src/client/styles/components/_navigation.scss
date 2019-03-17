@@ -10,6 +10,7 @@
   z-index: 15;
   
   @media (max-width: $tablet) {
+    height: 60px;  
     background: $dark-blue-0 !important;
     box-shadow: 0 8px 20px rgba(0,0,0,.1);
   }
@@ -69,12 +70,13 @@
 
   @media (max-width: $tablet) {
     position: absolute;
-    top: 80px;
+    top: 60px;
     left: 0;
     width: 100%;
     height: 100%;
     position: fixed;
     overflow-y: scroll;
+    visibility: hidden;
   }
 }
 
@@ -225,10 +227,10 @@
 }
 
 .navigation__toggle {
-  width: 30px;
-  height: 20px;
+  width: 25px;
+  height: 15px;
   position: absolute;
-  left: $m-size;
+  left: rem(30);
   overflow: hidden;
   display: none;
 
@@ -268,12 +270,12 @@
   &.open {
     div:first-child {
       transform: rotate(-45deg);
-      top: 10px;
+      top: 8px;
     }
 
     div:last-child {
       transform: rotate(45deg);
-      bottom: 10px;
+      bottom: 8px;
     }
 
     div:nth-child(2) {

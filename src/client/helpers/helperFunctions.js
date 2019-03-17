@@ -7,7 +7,7 @@ export const isEmpty = (obj) => {
 };
 
 export const numberWithCommas = (x) => {
-  return x ? x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : null;  
+  return x ? x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : 0;  
 };
 
 export const toHrsMins = (mins) => {

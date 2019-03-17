@@ -19,7 +19,10 @@ const App = (props) => {
   } = props;
 
   useEffect(() => {
-    if (isEmpty(popularMovies)) props.fetchRequest('FETCH_POPULAR_MOVIES', 'movie/popular?');
+    if (isEmpty(popularMovies) || popularMovies.page !== 1) {
+      props.isCurrentlyFetching();
+      props.fetchRequest('FETCH_POPULAR_MOVIES', 'movie/popular?');
+    }
     if (isEmpty(topRatedMovies)) props.fetchRequest('FETCH_TOPRATED_MOVIES', 'movie/top_rated?');
     if (isEmpty(upcomingMovies)) props.fetchRequest('FETCH_UPCOMING_MOVIES', 'movie/upcoming?');
   }, []);
@@ -31,7 +34,7 @@ const App = (props) => {
 
   return (
     <div className="container pt-0 mt-0">
-      {isEmpty(popularMovies) && <LoadingScreen />}
+      {isLoading && <LoadingScreen />}
       {(!isEmpty(popularMovies) && !isLoading) && (
         <React.Fragment>
           <MoviesSlider 

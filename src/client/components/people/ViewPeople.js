@@ -50,8 +50,8 @@ const ViewPeople = (props) => {
   return (
     <React.Fragment>
       {isLoading && <LoadingScreen />}
-      <div className="container container__backdrop">
-        <div className="container__wrapper container__backdrop-wrapper">
+      <div className="container mt-0 pt-0">
+        <div className="container__wrapper w-100">
           {(!isLoading && !isEmpty(person) && !error) && (
             <React.Fragment>
               <Modal 
@@ -112,7 +112,7 @@ const ViewPeople = (props) => {
                     &nbsp;{movie.vote_average} Rating
                   </p> */}
                   <h4>Biography</h4>
-                  <p>{person.biography}</p>
+                  <p className="view__overview">{person.biography}</p>
                   <br/>
                   <br/>
                   <button 
