@@ -26,6 +26,7 @@
   height: 450px;
   background: #f1f1f1;
   border-radius: 6px;
+  position: relative;
 
   @media (max-width: $mobile) {
     width: 100%;
@@ -60,17 +61,6 @@
     padding: 0;
   }
 
-  p {
-    width: 100%;
-    max-height: 250px;
-    display: block; /* Fallback for non-webkit */
-    display: -webkit-box;
-    -webkit-line-clamp: 7;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
   button {
     @media (max-width: $tablet) {
       width: 100%;
@@ -81,6 +71,17 @@
       margin-right: 0;
     }
   }
+}
+
+.view__overview {
+  width: 100%;
+  max-height: 200px;
+  display: block; /* Fallback for non-webkit */
+  display: -webkit-box;
+  -webkit-line-clamp: 7;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .view__title {
@@ -94,6 +95,19 @@
 
 .view__rating {
   margin-top: 0;
+}
+
+.view__rank {
+  position: absolute;
+  color: #fff;
+  background: $blue;
+  top: 0;
+  right: 0;
+  border-top-right-radius: 6px;
+  h6 {
+    padding: $s-size $m-size;
+    margin: 0;
+  }
 }
 
 .view__actions {
@@ -130,4 +144,16 @@
   @media (max-width: $mobile) {
     left: $m-size;
   }
+}
+
+.icon {
+  padding: 0 2px;
+}
+.icon-star {
+  color: yellow;
+}
+
+.icon-heart,
+.icon-play {
+  margin-left: 10px;
 }

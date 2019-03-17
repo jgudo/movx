@@ -1,7 +1,7 @@
 .container {
   width: 100%;
   height: auto;
-  padding: $l-size $xl-size;
+  padding: $l-size 0;
   margin-top: $xl-size;
   position: relative;
 
@@ -10,8 +10,13 @@
   }
 }
 
+.container__root {
+   margin-top: 0;
+   padding-top: 0;
+}
+
 .container__wrapper {
-  width: 85%;
+  width: 80%;
   margin: auto;
   position: relative;
 
@@ -51,6 +56,6 @@
     margin: auto;
     width: 100%;
     height: 100%;
-    background: transparentize($dark-blue-0, .1);
+    background: transparentize($dark-blue-0, .3);
   }
 }

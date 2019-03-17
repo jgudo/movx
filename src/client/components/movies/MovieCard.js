@@ -75,10 +75,13 @@ const MovieCard = (props) => {
               className="button--add-favorite"
               onClick={onAddToFavorites}
           >
-            <FontAwesomeIcon
-                color={found() ? '#ff2e4f' : '#5b6166'} 
-                icon={['fa', 'heart']} 
-            />
+          <span 
+              className="icon icon-heart"
+              style={{
+                color: found() ? '#ff2e4f' : '#5b6166'
+              }}>
+              ❤
+          </span>
           </button>
           <div className="tooltip">
             <span>{found() ? 'Remove from favorites' : 'Add To Favorites'}</span>

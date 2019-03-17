@@ -34,7 +34,7 @@
 }
 
 .movie__slider-content {
-  width: 80%;
+  width: 85%;
   height: 100%;
   position: absolute;
   left: 0;
@@ -45,6 +45,9 @@
   padding: $xl-size;
   padding-top: rem(150);
   z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .movie__slider-description {
@@ -56,16 +59,7 @@
 
   h1 {
     font-size: $xl-size;
-  }
-
-  p {
-    max-height: 150px;
-    display: block;
-    display: -webkit-box;
-    -webkit-line-clamp: 7;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    margin-bottom: 0;
   }
 }
 

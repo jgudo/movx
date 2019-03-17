@@ -181,15 +181,15 @@ class ViewMovie extends Component {
                       }
                     </h1>
                     <p className="view__rating">
-                      <FontAwesomeIcon icon={['fa', 'star']} color="yellow" />
+                      <span className="icon icon-star">★</span>
                       &nbsp;{movie.vote_average} Rating
                     </p>
                     <h4>Overview</h4>
-                    <p>{movie.overview}</p>
+                    <p className="view__overview">{movie.overview}</p>
                     <div className="view__actions">
                       <button className="button--primary" onClick={this.openVideoModal}>
                         Watch Trailer
-                        <FontAwesomeIcon icon={['fa', 'play-circle']} />
+                        <span className="icon icon-play">▶️</span>
                       </button>
                       <button 
                           className="button--outlined button--favorites"
@@ -200,7 +200,7 @@ class ViewMovie extends Component {
                           }}
                       >
                         {this.found() ? 'Remove From Favorites' : 'Add To Favorites'}
-                        <FontAwesomeIcon icon={['fa', 'heart']} />
+                        <span className="icon icon-heart">❤</span>
                       </button>
                     </div>
                   </div>            
