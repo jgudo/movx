@@ -8,6 +8,7 @@ import DiscoverMovies from '../components/movies/Discover';
 import TrendingMovies from '../components/movies/Trending';
 import TopRatedMovies from '../components/popular/TopRatedMovies';
 import UpcomingMovies from '../components/popular/UpcomingMovies';
+import PopularMovies from '../components/popular/PopularMovies';
 import TvShows from '../components/movies/TvShows';
 import People from '../components/people/People';
 import ViewMovie from '../components/movies/ViewMovie';
@@ -60,6 +61,11 @@ const AppRouter = () => (
             component={UpcomingMovies} 
             exact={true}
             path="/upcoming" 
+        />
+        <Route 
+            component={PopularMovies} 
+            exact={true}
+            path="/popular" 
         />
         <Route 
             component={ViewMovie}

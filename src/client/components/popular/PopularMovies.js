@@ -14,41 +14,41 @@ import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
 // helpers
 import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
 
-const queryString = 'movie/upcoming?';
+const queryString = 'movie/popular?';
 
-class UpcomingMovies extends Component {
+class PopularMovies extends Component {
   componentDidMount() {
-    if (isEmpty(this.props.upcomingMovies)) {
+    if (isEmpty(this.props.popularMovies)) {
       this.props.fetchRequest('FETCH_TOPRATED_MOVIES', queryString);
     }
   }
 
   handlePageChange = (e) => {
-    if (this.props.upcomingMovies.page !== e && !this.props.isLoading) {
+    if (this.props.popularMovies.page !== e && !this.props.isLoading) {
       this.props.isCurrentlyFetching();
       this.props.fetchRequest('FETCH_TOPRATED_MOVIES', queryString, e);
     }
   };
 
   render() {
-    const { upcomingMovies, isLoading } = this.props;
+    const { popularMovies, isLoading } = this.props;
     
     return (
       <React.Fragment>
         <TopProgressLoader isLoading={isLoading} />
-        {isEmpty(upcomingMovies) && <LoadingScreen />}
+        {isEmpty(popularMovies) && <LoadingScreen />}
         <div className="container">
           <div className="container__wrapper container__movies">
-            {!isEmpty(upcomingMovies) && (
+            {!isEmpty(popularMovies) && (
               <React.Fragment>
                 <div className="movie__header">
                   <div className="movie__header-title">
-                    <h1>Upcoming Movies</h1>
-                    <h3>{numberWithCommas(upcomingMovies.total_results)} Movies</h3>
+                    <h1>Popular Movies</h1>
+                    <h3>{numberWithCommas(popularMovies.total_results)} Movies</h3>
                   </div>
                 </div>
                 <div className="movie__wrapper">
-                  {upcomingMovies.results.map((movie, index) => {
+                  {popularMovies.results.map((movie, index) => {
                     return (
                       <MovieCard 
                           category="movie"
@@ -59,12 +59,12 @@ class UpcomingMovies extends Component {
                   })}
                 </div>
                 <PaginationBar 
-                    activePage={upcomingMovies.page}
+                    activePage={popularMovies.page}
                     itemsCountPerPage={1}
                     onChange={this.handlePageChange}
                     pageRangeDisplayed={10}
-                    totalItemsCount={upcomingMovies.total_pages}
-                    totalPage={upcomingMovies.total_pages}
+                    totalItemsCount={popularMovies.total_pages}
+                    totalPage={popularMovies.total_pages}
               />
               <Footer />
               </React.Fragment>
@@ -76,11 +76,11 @@ class UpcomingMovies extends Component {
   }
 }
 
-UpcomingMovies.propTypes = {
+PopularMovies.propTypes = {
   fetchRequest: PropTypes.func,
   isCurrentlyFetching: PropTypes.func,
   isLoading: PropTypes.bool,
-  upcomingMovies: PropTypes.shape({
+  popularMovies: PropTypes.shape({
     page: PropTypes.number,
     total_page: PropTypes.number,
     total_results: PropTypes.number,
@@ -88,8 +88,8 @@ UpcomingMovies.propTypes = {
   })
 };
 
-const mapStateToProps = ({ upcomingMovies, isLoading }) => ({
-  upcomingMovies,
+const mapStateToProps = ({ popularMovies, isLoading }) => ({
+  popularMovies,
   isLoading
 });
 
@@ -98,4 +98,4 @@ const mapDispatchToProps = dispatch => ({
   isCurrentlyFetching: bool => dispatch(isCurrentlyFetching(bool))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(UpcomingMovies);
+export default connect(mapStateToProps, mapDispatchToProps)(PopularMovies);

@@ -114,14 +114,54 @@ const Navigation = (props) => {
             >
               Trending
             </NavLink>
+            <div className="navigation__dropdown">
+              <NavLink 
+                  activeClassName="navigation__active"
+                  className="navigation__link navigation__dropdown-item"
+                  exact
+                  strict
+                  to="/discover" 
+              >
+                Discover
+              </NavLink>
+              <div className="navigation__dropdown-wrapper">
+                <Link to="/popular">
+                  Popular
+                </Link>
+                <Link to="/upcoming">
+                  Upcoming
+                </Link>
+                <Link to="/top_rated">
+                  Top Rated
+                </Link>
+              </div>
+            </div>
             <NavLink 
                 activeClassName="navigation__active"
-                className="navigation__link"
+                className="navigation__link desktop-none"
                 exact
                 strict
-                to="/discover" 
+                to="/popular" 
             >
-              Discover
+              Popular
+            </NavLink>
+            <NavLink 
+                activeClassName="navigation__active"
+                className="navigation__link desktop-none"
+                exact
+                strict
+                to="/top_rated" 
+            >
+              Top Rated
+            </NavLink>
+            <NavLink 
+                activeClassName="navigation__active"
+                className="navigation__link desktop-none"
+                exact
+                strict
+                to="/upcoming" 
+            >
+              Upcoming
             </NavLink>
             <NavLink 
                 activeClassName="navigation__active"
