@@ -7,6 +7,7 @@ import Modal from 'react-responsive-modal';
 
 import ImageLoader from '../layout/ImageLoader';
 import LoadingScreen from '../layout/LoadingScreen';
+import MovieCard from '../movies/MovieCard';
 
 import { fetchPerson, isCurrentlyFetching } from '../../actions/actions';
 
@@ -17,16 +18,16 @@ import { isEmpty } from '../../helpers/helperFunctions';
 const tmdbPosterPath = 'https://image.tmdb.org/t/p/w300_and_h450_face/';
 
 const ViewPeople = (props) => {
-  const { person, isLoading } = props;
+  const { actor, casting, isLoading } = props;
   const [error, setError] = useState(undefined);
   const [isOpenModal, setModalVisibility] = useState(false);
 
   useEffect(() => {
-    const personId = props.match.params.id;
+    const actorId = props.match.params.id;
 
-    if (parseInt(personId, 10) !== props.person.id) {
+    if (parseInt(actorId, 10) !== props.actor.id) {
       props.isCurrentlyFetching();
-      props.fetchPerson(personId)
+      props.fetchPerson(actorId)
         .then((status) => {
           if (status === 404) {
             setError('Person\'s details cannot be loaded');
@@ -52,7 +53,7 @@ const ViewPeople = (props) => {
       {isLoading && <LoadingScreen />}
       <div className="container mt-0 pt-0">
         <div className="container__wrapper w-100">
-          {(!isLoading && !isEmpty(person) && !error) && (
+          {(!isLoading && !isEmpty(actor) && !error) && (
             <React.Fragment>
               <Modal 
                   center
@@ -74,9 +75,9 @@ const ViewPeople = (props) => {
                     }  
                   }}
               >
-                <h2>{person.name}'s Biography</h2>
-                {person.biography ? (
-                  <p>{person.biography}</p>
+                <h2>{actor.name}'s Biography</h2>
+                {actor.biography ? (
+                  <p>{actor.biography}</p>
                 ) : (
                   <p>Biography not found</p>
                 )}
@@ -97,22 +98,22 @@ const ViewPeople = (props) => {
                       width={300}
                     >
                       <ImageLoader 
-                          alt={person.name}
-                          imgId={person.id} 
-                          src={`${tmdbPosterPath + person.profile_path}`} 
+                          alt={actor.name}
+                          imgId={actor.id} 
+                          src={`${tmdbPosterPath + actor.profile_path}`} 
                       />
                   </LazyLoad>
                 </div>
                 <div className="view__details">
                   <h1 className="view__title">
-                    {person.name}
+                    {actor.name}
                   </h1>
                   {/* <p className="movie__rating">
                     <FontAwesomeIcon icon={['fa', 'star']} color="yellow" />
                     &nbsp;{movie.vote_average} Rating
                   </p> */}
                   <h4>Biography</h4>
-                  <p className="view__overview">{person.biography}</p>
+                  <p className="view__overview">{actor.biography}</p>
                   <br/>
                   <br/>
                   <button 
@@ -135,6 +136,51 @@ const ViewPeople = (props) => {
               </button>
             </div>
           )}
+          {(casting.length >= 1 && !isLoading && !error) && (
+            <div className="movie__casts">
+              <div className="movie__casts-content">
+                <div className="movie__casts-wrapper">
+                  <div className="movie__casts-header">
+                    <h1>Known For</h1>
+                  </div>
+                  <div className="movie__casts-grid">
+                    {casting.map((movie, index) => {
+                      return index < 8 && (
+                          <MovieCard 
+                              category={movie.media_type}
+                              key={movie.id + movie.title}
+                              movie={movie}
+                          />
+                      );
+                    })}
+                  </div>
+                  <button className="button--primary">
+                    View All Casting
+                  </button>
+                </div>
+                <div className="movie__details">
+                  <div className="movie__details-genre">
+                    <h4>Birthday</h4>
+                    <p>{actor.birthday}</p>
+                  </div>
+                  <div>
+                    <h4>Gender</h4>
+                    <p>{actor.gender === 1 ? 'Female' : 'Male'}</p>
+                  </div>
+                  <div>
+                    <h4>Place of Birth</h4>
+                    <p>{actor.place_of_birth}</p>
+                  </div>
+                  <div>
+                    <h4>Also Known As</h4>
+                    {actor.also_known_as && actor.also_known_as.map(name => (
+                      <p key={name}>{name}</p>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </React.Fragment>
@@ -145,7 +191,7 @@ ViewPeople.propTypes = {
   isCurrentlyFetching: PropTypes.func,
   isLoading: PropTypes.bool,
   fetchPerson: PropTypes.func,
-  person: PropTypes.shape({
+  actor: PropTypes.shape({
     name: PropTypes.string,
     id: PropTypes.number,
     biography: PropTypes.string,
@@ -154,7 +200,8 @@ ViewPeople.propTypes = {
 };
 
 const mapStateToProps = ({ person, isLoading }) => ({
-  person,
+  actor: person.actor,
+  casting: person.casting,
   isLoading
 });
 

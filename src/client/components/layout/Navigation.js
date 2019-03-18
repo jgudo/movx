@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { NavLink, withRouter, Link } from 'react-router-dom';
 
+import TopProgressLoader from './TopProgressLoader'; 
+
 import { addSearchHistory, clearSearchHistory } from '../../actions/actions';
 
 const Navigation = (props) => {
@@ -79,199 +81,202 @@ const Navigation = (props) => {
   });
 
   return (
-    <div 
-        className="navigation"
-        onClick={onClickLink}
-        ref={navigation}
-    >
-      <div className="navigation__wrapper">
-        <div 
-            className="navigation__toggle"
-            onClick={onNavigationToggle}
-            ref={toggler}
-        >
-          <div/><div/><div/>
-        </div>
-        <div className="navigation__logo">
-          <Link to="/">
-            <img src="/images/logo.png" alt=""/>
-          </Link>
-        </div>
-        <div className="navigation__menu-wrapper">
+    <React.Fragment>
+      <TopProgressLoader isLoading={props.isLoading} />
+      <div 
+          className="navigation"
+          onClick={onClickLink}
+          ref={navigation}
+      >
+        <div className="navigation__wrapper">
           <div 
-              className="navigation__menu" 
-              ref={menu}
+              className="navigation__toggle"
+              onClick={onNavigationToggle}
+              ref={toggler}
           >
-            <NavLink 
-                activeClassName="navigation__active"
-                className="navigation__link"
-                exact
-                strict
-                to="/" 
+            <div/><div/><div/>
+          </div>
+          <div className="navigation__logo">
+            <Link to="/">
+              <img src="/images/logo.png" alt=""/>
+            </Link>
+          </div>
+          <div className="navigation__menu-wrapper">
+            <div 
+                className="navigation__menu" 
+                ref={menu}
             >
-                Home
-            </NavLink>
-            <NavLink 
-                activeClassName="navigation__active"
-                className="navigation__link"
-                exact
-                strict
-                to="/trending" 
-            >
-              Trending
-            </NavLink>
-            <div className="navigation__dropdown">
               <NavLink 
                   activeClassName="navigation__active"
-                  className="navigation__link navigation__dropdown-item"
+                  className="navigation__link"
                   exact
                   strict
-                  to="/discover" 
+                  to="/" 
               >
-                Discover
+                  Home
               </NavLink>
-              <div className="navigation__dropdown-wrapper">
-                <Link to="/popular">
-                  Popular
-                </Link>
-                <Link to="/upcoming">
-                  Upcoming
-                </Link>
-                <Link to="/top_rated">
-                  Top Rated
-                </Link>
-              </div>
-            </div>
-            <NavLink 
-                activeClassName="navigation__active"
-                className="navigation__link desktop-none"
-                exact
-                strict
-                to="/popular" 
-            >
-              Popular
-            </NavLink>
-            <NavLink 
-                activeClassName="navigation__active"
-                className="navigation__link desktop-none"
-                exact
-                strict
-                to="/top_rated" 
-            >
-              Top Rated
-            </NavLink>
-            <NavLink 
-                activeClassName="navigation__active"
-                className="navigation__link desktop-none"
-                exact
-                strict
-                to="/upcoming" 
-            >
-              Upcoming
-            </NavLink>
-            <NavLink 
-                activeClassName="navigation__active"
-                className="navigation__link"
-                exact
-                strict
-                to="/tv" 
-            >
-              TV Shows
-            </NavLink>
-            <NavLink 
-                activeClassName="navigation__active"
-                className="navigation__link"
-                exact
-                strict
-                to="/people" 
-            >
-              People
-            </NavLink>
-            <NavLink 
-                activeClassName="navigation__active"
-                className="navigation__link"
-                exact
-                to="/genre" 
-            >
-              Genres
-            </NavLink>
-            <NavLink 
-                activeClassName="navigation__active"
-                className="navigation__link"
-                exact
-                strict
-                to="/favorites" 
-            >
-              Favorites
-            </NavLink>
-          </div>
-          <div className="navigation__search" ref={searchMenu}>
-            <input 
-                autoComplete="off"
-                className="search__input"
-                onBlur={onBlurChange}
-                onChange={onInputChange}
-                onFocus={onFocusChange}
-                onKeyPress={onKeyEnter}
-                placeholder="Search for movie, tv show, or people"
-                ref={searchInput}
-                type="text" 
-                value={searchQuery}
-            />
-            <button 
-                className="search-clear clear--button"
-                onClick={() => {
-                  setQuery('');
-                  searchInput.current.focus();
-                }}
-                style={{
-                  display: searchQuery ? 'block' : 'none'
-                }}
-            >
-              x
-            </button>
-            <button 
-                className="button--link search__button"
-                onClick={onSubmitQuery}
-            >
-            <span className="icon icon-search">🔍</span>
-            </button>
-            {props.recentSearch.length >= 1 && (
-              <div 
-                  className="search-history"
-                  ref={searchHistory}
+              <NavLink 
+                  activeClassName="navigation__active"
+                  className="navigation__link"
+                  exact
+                  strict
+                  to="/trending" 
               >
-                <div className="search-history-action">
-                  <p>Recent Searches</p>
-                  <button 
-                      className="search-clear"
-                      onClick={props.clearSearchHistory}
-                  >
-                    Clear
-                  </button>  
-                </div>
-                {props.recentSearch.map((search, index) => (
-                  <Link 
-                      key={search + index}
-                      onClick={() => { setQuery(search); }}
-                      to={`/search/movie/${search}`} 
-                  >
-
-                    {search}
+                Trending
+              </NavLink>
+              <div className="navigation__dropdown">
+                <NavLink 
+                    activeClassName="navigation__active"
+                    className="navigation__link navigation__dropdown-item"
+                    exact
+                    strict
+                    to="/discover" 
+                >
+                  Discover
+                </NavLink>
+                <div className="navigation__dropdown-wrapper">
+                  <Link to="/popular">
+                    Popular
                   </Link>
-                ))}
+                  <Link to="/upcoming">
+                    Upcoming
+                  </Link>
+                  <Link to="/top_rated">
+                    Top Rated
+                  </Link>
+                </div>
               </div>
-            )}
+              <NavLink 
+                  activeClassName="navigation__active"
+                  className="navigation__link desktop-none"
+                  exact
+                  strict
+                  to="/popular" 
+              >
+                Popular
+              </NavLink>
+              <NavLink 
+                  activeClassName="navigation__active"
+                  className="navigation__link desktop-none"
+                  exact
+                  strict
+                  to="/top_rated" 
+              >
+                Top Rated
+              </NavLink>
+              <NavLink 
+                  activeClassName="navigation__active"
+                  className="navigation__link desktop-none"
+                  exact
+                  strict
+                  to="/upcoming" 
+              >
+                Upcoming
+              </NavLink>
+              <NavLink 
+                  activeClassName="navigation__active"
+                  className="navigation__link"
+                  exact
+                  strict
+                  to="/tv" 
+              >
+                TV Shows
+              </NavLink>
+              <NavLink 
+                  activeClassName="navigation__active"
+                  className="navigation__link"
+                  exact
+                  strict
+                  to="/people" 
+              >
+                People
+              </NavLink>
+              <NavLink 
+                  activeClassName="navigation__active"
+                  className="navigation__link"
+                  exact
+                  to="/genre" 
+              >
+                Genres
+              </NavLink>
+              <NavLink 
+                  activeClassName="navigation__active"
+                  className="navigation__link"
+                  exact
+                  strict
+                  to="/favorites" 
+              >
+                Favorites
+              </NavLink>
+            </div>
+            <div className="navigation__search" ref={searchMenu}>
+              <input 
+                  autoComplete="off"
+                  className="search__input"
+                  onBlur={onBlurChange}
+                  onChange={onInputChange}
+                  onFocus={onFocusChange}
+                  onKeyPress={onKeyEnter}
+                  placeholder="Search for movie, tv show, or people"
+                  ref={searchInput}
+                  type="text" 
+                  value={searchQuery}
+              />
+              <button 
+                  className="search-clear clear--button"
+                  onClick={() => {
+                    setQuery('');
+                    searchInput.current.focus();
+                  }}
+                  style={{
+                    display: searchQuery ? 'block' : 'none'
+                  }}
+              >
+                x
+              </button>
+              <button 
+                  className="button--link search__button"
+                  onClick={onSubmitQuery}
+              >
+              <span className="icon icon-search">🔍</span>
+              </button>
+              {props.recentSearch.length >= 1 && (
+                <div 
+                    className="search-history"
+                    ref={searchHistory}
+                >
+                  <div className="search-history-action">
+                    <p>Recent Searches</p>
+                    <button 
+                        className="search-clear"
+                        onClick={props.clearSearchHistory}
+                    >
+                      Clear
+                    </button>  
+                  </div>
+                  {props.recentSearch.map((search, index) => (
+                    <Link 
+                        key={search + index}
+                        onClick={() => { setQuery(search); }}
+                        to={`/search/movie/${search}`} 
+                    >
+
+                      {search}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
+          <button 
+              className="button--link search__toggle"
+              onClick={onSearchToggle}
+          >
+            <span className="icon icon-search">🔍</span>
+          </button>
         </div>
-        <button 
-            className="button--link search__toggle"
-            onClick={onSearchToggle}
-        >
-          <span className="icon icon-search">🔍</span>
-        </button>
       </div>
-    </div>
+    </React.Fragment>
   );
 };
 
@@ -281,8 +286,9 @@ Navigation.propTypes = {
   recentSearch: PropTypes.arrayOf(PropTypes.string)
 };
 
-const mapStateToProps = ({ recentSearch }) => ({
-  recentSearch
+const mapStateToProps = ({ recentSearch, isLoading }) => ({
+  recentSearch,
+  isLoading
 });
 
 const mapDispatchToProps = dispatch => ({

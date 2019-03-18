@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import TopProgressLoader from '../layout/TopProgressLoader'; 
 import LoadingScreen from '../layout/LoadingScreen'; 
 import PeopleCard from './PeopleCard';
 import PaginationBar from '../layout/PaginationBar';
@@ -15,7 +14,7 @@ import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
 import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
 
 const People = (props) => {
-  const { people, isLoading } = props;
+  const { people } = props;
 
   useEffect(() => {
     if (isEmpty(props.people)) {
@@ -32,7 +31,6 @@ const People = (props) => {
 
   return (
     <React.Fragment>
-      <TopProgressLoader isLoading={isLoading} />
       {isEmpty(people) && <LoadingScreen />}
       <div className="container">
         <div className="container__wrapper container__movies">
@@ -75,7 +73,6 @@ const People = (props) => {
 People.propTypes = {
   fetchRequest: PropTypes.func,
   isCurrentlyFetching: PropTypes.func,
-  isLoading: PropTypes.bool,
   people: PropTypes.shape({
     results: PropTypes.arrayOf(PropTypes.object),
     page: PropTypes.number,
@@ -84,9 +81,8 @@ People.propTypes = {
   })
 };
 
-const mapStateToProps = ({ people, isLoading }) => ({
-  people,
-  isLoading
+const mapStateToProps = ({ people }) => ({
+  people
 });
 
 const mapDispatchToProps = dispatch => ({

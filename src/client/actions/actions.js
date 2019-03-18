@@ -19,13 +19,13 @@ export const fetchRequest = (action, query, page = 1) => {
         dispatch({
           type: action,
           data: tmdbData,
-          isLoading: false,
           error: undefined
         });
         window.scrollTo(null, 0);
       }
     } catch (err) {
       console.log(err.response);
+      response = e.response.status;
       dispatch({
         type: 'IS_LOADING',
         bool: false
@@ -53,8 +53,7 @@ export const fetchSelected = (category, movieId) => {
             movie,
             keywords: keywords.keywords,
             casts: credits.cast
-          },
-          isLoading: false
+          }
         });  
       }
     } catch (e) {
@@ -73,13 +72,15 @@ export const fetchPerson = (id) => {
   return async (dispatch) => {
     try {
       const personRequest = await axios.get(`${tmdb}person/${id}?api_key=${tmdbKey}`);
-      const person = await personRequest.data;
+      const actor = await personRequest.data;
+      const castingRequest = await axios.get(`${tmdb}person/${id}/combined_credits?api_key=${tmdbKey}`);
+      const casting = await castingRequest.data;
 
-      if (person) {
+      if (actor) {
         dispatch({
           type: 'FETCH_SELECTED_PERSON',
-          data: person,
-          isLoading: false
+          actor,
+          casting: casting.cast
         });  
       }
     } catch (e) {

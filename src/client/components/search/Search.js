@@ -1,117 +1,97 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-import TopProgressLoader from '../layout/TopProgressLoader'; 
 import LoadingScreen from '../layout/LoadingScreen'; 
-import MovieCard from '../movies/MovieCard';
-import PaginationBar from '../layout/PaginationBar';
-import Footer from '../layout/Footer';
+import SearchMovieTab from './SearchMovieTab';
+import SearchTvTab from './SearchTvTab';
+import SearchPeopleTab from './SearchPeopleTab';
+import Tabs from '../tabs/Tabs';
+
+import { fetchRequest, updateQuery, isCurrentlyFetching } from '../../actions/actions';
 
 // helpers
 import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
 
-const tmdb = 'https://api.themoviedb.org/3/';
-const tmdbKey = process.env.TMDB_KEY;
-
 class Search extends Component {
   state = {
-    search: {},
-    loaded: false,
-    isFetching: false,
     error: undefined
   };
   
   componentDidMount() {
     const queryString = this.props.match.params.query;
-    this.searchMovies(queryString);
+    if (queryString !== this.props.query) {
+      this.search(queryString);
+      this.props.updateQuery('UPDATE_SEARCH_QUERY', queryString);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.match.params.query !== nextProps.match.params.query) {
-      this.searchMovies(nextProps.match.params.query);
+      this.search(nextProps.match.params.query);
+      this.props.updateQuery('UPDATE_SEARCH_QUERY', nextProps.match.params.query);
     }
   }
 
-  searchMovies = (queryString, page = 1) => {
-    this.setState({ loaded: false });
-    axios.get(`${tmdb}search/movie?api_key=${tmdbKey}&query=${queryString}&page=${page}`)
-      .then((response) => {
-        const search = response.data;
-        this.setState(() => ({ 
-          search,
-          loaded: true,
-          error: undefined 
-        }));
-        window.scrollTo(null, 0);
-      })
-      .catch((e) => {
-        console.log('Cannot perform search', e);
-        this.setState(() => ({
-          loaded: true,
-          error: 'No result found'
-        }));
-      });
-  };
-
-  handlePageChange = (e) => {
-    if (this.state.search.page !== e) {
-      this.searchMovies(this.props.match.params.query, e);
-    }
+  search = (query) => {
+    this.props.isCurrentlyFetching();
+    this.props.fetchRequest('SEARCH_MOVIES', `search/movie?query=${query}`);
+    this.props.fetchRequest('SEARCH_TV_SHOWS', `search/tv?query=${query}`);
+    this.props.fetchRequest('SEARCH_PEOPLE', `search/person?query=${query}`);
   };
 
   render() {
     const { 
-      search,
-      loaded,
-      isFetching
-    } = this.state;
+      movies, 
+      tv, 
+      people,
+      totalFound,
+      match, 
+      isLoading 
+    } = this.props;
     
     return (
       <React.Fragment>
-        <TopProgressLoader isLoading={isFetching} />
-        {!loaded && <LoadingScreen />}
+        {isLoading && <LoadingScreen />}
         <div className="container">
           <div className="container__wrapper">
-            {!isEmpty(search) && (
+            {(!isEmpty(movies) && !isLoading) && (
               <React.Fragment>
                 <div className="movie__header">
                   <div className="movie__header-title">
                     <h1>Search Result</h1>
-                    <h3>Found 
-                      &nbsp;
-                      {numberWithCommas(search.total_results)} 
-                      &nbsp;
-                      Result With Keyword: 
+                    <h3>
+                      Found &nbsp;{numberWithCommas(totalFound)}&nbsp; 
+                      total result with keyword: &nbsp;
                       <span className="result__keyword">
-                        &nbsp;{this.props.match.params.query}
+                        {match.params.query}
                       </span>
                     </h3>
                   </div>
                 </div>
-                <div className="movie__wrapper">
-                  {search.results.map((movie, index) => {
-                    return (
-                      <MovieCard 
-                          category="movie"
-                          key={`${movie.id}_${index}`}
-                          movie={movie} 
-                      />
-                    )
-                  })}
-                </div>
-                {search.results.length >= 1 && (
-                  <React.Fragment>
-                    <PaginationBar 
-                        activePage={search.page}
-                        itemsCountPerPage={1}
-                        onChange={this.handlePageChange}
-                        pageRangeDisplayed={10}
-                        totalItemsCount={search.total_pages}
-                        totalPage={search.total_pages}
-                    />  
-                    <Footer />
-                  </React.Fragment>
-                )}
+                <Tabs>
+                  <div label={`Movies (${numberWithCommas(movies.total_results)})`}>
+                    <SearchMovieTab
+                        isLoading={isLoading} 
+                        movies={movies}
+                        query={match.params.query}
+                    />
+                  </div>
+                  <div label={`TV Shows (${numberWithCommas(tv.total_results)})`}>
+                    <SearchTvTab 
+                        isLoading={isLoading} 
+                        query={match.params.query}
+                        tvShows={tv}
+                    />
+                  </div>
+                  <div label={`People (${numberWithCommas(people.total_results)})`}>
+                  <SearchPeopleTab 
+                      isLoading={isLoading} 
+                      people={people}
+                      query={match.params.query}
+                  />
+                  </div>
+                </Tabs>
               </React.Fragment>
             )}
           </div>  
@@ -121,4 +101,27 @@ class Search extends Component {
   }
 }
 
-export default Search;
+Search.propTypes = {
+  isLoading: PropTypes.bool, 
+  movies: PropTypes.object, 
+  people: PropTypes.object,
+  tv: PropTypes.object, 
+  totalFound: PropTypes.number
+};
+
+const mapStateToProps = ({ search, isLoading }) => ({
+  movies: search.movies,
+  tv: search.tv,
+  query: search.query,
+  people: search.people,
+  totalFound: (search.movies.total_results + search.tv.total_results + search.people.total_results),
+  isLoading
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchRequest: (action, url, page) => dispatch(fetchRequest(action, url, page)),
+  isCurrentlyFetching: bool => dispatch(isCurrentlyFetching(bool)),
+  updateQuery: (action, query) => dispatch(updateQuery(action, query))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search);

@@ -104,6 +104,12 @@
       @include transform(scaleY(1));
     }
   }
+
+  input {
+    @media (max-width: $tablet) {
+      width: 100%;
+    }
+  }
 }
 
 .navigation__link {

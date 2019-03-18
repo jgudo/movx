@@ -11,7 +11,16 @@ const moviesReducer = (state = {
   upcomingMovies: {},
   tvShows: {},
   people: {},
-  person: {},
+  person: {
+    actor: {},
+    casting: []
+  },
+  search: {
+    query: '',
+    tv: {},
+    movies: {},
+    people: {}
+  },
   genres: {},
   genreMovies: {},
   favorites: [],
@@ -78,7 +87,11 @@ const moviesReducer = (state = {
     case 'FETCH_SELECTED_PERSON':
       return {
         ...state,
-        person: action.data, 
+        person: {
+          ...state.person,
+          actor: action.actor,
+          casting: action.casting
+        }, 
         isLoading: false
       };
     case 'FETCH_POPULAR_MOVIES':
@@ -218,6 +231,41 @@ const moviesReducer = (state = {
       return {
         ...state,
         isLoading: action.bool
+      };
+    case 'SEARCH_MOVIES':
+      return {
+        ...state,
+        search: {
+          ...state.search,
+          movies: action.data
+        },
+        isLoading: false
+      };
+    case 'SEARCH_TV_SHOWS':
+      return {
+        ...state,
+        search: {
+          ...state.search,
+          tv: action.data
+        },
+        isLoading: false
+      };
+    case 'SEARCH_PEOPLE':
+      return {
+        ...state,
+        search: {
+          ...state.search,
+          people: action.data
+        },
+        isLoading: false
+      };
+    case 'UPDATE_SEARCH_QUERY':
+      return {
+        ...state,
+        search: {
+          ...state.search,
+          query: action.query
+        }
       };
     default: 
       return state;

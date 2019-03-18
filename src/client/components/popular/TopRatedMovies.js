@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import TopProgressLoader from '../layout/TopProgressLoader'; 
 import LoadingScreen from '../layout/LoadingScreen'; 
 import MovieCard from '../movies/MovieCard';
 import PaginationBar from '../layout/PaginationBar';
@@ -31,11 +30,10 @@ class TopRatedMovies extends Component {
   };
 
   render() {
-    const { topRatedMovies, isLoading } = this.props;
+    const { topRatedMovies } = this.props;
     
     return (
       <React.Fragment>
-        <TopProgressLoader isLoading={isLoading} />
         {isEmpty(topRatedMovies) && <LoadingScreen />}
         <div className="container">
           <div className="container__wrapper container__movies">
@@ -79,7 +77,6 @@ class TopRatedMovies extends Component {
 TopRatedMovies.propTypes = {
   fetchRequest: PropTypes.func,
   isCurrentlyFetching: PropTypes.func,
-  isLoading: PropTypes.bool,
   topRatedMovies: PropTypes.shape({
     page: PropTypes.number,
     total_page: PropTypes.number,
@@ -88,9 +85,8 @@ TopRatedMovies.propTypes = {
   })
 };
 
-const mapStateToProps = ({ topRatedMovies, isLoading }) => ({
-  topRatedMovies,
-  isLoading
+const mapStateToProps = ({ topRatedMovies }) => ({
+  topRatedMovies
 });
 
 const mapDispatchToProps = dispatch => ({

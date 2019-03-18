@@ -85,6 +85,11 @@
   font-size: 14px;
 }
 
+.search__no-result {
+  text-align: center;
+  margin-top: $xl-size; 
+}
+
 .clear--button {
   position: absolute;
   left: -20px;
