@@ -1,6 +1,10 @@
 .tab-list {
   border-bottom: 1px solid lighten($dark-blue-1, 10%);
   padding: 0 $m-size;
+
+  @media (max-width: $mobile) {
+    padding: 0;
+  }
 }
 
 .tab-list-item {
@@ -9,6 +13,10 @@
   margin-bottom: -1px;
   padding: $s-size $m-size;
   font-size: rem(28);
+
+  @media (max-width: $mobile) {
+    font-size: rem(20);
+  }
 
   &:hover {
     cursor: pointer;

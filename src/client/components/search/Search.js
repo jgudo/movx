@@ -61,7 +61,7 @@ class Search extends Component {
                   <div className="movie__header-title">
                     <h1>Search Result</h1>
                     <h3>
-                      Found &nbsp;{numberWithCommas(totalFound)}&nbsp; 
+                     {numberWithCommas(totalFound)}&nbsp; 
                       total result with keyword: &nbsp;
                       <span className="result__keyword">
                         {match.params.query}
