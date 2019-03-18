@@ -93,7 +93,9 @@ const Navigation = (props) => {
           <div/><div/><div/>
         </div>
         <div className="navigation__logo">
-          <h1>MOVX</h1>
+          <Link to="/">
+            <img src="/images/logo.png" alt=""/>
+          </Link>
         </div>
         <div className="navigation__menu-wrapper">
           <div 

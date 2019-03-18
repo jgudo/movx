@@ -216,6 +216,12 @@
 
 .navigation__logo {
   margin: $l-size;
+
+  img {
+    width: 90px;
+    margin-top: 5px;
+  }
+
   h1 {
     letter-spacing: 5px;
   }
