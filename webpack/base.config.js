@@ -1,4 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
+const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const path = require('path');
@@ -69,6 +70,9 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(['public']),
+    new webpack.DefinePlugin({
+      'process.env.TMDB_KEY': JSON.stringify(process.env.TMDB_KEY)
+    }),
     CSSExtract
   ]
 };

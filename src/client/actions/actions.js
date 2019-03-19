@@ -24,8 +24,7 @@ export const fetchRequest = (action, query, page = 1) => {
         window.scrollTo(null, 0);
       }
     } catch (err) {
-      console.log(err.response);
-      response = e.response.status;
+      response = err.response.status;
       dispatch({
         type: 'IS_LOADING',
         bool: false

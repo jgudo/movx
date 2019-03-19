@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
@@ -15,5 +16,5 @@ app.get('*', (request, response) => {
 });
 
 app.listen(port, () => {
-  console.log('Server is up');
+  console.log('Server is up on port', port);
 });
