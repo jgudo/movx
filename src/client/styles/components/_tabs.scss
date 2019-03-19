@@ -16,6 +16,7 @@
 
   @media (max-width: $mobile) {
     font-size: rem(20);
+    padding: $s-size;
   }
 
   &:hover {

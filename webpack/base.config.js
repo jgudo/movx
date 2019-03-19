@@ -7,6 +7,7 @@ const path = require('path');
 const DotEnv = require('dotenv');
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+
 if (process.env.NODE_ENV === 'development') {
   DotEnv.config({ path: '.env.development' });
 }
@@ -15,7 +16,8 @@ module.exports = {
   entry: ['@babel/polyfill', path.resolve(__dirname, '../src/client/index.js')],
   output: {
     path: path.join(__dirname, '../public'),
-    filename: '[name].bundle.js'
+    filename: '[name].bundle.js',
+    publicPath: '/'
   },
   module: {
     rules: [{
@@ -27,6 +29,7 @@ module.exports = {
     }, {
       test: /\.s?css$/,
       use: [{
+        // loader: 'style-loader'
         loader: MiniCssExtractPlugin.loader
       }, {
         loader: 'css-loader',

@@ -45,7 +45,8 @@
     left: 0;
     top: 0;
     width: 100%;
-    height: auto;
+    height: 550px;
+    overflow-y: scroll;
     background: $dark-blue-1;
     flex-direction: column;
     visibility: hidden;
@@ -301,6 +302,7 @@
   position: absolute;
   right: 0;
   display: none;
+  color: #fff;
 
   @media (max-width: $tablet) {
     display: block;

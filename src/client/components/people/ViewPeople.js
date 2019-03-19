@@ -112,16 +112,18 @@ const ViewPeople = (props) => {
                     <FontAwesomeIcon icon={['fa', 'star']} color="yellow" />
                     &nbsp;{movie.vote_average} Rating
                   </p> */}
-                  <h4>Biography</h4>
+                  <h4 className="view__overview-title">Biography</h4>
                   <p className="view__overview">{actor.biography}</p>
                   <br/>
                   <br/>
-                  <button 
-                      className="button--primary"
-                      onClick={openModal}
-                  >
-                    Read Full Biography
-                  </button>
+                  <div className="view__actions">
+                    <button 
+                        className="button--primary"
+                        onClick={openModal}
+                    >
+                      Read Full Biography
+                    </button>
+                  </div>
                 </div> 
               </div>           
             </React.Fragment>

@@ -5,4 +5,8 @@
   position: absolute;
   top: 0;
   left: 0;
+
+  @media (max-width: $mobile) {
+    height: 350px;
+  }
 }

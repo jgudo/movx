@@ -42,6 +42,10 @@
   
   h3 {
     color: #a1a1a1;
+    
+    @media (max-width: $mobile) {
+      font-size: $m-size;
+    }
   }
 }
 
@@ -90,7 +94,8 @@
   padding: $xl-size 0;
 
   @media (max-width: $mobile) {
-    padding-top: $m-size;
+    padding-top: 0;
+    text-align: center;
   }
 }
 

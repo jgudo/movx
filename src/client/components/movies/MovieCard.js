@@ -79,7 +79,7 @@ const MovieCard = (props) => {
               style={{
                 color: found() ? '#ff2e4f' : '#5b6166'
               }}>
-              ❤
+              ♥
           </span>
           </button>
           <div className="tooltip">

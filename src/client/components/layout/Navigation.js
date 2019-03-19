@@ -24,6 +24,7 @@ const Navigation = (props) => {
   const onSubmitQuery = () => {
     if (searchQuery) {
       searchInput.current.blur();
+      searchMenu.current.classList.remove('open');
       props.history.push(`/search/movie/${searchQuery}`);
       if (!props.recentSearch.includes(searchQuery.toLowerCase())) {
         props.addSearchHistory(searchQuery.toLowerCase());
@@ -66,6 +67,7 @@ const Navigation = (props) => {
     if (current.nodeName === 'A') {
       toggler.current.classList.remove('open');
       menu.current.classList.remove('open');
+      searchMenu.current.classList.remove('open');
       window.scrollTo(undefined, 0);
     }
   };
@@ -272,7 +274,7 @@ const Navigation = (props) => {
               className="button--link search__toggle"
               onClick={onSearchToggle}
           >
-            <span className="icon icon-search">🔍</span>
+            <span>Search</span>
           </button>
         </div>
       </div>

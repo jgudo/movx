@@ -31,7 +31,7 @@ const SliderItem = ({
       <div className="movie__slider-content">
         <div className="movie__slider-description">
           <h1>{movie.original_title}</h1>
-          <p className="view__rating">
+          <p>
             <span className="icon icon-star">★</span>
             &nbsp;{movie.vote_average} Rating
           </p>
@@ -47,7 +47,7 @@ const SliderItem = ({
                 }}
             >
               {found() ? 'Remove From Favorites' : 'Add To Favorites'}
-              <span className="icon icon-heart">❤</span>
+              <span className="icon icon-heart">♥</span>
             </button>
           </div>
         </div>
