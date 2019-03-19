@@ -1,11 +1,10 @@
 /* eslint-disable import/no-extraneous-dependencies */
 const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HtmlPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const path = require('path');
 const DotEnv = require('dotenv');
-
-const CSSExtract = new ExtractTextPlugin('css/app.css');
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 if (process.env.NODE_ENV === 'development') {
@@ -16,7 +15,7 @@ module.exports = {
   entry: ['@babel/polyfill', path.resolve(__dirname, '../src/client/index.js')],
   output: {
     path: path.join(__dirname, '../public'),
-    filename: 'js/app.bundle.js'
+    filename: '[name].bundle.js'
   },
   module: {
     rules: [{
@@ -27,19 +26,19 @@ module.exports = {
       }
     }, {
       test: /\.s?css$/,
-      use: CSSExtract.extract({
-        use: [{
-          loader: 'css-loader',
-          options: {
-            sourceMap: true
-          }
-        }, {
-          loader: 'sass-loader',
-          options: {
-            sourceMap: true
-          }
-        }]
-      })
+      use: [{
+        loader: MiniCssExtractPlugin.loader
+      }, {
+        loader: 'css-loader',
+        options: {
+          sourceMap: true
+        }
+      }, {
+        loader: 'sass-loader',
+        options: {
+          sourceMap: true
+        }
+      }]
     }, {
       test: /\.(png|svg|jpg|jpeg|gif)$/,
       use: [{
@@ -60,7 +59,6 @@ module.exports = {
       }]
     }]
   },
-
   resolve: {
     modules: [
       path.resolve(__dirname, '../src'),
@@ -73,6 +71,13 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.TMDB_KEY': JSON.stringify(process.env.TMDB_KEY)
     }),
-    CSSExtract
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+      chunkFilename: '[id].css'
+    }),
+    new HtmlPlugin({
+      title: 'Movx | Browse Your Favorite Movies',
+      template: path.resolve(__dirname, '../public/index.html')
+    })
   ]
 };
