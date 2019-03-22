@@ -4,6 +4,10 @@
   justify-content: center;
   align-items: center;
 
+  @media (max-width: $mobile) {
+    padding: $l-size 0;
+  }
+
   a {
     color: #fff;
     text-decoration: none;

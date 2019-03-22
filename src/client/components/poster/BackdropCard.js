@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import LazyLoad from 'react-lazy-load';
 import ImageLoader from '../layout/ImageLoader';
 
-const tmdbPosterPath = 'https://image.tmdb.org/t/p/w185_and_h278_face/';
+const tmdbPosterPath = 'https://image.tmdb.org/t/p/w500_and_h282_face/';
 const tmdbPosterBase = 'https://image.tmdb.org/t/p/original';
 
 /* eslint-disable */
-const PosterCard = (props) => {
-  const { file_path } = props.poster;
+const BackdropCard = (props) => {
+  const { file_path } = props.backdrop;
 
   const download = () => {
     return axios
@@ -27,7 +27,7 @@ const PosterCard = (props) => {
   };
 
   return (
-    <div className="card poster__card">
+    <div className="card backdrop__card">
       <div className="card__image">
         <LazyLoad 
             debounce={false}
@@ -50,10 +50,10 @@ const PosterCard = (props) => {
   );
 }
 
-PosterCard.propTypes = {
-  poster: PropTypes.shape({
+BackdropCard.propTypes = {
+  backdrop: PropTypes.shape({
     file_path: PropTypes.string
   })
 };
 
-export default PosterCard;
+export default BackdropCard;

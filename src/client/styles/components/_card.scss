@@ -6,12 +6,12 @@
   @include transition();
 
   @media (max-width: $mobile) {
-    max-width: 150px;
-    max-height: 320px;
+    width: 150px;
+    height: 320px;
   }
 
   @media (max-width: $x-mobile) {
-    max-width: 130px;
+    width: 130px;
   }
 }
 

@@ -96,6 +96,8 @@ class ViewMovie extends Component {
     } = this.state;
     const {
       movie, 
+      posters,
+      backdrops,
       casts,
       keywords,
       isLoading
@@ -217,7 +219,26 @@ class ViewMovie extends Component {
             />
           )}
           {(movie.images && !isLoading && !error) && (
-            <MoviePoster movie={movie}/>
+            <React.Fragment>
+              <div className="poster">
+                <div className="poster__wrapper">
+                  <MoviePoster 
+                      id={movie.id}
+                      posters={posters.length > 10 ? posters.slice(0, 10) : posters}
+                  />
+                  <button 
+                      className="button--primary m-auto"
+                      onClick={() => {
+                        this.props.history.push(`/view/movie/${this.props.match.params.id}/images`);
+                        window.scrollTo(null, 0);
+                      }}
+                  >
+                    View All Posters
+                  </button>
+                </div>
+              </div>
+              <Footer />
+            </React.Fragment>
           )}
           {(error && !isLoading) && (
             <div className="view__not-found">
@@ -229,7 +250,6 @@ class ViewMovie extends Component {
               </button>
             </div>
           )}
-          <Footer />
         </div>
       </React.Fragment>
     );
@@ -253,6 +273,8 @@ const mapStateToProps = ({ favorites, current, isLoading }) => ({
   movie: current.movie,
   casts: current.casts,
   keywords: current.keywords,
+  posters: current.movie.images.posters,
+  backdrops: current.movie.images.backdrops,
   isLoading
 });
 

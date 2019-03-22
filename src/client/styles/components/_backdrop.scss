@@ -1,0 +1,66 @@
+.backdrop__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: $s-size;
+  justify-items: center;
+  padding: $l-size $m-size;
+
+  @media (max-width: $mobile) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+}
+
+.backdrop__card {
+  width: 100%;
+  height: 282px;
+  overflow: hidden;
+  margin-bottom: 0;
+
+  @media (max-width: $mobile) {
+    height: 180px;
+  }
+
+  .card__image {
+    height: 100%;
+
+    @media (max-width: $mobile) {
+      width: 100%;
+    }
+  }
+  
+  img {
+    height: 282px;
+
+    @media (max-width: $mobile) {
+      height: 180px;
+    }
+  }
+
+  &:hover {
+    cursor: pointer;
+
+    &:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      margin: auto;
+      background: transparentize($dark-blue-0, .4);
+      background: linear-gradient(to bottom, transparentize($dark-blue-0, .9) 0%, $blue 80%);
+      border-radius: 6px;
+
+      @media (max-width: $tablet) {
+        display: none;
+      }
+    }
+
+    .poster__details {
+      bottom: 0;
+    }
+  }
+}

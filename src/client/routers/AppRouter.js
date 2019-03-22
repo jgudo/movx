@@ -17,6 +17,7 @@ import Genres from '../components/genres/Genres';
 import ViewGenre from '../components/genres/ViewGenre';
 import Search from '../components/search/Search';
 import Favorites from '../components/favorites/Favorites';
+import ViewMoviePoster from '../components/movies/ViewMoviePoster';
 import PageNotFound from '../components/layout/PageNotFound';
 
 // import LoadingScreen from '../components/layout/LoadingScreen';
@@ -95,6 +96,11 @@ const AppRouter = () => (
             component={Search}
             exact={true}  
             path="/search/movie/:query" 
+        />
+        <Route 
+            component={ViewMoviePoster}
+            exact={true}  
+            path="/view/movie/:id/images" 
         />
         <Route 
             component={Favorites}
