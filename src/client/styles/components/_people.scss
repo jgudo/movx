@@ -1,0 +1,7 @@
+.people__card {
+  height: 320px;
+
+  @media (max-width: $tablet) {
+    height: 250px;
+  }
+}

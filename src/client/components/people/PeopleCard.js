@@ -16,7 +16,7 @@ const PeopleCard = (props) => {
   } = props.people;
 
   return (
-    <div className="card">
+    <div className="card people__card">
       <Link to={`/view/people/${id}/${name.toLowerCase()}`}>
         <div className="card__image">
           <LazyLoad 

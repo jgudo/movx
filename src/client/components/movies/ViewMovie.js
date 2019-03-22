@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ModalVideo from 'react-modal-video';
 import Modal from 'react-responsive-modal';
 import LazyLoad from 'react-lazy-load';
 
-import PeopleCard from '../people/PeopleCard';
+import MovieCast from './MovieCast';
+import MoviePoster from './MoviePoster';
 import ImageLoader from '../layout/ImageLoader';
 import LoadingScreen from '../layout/LoadingScreen';
+import Footer from '../layout/Footer';
 
 // actions
 import { 
@@ -19,7 +21,7 @@ import {
 } from '../../actions/actions';
 
 // helpers
-import { isEmpty, numberWithCommas, toHrsMins } from '../../helpers/helperFunctions';
+import { isEmpty } from '../../helpers/helperFunctions';
 
 const tmdbPosterPath = 'https://image.tmdb.org/t/p/w300_and_h450_face/';
 const tmdbBackdropPath = 'https://image.tmdb.org/t/p/w1400_and_h450_face/';
@@ -112,36 +114,36 @@ class ViewMovie extends Component {
               onClose={this.closeVideoModal} 
           />
         )}
-        <Modal 
-            center
-            onClose={this.closeModal} 
-            open={isOpenModal} 
-            styles={{
-              modal: {
-                background: '#272c30',
-                padding: '50px',
-                textAlign: 'center',
-                borderRadius: '6px'
-              },
-              closeButton: {
-                top: '10px',
-                right: '0'
-              },
-              closeIcon: {
-                fill: '#fff'
-              }  
-            }}
-        >
-          <h2>No Trailer Found</h2>
-          <p>View in youtube instead</p>
-          <a  
-              className="modal__link"
-              href={`${youtube + movie.original_title + this.getReleaseYear(movie.release_date)}`}
-              target="_blank">
-            Search in Youtube
-          </a>
-        </Modal>
         <div className="container pt-0 mt-0">
+          <Modal 
+              center
+              onClose={this.closeModal} 
+              open={isOpenModal} 
+              styles={{
+                modal: {
+                  background: '#272c30',
+                  padding: '50px',
+                  textAlign: 'center',
+                  borderRadius: '6px'
+                },
+                closeButton: {
+                  top: '10px',
+                  right: '0'
+                },
+                closeIcon: {
+                  fill: '#fff'
+                }  
+              }}
+          >
+            <h2>No Trailer Found</h2>
+            <p>View in youtube instead</p>
+            <a  
+                className="modal__link"
+                href={`${youtube + movie.original_title + this.getReleaseYear(movie.release_date)}`}
+                target="_blank">
+              Search in Youtube
+            </a>
+          </Modal>
           <div className="container__wrapper w-100">
             {(!isLoading && !isEmpty(movie) && !error) && (
               <React.Fragment>
@@ -206,100 +208,28 @@ class ViewMovie extends Component {
                 </div>
               </React.Fragment>
             )}
-            {(error && !isLoading) && (
-              <div className="view__not-found">
-                <h1>{error}</h1>
-                <button 
-                    className="button--primary"
-                    onClick={this.goPreviousPage}>
-                    Go Back
-                </button>
-              </div>
-            )}
           </div>
           {(casts.length >= 1 && !isLoading && !error) && (
-            <div className="movie__casts">
-              <div className="movie__casts-content">
-                <div className="movie__casts-wrapper">
-                  <div className="movie__casts-header">
-                    <h1>Top Billed Casts</h1>
-                  </div>
-                  <div className="movie__casts-grid">
-                    {casts.map((person, index) => {
-                      return index < 12 && (
-                          <PeopleCard 
-                              category="people"
-                              key={person.id + person.name}
-                              people={person}
-                          />
-                      );
-                    })}
-                  </div>
-                  <button className="button--primary">
-                    View All Casts
-                  </button>
-                </div>
-                <div className="movie__details">
-                  <div className="movie__details-genre">
-                    <h4>Genres</h4>
-                    {movie.genres && movie.genres.map((genre) => {
-                      const genreName = genre.name.toLowerCase().replace(' ', '-');
-                      return (
-                        <Link 
-                            className="button--key"
-                            key={genre.id + genre.name}
-                            to={`/genre/${genreName}/${genre.id}`} 
-                        >
-                          {genre.name}
-                        </Link>
-                      );
-                    })}
-                  </div>
-                  {movie.release_date && (
-                    <div className="movie__details-release">
-                      <h4>Release Date</h4>
-                      <p>{movie.release_date}</p>
-                    </div>
-                  )}
-                  {movie.budget && (
-                    <div className="movie__details-budget">
-                      <h4>Budget</h4>
-                      <p>${numberWithCommas(movie.budget)}</p>
-                    </div>
-                  )}
-                  {movie.revenue && (
-                    <div className="movie__details-revenue">
-                      <h4>Revenue</h4>
-                      <p>${numberWithCommas(movie.revenue)}</p>
-                    </div>
-                  )}
-                  {movie.runtime && (
-                    <div className="movie__details-runtime">
-                      <h4>Runtime</h4>
-                      <p>{toHrsMins(movie.runtime)}</p>
-                    </div>
-                  )}
-                  
-                  <div className="movie__details-keywords">
-                    <h4>Keywords</h4>
-                    {keywords ? keywords.map((keyword) => {
-                      return (
-                        <Link 
-                            className="button--key"
-                            key={keyword.id + keyword.name}
-                            to={`/search/movie/${keyword.name}`} 
-                        >
-                          #{keyword.name}
-                        </Link>
-                      );
-                    }) : (
-                      <p>No keywords found.</p>
-                    )}
-                  </div>
-                </div>
-              </div>
+            <MovieCast 
+                casts={casts}
+                keywords={keywords}
+                movie={movie}
+            />
+          )}
+          {(movie.images && !isLoading && !error) && (
+            <MoviePoster movie={movie}/>
+          )}
+          {(error && !isLoading) && (
+            <div className="view__not-found">
+              <h1>{error}</h1>
+              <button 
+                  className="button--primary"
+                  onClick={this.goPreviousPage}>
+                  Go Back
+              </button>
             </div>
           )}
+          <Footer />
         </div>
       </React.Fragment>
     );

@@ -1,0 +1,92 @@
+.poster {
+  background: lighten($dark-blue-1, 10%);
+  padding-bottom: $xl-size;
+}
+
+.poster__wrapper {
+  width: 85%;
+  margin: auto;
+
+  @media (max-width: $tablet) {
+    width: 90%;
+  }
+}
+
+.poster__header {
+  padding-top: $xl-size;
+  padding-left: $l-size;
+
+  @media (max-width: $tablet) {
+    padding-left: 0;
+  }
+
+  @media (max-width: $mobile) {
+    text-align: center;
+    padding: $m-size;
+    
+  }
+}
+
+.poster__card {
+  height: 270px;
+  overflow: hidden;
+
+  @media (max-width: $mobile) {
+    height: 225px;
+    margin-bottom: 0;
+  }
+
+  &:hover {
+    cursor: pointer;
+
+    &:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      margin: auto;
+      background: transparentize($dark-blue-0, .4);
+      background: linear-gradient(to bottom, transparentize($dark-blue-0, .9) 0%, $blue 80%);
+      border-radius: 6px;
+
+      @media (max-width: $tablet) {
+        display: none;
+      }
+    }
+
+    .poster__details {
+      bottom: 0;
+    }
+  }
+}
+
+.poster__download {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+
+  @media (max-width: $tablet) {
+    font-size: 12px;
+  }
+}
+
+.poster__details {
+  width: 100%;
+  position: absolute;
+  bottom: -100%;
+  z-index: 1;
+  text-align: center;
+  padding: $m-size 0;
+  @include transition();
+
+  @media (max-width: $tablet) {
+    bottom: 0;
+    padding: 0;
+    background: transparentize($blue, .4);
+  }
+}

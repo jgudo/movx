@@ -63,8 +63,8 @@
 
 .button--favorites {
   &:hover {
-    background: $red;
-    border: 1px solid $red;
+    background: $red !important;
+    border: 1px solid $red !important;
   }
 }
 
