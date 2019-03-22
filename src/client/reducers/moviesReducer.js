@@ -2,9 +2,18 @@ const moviesReducer = (state = {
   trendingMovies: {},
   discoverMovies: {},
   current: {
-    movie: {},
+    movie: {
+      images: {
+        posters: [],
+        backdrops: []
+      },
+      videos: {
+        results: []
+      }
+    },
     keywords: [],
-    casts: []
+    casts: [],
+    reviews: {}
   },
   popularMovies: {},
   topRatedMovies: {},

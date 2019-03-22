@@ -8,6 +8,7 @@ import LazyLoad from 'react-lazy-load';
 
 import MovieCast from './MovieCast';
 import MoviePoster from './MoviePoster';
+import Reviews from './Reviews';
 import ImageLoader from '../layout/ImageLoader';
 import LoadingScreen from '../layout/LoadingScreen';
 import Footer from '../layout/Footer';
@@ -98,6 +99,7 @@ class ViewMovie extends Component {
       movie, 
       posters,
       backdrops,
+      reviews,
       casts,
       keywords,
       isLoading
@@ -237,8 +239,13 @@ class ViewMovie extends Component {
                   </button>
                 </div>
               </div>
-              <Footer />
             </React.Fragment>
+          )}
+          {(!isEmpty(reviews) && !isLoading && !error) && (
+            <div className="reviews">
+              <Reviews reviews={reviews} />
+              <Footer />
+            </div>
           )}
           {(error && !isLoading) && (
             <div className="view__not-found">
@@ -273,6 +280,7 @@ const mapStateToProps = ({ favorites, current, isLoading }) => ({
   movie: current.movie,
   casts: current.casts,
   keywords: current.keywords,
+  reviews: current.reviews,
   posters: current.movie.images.posters,
   backdrops: current.movie.images.backdrops,
   isLoading
