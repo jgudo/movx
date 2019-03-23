@@ -3,11 +3,6 @@ import axios from 'axios';
 const tmdb = 'https://api.themoviedb.org/3/';
 const tmdbKey = process.env.TMDB_KEY;
 
-export const isCurrentlyFetching = (bool = true) => ({
-  type: 'IS_LOADING',
-  bool
-});
-
 export const fetchRequest = (action, query, page = 1) => {
   let response;
   return async (dispatch) => {
@@ -23,8 +18,11 @@ export const fetchRequest = (action, query, page = 1) => {
         });
         window.scrollTo(null, 0);
       }
+      response = request.status;
     } catch (err) {
-      response = err.response.status;
+      if (!navigator.onLine) response = 503;
+      else response = err.response.status;
+
       dispatch({
         type: 'IS_LOADING',
         bool: false
@@ -58,8 +56,11 @@ export const fetchSelected = (category, movieId) => {
           }
         });  
       }
-    } catch (e) {
-      response = e.response.status;
+      response = movieRequest.status;
+    } catch (err) {
+      if (!navigator.onLine) response = 503;
+      else response = err.response.status;
+    
       dispatch({
         type: 'IS_LOADING',
         bool: false
@@ -73,7 +74,7 @@ export const fetchPerson = (id) => {
   let response;
   return async (dispatch) => {
     try {
-      const personRequest = await axios.get(`${tmdb}person/${id}?api_key=${tmdbKey}`);
+      const personRequest = await axios.get(`${tmdb}person/${id}?api_key=${tmdbKey}&append_to_response=images`);
       const actor = await personRequest.data;
       const castingRequest = await axios.get(`${tmdb}person/${id}/combined_credits?api_key=${tmdbKey}`);
       const casting = await castingRequest.data;
@@ -85,8 +86,11 @@ export const fetchPerson = (id) => {
           casting: casting.cast
         });  
       }
-    } catch (e) {
-      response = e.response.status;
+      response = personRequest.status;
+    } catch (err) {
+      if (!navigator.onLine) response = 503;
+      else response = err.reponse.status;
+
       dispatch({
         type: 'IS_LOADING',
         bool: false
@@ -95,6 +99,11 @@ export const fetchPerson = (id) => {
     return Promise.resolve(response); 
   };
 };
+
+export const isCurrentlyFetching = (bool = true) => ({
+  type: 'IS_LOADING',
+  bool
+});
 
 export const setYearFilter = (action, year) => (dispatch, getState) => {
   dispatch({

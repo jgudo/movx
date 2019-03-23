@@ -43,6 +43,12 @@ const MovieCast = ({ movie, casts, keywords }) => {
               );
             })}
           </div>
+          {movie.homepage && (
+            <div className="movie__homepage">
+              <h4>Homepage</h4>
+              <a href={movie.homepage}>🌏 &nbsp; Visit</a>
+            </div>
+          )}
           {movie.release_date && (
             <div className="movie__details-release">
               <h4>Release Date</h4>

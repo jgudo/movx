@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import LazyLoad from 'react-lazy-load';
@@ -9,9 +9,11 @@ const tmdbPosterBase = 'https://image.tmdb.org/t/p/original';
 
 /* eslint-disable */
 const PosterCard = (props) => {
+  const [isDownloading, setIfDownloading] = useState(false);
   const { file_path } = props.poster;
 
   const download = () => {
+    setIfDownloading(true);
     return axios
     .get(`${tmdbPosterBase + file_path}`, {
       responseType: 'blob'
@@ -23,6 +25,7 @@ const PosterCard = (props) => {
       link.setAttribute('download', 'poster.jpg');
       document.body.appendChild(link);
       link.click();
+      setIfDownloading(false);
     });
   };
 
@@ -42,8 +45,9 @@ const PosterCard = (props) => {
         <button 
             className="button--link poster__download m-auto"
             onClick={download}
+            disabled={isDownloading}
         >
-          Download
+          {isDownloading ? 'Please wait...' : 'Download'}
         </button>
       </div>
     </div>

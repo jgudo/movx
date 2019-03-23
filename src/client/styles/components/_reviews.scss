@@ -1,3 +1,11 @@
+.reviews {
+  padding-bottom: $xl-size;
+}
+
 .reviews__header {
   padding: $xl-size 0 $l-size;
+  
+  @media (max-width: $mobile) {
+    text-align: center;
+  }
 }

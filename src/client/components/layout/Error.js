@@ -1,9 +1,16 @@
 import React from 'react';
 
-const Error = () => (
-  <div>
-    <h1>An Error Ocurred</h1>
-    <button>Try Again</button>
+const Error = ({ error }) => (
+  <div className="error">
+    <h1>{error}</h1>
+    <button 
+        className="button--primary m-auto"
+        onClick={() => {
+          window.location.reload();
+        }}
+    >
+      Retry
+    </button>
   </div>
 );
 

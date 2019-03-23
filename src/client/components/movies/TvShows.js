@@ -6,6 +6,7 @@ import LoadingScreen from '../layout/LoadingScreen';
 import MovieCard from './MovieCard';
 import PaginationBar from '../layout/PaginationBar';
 import Footer from '../layout/Footer';
+import Error from '../layout/Error';
 import Filter from '../layout/Filter';
 
 // actions
@@ -15,6 +16,10 @@ import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
 import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
 
 class TvShows extends Component {
+  state = {
+    error: undefined
+  };
+
   componentDidMount() {
     if (isEmpty(this.props.tvShows)) {
       this.fetchMovies();
@@ -32,7 +37,14 @@ class TvShows extends Component {
     const path = 'discover/tv?&language=en-US';
 
     this.props.isCurrentlyFetching();
-    this.props.fetchRequest('FETCH_TV_SHOWS', path + query, page);
+    this.props.fetchRequest('FETCH_TV_SHOWS', path + query, page)
+      .then((status) => {
+        if (status === 503) {
+          this.setState({ error: 'Error connection' });
+        } else if (status === 404) {
+          this.setState({ error: 'Cannot fetch movies' });
+        }
+      });
   }
 
   handlePageChange = (e) => {
@@ -42,14 +54,15 @@ class TvShows extends Component {
   };
 
   render() {
-    const { tvShows, filter } = this.props;
+    const { error } = this.state;
+    const { tvShows, isLoading, filter } = this.props;
   
     return (
       <React.Fragment>
-        {isEmpty(tvShows) && <LoadingScreen />}
+        {isLoading && <LoadingScreen />}
         <div className="container">
           <div className="container__wrapper container__movies">
-            {!isEmpty(tvShows) && (
+            {(!isEmpty(tvShows) && !error) && (
               <React.Fragment>
                 <div className="movie__header">
                   <div className="movie__header-title">
@@ -84,6 +97,9 @@ class TvShows extends Component {
               </React.Fragment>
             )}
           </div>    
+          {error && (
+            <Error error={error} />
+          )}
         </div>
       </React.Fragment>
     );
@@ -102,9 +118,10 @@ TvShows.propTypes = {
   })
 };
 
-const mapStateToProps = ({ tvShows, filter }) => ({
+const mapStateToProps = ({ tvShows, filter, isLoading }) => ({
   tvShows,
-  filter
+  filter,
+  isLoading
 });
 
 const mapDispatchToProps = dispatch => ({

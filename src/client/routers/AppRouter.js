@@ -13,6 +13,7 @@ import TvShows from '../components/movies/TvShows';
 import People from '../components/people/People';
 import ViewMovie from '../components/movies/ViewMovie';
 import ViewPeople from '../components/people/ViewPeople';
+import ViewPeopleProfiles from '../components/people/ViewPictures';
 import Genres from '../components/genres/Genres';
 import ViewGenre from '../components/genres/ViewGenre';
 import Search from '../components/search/Search';
@@ -81,7 +82,12 @@ const AppRouter = () => (
         <Route 
             component={ViewPeople}
             exact={true}  
-            path="/view/people/:id/:name" 
+            path="/view/person/profile/:id" 
+        />
+        <Route 
+            component={ViewPeopleProfiles}
+            exact={true}  
+            path="/view/person/profile/:id/images" 
         />
         <Route 
             component={Genres}

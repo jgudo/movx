@@ -30,7 +30,7 @@ const moviesReducer = (state = {
     movies: {},
     people: {}
   },
-  genres: {},
+  genres: [],
   genreMovies: {},
   favorites: [],
   filter: {
@@ -78,7 +78,7 @@ const moviesReducer = (state = {
     case 'FETCH_GENRES':
       return {
         ...state,
-        genres: action.data, 
+        genres: [...action.data.genres], 
         isLoading: false
       }; 
     case 'FETCH_GENRE_CATEGORY':

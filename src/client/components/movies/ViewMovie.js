@@ -42,8 +42,10 @@ class ViewMovie extends Component {
     if (parseInt(movieId, 10) !== this.props.movie.id) {
       this.props.isCurrentlyFetching();
       this.props.fetchSelected(movieCategory, movieId)
-        .then((state) => {
-          if (state === 404) {
+        .then((status) => {
+          if (status === 503) {
+            this.setState({ error: 'Error connection' });
+          } else if (status === 404) {
             this.setState({ error: 'Movie details cannot be found' });
           }
         });
@@ -241,10 +243,9 @@ class ViewMovie extends Component {
               </div>
             </React.Fragment>
           )}
-          {(!isEmpty(reviews) && !isLoading && !error) && (
+          {(!isEmpty(reviews) && reviews.results.length !== 0 && !isLoading && !error) && (
             <div className="reviews">
               <Reviews reviews={reviews} />
-              <Footer />
             </div>
           )}
           {(error && !isLoading) && (

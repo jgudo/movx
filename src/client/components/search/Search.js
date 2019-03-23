@@ -35,12 +35,20 @@ class Search extends Component {
 
   search = (query) => {
     this.props.isCurrentlyFetching();
-    this.props.fetchRequest('SEARCH_MOVIES', `search/movie?query=${query}`);
+    this.props.fetchRequest('SEARCH_MOVIES', `search/movie?query=${query}`)
+      .then((status) => {
+        if (status === 503) {
+          this.setState({ error: 'Error connection' });
+        } else if (status === 404) {
+          this.setState({ error: 'Cannot fetch movies' });
+        }
+      });
     this.props.fetchRequest('SEARCH_TV_SHOWS', `search/tv?query=${query}`);
     this.props.fetchRequest('SEARCH_PEOPLE', `search/person?query=${query}`);
   };
 
   render() {
+    const { error } = this.state;
     const { 
       movies, 
       tv, 
@@ -55,7 +63,7 @@ class Search extends Component {
         {isLoading && <LoadingScreen />}
         <div className="container">
           <div className="container__wrapper">
-            {(!isEmpty(movies) && !isLoading) && (
+            {(!isEmpty(movies) && !error && !isLoading) && (
               <React.Fragment>
                 <div className="movie__header">
                   <div className="movie__header-title">
@@ -93,6 +101,19 @@ class Search extends Component {
                   </div>
                 </Tabs>
               </React.Fragment>
+            )}
+            {error && (
+              <div className="error">
+                <h1>{error}</h1>
+                <button 
+                    className="button--primary m-auto"
+                    onClick={() => {
+                      window.location.reload();
+                    }}
+                >
+                  Retry
+                </button>
+              </div>
             )}
           </div>  
         </div>

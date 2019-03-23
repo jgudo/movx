@@ -16,28 +16,44 @@ import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
 const queryString = 'trending/all/day?';
 
 class TrendingMovies extends Component {
+  state = {
+    error: undefined
+  };
+
   componentDidMount() {
     if (isEmpty(this.props.trendingMovies)) {
-      this.props.fetchRequest('FETCH_TRENDING_MOVIES', queryString);
+      this.fetchMovies();
     }
   }
 
   handlePageChange = (e) => {
     if (this.props.trendingMovies.page !== e && !this.props.isLoading) {
-      this.props.isCurrentlyFetching();
-      this.props.fetchRequest('FETCH_TRENDING_MOVIES', queryString, e);
+      this.fetchMovies(e);
     }
   };
 
+  fetchMovies = (page = 1) => {
+    this.props.isCurrentlyFetching();
+    this.props.fetchRequest('FETCH_TRENDING_MOVIES', queryString, page)
+      .then((status) => {
+        if (status === 503) {
+          this.setState({ error: 'Error connection' });
+        } else if (status === 404) {
+          this.setState({ error: 'Cannot fetch movies' });
+        }
+      });
+  };
+
   render() {
-    const { trendingMovies } = this.props;
+    const { error } = this.state;
+    const { trendingMovies, isLoading } = this.props;
     
     return (
       <React.Fragment>
-        {isEmpty(trendingMovies) && <LoadingScreen />}
+        {isLoading && <LoadingScreen />}
         <div className="container">
           <div className="container__wrapper container__movies">
-            {!isEmpty(trendingMovies) && (
+            {(!isEmpty(trendingMovies) && !error) && (
               <React.Fragment>
                 <div className="movie__header">
                   <div className="movie__header-title">
@@ -68,6 +84,19 @@ class TrendingMovies extends Component {
               </React.Fragment>
             )}
           </div>  
+          {error && (
+            <div className="error">
+              <h1>{error}</h1>
+              <button 
+                  className="button--primary m-auto"
+                  onClick={() => {
+                    window.location.reload();
+                  }}
+              >
+                Retry
+              </button>
+            </div>
+          )}
       </div>
       </React.Fragment>
     );
@@ -85,8 +114,9 @@ TrendingMovies.propTypes = {
   })
 };
 
-const mapStateToProps = ({ trendingMovies }) => ({
-  trendingMovies
+const mapStateToProps = ({ trendingMovies, isLoading }) => ({
+  trendingMovies,
+  isLoading
 });
 
 const mapDispatchToProps = dispatch => ({

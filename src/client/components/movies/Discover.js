@@ -6,6 +6,7 @@ import LoadingScreen from '../layout/LoadingScreen';
 import MovieCard from './MovieCard';
 import PaginationBar from '../layout/PaginationBar';
 import Footer from '../layout/Footer';
+import Error from '../layout/Error';
 import Filter from '../layout/Filter';
 
 // actions
@@ -17,6 +18,10 @@ import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
 // let query = 'discover/movie?';
 
 class DiscoverMovies extends Component {
+  state = {
+    error: undefined
+  };
+
   componentDidMount() {
     if (isEmpty(this.props.discoverMovies)) {
       this.fetchMovies();
@@ -34,24 +39,32 @@ class DiscoverMovies extends Component {
     const path = 'discover/movie?';
 
     this.props.isCurrentlyFetching();
-    this.props.fetchRequest('FETCH_DISCOVER_MOVIES', path + query, page);
+    this.props.fetchRequest('FETCH_DISCOVER_MOVIES', path + query, page)
+      .then((status) => {
+        if (status === 503) {
+          this.setState({ error: 'Error connection' });
+        } else if (status === 404) {
+          this.setState({ error: 'Cannot fetch movies' });
+        }
+      });
   }
 
   handlePageChange = (e) => {
     if (this.props.discoverMovies.page !== e) {
-      this.fetchMovies(e)
+      this.fetchMovies(e);
     }
   };
 
   render() {
+    const { error } = this.state;
     const { discoverMovies, isLoading, filter } = this.props;
 
     return (
       <React.Fragment>
-        {isEmpty(discoverMovies) && <LoadingScreen />}
+        {isLoading && <LoadingScreen />}
         <div className="container">
           <div className="container__wrapper container__movies">
-            {!isEmpty(discoverMovies) && (
+            {(!isEmpty(discoverMovies) && !error) && (
               <React.Fragment>
                 <div className="movie__header">
                   <div className="movie__header-title">
@@ -86,6 +99,9 @@ class DiscoverMovies extends Component {
               </React.Fragment>
             )}
           </div>
+          {error && (
+            <Error error={error} />
+          )}
         </div>
       </React.Fragment>
     );
@@ -97,9 +113,10 @@ DiscoverMovies.propTypes = {
   filter: PropTypes.objectOf(PropTypes.object)
 };
 
-const mapStateToProps = ({ discoverMovies, filter }) => ({
+const mapStateToProps = ({ discoverMovies, filter, isLoading }) => ({
   discoverMovies,
-  filter
+  filter,
+  isLoading
 });
 
 const mapDispatchToProps = dispatch => ({

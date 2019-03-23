@@ -4,12 +4,13 @@ import thunk from 'redux-thunk';
 import moviesReducer from '../reducers/moviesReducer';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const storageName = 'movx-v2';
 
 const localStorageMiddleware = (store) => {
   return next => (action) => {
     const result = next(action);
     try {
-      localStorage.setItem('movx', JSON.stringify(
+      localStorage.setItem(storageName, JSON.stringify(
         store.getState()
       ));
     } catch (e) {
@@ -20,8 +21,8 @@ const localStorageMiddleware = (store) => {
 };
 
 const reHydrateStore = () => { 
-  if (localStorage.getItem('movx') !== null) {
-    return JSON.parse(localStorage.getItem('movx'));
+  if (localStorage.getItem(storageName) !== null) {
+    return JSON.parse(localStorage.getItem(storageName));
   }
   return undefined;
 };

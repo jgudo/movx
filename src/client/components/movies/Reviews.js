@@ -1,4 +1,5 @@
 import React from 'react';
+import Collapsible from 'react-collapsible';
 
 import { isEmpty } from '../../helpers/helperFunctions';
 
@@ -10,13 +11,9 @@ const Reviews = ({ reviews }) => {
       </div>
       {!isEmpty(reviews) && reviews.results.map((review) => {
         return (
-          <div 
-              className="reviews__row"
-              key={`review_${review.id}`}
-          >
-            <h3 className="reviews__author">{review.author}</h3>
-            <p className="reviews__comment">{review.content}</p>
-          </div>
+          <Collapsible key={`review_${review.id}`} trigger={review.author}>
+            <p>{review.content}</p>
+          </Collapsible>
         );
       })}
     </div>

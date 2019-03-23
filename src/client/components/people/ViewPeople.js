@@ -7,7 +7,7 @@ import Modal from 'react-responsive-modal';
 
 import ImageLoader from '../layout/ImageLoader';
 import LoadingScreen from '../layout/LoadingScreen';
-import MovieCard from '../movies/MovieCard';
+import Casting from './Casting';
 
 import { fetchPerson, isCurrentlyFetching } from '../../actions/actions';
 
@@ -21,15 +21,16 @@ const ViewPeople = (props) => {
   const { actor, casting, isLoading } = props;
   const [error, setError] = useState(undefined);
   const [isOpenModal, setModalVisibility] = useState(false);
+  const actorId = props.match.params.id;
 
   useEffect(() => {
-    const actorId = props.match.params.id;
-
     if (parseInt(actorId, 10) !== props.actor.id) {
       props.isCurrentlyFetching();
       props.fetchPerson(actorId)
         .then((status) => {
-          if (status === 404) {
+          if (status === 503) {
+            setError('Error connection');
+          } else if (status === 404) {
             setError('Person\'s details cannot be loaded');
           }
         });
@@ -38,6 +39,11 @@ const ViewPeople = (props) => {
 
   const goPreviousPage = () => {
     props.history.goBack();
+  };
+
+  const onClickLink = () => {
+    props.history.push(`/view/person/profile/${actorId}/images`);
+    window.scrollTo(null, 0);
   };
 
   const openModal = () => {
@@ -123,64 +129,31 @@ const ViewPeople = (props) => {
                     >
                       Read Full Biography
                     </button>
+                    <button 
+                        className="button--primary"
+                        onClick={onClickLink}
+                    >
+                      View All Pictures
+                    </button>
                   </div>
                 </div> 
               </div>           
             </React.Fragment>
+          )}
+          {(casting.length >= 1 && !isLoading && !error) && (
+            <Casting 
+                actor={actor} 
+                casting={casting} 
+            />
           )}
           {error && (
             <div className="person__not-found">
               <h1>{error}</h1>
               <button 
                   className="button--primary"
-                  onClick={this.goPreviousPage}>
+                  onClick={goPreviousPage}>
                   Go Back
               </button>
-            </div>
-          )}
-          {(casting.length >= 1 && !isLoading && !error) && (
-            <div className="movie__casts">
-              <div className="movie__casts-content">
-                <div className="movie__casts-wrapper">
-                  <div className="movie__casts-header">
-                    <h1>Known For</h1>
-                  </div>
-                  <div className="movie__casts-grid">
-                    {casting.map((movie, index) => {
-                      return index < 8 && (
-                          <MovieCard 
-                              category={movie.media_type}
-                              key={movie.id + movie.title}
-                              movie={movie}
-                          />
-                      );
-                    })}
-                  </div>
-                  <button className="button--primary">
-                    View All Casting
-                  </button>
-                </div>
-                <div className="movie__details">
-                  <div className="movie__details-genre">
-                    <h4>Birthday</h4>
-                    <p>{actor.birthday}</p>
-                  </div>
-                  <div>
-                    <h4>Gender</h4>
-                    <p>{actor.gender === 1 ? 'Female' : 'Male'}</p>
-                  </div>
-                  <div>
-                    <h4>Place of Birth</h4>
-                    <p>{actor.place_of_birth}</p>
-                  </div>
-                  <div>
-                    <h4>Also Known As</h4>
-                    {actor.also_known_as && actor.also_known_as.map(name => (
-                      <p key={name}>{name}</p>
-                    ))}
-                  </div>
-                </div>
-              </div>
             </div>
           )}
         </div>
