@@ -12,6 +12,7 @@ const ViewPictures = (props) => {
   return (
     <div className="container pt-0 mt-0">
       <div className="posters__banner">
+        <img src="/images/background.jpg" alt=""/>
         <div className="posters__banner-content">
           <h1>
             {actor.name} &nbsp;

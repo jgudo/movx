@@ -12,6 +12,7 @@ import PopularMovies from '../components/popular/PopularMovies';
 import TvShows from '../components/movies/TvShows';
 import People from '../components/people/People';
 import ViewMovie from '../components/movies/ViewMovie';
+import ViewMovieCasts from '../components/movies/ViewMovieCasts';
 import ViewPeople from '../components/people/ViewPeople';
 import ViewPeopleProfiles from '../components/people/ViewPictures';
 import Genres from '../components/genres/Genres';
@@ -19,6 +20,7 @@ import ViewGenre from '../components/genres/ViewGenre';
 import Search from '../components/search/Search';
 import Favorites from '../components/favorites/Favorites';
 import ViewMoviePoster from '../components/movies/ViewMoviePoster';
+import ScrollTop from '../components/layout/ScrollTop';
 import PageNotFound from '../components/layout/PageNotFound';
 
 // import LoadingScreen from '../components/layout/LoadingScreen';
@@ -33,6 +35,7 @@ const AppRouter = () => (
   <Router>
     <Fragment>
       <Navigation />
+      <ScrollTop />
       <Switch>
         <Route 
             component={App} 
@@ -107,6 +110,11 @@ const AppRouter = () => (
             component={ViewMoviePoster}
             exact={true}  
             path="/view/movie/:id/images" 
+        />
+        <Route 
+            component={ViewMovieCasts}
+            exact={true}  
+            path="/view/movie/:id/casts" 
         />
         <Route 
             component={Favorites}

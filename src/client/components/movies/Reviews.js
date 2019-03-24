@@ -11,7 +11,12 @@ const Reviews = ({ reviews }) => {
       </div>
       {!isEmpty(reviews) && reviews.results.map((review) => {
         return (
-          <Collapsible key={`review_${review.id}`} trigger={review.author}>
+          <Collapsible 
+              easing="ease-in" 
+              key={`review_${review.id}`} 
+              transitionTime={300}
+              trigger={review.author}
+          >
             <p>{review.content}</p>
           </Collapsible>
         );

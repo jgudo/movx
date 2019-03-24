@@ -12,6 +12,7 @@ const PeopleCard = (props) => {
     id,
     profile_path,
     name,
+    character,
     known_for_department
   } = props.people;
 
@@ -33,10 +34,7 @@ const PeopleCard = (props) => {
       </Link>
       <div className="card__details">
         <h4>{name || 'Not Available'}</h4>
-        <div className="card__footer">
-          <p>
-          </p>
-        </div>
+        {character && <p className="card__character">{`(${character})`}</p> }
       </div>
     </div>
   );

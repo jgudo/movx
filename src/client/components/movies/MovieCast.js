@@ -1,10 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import PeopleCard from '../people/PeopleCard';
 import { numberWithCommas, toHrsMins } from '../../helpers/helperFunctions';
 
-const MovieCast = ({ movie, casts, keywords }) => {
+const MovieCast = (props) => {
+  const { movie, casts, keywords } = props;
   return (
     <div className="movie__casts">
       <div className="movie__casts-content">
@@ -23,7 +24,13 @@ const MovieCast = ({ movie, casts, keywords }) => {
               );
             })}
           </div>
-          <button className="button--primary">
+          <button 
+              className="button--primary"
+              onClick={() => {
+                props.history.push(`/view/movie/${props.match.params.id}/casts`);
+                window.scrollTo(null, 0);
+              }}
+          >
             View All Casts
           </button>
         </div>
@@ -111,5 +118,4 @@ const MovieCast = ({ movie, casts, keywords }) => {
   );
 };
 
-export default MovieCast;
-
+export default withRouter(MovieCast);

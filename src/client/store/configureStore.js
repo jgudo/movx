@@ -10,8 +10,18 @@ const localStorageMiddleware = (store) => {
   return next => (action) => {
     const result = next(action);
     try {
+      let favorites = [...store.getState().favorites];
+      // get favorites from old storage
+      if (localStorage.movx) {
+        const { oldFavorites } = JSON.parse(localStorage.getItem('movx'));
+        favorites = [...favorites, ...oldFavorites];
+        // filter if same movie was already added
+        favorites = favorites.filter((e, i) => favorites.indexOf(e.id) >= i);
+        localStorage.removeItem('movx');
+      }
+
       localStorage.setItem(storageName, JSON.stringify(
-        store.getState()
+        { ...store.getState(), favorites }
       ));
     } catch (e) {
       console.log('Error while saving in localStorage', e);

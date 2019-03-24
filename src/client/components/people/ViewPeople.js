@@ -61,6 +61,13 @@ const ViewPeople = (props) => {
         <div className="container__wrapper w-100">
           {(!isLoading && !isEmpty(actor) && !error) && (
             <React.Fragment>
+              <div className="backdrop__container">
+                <img 
+                    alt=""
+                    className="backdrop__image"
+                    src="/images/background.jpg" 
+                />
+              </div>
               <Modal 
                   center
                   onClose={closeModal} 
@@ -114,10 +121,6 @@ const ViewPeople = (props) => {
                   <h1 className="view__title">
                     {actor.name}
                   </h1>
-                  {/* <p className="movie__rating">
-                    <FontAwesomeIcon icon={['fa', 'star']} color="yellow" />
-                    &nbsp;{movie.vote_average} Rating
-                  </p> */}
                   <h4 className="view__overview-title">Biography</h4>
                   <p className="view__overview">{actor.biography}</p>
                   <br/>
@@ -140,23 +143,23 @@ const ViewPeople = (props) => {
               </div>           
             </React.Fragment>
           )}
-          {(casting.length >= 1 && !isLoading && !error) && (
-            <Casting 
-                actor={actor} 
-                casting={casting} 
-            />
-          )}
-          {error && (
-            <div className="person__not-found">
-              <h1>{error}</h1>
-              <button 
-                  className="button--primary"
-                  onClick={goPreviousPage}>
-                  Go Back
-              </button>
-            </div>
-          )}
         </div>
+        {(casting.length >= 1 && !isLoading && !error) && (
+          <Casting 
+              actor={actor} 
+              casting={casting} 
+          />
+        )}
+        {error && (
+          <div className="person__not-found">
+            <h1>{error}</h1>
+            <button 
+                className="button--primary"
+                onClick={goPreviousPage}>
+                Go Back
+            </button>
+          </div>
+        )}
       </div>
     </React.Fragment>
   );

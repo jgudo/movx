@@ -7,7 +7,7 @@
 
   @media (max-width: $mobile) {
     width: 150px;
-    height: 320px;
+    height: 300px;
   }
 
   @media (max-width: $x-mobile) {
@@ -68,6 +68,16 @@
       margin-top: 10px;
     }
   }
+}
+
+.card__character {
+  font-size: 12px;
+  color: #cacaca;
+  margin-top: 0;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .card__footer {

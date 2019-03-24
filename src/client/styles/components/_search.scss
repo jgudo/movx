@@ -1,6 +1,10 @@
 .search__input {
   color: #fff;
   font-size: 18px;
+
+  @media (max-width: $tablet) {
+    padding-left: $xl-size !important;
+  }
 }
 
 .search__button {
@@ -97,6 +101,10 @@
   height: 25px;
   border-radius: 50%;
   border: 1px solid rgba(255, 255, 255, .1);
+
+  @media (max-width: $tablet) {
+    left: 10px;
+  }
 }
 
 .result__keyword {
