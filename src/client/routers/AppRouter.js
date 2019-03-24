@@ -14,6 +14,7 @@ import People from '../components/people/People';
 import ViewMovie from '../components/movies/ViewMovie';
 import ViewMovieCasts from '../components/movies/ViewMovieCasts';
 import ViewPeople from '../components/people/ViewPeople';
+import ViewCasting from '../components/people/ViewCasting';
 import ViewPeopleProfiles from '../components/people/ViewPictures';
 import Genres from '../components/genres/Genres';
 import ViewGenre from '../components/genres/ViewGenre';
@@ -91,6 +92,11 @@ const AppRouter = () => (
             component={ViewPeopleProfiles}
             exact={true}  
             path="/view/person/profile/:id/images" 
+        />
+        <Route 
+            component={ViewCasting}
+            exact={true}  
+            path="/view/person/profile/:id/casting" 
         />
         <Route 
             component={Genres}

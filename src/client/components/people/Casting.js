@@ -1,8 +1,12 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 
 import MovieCard from '../movies/MovieCard';
 
-const Casting = ({ casting, actor }) => {
+const Casting = (props) => {
+  const { casting, actor } = props;
+  const actorId = props.match.params.id;
+
   return (
     <div className="movie__casts">
       <div className="movie__casts-content">
@@ -22,7 +26,13 @@ const Casting = ({ casting, actor }) => {
             })}
           </div>
           <div className="movie__casts-action">
-            <button className="button--primary">
+            <button 
+                className="button--primary"
+                onClick={() => {
+                  props.history.push(`/view/person/profile/${actorId}/casting`);
+                  window.scrollTo(null, 0);
+                }}
+            >
               View All Casting
             </button>
           </div>
@@ -56,4 +66,4 @@ const Casting = ({ casting, actor }) => {
   );
 };
 
-export default Casting;
+export default withRouter(Casting);

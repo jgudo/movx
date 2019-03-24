@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -7,6 +7,7 @@ import LoadingScreen from '../layout/LoadingScreen';
 import MovieCard from '../movies/MovieCard';
 import PaginationBar from '../layout/PaginationBar';
 import Footer from '../layout/Footer';
+import Error from '../layout/Error';
 
 // actions
 import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
@@ -17,6 +18,7 @@ import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
 const queryString = 'discover/movie?';
 
 const ViewGenre = (props) => {
+  const [error, setIfError] = useState(undefined);
   const { genreMovies, isLoading } = props;
   const { genre } = props.match.params;
 
@@ -25,7 +27,14 @@ const ViewGenre = (props) => {
     const fullQuery = `${queryString}&with_genres=${genreId}`;
 
     props.isCurrentlyFetching();
-    props.fetchRequest('FETCH_GENRE_CATEGORY', fullQuery, page);
+    props.fetchRequest('FETCH_GENRE_CATEGORY', fullQuery, page)
+      .then((status) => {
+        if (status === 503) {
+          setIfError('Error connection');
+        } else if (status === 404) {
+          setIfError('Cannot fetch movies');
+        }
+      });
   };
 
   useEffect(() => {
@@ -45,7 +54,7 @@ const ViewGenre = (props) => {
       {isEmpty(genreMovies) && <LoadingScreen />}
       <div className="container">
         <div className="container__wrapper container__movies">
-          {!isEmpty(genreMovies) && (
+          {(!isEmpty(genreMovies) && !error) && (
             <React.Fragment>
               <div className="movie__header">
                 <div className="movie__header-title">
@@ -61,7 +70,7 @@ const ViewGenre = (props) => {
                         key={`${movie.id}_${index}`}
                         movie={movie} 
                     />
-                  )
+                  );
                 })}
               </div>
               <PaginationBar 
@@ -74,6 +83,9 @@ const ViewGenre = (props) => {
             />
             <Footer />
             </React.Fragment>
+          )}
+          {error && (
+            <Error error={error} />
           )}
         </div>  
     </div>
