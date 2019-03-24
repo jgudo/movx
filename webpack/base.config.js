@@ -76,7 +76,7 @@ module.exports = {
     }),
     new MiniCssExtractPlugin({
       filename: '[name].css',
-      chunkFilename: '[id].css'
+      chunkFilename: '[name]_[id].css'
     }),
     new HtmlPlugin({
       title: 'Movx | Browse Your Favorite Movies',
