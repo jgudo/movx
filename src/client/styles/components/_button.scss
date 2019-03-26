@@ -4,6 +4,10 @@
   border: 1px solid $blue;
   font-size: rem(24);
 
+  @media (max-width: $mobile) {
+    width: 100%;
+  }
+
   &:hover {
     background: transparent;
   }

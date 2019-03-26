@@ -1,5 +1,5 @@
 .poster {
-  background: lighten($dark-blue-1, 10%);
+  background: $dark-blue-0;
   padding-bottom: $xl-size;
 }
 
@@ -87,7 +87,7 @@
   @media (max-width: $tablet) {
     bottom: 0;
     padding: 0;
-    background: transparentize($blue, .4);
+    background: $blue;
   }
 }
 .posters__banner {

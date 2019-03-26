@@ -16,6 +16,7 @@
 
   @media (max-width: $mobile) {
     grid-template-columns: repeat(2, 1fr);
+    padding-top: 0;
   }
 
   @media (max-width: $x-mobile) {
@@ -95,6 +96,7 @@
 
   @media (max-width: $mobile) {
     padding-top: 0;
+    padding-bottom: $m-size;
     text-align: center;
   }
 }

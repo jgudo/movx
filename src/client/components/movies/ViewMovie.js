@@ -25,7 +25,7 @@ import {
 import { isEmpty } from '../../helpers/helperFunctions';
 
 const tmdbPosterPath = 'https://image.tmdb.org/t/p/w300_and_h450_face/';
-const tmdbBackdropPath = 'https://image.tmdb.org/t/p/w1400_and_h450_face/';
+const tmdbBackdropPath = 'https://image.tmdb.org/t/p/original';
 
 class ViewMovie extends Component {
   state = {

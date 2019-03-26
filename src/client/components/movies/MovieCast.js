@@ -24,6 +24,7 @@ const MovieCast = (props) => {
               );
             })}
           </div>
+          <br/>
           <button 
               className="button--primary"
               onClick={() => {
@@ -53,7 +54,9 @@ const MovieCast = (props) => {
           {movie.homepage && (
             <div className="movie__homepage">
               <h4>Homepage</h4>
-              <a href={movie.homepage}>🌏 &nbsp; Visit</a>
+              <p>
+                <a href={movie.homepage}>🌏 &nbsp; Visit</a>
+              </p>
             </div>
           )}
           {movie.release_date && (

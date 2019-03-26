@@ -1,6 +1,6 @@
 .Collapsible {
-  background: lighten($dark-blue-1, 5%);
-  border: 1px solid lighten($dark-blue-1, 10%);
+  background: lighten($dark-blue-0, 2%);
+  border: 1px solid lighten($dark-blue-1, 5%);
   margin-bottom: $s-size;
 }
 
@@ -9,9 +9,9 @@
   font-weight: 700;
   text-decoration: none;
   position: relative;
-  border: 1px solid lighten($dark-blue-1, 10%);
+  border: 1px solid lighten($dark-blue-1, 5%);
   padding: $m-size;
-  background: lighten($dark-blue-1, 5%);
+  background: lighten($dark-blue-1, 2%);
   color: white; 
 }
 

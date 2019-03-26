@@ -85,14 +85,16 @@ class TvShows extends Component {
                   )
                 })}
               </div>
-              <PaginationBar 
-                  activePage={tvShows.page}
-                  itemsCountPerPage={1}
-                  onChange={this.handlePageChange}
-                  pageRangeDisplayed={10}
-                  totalItemsCount={tvShows.total_pages}
-                  totalPage={tvShows.total_pages}
-              />
+              {tvShows.total_pages > 1 && (
+                <PaginationBar 
+                    activePage={tvShows.page}
+                    itemsCountPerPage={1}
+                    onChange={this.handlePageChange}
+                    pageRangeDisplayed={10}
+                    totalItemsCount={tvShows.total_pages}
+                    totalPage={tvShows.total_pages}
+                />
+              )}
               <Footer />
               </React.Fragment>
             )}

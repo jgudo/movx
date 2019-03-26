@@ -41,7 +41,11 @@
 .card__details {
 
   .star-ratings {
-    margin-top: $m-size;
+    margin-top: $s-size;
+
+    @media (max-width: $mobile) {
+      margin-top: 5px;
+    }
 
     svg {
       @media (max-width: $mobile) {

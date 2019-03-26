@@ -77,7 +77,7 @@ const Navigation = (props) => {
       navigation.current.style.background = 'transparent';
       navigation.current.style.boxShadow = 'none';
     } else {
-      navigation.current.style.background = '#181b1d';
+      navigation.current.style.background = '#050607';
       navigation.current.style.boxShadow = '0 8px 20px rgba(0,0,0,.1)';  
     }
   });
