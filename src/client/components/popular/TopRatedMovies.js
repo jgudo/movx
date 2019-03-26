@@ -8,6 +8,7 @@ import PaginationBar from '../layout/PaginationBar';
 import Footer from '../layout/Footer';
 
 // actions
+import { FETCH_TOPRATED_MOVIES } from '../../constants/constants';
 import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
 
 // helpers
@@ -19,14 +20,14 @@ const TopRatedMovies = (props) => {
   
   useEffect(() => {
     if (isEmpty(props.topRatedMovies)) {
-      props.fetchRequest('FETCH_TOPRATED_MOVIES', queryString);
+      props.fetchRequest(FETCH_TOPRATED_MOVIES, queryString);
     }
   }, []);
  
   const handlePageChange = (e) => {
     if (props.topRatedMovies.page !== e && !props.isLoading) {
       props.isCurrentlyFetching();
-      props.fetchRequest('FETCH_TOPRATED_MOVIES', queryString, e);
+      props.fetchRequest(FETCH_TOPRATED_MOVIES, queryString, e);
     }
   };
 

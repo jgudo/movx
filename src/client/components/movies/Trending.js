@@ -8,6 +8,7 @@ import PaginationBar from '../layout/PaginationBar';
 import Footer from '../layout/Footer';
 
 // actions
+import { FETCH_TRENDING_MOVIES } from '../../constants/constants';
 import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
 
 // helpers
@@ -34,7 +35,7 @@ class TrendingMovies extends Component {
 
   fetchMovies = (page = 1) => {
     this.props.isCurrentlyFetching();
-    this.props.fetchRequest('FETCH_TRENDING_MOVIES', queryString, page)
+    this.props.fetchRequest(FETCH_TRENDING_MOVIES, queryString, page)
       .then((status) => {
         if (status === 503) {
           this.setState({ error: 'Error connection' });

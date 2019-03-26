@@ -10,7 +10,6 @@ import MovieCast from './MovieCast';
 import MoviePoster from './MoviePoster';
 import Reviews from './Reviews';
 import ImageLoader from '../layout/ImageLoader';
-import LoadingScreen from '../layout/LoadingScreen';
 import SimilarMovies from './SimilarMovies';
 import ContentLoader from './ContentLoader';
 import Footer from '../layout/Footer';
@@ -44,7 +43,7 @@ class ViewMovie extends Component {
 
   componentWillReceiveProps(nextProps) {
     const movieId = nextProps.match.params.id;
-    this.fetchMovie(movieId);
+    if (!this.state.error) this.fetchMovie(movieId);
   }
 
   fetchMovie = (id) => {
@@ -54,6 +53,7 @@ class ViewMovie extends Component {
       this.props.isCurrentlyFetching();
       this.props.fetchSelected(movieCategory, id)
         .then((status) => {
+          console.log(status);
           if (status === 503) {
             this.setState({ error: 'Error connection' });
           } else if (status === 404) {
@@ -122,7 +122,7 @@ class ViewMovie extends Component {
 
     return (
       <React.Fragment>
-        {isLoading && <LoadingScreen />}
+        {isLoading && <ContentLoader />}
         {(!isEmpty(movie) && movie.videos.results.length >= 1) && (
           <ModalVideo 
               channel='youtube' 

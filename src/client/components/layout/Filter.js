@@ -8,6 +8,16 @@ import {
   setSortFilter,
   updateQuery
 } from '../../actions/actions';
+import { 
+  UPDATE_DISCOVER_QUERY,
+  UPDATE_TV_QUERY,
+  SET_DISCOVER_YEAR_FILTER,
+  SET_TV_YEAR_FILTER,
+  SET_DISCOVER_SORT_FILTER,
+  SET_TV_SORT_FILTER,
+  SET_DISCOVER_GENRE_FILTER,
+  SET_TV_GENRE_FILTER
+} from '../../constants/constants';
 
 const yearToday = new Date().getFullYear();
 const years = [];
@@ -29,10 +39,10 @@ const Filter = (props) => {
 
     switch (filterCategory) {
       case 'discover':
-        props.updateQuery('UPDATE_DISCOVER_QUERY', newQuery);
+        props.updateQuery(UPDATE_DISCOVER_QUERY, newQuery);
         break;
       case 'tv':
-        props.updateQuery('UPDATE_TV_QUERY', newQuery);
+        props.updateQuery(UPDATE_TV_QUERY, newQuery);
         console.log('hoho');
         break;
       default:
@@ -54,14 +64,14 @@ const Filter = (props) => {
     onFilterClose();
     switch (filterCategory) {
       case 'discover':
-        props.setYearFilter('SET_DISCOVER_YEAR_FILTER', selected)
+        props.setYearFilter(SET_DISCOVER_YEAR_FILTER, selected)
           .then(({ filter }) => {
             const { year, sort, genre } = filter.discover;
             updateQueryString(year, sort, genre);
           });
         break;
       case 'tv':
-        props.setYearFilter('SET_TV_YEAR_FILTER', selected)
+        props.setYearFilter(SET_TV_YEAR_FILTER, selected)
           .then(({ filter }) => {
             const { year, sort, genre } = filter.tv;
             updateQueryString(year, sort, genre);
@@ -77,14 +87,14 @@ const Filter = (props) => {
     onFilterClose();
     switch (filterCategory) {
       case 'discover':
-        props.setSortFilter('SET_DISCOVER_SORT_FILTER', selected)
+        props.setSortFilter(SET_DISCOVER_SORT_FILTER, selected)
           .then(({ filter }) => {
             const { year, sort, genre } = filter.discover;
             updateQueryString(year, sort, genre);
           });
         break;
       case 'tv':
-        props.setSortFilter('SET_TV_SORT_FILTER', selected)
+        props.setSortFilter(SET_TV_SORT_FILTER, selected)
           .then(({ filter }) => {
             const { year, sort, genre } = filter.tv;
             updateQueryString(year, sort, genre);
@@ -100,14 +110,14 @@ const Filter = (props) => {
     onFilterClose();
     switch (filterCategory) {
       case 'discover':
-        props.setGenreFilter('SET_DISCOVER_GENRE_FILTER', selected)
+        props.setGenreFilter(SET_DISCOVER_GENRE_FILTER, selected)
           .then(({ filter }) => {
             const { year, sort, genre } = filter.discover;
             updateQueryString(year, sort, genre);
           });
         break;
       case 'tv':
-        props.setGenreFilter('SET_TV_GENRE_FILTER', selected)
+        props.setGenreFilter(SET_TV_GENRE_FILTER, selected)
           .then(({ filter }) => {
             const { year, sort, genre } = filter.tv;
             updateQueryString(year, sort, genre);

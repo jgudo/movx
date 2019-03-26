@@ -1,3 +1,35 @@
+import { 
+  IS_LOADING,
+  ADD_SEARCH_HISTORY,
+  CLEAR_SEARCH_HISTORY,
+  ADD_TO_FAVORITES,
+  REMOVE_FROM_FAVORITES,
+  FETCH_SELECTED_MOVIE,
+  FETCH_SELECTED_PERSON,
+  FETCH_DISCOVER_MOVIES,
+  FETCH_TV_SHOWS,
+  FETCH_PEOPLE,
+  FETCH_GENRES,
+  FETCH_GENRE_CATEGORY,
+  FETCH_POPULAR_MOVIES,
+  FETCH_TRENDING_MOVIES,
+  FETCH_TOPRATED_MOVIES,
+  FETCH_UPCOMING_MOVIES,
+  SET_DISCOVER_YEAR_FILTER,
+  SET_TV_YEAR_FILTER,
+  SET_DISCOVER_SORT_FILTER,
+  SET_TV_SORT_FILTER,
+  SET_DISCOVER_GENRE_FILTER,
+  SET_TV_GENRE_FILTER,
+  UPDATE_DISCOVER_QUERY,
+  UPDATE_TV_QUERY,
+  SEARCH_MOVIES,
+  SEARCH_TV_SHOWS,
+  SEARCH_PEOPLE,
+  UPDATE_SEARCH_QUERY
+
+} from '../constants/constants';
+
 const moviesReducer = (state = {
   trendingMovies: {},
   discoverMovies: {},
@@ -51,49 +83,49 @@ const moviesReducer = (state = {
   isLoading: false
 }, action) => {
   switch (action.type) {
-    case 'FETCH_TRENDING_MOVIES':
+    case FETCH_TRENDING_MOVIES:
       return {
         ...state,
         trendingMovies: { ...action.data },
         isLoading: false
       };
-    case 'FETCH_DISCOVER_MOVIES':
+    case FETCH_DISCOVER_MOVIES:
       return {
         ...state,
         discoverMovies: { ...action.data },
         isLoading: false
       };
-    case 'FETCH_TV_SHOWS':
+    case FETCH_TV_SHOWS:
       return {
         ...state,
         tvShows: { ...action.data },
         isLoading: false
       };
-    case 'FETCH_PEOPLE':
+    case FETCH_PEOPLE:
       return {
         ...state,
         people: { ...action.data },
         isLoading: false
       };    
-    case 'FETCH_GENRES':
+    case FETCH_GENRES:
       return {
         ...state,
         genres: [...action.data.genres], 
         isLoading: false
       }; 
-    case 'FETCH_GENRE_CATEGORY':
+    case FETCH_GENRE_CATEGORY:
       return {
         ...state,
         genreMovies: action.data, 
         isLoading: false
       };
-    case 'FETCH_SELECTED_MOVIE':
+    case FETCH_SELECTED_MOVIE:
       return {
         ...state,
         current: action.data, 
         isLoading: false
       };
-    case 'FETCH_SELECTED_PERSON':
+    case FETCH_SELECTED_PERSON:
       return {
         ...state,
         person: {
@@ -103,25 +135,25 @@ const moviesReducer = (state = {
         }, 
         isLoading: false
       };
-    case 'FETCH_POPULAR_MOVIES':
+    case FETCH_POPULAR_MOVIES:
       return {
         ...state,
         popularMovies: action.data, 
         isLoading: false
       };
-    case 'FETCH_TOPRATED_MOVIES':
+    case FETCH_TOPRATED_MOVIES:
       return {
         ...state,
         topRatedMovies: action.data, 
         isLoading: false
       };
-    case 'FETCH_UPCOMING_MOVIES':
+    case FETCH_UPCOMING_MOVIES:
       return {
         ...state,
         upcomingMovies: action.data, 
         isLoading: false
       };
-    case 'SET_DISCOVER_YEAR_FILTER':
+    case SET_DISCOVER_YEAR_FILTER:
       return {
         ...state,
         filter: {
@@ -132,7 +164,7 @@ const moviesReducer = (state = {
           }
         }
       };
-    case 'SET_TV_YEAR_FILTER':
+    case SET_TV_YEAR_FILTER:
       return {
         ...state,
         filter: {
@@ -143,7 +175,7 @@ const moviesReducer = (state = {
           }
         }
       }; 
-    case 'SET_DISCOVER_SORT_FILTER':
+    case SET_DISCOVER_SORT_FILTER:
       return {
         ...state,
         filter: {
@@ -154,7 +186,7 @@ const moviesReducer = (state = {
           }
         }
       };
-    case 'SET_TV_SORT_FILTER':
+    case SET_TV_SORT_FILTER:
       return {
         ...state,
         filter: {
@@ -165,7 +197,7 @@ const moviesReducer = (state = {
           }
         }
       };
-    case 'SET_DISCOVER_GENRE_FILTER':
+    case SET_DISCOVER_GENRE_FILTER:
       return {
         ...state,
         filter: {
@@ -176,7 +208,7 @@ const moviesReducer = (state = {
           }
         }
       };     
-    case 'SET_TV_GENRE_FILTER':
+    case SET_TV_GENRE_FILTER:
       return {
         ...state,
         filter: {
@@ -187,7 +219,7 @@ const moviesReducer = (state = {
           }
         }
       };   
-    case 'UPDATE_DISCOVER_QUERY':
+    case UPDATE_DISCOVER_QUERY:
       return {
         ...state,
         filter: {
@@ -198,7 +230,7 @@ const moviesReducer = (state = {
           }
         }
       };
-    case 'UPDATE_TV_QUERY':
+    case UPDATE_TV_QUERY:
       return {
         ...state,
         filter: {
@@ -209,7 +241,7 @@ const moviesReducer = (state = {
           }
         }
       };
-    case 'ADD_SEARCH_HISTORY':
+    case ADD_SEARCH_HISTORY:
       return {
         ...state,
         recentSearch: [
@@ -217,12 +249,12 @@ const moviesReducer = (state = {
           action.search
         ]
       };
-    case 'CLEAR_SEARCH_HISTORY':
+    case CLEAR_SEARCH_HISTORY:
       return {
         ...state,
         recentSearch: []
       };
-    case 'ADD_TO_FAVORITES':
+    case ADD_TO_FAVORITES:
       return {
         ...state,
         favorites: [
@@ -230,18 +262,18 @@ const moviesReducer = (state = {
           ...state.favorites 
         ]
       };    
-    case 'REMOVE_FROM_FAVORITES':
+    case REMOVE_FROM_FAVORITES:
       return {
         ...state,
         favorites: state.favorites.filter(favorite => favorite.id !== action.id)
       };
                      
-    case 'IS_LOADING':
+    case IS_LOADING:
       return {
         ...state,
         isLoading: action.bool
       };
-    case 'SEARCH_MOVIES':
+    case SEARCH_MOVIES:
       return {
         ...state,
         search: {
@@ -250,7 +282,7 @@ const moviesReducer = (state = {
         },
         isLoading: false
       };
-    case 'SEARCH_TV_SHOWS':
+    case SEARCH_TV_SHOWS:
       return {
         ...state,
         search: {
@@ -259,7 +291,7 @@ const moviesReducer = (state = {
         },
         isLoading: false
       };
-    case 'SEARCH_PEOPLE':
+    case SEARCH_PEOPLE:
       return {
         ...state,
         search: {
@@ -268,7 +300,7 @@ const moviesReducer = (state = {
         },
         isLoading: false
       };
-    case 'UPDATE_SEARCH_QUERY':
+    case UPDATE_SEARCH_QUERY:
       return {
         ...state,
         search: {

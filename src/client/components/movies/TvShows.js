@@ -10,6 +10,7 @@ import Error from '../layout/Error';
 import Filter from '../layout/Filter';
 
 // actions
+import { FETCH_TV_SHOWS } from '../../constants/constants';
 import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
 
 // helpers
@@ -37,7 +38,7 @@ class TvShows extends Component {
     const path = 'discover/tv?&language=en-US';
 
     this.props.isCurrentlyFetching();
-    this.props.fetchRequest('FETCH_TV_SHOWS', path + query, page)
+    this.props.fetchRequest(FETCH_TV_SHOWS, path + query, page)
       .then((status) => {
         if (status === 503) {
           this.setState({ error: 'Error connection' });

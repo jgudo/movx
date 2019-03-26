@@ -6,6 +6,7 @@ import MovieCard from '../movies/MovieCard';
 import PaginationBar from '../layout/PaginationBar';
 
 // actions
+import { SEARCH_MOVIES } from '../../constants/constants';
 import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
 
 // helpers
@@ -16,7 +17,7 @@ const SearchMovieTab = (props) => {
   const handlePageChange = (e) => {
     if (movies.page !== e && !isLoading) {
       props.isCurrentlyFetching();
-      props.fetchRequest('SEARCH_MOVIES', `search/movie?query=${query}`, e);
+      props.fetchRequest(SEARCH_MOVIES, `search/movie?query=${query}`, e);
     }
   };
 
