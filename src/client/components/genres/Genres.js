@@ -7,7 +7,9 @@ import GenreCard from './GenreCard';
 import Error from '../layout/Error';
 
 import { isEmpty } from '../../helpers/helperFunctions';
+
 // actions
+import { FETCH_GENRES } from '../../constants/constants';
 import { fetchRequest } from '../../actions/actions';
 
 const Genres = (props) => {
@@ -16,7 +18,7 @@ const Genres = (props) => {
 
   useEffect(() => {
     if (isEmpty(props.genres)) {
-      props.fetchRequest('FETCH_GENRES', 'genre/movie/list?')
+      props.fetchRequest(FETCH_GENRES, 'genre/movie/list?')
         .then((status) => {
           if (status === 503) {
             setIfError('Error connection');

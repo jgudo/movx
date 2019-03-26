@@ -8,6 +8,7 @@ import PaginationBar from '../layout/PaginationBar';
 import Footer from '../layout/Footer';
 
 // actions
+import { FETCH_UPCOMING_MOVIES } from '../../constants/constants';
 import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
 
 // helpers
@@ -19,14 +20,14 @@ const UpcomingMovies = (props) => {
 
   useEffect(() => {
     if (isEmpty(props.upcomingMovies)) {
-      props.fetchRequest('FETCH_UPCOMING_MOVIES', queryString);
+      props.fetchRequest(FETCH_UPCOMING_MOVIES, queryString);
     }
   }, []);
 
   const handlePageChange = (e) => {
     if (props.upcomingMovies.page !== e && !props.isLoading) {
       props.isCurrentlyFetching();
-      props.fetchRequest('FETCH_UPCOMING_MOVIES', queryString, e);
+      props.fetchRequest(FETCH_UPCOMING_MOVIES, queryString, e);
     }
   };
  

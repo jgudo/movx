@@ -8,6 +8,12 @@ import SearchTvTab from './SearchTvTab';
 import SearchPeopleTab from './SearchPeopleTab';
 import Tabs from '../tabs/Tabs';
 
+import { 
+  UPDATE_SEARCH_QUERY,
+  SEARCH_MOVIES,
+  SEARCH_TV_SHOWS,
+  SEARCH_PEOPLE 
+} from '../../constants/constants';
 import { fetchRequest, updateQuery, isCurrentlyFetching } from '../../actions/actions';
 
 // helpers
@@ -22,20 +28,20 @@ class Search extends Component {
     const queryString = this.props.match.params.query;
     if (queryString !== this.props.query) {
       this.search(queryString);
-      this.props.updateQuery('UPDATE_SEARCH_QUERY', queryString);
+      this.props.updateQuery(UPDATE_SEARCH_QUERY, queryString);
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.match.params.query !== nextProps.match.params.query) {
       this.search(nextProps.match.params.query);
-      this.props.updateQuery('UPDATE_SEARCH_QUERY', nextProps.match.params.query);
+      this.props.updateQuery(UPDATE_SEARCH_QUERY, nextProps.match.params.query);
     }
   }
 
   search = (query) => {
     this.props.isCurrentlyFetching();
-    this.props.fetchRequest('SEARCH_MOVIES', `search/movie?query=${query}`)
+    this.props.fetchRequest(SEARCH_MOVIES, `search/movie?query=${query}`)
       .then((status) => {
         if (status === 503) {
           this.setState({ error: 'Error connection' });
@@ -43,8 +49,8 @@ class Search extends Component {
           this.setState({ error: 'Cannot fetch movies' });
         }
       });
-    this.props.fetchRequest('SEARCH_TV_SHOWS', `search/tv?query=${query}`);
-    this.props.fetchRequest('SEARCH_PEOPLE', `search/person?query=${query}`);
+    this.props.fetchRequest(SEARCH_TV_SHOWS, `search/tv?query=${query}`);
+    this.props.fetchRequest(SEARCH_PEOPLE, `search/person?query=${query}`);
   };
 
   render() {

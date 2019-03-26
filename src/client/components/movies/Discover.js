@@ -10,6 +10,7 @@ import Error from '../layout/Error';
 import Filter from '../layout/Filter';
 
 // actions
+import { FETCH_DISCOVER_MOVIES } from '../../constants/constants';
 import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
 
 // helpers
@@ -39,7 +40,7 @@ class DiscoverMovies extends Component {
     const path = 'discover/movie?';
 
     this.props.isCurrentlyFetching();
-    this.props.fetchRequest('FETCH_DISCOVER_MOVIES', path + query, page)
+    this.props.fetchRequest(FETCH_DISCOVER_MOVIES, path + query, page)
       .then((status) => {
         if (status === 503) {
           this.setState({ error: 'Error connection' });

@@ -6,6 +6,7 @@ import PeopleCard from '../people/PeopleCard';
 import PaginationBar from '../layout/PaginationBar';
 
 // actions
+import { SEARCH_PEOPLE } from '../../constants/constants';
 import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
 
 // helpers
@@ -16,7 +17,7 @@ const SearchPeopleTab = (props) => {
   const handlePageChange = (e) => {
     if (props.people.page !== e && !isLoading) {
       props.isCurrentlyFetching();
-      props.fetchRequest('SEARCH_PEOPLE', `search/person?query=${query}`, e);
+      props.fetchRequest(SEARCH_PEOPLE, `search/person?query=${query}`, e);
     }
   };
 

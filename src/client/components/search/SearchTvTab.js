@@ -6,6 +6,7 @@ import MovieCard from '../movies/MovieCard';
 import PaginationBar from '../layout/PaginationBar';
 
 // actions
+import { SEARCH_TV_SHOWS } from '../../constants/constants';
 import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
 
 // helpers
@@ -16,7 +17,7 @@ const SearchTvTab = (props) => {
   const handlePageChange = (e) => {
     if (tvShows.page !== e && !isLoading) {
       props.isCurrentlyFetching();
-      props.fetchRequest('SEARCH_TV_SHOWS', `search/tv?query=${query}`, e);
+      props.fetchRequest(SEARCH_TV_SHOWS, `search/tv?query=${query}`, e);
     }
   };
 

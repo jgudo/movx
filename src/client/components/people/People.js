@@ -9,6 +9,7 @@ import Footer from '../layout/Footer';
 import Error from '../layout/Error';
 
 // actions
+import { FETCH_PEOPLE } from '../../constants/constants';
 import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
 
 // helpers
@@ -20,7 +21,7 @@ const People = (props) => {
 
   const fetchPeople = (page = 1) => {
     props.isCurrentlyFetching();
-    props.fetchRequest('FETCH_PEOPLE', 'person/popular?', page)
+    props.fetchRequest(FETCH_PEOPLE, 'person/popular?', page)
       .then((status) => {
         if (status === 503) {
           setIfError('Error connection');

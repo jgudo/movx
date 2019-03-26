@@ -10,24 +10,24 @@ import Footer from '../layout/Footer';
 import Error from '../layout/Error';
 
 // actions
+import { FETCH_GENRE_CATEGORY } from '../../constants/constants';
 import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
 
 // helpers
 import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
 
-const queryString = 'discover/movie?';
-
 const ViewGenre = (props) => {
   const [error, setIfError] = useState(undefined);
   const { genreMovies, isLoading } = props;
   const { genre } = props.match.params;
+  const queryString = 'discover/movie?';
 
   const fetchMovieGenre = (page = 1) => {
     const genreId = props.match.params.id;
     const fullQuery = `${queryString}&with_genres=${genreId}`;
 
     props.isCurrentlyFetching();
-    props.fetchRequest('FETCH_GENRE_CATEGORY', fullQuery, page)
+    props.fetchRequest(FETCH_GENRE_CATEGORY, fullQuery, page)
       .then((status) => {
         if (status === 503) {
           setIfError('Error connection');
