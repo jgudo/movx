@@ -50,7 +50,7 @@ class TrendingMovies extends Component {
     
     return (
       <React.Fragment>
-        {isLoading && <LoadingScreen />}
+        {(isLoading && isEmpty(trendingMovies)) && <LoadingScreen />}
         <div className="container">
           <div className="container__wrapper container__movies">
             {(!isEmpty(trendingMovies) && !error) && (

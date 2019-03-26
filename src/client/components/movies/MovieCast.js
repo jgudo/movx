@@ -15,7 +15,7 @@ const MovieCast = (props) => {
           </div>
           <div className="movie__casts-grid">
             {casts.map((person, index) => {
-              return index < 8 && (
+              return index < 12 && (
                   <PeopleCard 
                       category="people"
                       key={person.id + person.name}
@@ -26,7 +26,7 @@ const MovieCast = (props) => {
           </div>
           <br/>
           <button 
-              className="button--primary"
+              className="button--primary button--block"
               onClick={() => {
                 props.history.push(`/view/movie/${props.match.params.id}/casts`);
                 window.scrollTo(null, 0);

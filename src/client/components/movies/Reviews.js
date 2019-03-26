@@ -7,7 +7,7 @@ const Reviews = ({ reviews }) => {
   return (
     <div className="container__wrapper">
       <div className="reviews__header"> 
-        <h1>User Reviews</h1>
+        <h1>Reviews</h1>
       </div>
       {!isEmpty(reviews) && reviews.results.map((review) => {
         return (

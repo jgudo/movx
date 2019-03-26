@@ -11,6 +11,8 @@ import MoviePoster from './MoviePoster';
 import Reviews from './Reviews';
 import ImageLoader from '../layout/ImageLoader';
 import LoadingScreen from '../layout/LoadingScreen';
+import SimilarMovies from './SimilarMovies';
+import ContentLoader from './ContentLoader';
 import Footer from '../layout/Footer';
 
 // actions
@@ -36,12 +38,21 @@ class ViewMovie extends Component {
 
   componentDidMount() {
     const movieId = this.props.match.params.id;
-    const movieCategory = this.props.match.params.category;
+    this.fetchMovie(movieId);
     window.scrollTo(undefined, 0);
-  
-    if (parseInt(movieId, 10) !== this.props.movie.id) {
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const movieId = nextProps.match.params.id;
+    this.fetchMovie(movieId);
+  }
+
+  fetchMovie = (id) => {
+    const movieCategory = this.props.match.params.category;
+
+    if (parseInt(id, 10) !== this.props.movie.id) {
       this.props.isCurrentlyFetching();
-      this.props.fetchSelected(movieCategory, movieId)
+      this.props.fetchSelected(movieCategory, id)
         .then((status) => {
           if (status === 503) {
             this.setState({ error: 'Error connection' });
@@ -50,7 +61,7 @@ class ViewMovie extends Component {
           }
         });
     }
-  }
+  };
 
   openVideoModal = () => {
     if (this.props.movie.videos.results.length >= 1) {
@@ -231,7 +242,7 @@ class ViewMovie extends Component {
                       posters={posters.length > 10 ? posters.slice(0, 10) : posters}
                   />
                   <button 
-                      className="button--primary m-auto"
+                      className="button--primary button--block m-auto"
                       onClick={() => {
                         this.props.history.push(`/view/movie/${this.props.match.params.id}/images`);
                         window.scrollTo(null, 0);
@@ -242,6 +253,11 @@ class ViewMovie extends Component {
                 </div>
               </div>
             </React.Fragment>
+          )}
+          {(movie.similar && !isLoading && !error) && (
+            <div className="similar">
+              <SimilarMovies movies={movie.similar.results} />
+            </div>
           )}
           {(!isEmpty(reviews) && reviews.results.length !== 0 && !isLoading && !error) && (
             <div className="reviews">
@@ -258,6 +274,7 @@ class ViewMovie extends Component {
               </button>
             </div>
           )}
+          <Footer />
         </div>
       </React.Fragment>
     );

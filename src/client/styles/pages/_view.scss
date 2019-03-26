@@ -56,6 +56,7 @@
 .view__details {
   padding: 0 $xl-size;
   display: flex;
+  flex-grow: 1;
   flex-direction: column;
    
   @media (max-width: $tablet) {
@@ -208,4 +209,14 @@
 .icon-heart,
 .icon-play {
   margin-left: 10px;
+}
+
+
+.similar__wrapper {
+  width: 85%;
+  margin: auto;
+
+  @media (max-width: $mobile) {
+    width: 90%;
+  }
 }

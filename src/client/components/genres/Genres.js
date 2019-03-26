@@ -56,9 +56,7 @@ const Genres = (props) => {
 };
 
 Genres.propTypes = {
-  genres: PropTypes.shape({
-    genres: PropTypes.array
-  })
+  genres: PropTypes.arrayOf(PropTypes.object)
 };
 
 const mapStateToProps = ({ genres, isLoading }) => ({

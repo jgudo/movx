@@ -59,7 +59,7 @@ class TvShows extends Component {
   
     return (
       <React.Fragment>
-        {isLoading && <LoadingScreen />}
+        {(isLoading && isEmpty(tvShows)) && <LoadingScreen />}
         <div className="container">
           <div className="container__wrapper container__movies">
             {(!isEmpty(tvShows) && !error) && (

@@ -36,7 +36,7 @@ export const fetchSelected = (category, movieId) => {
   let response;
   return async (dispatch) => {
     try {
-      const movieRequest = await axios.get(`${tmdb + category}/${movieId}?api_key=${tmdbKey}&append_to_response=videos,images`);
+      const movieRequest = await axios.get(`${tmdb + category}/${movieId}?api_key=${tmdbKey}&append_to_response=similar,videos,images`);
       const movie = await movieRequest.data;
       const creditsRequest = await axios.get(`${tmdb + category}/${movie.id}/credits?api_key=${tmdbKey}`);
       const credits = await creditsRequest.data;

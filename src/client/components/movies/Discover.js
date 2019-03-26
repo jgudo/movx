@@ -61,7 +61,7 @@ class DiscoverMovies extends Component {
 
     return (
       <React.Fragment>
-        {isLoading && <LoadingScreen />}
+        {(isLoading && isEmpty(discoverMovies)) && <LoadingScreen />}
         <div className="container">
           <div className="container__wrapper container__movies">
             {(!isEmpty(discoverMovies) && !error) && (
@@ -84,7 +84,7 @@ class DiscoverMovies extends Component {
                           key={`${movie.id}_${index}`}
                           movie={movie} 
                       />
-                    )
+                    );
                   })}
                 </div>
                 <PaginationBar 
