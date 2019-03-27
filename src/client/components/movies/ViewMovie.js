@@ -11,7 +11,7 @@ import MoviePoster from './MoviePoster';
 import Reviews from './Reviews';
 import ImageLoader from '../layout/ImageLoader';
 import SimilarMovies from './SimilarMovies';
-import ContentLoader from './ContentLoader';
+import ContentLoader from '../layout/ContentLoader';
 import Footer from '../layout/Footer';
 
 // actions
@@ -53,7 +53,6 @@ class ViewMovie extends Component {
       this.props.isCurrentlyFetching();
       this.props.fetchSelected(movieCategory, id)
         .then((status) => {
-          console.log(status);
           if (status === 503) {
             this.setState({ error: 'Error connection' });
           } else if (status === 404) {

@@ -7,6 +7,7 @@ import Modal from 'react-responsive-modal';
 
 import ImageLoader from '../layout/ImageLoader';
 import LoadingScreen from '../layout/LoadingScreen';
+import ContentLoader from '../layout/ContentLoader';
 import Casting from './Casting';
 
 import { fetchPerson, isCurrentlyFetching } from '../../actions/actions';
@@ -56,7 +57,7 @@ const ViewPeople = (props) => {
 
   return (
     <React.Fragment>
-      {isLoading && <LoadingScreen />}
+      {isLoading && <ContentLoader />}
       <div className="container mt-0 pt-0">
         <div className="container__wrapper w-100">
           {(!isLoading && !isEmpty(actor) && !error) && (

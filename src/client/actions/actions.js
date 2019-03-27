@@ -51,7 +51,7 @@ export const fetchSelected = (category, movieId) => {
       const credits = await creditsRequest.data;
       const keywordsRequest = await axios.get(`${tmdb + category}/${movie.id}/keywords?api_key=${tmdbKey}`);
       const keywords = await keywordsRequest.data;
-      const reviewsRequest = await axios.get(`${tmdb}movie/${movieId}/reviews?api_key=${tmdbKey}`);
+      const reviewsRequest = await axios.get(`${tmdb + category}/${movieId}/reviews?api_key=${tmdbKey}`);
       const reviews = await reviewsRequest.data;
       
       if (movie) {
