@@ -4,17 +4,27 @@ import {
   CLEAR_SEARCH_HISTORY,
   ADD_TO_FAVORITES,
   REMOVE_FROM_FAVORITES,
-  FETCH_SELECTED_MOVIE,
+  // FETCH_SELECTED_MOVIE,
+  FETCH_SELECTED_MOVIE_SUCCESS,
   FETCH_SELECTED_PERSON,
-  FETCH_DISCOVER_MOVIES,
-  FETCH_TV_SHOWS,
-  FETCH_PEOPLE,
-  FETCH_GENRES,
-  FETCH_GENRE_CATEGORY,
-  FETCH_POPULAR_MOVIES,
-  FETCH_TRENDING_MOVIES,
-  FETCH_TOPRATED_MOVIES,
-  FETCH_UPCOMING_MOVIES,
+  // FETCH_DISCOVER_MOVIES,
+  FETCH_DISCOVER_MOVIES_SUCCESS,
+  // FETCH_TV_SHOWS,
+  FETCH_TV_SHOWS_SUCCESS,
+  // FETCH_PEOPLE,
+  FETCH_PEOPLE_SUCCESS,
+  // FETCH_GENRES,
+  FETCH_GENRES_SUCCESS,
+  // FETCH_GENRE_CATEGORY,
+  FETCH_GENRE_CATEGORY_SUCCESS,
+  // FETCH_POPULAR_MOVIES,
+  FETCH_POPULAR_MOVIES_SUCCESS,
+  // FETCH_TRENDING_MOVIES,
+  FETCH_TRENDING_MOVIES_SUCCESS,
+  // FETCH_TOPRATED_MOVIES,
+  FETCH_TOPRATED_MOVIES_SUCCESS,
+  // FETCH_UPCOMING_MOVIES,
+  FETCH_UPCOMING_MOVIES_SUCCESS,
   SET_DISCOVER_YEAR_FILTER,
   SET_TV_YEAR_FILTER,
   SET_DISCOVER_SORT_FILTER,
@@ -23,9 +33,12 @@ import {
   SET_TV_GENRE_FILTER,
   UPDATE_DISCOVER_QUERY,
   UPDATE_TV_QUERY,
-  SEARCH_MOVIES,
-  SEARCH_TV_SHOWS,
-  SEARCH_PEOPLE,
+  // SEARCH_MOVIES,
+  SEARCH_MOVIES_SUCCESS,
+  // SEARCH_TV_SHOWS,
+  SEARCH_TV_SHOWS_SUCCESS,
+  // SEARCH_PEOPLE,
+  SEARCH_PEOPLE_SUCCESS,
   UPDATE_SEARCH_QUERY
 
 } from '../constants/constants';
@@ -83,43 +96,43 @@ const moviesReducer = (state = {
   isLoading: false
 }, action) => {
   switch (action.type) {
-    case FETCH_TRENDING_MOVIES:
+    case FETCH_TRENDING_MOVIES_SUCCESS:
       return {
         ...state,
         trendingMovies: { ...action.data },
         isLoading: false
       };
-    case FETCH_DISCOVER_MOVIES:
+    case FETCH_DISCOVER_MOVIES_SUCCESS:
       return {
         ...state,
         discoverMovies: { ...action.data },
         isLoading: false
       };
-    case FETCH_TV_SHOWS:
+    case FETCH_TV_SHOWS_SUCCESS:
       return {
         ...state,
         tvShows: { ...action.data },
         isLoading: false
       };
-    case FETCH_PEOPLE:
+    case FETCH_PEOPLE_SUCCESS:
       return {
         ...state,
         people: { ...action.data },
         isLoading: false
       };    
-    case FETCH_GENRES:
+    case FETCH_GENRES_SUCCESS:
       return {
         ...state,
         genres: [...action.data.genres], 
         isLoading: false
       }; 
-    case FETCH_GENRE_CATEGORY:
+    case FETCH_GENRE_CATEGORY_SUCCESS:
       return {
         ...state,
         genreMovies: action.data, 
         isLoading: false
       };
-    case FETCH_SELECTED_MOVIE:
+    case FETCH_SELECTED_MOVIE_SUCCESS:
       return {
         ...state,
         current: action.data, 
@@ -135,19 +148,19 @@ const moviesReducer = (state = {
         }, 
         isLoading: false
       };
-    case FETCH_POPULAR_MOVIES:
+    case FETCH_POPULAR_MOVIES_SUCCESS:
       return {
         ...state,
         popularMovies: action.data, 
         isLoading: false
       };
-    case FETCH_TOPRATED_MOVIES:
+    case FETCH_TOPRATED_MOVIES_SUCCESS:
       return {
         ...state,
         topRatedMovies: action.data, 
         isLoading: false
       };
-    case FETCH_UPCOMING_MOVIES:
+    case FETCH_UPCOMING_MOVIES_SUCCESS:
       return {
         ...state,
         upcomingMovies: action.data, 
@@ -273,7 +286,7 @@ const moviesReducer = (state = {
         ...state,
         isLoading: action.bool
       };
-    case SEARCH_MOVIES:
+    case SEARCH_MOVIES_SUCCESS:
       return {
         ...state,
         search: {
@@ -282,7 +295,7 @@ const moviesReducer = (state = {
         },
         isLoading: false
       };
-    case SEARCH_TV_SHOWS:
+    case SEARCH_TV_SHOWS_SUCCESS:
       return {
         ...state,
         search: {
@@ -291,7 +304,7 @@ const moviesReducer = (state = {
         },
         isLoading: false
       };
-    case SEARCH_PEOPLE:
+    case SEARCH_PEOPLE_SUCCESS:
       return {
         ...state,
         search: {

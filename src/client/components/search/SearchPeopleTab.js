@@ -7,7 +7,7 @@ import PaginationBar from '../layout/PaginationBar';
 
 // actions
 import { SEARCH_PEOPLE } from '../../constants/constants';
-import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
+import { searchPeople, isCurrentlyFetching } from '../../actions/actions';
 
 // helpers
 import { isEmpty } from '../../helpers/helperFunctions';
@@ -17,7 +17,7 @@ const SearchPeopleTab = (props) => {
   const handlePageChange = (e) => {
     if (props.people.page !== e && !isLoading) {
       props.isCurrentlyFetching();
-      props.fetchRequest(SEARCH_PEOPLE, `search/person?query=${query}`, e);
+      props.searchPeople(`search/person?query=${query}`, e);
     }
   };
 
@@ -55,7 +55,7 @@ const SearchPeopleTab = (props) => {
 };
 
 SearchPeopleTab.propTypes = {
-  fetchRequest: PropTypes.func,
+  searchPeople: PropTypes.func,
   isCurrentlyFetching: PropTypes.func,
   isLoading: PropTypes.bool,
   people: PropTypes.shape({
@@ -68,7 +68,7 @@ SearchPeopleTab.propTypes = {
 };
 
 const mapDispatchToProps = dispatch => ({
-  fetchRequest: (action, url, page) => dispatch(fetchRequest(action, url, page)),
+  searchPeople: (url, page) => dispatch(searchPeople(url, page)),
   isCurrentlyFetching: bool => dispatch(isCurrentlyFetching(bool))
 });
 

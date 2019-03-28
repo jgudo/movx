@@ -9,31 +9,31 @@ import Footer from '../layout/Footer';
 
 // actions
 import { FETCH_UPCOMING_MOVIES } from '../../constants/constants';
-import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
+import { fetchUpcomingMovies, isCurrentlyFetching } from '../../actions/actions';
 
 // helpers
 import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
 
 const UpcomingMovies = (props) => {
-  const { upcomingMovies } = props;
+  const { upcomingMovies, isLoading } = props;
   const queryString = 'movie/upcoming?';
 
   useEffect(() => {
     if (isEmpty(props.upcomingMovies)) {
-      props.fetchRequest(FETCH_UPCOMING_MOVIES, queryString);
+      props.fetchUpcomingMovies(queryString);
     }
   }, []);
 
   const handlePageChange = (e) => {
     if (props.upcomingMovies.page !== e && !props.isLoading) {
       props.isCurrentlyFetching();
-      props.fetchRequest(FETCH_UPCOMING_MOVIES, queryString, e);
+      props.fetchUpcomingMovies(queryString, e);
     }
   };
  
   return (
     <React.Fragment>
-      {isEmpty(upcomingMovies) && <LoadingScreen />}
+      {(isLoading && isEmpty(upcomingMovies)) && <LoadingScreen />}
       <div className="container">
         <div className="container__wrapper container__movies">
           {!isEmpty(upcomingMovies) && (
@@ -73,7 +73,7 @@ const UpcomingMovies = (props) => {
 };
 
 UpcomingMovies.propTypes = {
-  fetchRequest: PropTypes.func,
+  fetchUpcomingMovies: PropTypes.func,
   isCurrentlyFetching: PropTypes.func,
   upcomingMovies: PropTypes.shape({
     page: PropTypes.number,
@@ -83,12 +83,13 @@ UpcomingMovies.propTypes = {
   })
 };
 
-const mapStateToProps = ({ upcomingMovies }) => ({
-  upcomingMovies
+const mapStateToProps = ({ upcomingMovies, isLoading }) => ({
+  upcomingMovies,
+  isLoading
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchRequest: (action, url, page) => dispatch(fetchRequest(action, url, page)),
+  fetchUpcomingMovies: (url, page) => dispatch(fetchUpcomingMovies(url, page)),
   isCurrentlyFetching: bool => dispatch(isCurrentlyFetching(bool))
 });
 

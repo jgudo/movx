@@ -1,8 +1,10 @@
 import { createStore, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
+import createSagaMiddleware from 'redux-saga';
 
+import rootSaga from '../sagas/watchers';
 import moviesReducer from '../reducers/moviesReducer';
 
+const sagaMiddleware = createSagaMiddleware();
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const storageName = 'movx-v2';
 
@@ -41,7 +43,9 @@ export default () => {
   const store = createStore(
     moviesReducer,
     reHydrateStore(), 
-    composeEnhancers(applyMiddleware(localStorageMiddleware, thunk))
+    composeEnhancers(applyMiddleware(localStorageMiddleware, sagaMiddleware))
   );
+
+  sagaMiddleware.run(rootSaga);
   return store;
 };

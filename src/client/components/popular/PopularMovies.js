@@ -9,31 +9,31 @@ import Footer from '../layout/Footer';
 
 // actions
 import { FETCH_POPULAR_MOVIES } from '../../constants/constants';
-import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
+import { fetchPopularMovies, isCurrentlyFetching } from '../../actions/actions';
 
 // helpers
 import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
 
 const PopularMovies = (props) => {
-  const { popularMovies } = props;
+  const { popularMovies, isLoading } = props;
   const queryString = 'movie/popular?';
   
   useEffect(() => {
     if (isEmpty(props.popularMovies)) {
-      props.fetchRequest(FETCH_POPULAR_MOVIES, queryString);
+      props.fetchPopularMovies(queryString);
     }
   }, []);
 
   const handlePageChange = (e) => {
     if (props.popularMovies.page !== e && !props.isLoading) {
       props.isCurrentlyFetching();
-      props.fetchRequest(FETCH_POPULAR_MOVIES, queryString, e);
+      props.fetchPopularMovies(queryString, e);
     }
   };
 
   return (
     <React.Fragment>
-      {isEmpty(popularMovies) && <LoadingScreen />}
+      {(isLoading && isEmpty(popularMovies)) && <LoadingScreen />}
       <div className="container">
         <div className="container__wrapper container__movies">
           {!isEmpty(popularMovies) && (
@@ -73,7 +73,7 @@ const PopularMovies = (props) => {
 };
 
 PopularMovies.propTypes = {
-  fetchRequest: PropTypes.func,
+  fetchPopularMovies: PropTypes.func,
   isCurrentlyFetching: PropTypes.func,
   popularMovies: PropTypes.shape({
     page: PropTypes.number,
@@ -83,12 +83,13 @@ PopularMovies.propTypes = {
   })
 };
 
-const mapStateToProps = ({ popularMovies }) => ({
-  popularMovies
+const mapStateToProps = ({ popularMovies, isLoading }) => ({
+  popularMovies,
+  isLoading
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchRequest: (action, url, page) => dispatch(fetchRequest(action, url, page)),
+  fetchPopularMovies: (url, page) => dispatch(fetchPopularMovies(url, page)),
   isCurrentlyFetching: bool => dispatch(isCurrentlyFetching(bool))
 });
 

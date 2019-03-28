@@ -6,8 +6,7 @@ import MovieCard from '../movies/MovieCard';
 import PaginationBar from '../layout/PaginationBar';
 
 // actions
-import { SEARCH_TV_SHOWS } from '../../constants/constants';
-import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
+import { searchTvShows, isCurrentlyFetching } from '../../actions/actions';
 
 // helpers
 import { isEmpty } from '../../helpers/helperFunctions';
@@ -17,7 +16,7 @@ const SearchTvTab = (props) => {
   const handlePageChange = (e) => {
     if (tvShows.page !== e && !isLoading) {
       props.isCurrentlyFetching();
-      props.fetchRequest(SEARCH_TV_SHOWS, `search/tv?query=${query}`, e);
+      props.searchTvShows(`search/tv?query=${query}`, e);
     }
   };
 
@@ -55,7 +54,7 @@ const SearchTvTab = (props) => {
 };
 
 SearchTvTab.propTypes = {
-  fetchRequest: PropTypes.func,
+  searchTvShows: PropTypes.func,
   isCurrentlyFetching: PropTypes.func,
   isLoading: PropTypes.bool,
   query: PropTypes.string,
@@ -68,7 +67,7 @@ SearchTvTab.propTypes = {
 };
 
 const mapDispatchToProps = dispatch => ({
-  fetchRequest: (action, url, page) => dispatch(fetchRequest(action, url, page)),
+  searchTvShows: (url, page) => dispatch(searchTvShows(url, page)),
   isCurrentlyFetching: bool => dispatch(isCurrentlyFetching(bool))
 });
 

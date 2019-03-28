@@ -9,31 +9,31 @@ import Footer from '../layout/Footer';
 
 // actions
 import { FETCH_TOPRATED_MOVIES } from '../../constants/constants';
-import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
+import { fetchTopRatedMovies, isCurrentlyFetching } from '../../actions/actions';
 
 // helpers
 import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
 
 const TopRatedMovies = (props) => {
-  const { topRatedMovies } = props;
+  const { topRatedMovies, isLoading } = props;
   const queryString = 'movie/top_rated?';
   
   useEffect(() => {
     if (isEmpty(props.topRatedMovies)) {
-      props.fetchRequest(FETCH_TOPRATED_MOVIES, queryString);
+      props.fetchTopRatedMovies(queryString);
     }
   }, []);
  
   const handlePageChange = (e) => {
     if (props.topRatedMovies.page !== e && !props.isLoading) {
       props.isCurrentlyFetching();
-      props.fetchRequest(FETCH_TOPRATED_MOVIES, queryString, e);
+      props.fetchTopRatedMovies(queryString, e);
     }
   };
 
   return (
     <React.Fragment>
-      {isEmpty(topRatedMovies) && <LoadingScreen />}
+      {(isLoading && isEmpty(topRatedMovies)) && <LoadingScreen />}
       <div className="container">
         <div className="container__wrapper container__movies">
           {!isEmpty(topRatedMovies) && (
@@ -73,7 +73,7 @@ const TopRatedMovies = (props) => {
 };
 
 TopRatedMovies.propTypes = {
-  fetchRequest: PropTypes.func,
+  fetchTopRatedMovies: PropTypes.func,
   isCurrentlyFetching: PropTypes.func,
   topRatedMovies: PropTypes.shape({
     page: PropTypes.number,
@@ -83,12 +83,13 @@ TopRatedMovies.propTypes = {
   })
 };
 
-const mapStateToProps = ({ topRatedMovies }) => ({
-  topRatedMovies
+const mapStateToProps = ({ topRatedMovies, isLoading }) => ({
+  topRatedMovies,
+  isLoading
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchRequest: (action, url, page) => dispatch(fetchRequest(action, url, page)),
+  fetchTopRatedMovies: (url, page) => dispatch(fetchTopRatedMovies(url, page)),
   isCurrentlyFetching: bool => dispatch(isCurrentlyFetching(bool))
 });
 

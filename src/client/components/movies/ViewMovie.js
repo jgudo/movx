@@ -18,7 +18,7 @@ import Footer from '../layout/Footer';
 import { 
   addToFavorites, 
   removeFromFavorites, 
-  fetchSelected, 
+  fetchSelectedMovie, 
   isCurrentlyFetching 
 } from '../../actions/actions';
 
@@ -51,14 +51,14 @@ class ViewMovie extends Component {
 
     if (parseInt(id, 10) !== this.props.movie.id) {
       this.props.isCurrentlyFetching();
-      this.props.fetchSelected(movieCategory, id)
-        .then((status) => {
-          if (status === 503) {
-            this.setState({ error: 'Error connection' });
-          } else if (status === 404) {
-            this.setState({ error: 'Movie details cannot be found' });
-          }
-        });
+      this.props.fetchSelectedMovie(movieCategory, id);
+        // .then((status) => {
+        //   if (status === 503) {
+        //     this.setState({ error: 'Error connection' });
+        //   } else if (status === 404) {
+        //     this.setState({ error: 'Movie details cannot be found' });
+        //   }
+        // });
     }
   };
 
@@ -284,7 +284,7 @@ ViewMovie.propTypes = {
   addToFavorites: PropTypes.func,
   casts: PropTypes.arrayOf(PropTypes.object),
   favorites: PropTypes.arrayOf(PropTypes.object),
-  fetchSelected: PropTypes.func,
+  fetchSelectedMovie: PropTypes.func,
   isCurrentlyFetching: PropTypes.func,
   isLoading: PropTypes.bool,
   keywords: PropTypes.arrayOf(PropTypes.object),
@@ -307,7 +307,7 @@ const mapDispatchToProps = dispatch => ({
   addToFavorites: favorites => dispatch(addToFavorites(favorites)),
   removeFromFavorites: id => dispatch(removeFromFavorites(id)),
   isCurrentlyFetching: () => dispatch(isCurrentlyFetching()),
-  fetchSelected: (category, id) => dispatch(fetchSelected(category, id))
+  fetchSelectedMovie: (category, id) => dispatch(fetchSelectedMovie(category, id))
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ViewMovie));

@@ -9,12 +9,12 @@ import SearchPeopleTab from './SearchPeopleTab';
 import Tabs from '../tabs/Tabs';
 
 import { 
-  UPDATE_SEARCH_QUERY,
-  SEARCH_MOVIES,
-  SEARCH_TV_SHOWS,
-  SEARCH_PEOPLE 
-} from '../../constants/constants';
-import { fetchRequest, updateQuery, isCurrentlyFetching } from '../../actions/actions';
+  searchMovies, 
+  searchTvShows,
+  searchPeople,
+  updateSearchQuery,
+  isCurrentlyFetching 
+} from '../../actions/actions';
 
 // helpers
 import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
@@ -28,29 +28,22 @@ class Search extends Component {
     const queryString = this.props.match.params.query;
     if (queryString !== this.props.query) {
       this.search(queryString);
-      this.props.updateQuery(UPDATE_SEARCH_QUERY, queryString);
+      this.props.updateSearchQuery(queryString);
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.match.params.query !== nextProps.match.params.query) {
       this.search(nextProps.match.params.query);
-      this.props.updateQuery(UPDATE_SEARCH_QUERY, nextProps.match.params.query);
+      this.props.updateSearchQuery(nextProps.match.params.query);
     }
   }
 
   search = (query) => {
     this.props.isCurrentlyFetching();
-    this.props.fetchRequest(SEARCH_MOVIES, `search/movie?query=${query}`)
-      .then((status) => {
-        if (status === 503) {
-          this.setState({ error: 'Error connection' });
-        } else if (status === 404) {
-          this.setState({ error: 'Cannot fetch movies' });
-        }
-      });
-    this.props.fetchRequest(SEARCH_TV_SHOWS, `search/tv?query=${query}`);
-    this.props.fetchRequest(SEARCH_PEOPLE, `search/person?query=${query}`);
+    this.props.searchMovies(`search/movie?query=${query}`);
+    this.props.searchTvShows(`search/tv?query=${query}`);
+    this.props.searchPeople(`search/person?query=${query}`);
   };
 
   render() {
@@ -146,9 +139,11 @@ const mapStateToProps = ({ search, isLoading }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchRequest: (action, url, page) => dispatch(fetchRequest(action, url, page)),
+  searchMovies: (url, page) => dispatch(searchMovies(url, page)),
+  searchPeople: (url, page) => dispatch(searchPeople(url, page)),
+  searchTvShows: (url, page) => dispatch(searchTvShows(url, page)),
   isCurrentlyFetching: bool => dispatch(isCurrentlyFetching(bool)),
-  updateQuery: (action, query) => dispatch(updateQuery(action, query))
+  updateSearchQuery: query => dispatch(updateSearchQuery(query))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);

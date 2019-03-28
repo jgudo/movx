@@ -9,8 +9,7 @@ import Footer from '../layout/Footer';
 import Error from '../layout/Error';
 
 // actions
-import { FETCH_PEOPLE } from '../../constants/constants';
-import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
+import { fetchPeople, isCurrentlyFetching } from '../../actions/actions';
 
 // helpers
 import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
@@ -19,27 +18,20 @@ const People = (props) => {
   const [error, setIfError] = useState(undefined);
   const { people, isLoading } = props;
 
-  const fetchPeople = (page = 1) => {
+  const getPeople = (page = 1) => {
     props.isCurrentlyFetching();
-    props.fetchRequest(FETCH_PEOPLE, 'person/popular?', page)
-      .then((status) => {
-        if (status === 503) {
-          setIfError('Error connection');
-        } else if (status === 404) {
-          setIfError('Cannot fetch movies');
-        }
-      });
+    props.fetchPeople('person/popular?', page);
   };
 
   useEffect(() => {
     if (isEmpty(props.people)) {
-      fetchPeople();
+      getPeople();
     } 
   }, []);
 
   const handlePageChange = (e) => {
     if (props.people.page !== e) {
-      fetchPeople(e);
+      getPeople(e);
     }
   };
 
@@ -88,7 +80,7 @@ const People = (props) => {
 };
 
 People.propTypes = {
-  fetchRequest: PropTypes.func,
+  fetchPeople: PropTypes.func,
   isCurrentlyFetching: PropTypes.func,
   people: PropTypes.shape({
     results: PropTypes.arrayOf(PropTypes.object),
@@ -104,7 +96,7 @@ const mapStateToProps = ({ people, isLoading }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchRequest: (action, url, page) => dispatch(fetchRequest(action, url, page)),
+  fetchPeople: (url, page) => dispatch(fetchPeople(url, page)),
   isCurrentlyFetching: bool => dispatch(isCurrentlyFetching(bool))
 });
 

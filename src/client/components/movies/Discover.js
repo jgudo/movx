@@ -10,8 +10,7 @@ import Error from '../layout/Error';
 import Filter from '../layout/Filter';
 
 // actions
-import { FETCH_DISCOVER_MOVIES } from '../../constants/constants';
-import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
+import { fetchDiscoverMovies, isCurrentlyFetching } from '../../actions/actions';
 
 // helpers
 import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions'; 
@@ -40,14 +39,7 @@ class DiscoverMovies extends Component {
     const path = 'discover/movie?';
 
     this.props.isCurrentlyFetching();
-    this.props.fetchRequest(FETCH_DISCOVER_MOVIES, path + query, page)
-      .then((status) => {
-        if (status === 503) {
-          this.setState({ error: 'Error connection' });
-        } else if (status === 404) {
-          this.setState({ error: 'Cannot fetch movies' });
-        }
-      });
+    this.props.fetchDiscoverMovies(path + query, page);
   }
 
   handlePageChange = (e) => {
@@ -121,7 +113,7 @@ const mapStateToProps = ({ discoverMovies, filter, isLoading }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchRequest: (action, url, page) => dispatch(fetchRequest(action, url, page)),
+  fetchDiscoverMovies: (url, page) => dispatch(fetchDiscoverMovies(url, page)),
   isCurrentlyFetching: bool => dispatch(isCurrentlyFetching(bool))
 });
 

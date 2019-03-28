@@ -3,21 +3,14 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { 
-  setYearFilter, 
-  setGenreFilter, 
-  setSortFilter,
-  updateQuery
+  setDiscoverGenreFilter,
+  setDiscoverSortFilter,
+  setDiscoverYearFilter,
+  setTvGenreFilter,
+  setTvYearFilter,
+  setTvSortFilter
 } from '../../actions/actions';
-import { 
-  UPDATE_DISCOVER_QUERY,
-  UPDATE_TV_QUERY,
-  SET_DISCOVER_YEAR_FILTER,
-  SET_TV_YEAR_FILTER,
-  SET_DISCOVER_SORT_FILTER,
-  SET_TV_SORT_FILTER,
-  SET_DISCOVER_GENRE_FILTER,
-  SET_TV_GENRE_FILTER
-} from '../../constants/constants';
+
 
 const yearToday = new Date().getFullYear();
 const years = [];
@@ -31,25 +24,6 @@ const Filter = (props) => {
   const { year, sort, genre } = props.filterData;
   const filterRef = useRef(null);
 
-  const updateQueryString = (yearProps, sortProps, genreProps) => {
-    const yearFilter = yearProps ? `&year=${yearProps}&first_air_date_year=${yearProps}` : '';
-    const sortFilter = sortProps ? `&sort_by=${sortProps}` : '';
-    const genreFilter = genreProps ? `&with_genres=${genreProps}` : '';
-    const newQuery = `${yearFilter + sortFilter + genreFilter}`;
-
-    switch (filterCategory) {
-      case 'discover':
-        props.updateQuery(UPDATE_DISCOVER_QUERY, newQuery);
-        break;
-      case 'tv':
-        props.updateQuery(UPDATE_TV_QUERY, newQuery);
-        console.log('hoho');
-        break;
-      default:
-        return null;
-    }
-  };
-
   const onFilterToggle = () => {
     filterRef.current.classList.toggle('open');
   };
@@ -62,70 +36,25 @@ const Filter = (props) => {
   const onYearFilterChange = (e) => {
     const selected = e.target.value;
     onFilterClose();
-    switch (filterCategory) {
-      case 'discover':
-        props.setYearFilter(SET_DISCOVER_YEAR_FILTER, selected)
-          .then(({ filter }) => {
-            const { year, sort, genre } = filter.discover;
-            updateQueryString(year, sort, genre);
-          });
-        break;
-      case 'tv':
-        props.setYearFilter(SET_TV_YEAR_FILTER, selected)
-          .then(({ filter }) => {
-            const { year, sort, genre } = filter.tv;
-            updateQueryString(year, sort, genre);
-          });
-        break;
-      default: 
-        return null;   
-    }
+
+    if (filterCategory === 'discover') props.setDiscoverYearFilter(selected);
+    else if (filterCategory === 'tv') props.setYearFilter(selected);
   };
 
   const onSortFilterChange = (e) => {
     const selected = e.target.value;
     onFilterClose();
-    switch (filterCategory) {
-      case 'discover':
-        props.setSortFilter(SET_DISCOVER_SORT_FILTER, selected)
-          .then(({ filter }) => {
-            const { year, sort, genre } = filter.discover;
-            updateQueryString(year, sort, genre);
-          });
-        break;
-      case 'tv':
-        props.setSortFilter(SET_TV_SORT_FILTER, selected)
-          .then(({ filter }) => {
-            const { year, sort, genre } = filter.tv;
-            updateQueryString(year, sort, genre);
-          });
-        break;
-      default: 
-        return null;  
-    }
+
+    if (filterCategory === 'discover') props.setDiscoverSortFilter(selected);
+    else if (filterCategory) props.setTvSortFilter(selected);
   };
 
   const onGenreFilterChange = (e) => {
     const selected = e.target.value;
     onFilterClose();
-    switch (filterCategory) {
-      case 'discover':
-        props.setGenreFilter(SET_DISCOVER_GENRE_FILTER, selected)
-          .then(({ filter }) => {
-            const { year, sort, genre } = filter.discover;
-            updateQueryString(year, sort, genre);
-          });
-        break;
-      case 'tv':
-        props.setGenreFilter(SET_TV_GENRE_FILTER, selected)
-          .then(({ filter }) => {
-            const { year, sort, genre } = filter.tv;
-            updateQueryString(year, sort, genre);
-          });
-        break;  
-      default: 
-        return null;  
-    }
+
+    if (filterCategory === 'discover') props.setDiscoverGenreFilter(selected);
+    else if (filterCategory === 'tv') props.setTvGenreFilter(selected);
   };
 
   return (
@@ -225,10 +154,12 @@ Filter.propTypes = {
 };
 
 const mapDispatchToProps = dispatch => ({
-  setYearFilter: (action, year) => dispatch(setYearFilter(action, year)),
-  setSortFilter: (action, sort) => dispatch(setSortFilter(action, sort)),
-  setGenreFilter: (action, genre) => dispatch(setGenreFilter(action, genre)),
-  updateQuery: (action, query) => dispatch(updateQuery(action, query))
+  setDiscoverYearFilter: year => dispatch(setDiscoverYearFilter(year)),
+  setDiscoverSortFilter: sort => dispatch(setDiscoverSortFilter(sort)),
+  setDiscoverGenreFilter: genre => dispatch(setDiscoverGenreFilter(genre)),
+  setTvYearFilter: year => dispatch(setTvYearFilter(year)),
+  setTvSortFilter: sort => dispatch(setTvSortFilter(sort)),
+  setTvGenreFilter: genre => dispatch(setTvGenreFilter(genre))
 });
   
 export default connect(undefined, mapDispatchToProps)(Filter);

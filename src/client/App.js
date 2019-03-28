@@ -7,7 +7,12 @@ import MovieCard from './components/movies/MovieCard';
 import Footer from './components/layout/Footer';
 import LoadingScreen from './components/layout/LoadingScreen';
 
-import { fetchRequest, isCurrentlyFetching } from './actions/actions';
+import { 
+  fetchPopularMovies, 
+  fetchUpcomingMovies,
+  fetchTopRatedMovies,
+  isCurrentlyFetching 
+} from './actions/actions';
 import { isEmpty } from './helpers/helperFunctions';
 
 const App = (props) => {
@@ -21,10 +26,10 @@ const App = (props) => {
   useEffect(() => {
     if (isEmpty(popularMovies) || popularMovies.page !== 1) {
       props.isCurrentlyFetching();
-      props.fetchRequest('FETCH_POPULAR_MOVIES', 'movie/popular?');
+      props.fetchPopularMovies('movie/popular?');
     }
-    if (isEmpty(topRatedMovies)) props.fetchRequest('FETCH_TOPRATED_MOVIES', 'movie/top_rated?');
-    if (isEmpty(upcomingMovies)) props.fetchRequest('FETCH_UPCOMING_MOVIES', 'movie/upcoming?');
+    if (isEmpty(topRatedMovies)) props.fetchTopRatedMovies('movie/top_rated?');
+    if (isEmpty(upcomingMovies)) props.fetchUpcomingMovies('movie/upcoming?');
   }, []);
 
   const onClickLink = (location) => {
@@ -112,7 +117,9 @@ const mapStateToProps = ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchRequest: (action, query, page) => dispatch(fetchRequest(action, query, page)),
+  fetchPopularMovies: (query, page) => dispatch(fetchPopularMovies(query, page)),
+  fetchTopRatedMovies: (query, page) => dispatch(fetchTopRatedMovies(query, page)),
+  fetchUpcomingMovies: (query, page) => dispatch(fetchUpcomingMovies(query, page)),
   isCurrentlyFetching: () => dispatch(isCurrentlyFetching())
 });
 

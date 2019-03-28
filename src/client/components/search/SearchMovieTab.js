@@ -6,8 +6,7 @@ import MovieCard from '../movies/MovieCard';
 import PaginationBar from '../layout/PaginationBar';
 
 // actions
-import { SEARCH_MOVIES } from '../../constants/constants';
-import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
+import { searchMovies, isCurrentlyFetching } from '../../actions/actions';
 
 // helpers
 import { isEmpty } from '../../helpers/helperFunctions';
@@ -17,7 +16,7 @@ const SearchMovieTab = (props) => {
   const handlePageChange = (e) => {
     if (movies.page !== e && !isLoading) {
       props.isCurrentlyFetching();
-      props.fetchRequest(SEARCH_MOVIES, `search/movie?query=${query}`, e);
+      props.searchMovies(`search/movie?query=${query}`, e);
     }
   };
 
@@ -55,7 +54,7 @@ const SearchMovieTab = (props) => {
 };
 
 SearchMovieTab.propTypes = {
-  fetchRequest: PropTypes.func,
+  searchMovies: PropTypes.func,
   isCurrentlyFetching: PropTypes.func,
   isLoading: PropTypes.bool,
   movies: PropTypes.shape({
@@ -68,7 +67,7 @@ SearchMovieTab.propTypes = {
 };
 
 const mapDispatchToProps = dispatch => ({
-  fetchRequest: (action, url, page) => dispatch(fetchRequest(action, url, page)),
+  searchMovies: (url, page) => dispatch(searchMovies(url, page)),
   isCurrentlyFetching: bool => dispatch(isCurrentlyFetching(bool))
 });
 

@@ -10,8 +10,7 @@ import Footer from '../layout/Footer';
 import Error from '../layout/Error';
 
 // actions
-import { FETCH_GENRE_CATEGORY } from '../../constants/constants';
-import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
+import { fetchGenreCategory, isCurrentlyFetching } from '../../actions/actions';
 
 // helpers
 import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
@@ -27,14 +26,7 @@ const ViewGenre = (props) => {
     const fullQuery = `${queryString}&with_genres=${genreId}`;
 
     props.isCurrentlyFetching();
-    props.fetchRequest(FETCH_GENRE_CATEGORY, fullQuery, page)
-      .then((status) => {
-        if (status === 503) {
-          setIfError('Error connection');
-        } else if (status === 404) {
-          setIfError('Cannot fetch movies');
-        }
-      });
+    props.fetchGenreCategory(fullQuery, page);
   };
 
   useEffect(() => {
@@ -110,7 +102,7 @@ const mapStateToProps = ({ genreMovies, isLoading, error }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchRequest: (action, url, page) => dispatch(fetchRequest(action, url, page)),
+  fetchGenreCategory: (action, url, page) => dispatch(fetchGenreCategory(action, url, page)),
   isCurrentlyFetching: bool => dispatch(isCurrentlyFetching(bool))
 });
 

@@ -9,8 +9,7 @@ import Error from '../layout/Error';
 import { isEmpty } from '../../helpers/helperFunctions';
 
 // actions
-import { FETCH_GENRES } from '../../constants/constants';
-import { fetchRequest } from '../../actions/actions';
+import { fetchGenres } from '../../actions/actions';
 
 const Genres = (props) => {
   const [error, setIfError] = useState(undefined);
@@ -18,14 +17,7 @@ const Genres = (props) => {
 
   useEffect(() => {
     if (isEmpty(props.genres)) {
-      props.fetchRequest(FETCH_GENRES, 'genre/movie/list?')
-        .then((status) => {
-          if (status === 503) {
-            setIfError('Error connection');
-          } else if (status === 404) {
-            setIfError('Cannot fetch movies');
-          }
-        });
+      props.fetchGenres('genre/movie/list?');
     }
   }, []);
 
@@ -67,7 +59,7 @@ const mapStateToProps = ({ genres, isLoading }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchRequest: (action, url, page) => dispatch(fetchRequest(action, url, page))
+  fetchGenres: (url, page) => dispatch(fetchGenres(url, page))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Genres);

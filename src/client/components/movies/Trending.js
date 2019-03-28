@@ -8,8 +8,7 @@ import PaginationBar from '../layout/PaginationBar';
 import Footer from '../layout/Footer';
 
 // actions
-import { FETCH_TRENDING_MOVIES } from '../../constants/constants';
-import { fetchRequest, isCurrentlyFetching } from '../../actions/actions';
+import { fetchTrendingMovies, isCurrentlyFetching } from '../../actions/actions';
 
 // helpers
 import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
@@ -35,14 +34,7 @@ class TrendingMovies extends Component {
 
   fetchMovies = (page = 1) => {
     this.props.isCurrentlyFetching();
-    this.props.fetchRequest(FETCH_TRENDING_MOVIES, queryString, page)
-      .then((status) => {
-        if (status === 503) {
-          this.setState({ error: 'Error connection' });
-        } else if (status === 404) {
-          this.setState({ error: 'Cannot fetch movies' });
-        }
-      });
+    this.props.fetchTrendingMovies(queryString, page);
   };
 
   render() {
@@ -121,7 +113,7 @@ const mapStateToProps = ({ trendingMovies, isLoading }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchRequest: (action, url, page) => dispatch(fetchRequest(action, url, page)),
+  fetchTrendingMovies: (query, page) => dispatch(fetchTrendingMovies(query, page)),
   isCurrentlyFetching: bool => dispatch(isCurrentlyFetching(bool))
 });
 
