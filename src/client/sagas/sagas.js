@@ -1,37 +1,40 @@
 import { 
   call, 
-  put, 
-  take, 
+  put,  
   select,
-  all,
-  delay 
+  all
 } from 'redux-saga/effects';
+import { history } from '../routers/AppRouter';
 
 import { 
   IS_LOADING, 
   UPDATE_DISCOVER_QUERY, 
-  UPDATE_TV_QUERY
+  UPDATE_TV_QUERY,
+  FETCH_SELECTED_PERSON_SUCCESS,
+  FETCH_SELECTED_MOVIE_SUCCESS
 } from '../constants/constants';
 import { 
   fetchRequest,
   fetchMovie,
   fetchMovieCredits,
   fetchMovieKeywords,
-  fetchMovieReviews
+  fetchMovieReviews,
+  fetchPerson,
+  fetchPersonCasting
 } from '../api/api';
 
 export function* fetchRequestSaga({ type, query, page }) {
   try {
-    console.log(type, query, page);
     const data = yield call(fetchRequest, query, page);
     if (data) {
-      console.log(data);
       yield put({ type: `${type}_SUCCESS`, data });
       window.scrollTo(null, 0);
     }
   } catch (e) {
-    if (e) console.log(e);
+    console.dir(e.message);
     yield put({ type: IS_LOADING, bool: false});
+    if (!navigator.onLine) yield call(history.push, '/network-error');
+    else yield call(history.push, '/error');
   }
 }
 
@@ -48,20 +51,59 @@ export function* updateFilterQuerySaga({ target }) {
     
     if (target === 'discover') {
       const { year, sort, genre } = state.filter.discover;
-      yield put({ type: UPDATE_DISCOVER_QUERY, query: updateQuery(year, sort, genre) });
+      const query = updateQuery(year, sort, genre);
+      yield put({ type: UPDATE_DISCOVER_QUERY, query });
     } else if (target === 'tv') {
       const { year, sort, genre } = state.filter.tv;
-      yield put({ type: UPDATE_TV_QUERY, query: updateQuery(year, sort, genre) });
+      const query = updateQuery(year, sort, genre);
+      yield put({ type: UPDATE_TV_QUERY, query });
     }
   } catch (e) {
     console.log(e);
+    yield put({ type: IS_LOADING, bool: false});
   }
 }
 
 export function* fetchSelectedMovieSaga({ category, id }) {
   try {
-    console.log(category, id);
-  } catch (e) {
+    const [movie, keywords, casts, reviews] = yield all([
+      call(fetchMovie, category, id),
+      call(fetchMovieKeywords, category, id),
+      call(fetchMovieCredits, category, id),
+      call(fetchMovieReviews, category, id)
+    ]);
 
+    yield put({ 
+      type: FETCH_SELECTED_MOVIE_SUCCESS, 
+      data: { 
+        movie, 
+        keywords, 
+        casts, 
+        reviews 
+      } 
+    });
+    window.scrollTo(null, 0);
+  } catch (e) {
+    console.log(e);
+    yield put({ type: IS_LOADING, bool: false});
+    if (!navigator.onLine) yield call(history.push, '/network-error');
+    else yield call(history.push, '/error');
   }
 } 
+
+export function* fetchSelectedPersonSaga({ id }) {
+  try {
+    const [actor, casting] = yield all([
+      call(fetchPerson, id),
+      call(fetchPersonCasting, id)
+    ]);
+
+    yield put({ type: FETCH_SELECTED_PERSON_SUCCESS, actor, casting });
+    window.scrollTo(null, 0);
+  } catch (e) {
+    console.log(e);
+    yield put({ type: IS_LOADING, bool: false});
+    if (!navigator.onLine) yield call(history.push, '/network-error');
+    else yield call(history.push, '/error');
+  }
+}

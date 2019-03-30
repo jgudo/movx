@@ -13,13 +13,7 @@ import { fetchTrendingMovies, isCurrentlyFetching } from '../../actions/actions'
 // helpers
 import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
 
-const queryString = 'trending/all/day?';
-
 class TrendingMovies extends Component {
-  state = {
-    error: undefined
-  };
-
   componentDidMount() {
     if (isEmpty(this.props.trendingMovies)) {
       this.fetchMovies();
@@ -34,11 +28,10 @@ class TrendingMovies extends Component {
 
   fetchMovies = (page = 1) => {
     this.props.isCurrentlyFetching();
-    this.props.fetchTrendingMovies(queryString, page);
+    this.props.fetchTrendingMovies('trending/all/day?', page);
   };
 
   render() {
-    const { error } = this.state;
     const { trendingMovies, isLoading } = this.props;
     
     return (
@@ -46,7 +39,7 @@ class TrendingMovies extends Component {
         {(isLoading && isEmpty(trendingMovies)) && <LoadingScreen />}
         <div className="container">
           <div className="container__wrapper container__movies">
-            {(!isEmpty(trendingMovies) && !error) && (
+            {!isEmpty(trendingMovies) && (
               <React.Fragment>
                 <div className="movie__header">
                   <div className="movie__header-title">
@@ -62,7 +55,7 @@ class TrendingMovies extends Component {
                           key={`${movie.id}_${index}`}
                           movie={movie} 
                       />
-                    )
+                    );
                   })}
                 </div>
                 <PaginationBar 
@@ -77,20 +70,7 @@ class TrendingMovies extends Component {
               </React.Fragment>
             )}
           </div>  
-          {error && (
-            <div className="error">
-              <h1>{error}</h1>
-              <button 
-                  className="button--primary m-auto"
-                  onClick={() => {
-                    window.location.reload();
-                  }}
-              >
-                Retry
-              </button>
-            </div>
-          )}
-      </div>
+        </div>
       </React.Fragment>
     );
   }

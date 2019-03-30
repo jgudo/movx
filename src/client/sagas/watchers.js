@@ -18,10 +18,16 @@ import {
   SET_TV_GENRE_FILTER,
   SET_TV_SORT_FILTER,
   SET_TV_YEAR_FILTER,
-  FETCH_SELECTED_MOVIE
+  FETCH_SELECTED_MOVIE,
+  FETCH_SELECTED_PERSON
 } from '../constants/constants';
 
-import { fetchRequestSaga, updateFilterQuerySaga, fetchSelectedMovieSaga } from './sagas';
+import { 
+  fetchRequestSaga, 
+  updateFilterQuerySaga, 
+  fetchSelectedMovieSaga, 
+  fetchSelectedPersonSaga 
+} from './sagas';
 
 function* rootSaga() {
   yield takeLatest([
@@ -29,14 +35,14 @@ function* rootSaga() {
     FETCH_DISCOVER_MOVIES,
     FETCH_TV_SHOWS,
     FETCH_PEOPLE,
-    FETCH_POPULAR_MOVIES,
-    FETCH_TOPRATED_MOVIES,
-    FETCH_UPCOMING_MOVIES,
     FETCH_GENRES,
     FETCH_GENRE_CATEGORY
   ], fetchRequestSaga);
 
   yield takeEvery([
+    FETCH_POPULAR_MOVIES,
+    FETCH_TOPRATED_MOVIES,
+    FETCH_UPCOMING_MOVIES,
     SEARCH_TV_SHOWS,
     SEARCH_PEOPLE,
     SEARCH_MOVIES
@@ -52,6 +58,8 @@ function* rootSaga() {
   ], updateFilterQuerySaga);
 
   yield takeLatest(FETCH_SELECTED_MOVIE, fetchSelectedMovieSaga);
+
+  yield takeLatest(FETCH_SELECTED_PERSON, fetchSelectedPersonSaga);
 }
 
 export default rootSaga;

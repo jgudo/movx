@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -6,7 +6,6 @@ import LoadingScreen from '../layout/LoadingScreen';
 import PeopleCard from './PeopleCard';
 import PaginationBar from '../layout/PaginationBar';
 import Footer from '../layout/Footer';
-import Error from '../layout/Error';
 
 // actions
 import { fetchPeople, isCurrentlyFetching } from '../../actions/actions';
@@ -15,7 +14,6 @@ import { fetchPeople, isCurrentlyFetching } from '../../actions/actions';
 import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
 
 const People = (props) => {
-  const [error, setIfError] = useState(undefined);
   const { people, isLoading } = props;
 
   const getPeople = (page = 1) => {
@@ -40,7 +38,7 @@ const People = (props) => {
       {isLoading && <LoadingScreen />}
       <div className="container">
         <div className="container__wrapper container__movies">
-          {(!isEmpty(people) && !error) && (
+          {!isEmpty(people) && (
             <React.Fragment>
             <div className="movie__header">
               <div className="movie__header-title">
@@ -56,7 +54,7 @@ const People = (props) => {
                       key={person.id}
                       people={person} 
                   />
-                )
+                );
               })}
             </div>
             <PaginationBar 
@@ -70,9 +68,6 @@ const People = (props) => {
             <Footer />
             </React.Fragment>
           )}
-          {error && (
-            <Error error={error} />
-          )}
         </div>  
       </div>
     </React.Fragment>
@@ -82,6 +77,7 @@ const People = (props) => {
 People.propTypes = {
   fetchPeople: PropTypes.func,
   isCurrentlyFetching: PropTypes.func,
+  isLoading: PropTypes.bool,
   people: PropTypes.shape({
     results: PropTypes.arrayOf(PropTypes.object),
     page: PropTypes.number,

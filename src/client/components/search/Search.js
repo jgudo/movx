@@ -20,10 +20,6 @@ import {
 import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
 
 class Search extends Component {
-  state = {
-    error: undefined
-  };
-  
   componentDidMount() {
     const queryString = this.props.match.params.query;
     if (queryString !== this.props.query) {
@@ -47,7 +43,6 @@ class Search extends Component {
   };
 
   render() {
-    const { error } = this.state;
     const { 
       movies, 
       tv, 
@@ -62,7 +57,7 @@ class Search extends Component {
         {isLoading && <LoadingScreen />}
         <div className="container">
           <div className="container__wrapper">
-            {(!isEmpty(movies) && !error && !isLoading) && (
+            {(!isEmpty(movies) && !isLoading) && (
               <React.Fragment>
                 <div className="movie__header">
                   <div className="movie__header-title">
@@ -100,19 +95,6 @@ class Search extends Component {
                   </div>
                 </Tabs>
               </React.Fragment>
-            )}
-            {error && (
-              <div className="error">
-                <h1>{error}</h1>
-                <button 
-                    className="button--primary m-auto"
-                    onClick={() => {
-                      window.location.reload();
-                    }}
-                >
-                  Retry
-                </button>
-              </div>
             )}
           </div>  
         </div>

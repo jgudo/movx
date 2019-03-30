@@ -8,8 +8,6 @@ import ImageLoader from '../layout/ImageLoader';
 
 import { addToFavorites, removeFromFavorites } from '../../actions/actions';
 
-const tmdbPosterPath = 'https://image.tmdb.org/t/p/w185_and_h278_face/';
-
 /* eslint-disable */
 const MovieCard = (props) => {
   const { 
@@ -22,7 +20,7 @@ const MovieCard = (props) => {
     vote_average,
     title
   } = props.movie;
-
+  const tmdbPosterPath = 'https://image.tmdb.org/t/p/w185_and_h278_face/';
   const releaseYear = (date) => {
     if (date) return date.split('-')[0];
   };

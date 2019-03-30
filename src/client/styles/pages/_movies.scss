@@ -76,11 +76,11 @@
 
   @media (max-width: $tablet) {
     width: 100%;
-    padding: $xl-size $l-size;
+    padding: 0 $l-size;
   }
 
   @media (max-width: $mobile) {
-    padding: $l-size $m-size;
+    padding: 0 $m-size;
   }
 
   button {

@@ -73,6 +73,19 @@
   }
 }
 
+
+.search__toggle {
+  position: absolute;
+  right: 0;
+  display: none;
+  color: #fff;
+
+  @media (max-width: $tablet) {
+    display: block;
+  }
+}
+
+
 .search-history-action {
   display: flex;
   justify-content: space-between;
@@ -83,6 +96,7 @@
   padding: 0;
   color: #fff;
   font-size: 14px;
+  margin-right: $m-size;
 }
 
 .search__no-result {
@@ -99,7 +113,7 @@
   border: 1px solid rgba(255, 255, 255, .1);
 
   @media (max-width: $tablet) {
-    display: none;
+    display: none !important;
   }
 }
 

@@ -1,13 +1,18 @@
-.not-found-page {
+.error {
   height: 100vh;  
   text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-}
+  padding: $l-size;
 
-.error {
-  text-align: center;
-  padding-top: $xl-1-size;
+  h1 {
+    margin-bottom: 0;
+  }
+  
+  p {
+    margin-bottom: $l-size;
+    opacity: .7;
+  }
 }

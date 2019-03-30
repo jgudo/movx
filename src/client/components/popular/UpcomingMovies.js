@@ -8,7 +8,6 @@ import PaginationBar from '../layout/PaginationBar';
 import Footer from '../layout/Footer';
 
 // actions
-import { FETCH_UPCOMING_MOVIES } from '../../constants/constants';
 import { fetchUpcomingMovies, isCurrentlyFetching } from '../../actions/actions';
 
 // helpers

@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-// import Loadable from 'react-loadable';
+import { Router, Switch, Route } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
 
 import App from '../App';
 import Navigation from '../components/layout/Navigation';
@@ -22,18 +22,15 @@ import Search from '../components/search/Search';
 import Favorites from '../components/favorites/Favorites';
 import ViewMoviePoster from '../components/movies/ViewMoviePoster';
 import ScrollTop from '../components/layout/ScrollTop';
+import Error from '../components/layout/Error';
+import NetworkError from '../components/layout/NetworkError';
 import PageNotFound from '../components/layout/PageNotFound';
 
-// import LoadingScreen from '../components/layout/LoadingScreen';
-
-// const ViewMovie = Loadable({
-//   loader: () => import('../components/movies/ViewMovie'),
-//   loading: LoadingScreen
-// });
+export const history = createBrowserHistory();
 
 /* eslint-disable react/jsx-boolean-value */
 const AppRouter = () => (
-  <Router>
+  <Router history={history}>
     <Fragment>
       <Navigation />
       <ScrollTop />
@@ -126,6 +123,16 @@ const AppRouter = () => (
             component={Favorites}
             exact={true}  
             path="/favorites" 
+        />
+        <Route 
+            component={NetworkError}
+            exact={true}  
+            path="/network-error" 
+        />
+        <Route 
+            component={Error}
+            exact={true}  
+            path="/error" 
         />
         <Route 
             component={PageNotFound}

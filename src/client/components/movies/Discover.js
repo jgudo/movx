@@ -6,7 +6,6 @@ import LoadingScreen from '../layout/LoadingScreen';
 import MovieCard from './MovieCard';
 import PaginationBar from '../layout/PaginationBar';
 import Footer from '../layout/Footer';
-import Error from '../layout/Error';
 import Filter from '../layout/Filter';
 
 // actions
@@ -15,13 +14,7 @@ import { fetchDiscoverMovies, isCurrentlyFetching } from '../../actions/actions'
 // helpers
 import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions'; 
 
-// let query = 'discover/movie?';
-
 class DiscoverMovies extends Component {
-  state = {
-    error: undefined
-  };
-
   componentDidMount() {
     if (isEmpty(this.props.discoverMovies)) {
       this.fetchMovies();
@@ -30,7 +23,7 @@ class DiscoverMovies extends Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.filter.discover.query !== this.props.filter.discover.query) {
-      setTimeout(this.fetchMovies, 200);
+      this.fetchMovies();
     }
   }
 
@@ -49,7 +42,6 @@ class DiscoverMovies extends Component {
   };
 
   render() {
-    const { error } = this.state;
     const { discoverMovies, isLoading, filter } = this.props;
 
     return (
@@ -57,7 +49,7 @@ class DiscoverMovies extends Component {
         {(isLoading && isEmpty(discoverMovies)) && <LoadingScreen />}
         <div className="container">
           <div className="container__wrapper container__movies">
-            {(!isEmpty(discoverMovies) && !error) && (
+            {!isEmpty(discoverMovies) && (
               <React.Fragment>
                 <div className="movie__header">
                   <div className="movie__header-title">
@@ -92,9 +84,6 @@ class DiscoverMovies extends Component {
               </React.Fragment>
             )}
           </div>
-          {error && (
-            <Error error={error} />
-          )}
         </div>
       </React.Fragment>
     );

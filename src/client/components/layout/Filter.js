@@ -38,7 +38,7 @@ const Filter = (props) => {
     onFilterClose();
 
     if (filterCategory === 'discover') props.setDiscoverYearFilter(selected);
-    else if (filterCategory === 'tv') props.setYearFilter(selected);
+    else if (filterCategory === 'tv') props.setTvYearFilter(selected);
   };
 
   const onSortFilterChange = (e) => {
@@ -106,6 +106,7 @@ const Filter = (props) => {
               onChange={onGenreFilterChange} 
               value={genre}
           >
+            <option value="">None</option>
             <option value="28">Action</option>
             <option value="12">Adventure</option>
             <option value="16">Animation</option>

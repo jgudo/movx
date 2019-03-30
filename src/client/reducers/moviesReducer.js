@@ -4,26 +4,16 @@ import {
   CLEAR_SEARCH_HISTORY,
   ADD_TO_FAVORITES,
   REMOVE_FROM_FAVORITES,
-  // FETCH_SELECTED_MOVIE,
   FETCH_SELECTED_MOVIE_SUCCESS,
-  FETCH_SELECTED_PERSON,
-  // FETCH_DISCOVER_MOVIES,
+  FETCH_SELECTED_PERSON_SUCCESS,
   FETCH_DISCOVER_MOVIES_SUCCESS,
-  // FETCH_TV_SHOWS,
   FETCH_TV_SHOWS_SUCCESS,
-  // FETCH_PEOPLE,
   FETCH_PEOPLE_SUCCESS,
-  // FETCH_GENRES,
   FETCH_GENRES_SUCCESS,
-  // FETCH_GENRE_CATEGORY,
   FETCH_GENRE_CATEGORY_SUCCESS,
-  // FETCH_POPULAR_MOVIES,
   FETCH_POPULAR_MOVIES_SUCCESS,
-  // FETCH_TRENDING_MOVIES,
   FETCH_TRENDING_MOVIES_SUCCESS,
-  // FETCH_TOPRATED_MOVIES,
   FETCH_TOPRATED_MOVIES_SUCCESS,
-  // FETCH_UPCOMING_MOVIES,
   FETCH_UPCOMING_MOVIES_SUCCESS,
   SET_DISCOVER_YEAR_FILTER,
   SET_TV_YEAR_FILTER,
@@ -33,11 +23,8 @@ import {
   SET_TV_GENRE_FILTER,
   UPDATE_DISCOVER_QUERY,
   UPDATE_TV_QUERY,
-  // SEARCH_MOVIES,
   SEARCH_MOVIES_SUCCESS,
-  // SEARCH_TV_SHOWS,
   SEARCH_TV_SHOWS_SUCCESS,
-  // SEARCH_PEOPLE,
   SEARCH_PEOPLE_SUCCESS,
   UPDATE_SEARCH_QUERY
 
@@ -47,15 +34,7 @@ const moviesReducer = (state = {
   trendingMovies: {},
   discoverMovies: {},
   current: {
-    movie: {
-      images: {
-        posters: [],
-        backdrops: []
-      },
-      videos: {
-        results: []
-      }
-    },
+    movie: {},
     keywords: [],
     casts: [],
     reviews: {}
@@ -138,7 +117,7 @@ const moviesReducer = (state = {
         current: action.data, 
         isLoading: false
       };
-    case FETCH_SELECTED_PERSON:
+    case FETCH_SELECTED_PERSON_SUCCESS:
       return {
         ...state,
         person: {

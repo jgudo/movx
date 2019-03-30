@@ -6,35 +6,24 @@ import LazyLoad from 'react-lazy-load';
 import Modal from 'react-responsive-modal';
 
 import ImageLoader from '../layout/ImageLoader';
-import LoadingScreen from '../layout/LoadingScreen';
 import ContentLoader from '../layout/ContentLoader';
 import Casting from './Casting';
 
-import { fetchPerson, isCurrentlyFetching } from '../../actions/actions';
+import { fetchSelectedPerson, isCurrentlyFetching } from '../../actions/actions';
 
 // helpers
 import { isEmpty } from '../../helpers/helperFunctions';
 
-
-const tmdbPosterPath = 'https://image.tmdb.org/t/p/w300_and_h450_face/';
-
 const ViewPeople = (props) => {
   const { actor, casting, isLoading } = props;
-  const [error, setError] = useState(undefined);
   const [isOpenModal, setModalVisibility] = useState(false);
   const actorId = props.match.params.id;
-
+  const tmdbPosterPath = 'https://image.tmdb.org/t/p/w300_and_h450_face/';
+  
   useEffect(() => {
     if (parseInt(actorId, 10) !== props.actor.id) {
       props.isCurrentlyFetching();
-      props.fetchPerson(actorId)
-        .then((status) => {
-          if (status === 503) {
-            setError('Error connection');
-          } else if (status === 404) {
-            setError('Person\'s details cannot be loaded');
-          }
-        });
+      props.fetchSelectedPerson(actorId);
     }
   }, []);
 
@@ -55,12 +44,28 @@ const ViewPeople = (props) => {
     setModalVisibility(false);
   };
 
+  const modalStyle = {
+    modal: {
+      background: '#272c30',
+      padding: '50px',
+      textAlign: 'left',
+      borderRadius: '6px'
+    },
+    closeButton: {
+      top: '10px',
+      right: '0'
+    },
+    closeIcon: {
+      fill: '#fff'
+    }  
+  };
+
   return (
     <React.Fragment>
       {isLoading && <ContentLoader />}
       <div className="container mt-0 pt-0">
         <div className="container__wrapper w-100">
-          {(!isLoading && !isEmpty(actor) && !error) && (
+          {(!isLoading && !isEmpty(actor)) && (
             <React.Fragment>
               <div className="backdrop__container">
                 <img 
@@ -73,21 +78,7 @@ const ViewPeople = (props) => {
                   center
                   onClose={closeModal} 
                   open={isOpenModal} 
-                  styles={{
-                    modal: {
-                      background: '#272c30',
-                      padding: '50px',
-                      textAlign: 'left',
-                      borderRadius: '6px'
-                    },
-                    closeButton: {
-                      top: '10px',
-                      right: '0'
-                    },
-                    closeIcon: {
-                      fill: '#fff'
-                    }  
-                  }}
+                  styles={modalStyle}
               >
                 <h2>{actor.name}'s Biography</h2>
                 {actor.biography ? (
@@ -145,21 +136,11 @@ const ViewPeople = (props) => {
             </React.Fragment>
           )}
         </div>
-        {(casting.length >= 1 && !isLoading && !error) && (
+        {(casting.length >= 1 && !isLoading) && (
           <Casting 
               actor={actor} 
               casting={casting} 
           />
-        )}
-        {error && (
-          <div className="person__not-found">
-            <h1>{error}</h1>
-            <button 
-                className="button--primary"
-                onClick={goPreviousPage}>
-                Go Back
-            </button>
-          </div>
         )}
       </div>
     </React.Fragment>
@@ -167,15 +148,15 @@ const ViewPeople = (props) => {
 };
 
 ViewPeople.propTypes = {
-  isCurrentlyFetching: PropTypes.func,
-  isLoading: PropTypes.bool,
-  fetchPerson: PropTypes.func,
   actor: PropTypes.shape({
-    name: PropTypes.string,
-    id: PropTypes.number,
     biography: PropTypes.string,
+    id: PropTypes.number,
+    name: PropTypes.string,
     profile_path: PropTypes.string
-  })
+  }),
+  fetchSelectedPerson: PropTypes.func,
+  isCurrentlyFetching: PropTypes.func,
+  isLoading: PropTypes.bool
 };
 
 const mapStateToProps = ({ person, isLoading }) => ({
@@ -185,7 +166,7 @@ const mapStateToProps = ({ person, isLoading }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchPerson: id => dispatch(fetchPerson(id)),
+  fetchSelectedPerson: id => dispatch(fetchSelectedPerson(id)),
   isCurrentlyFetching: () => dispatch(isCurrentlyFetching())
 });
 

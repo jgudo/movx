@@ -237,10 +237,10 @@ const Navigation = (props) => {
                 x
               </button>
               <button 
-                  className="button--link search__button"
+                  className="button--link button--search search__button"
                   onClick={onSubmitQuery}
               >
-              <span className="icon icon-search">🔍</span>
+                <div/>
               </button>
               {props.recentSearch.length >= 1 && (
                 <div 
@@ -271,10 +271,10 @@ const Navigation = (props) => {
             </div>
           </div>
           <button 
-              className="button--link search__toggle"
+              className="button--link button--search search__toggle"
               onClick={onSearchToggle}
           >
-            <span>Search</span>
+            <div/>
           </button>
         </div>
       </div>

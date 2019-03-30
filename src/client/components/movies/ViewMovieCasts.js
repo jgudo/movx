@@ -6,15 +6,13 @@ import ImageLoader from '../layout/ImageLoader';
 
 import { numberWithCommas } from '../../helpers/helperFunctions';
 
-const tmdbBackdropPath = 'https://image.tmdb.org/t/p/w1400_and_h450_face/';
-const tmdbPosterPath = 'https://image.tmdb.org/t/p/w185_and_h278_face/';
-
 const ViewMoviePoster = (props) => {
   const { 
     movie, 
     casts
   } = props;
-  
+  const tmdbBackdropPath = 'https://image.tmdb.org/t/p/w1400_and_h450_face/';
+  const tmdbPosterPath = 'https://image.tmdb.org/t/p/w185_and_h278_face/';
   const goPreviousPage = () => {
     props.history.goBack();
   };
@@ -33,7 +31,9 @@ const ViewMoviePoster = (props) => {
           <h1>
             {movie.original_title || 
              movie.original__name || 
-             movie.name} &nbsp;
+             movie.name           ||
+             'Movie Title Not Found'
+            } &nbsp;
              {(movie.release_date || movie.first_air_date) && (
               <span>{`(${getReleaseYear(movie.release_date || movie.first_air_date)})`}</span>
              )}

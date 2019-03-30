@@ -1,17 +1,23 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom'; 
 
-const Error = ({ error }) => (
-  <div className="error">
-    <h1>{error}</h1>
-    <button 
-        className="button--primary m-auto"
-        onClick={() => {
-          window.location.reload();
-        }}
-    >
-      Retry
-    </button>
-  </div>
-);
+const PageError = (props) => {
+  const back = () => {
+    props.history.push('/discover');
+  };
 
-export default Error;
+  return (
+    <div className="error">
+      <h1>Page Cannot Be Displayed</h1>
+      <p>A problem was encountered while fetching the data</p>
+      <button 
+          className="button--primary" 
+          onClick={back}
+      >
+        Okay
+      </button>
+    </div>
+  );
+};
+
+export default withRouter(PageError);

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { 
   IS_LOADING,
   ADD_SEARCH_HISTORY,
@@ -27,9 +26,6 @@ import {
   SET_DISCOVER_GENRE_FILTER,
   SET_TV_GENRE_FILTER
 } from '../constants/constants';
-
-const tmdb = 'https://api.themoviedb.org/3/';
-const tmdbKey = process.env.TMDB_KEY;
 
 export const fetchTrendingMovies = (query, page) => ({
   type: FETCH_TRENDING_MOVIES,
@@ -115,73 +111,10 @@ export const fetchSelectedMovie = (category, id) => ({
   id
 });
 
-// export const fetchSelected = (category, movieId) => {
-//   let response;
-//   return async (dispatch) => {
-//     try {
-//       const movieRequest = await axios.get(`${tmdb + category}/${movieId}?api_key=${tmdbKey}&append_to_response=similar,videos,images`);
-//       const movie = await movieRequest.data;
-//       const creditsRequest = await axios.get(`${tmdb + category}/${movie.id}/credits?api_key=${tmdbKey}`);
-//       const credits = await creditsRequest.data;
-//       const keywordsRequest = await axios.get(`${tmdb + category}/${movie.id}/keywords?api_key=${tmdbKey}`);
-//       const keywords = await keywordsRequest.data;
-//       const reviewsRequest = await axios.get(`${tmdb + category}/${movieId}/reviews?api_key=${tmdbKey}`);
-//       const reviews = await reviewsRequest.data;
-      
-//       if (movie) {
-//         dispatch({
-//           type: FETCH_SELECTED_MOVIE,
-//           data: {
-//             movie,
-//             keywords: keywords.keywords,
-//             casts: credits.cast,
-//             reviews
-//           }
-//         });  
-//       }
-//       response = movieRequest.status;
-//     } catch (err) {
-//       if (!navigator.onLine) response = 503;
-//       else response = err.response.status;
-    
-//       dispatch({
-//         type: IS_LOADING,
-//         bool: false
-//       });
-//     }
-//     return Promise.resolve(response);
-//   };
-// };
-
-export const fetchPerson = (id) => {
-  let response;
-  return async (dispatch) => {
-    try {
-      const personRequest = await axios.get(`${tmdb}person/${id}?api_key=${tmdbKey}&append_to_response=images`);
-      const actor = await personRequest.data;
-      const castingRequest = await axios.get(`${tmdb}person/${id}/combined_credits?api_key=${tmdbKey}`);
-      const casting = await castingRequest.data;
-
-      if (actor) {
-        dispatch({
-          type: FETCH_SELECTED_PERSON,
-          actor,
-          casting: casting.cast
-        });  
-      }
-      response = personRequest.status;
-    } catch (err) {
-      if (!navigator.onLine) response = 503;
-      else response = err.reponse.status;
-
-      dispatch({
-        type: IS_LOADING,
-        bool: false
-      });
-    }
-    return Promise.resolve(response); 
-  };
-};
+export const fetchSelectedPerson = id => ({
+  type: FETCH_SELECTED_PERSON,
+  id
+});
 
 export const isCurrentlyFetching = (bool = true) => ({
   type: IS_LOADING,

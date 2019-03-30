@@ -4,10 +4,6 @@
   border: 1px solid $blue;
   font-size: rem(24);
 
-  @media (max-width: $mobile) {
-    width: 100%;
-  }
-
   &:hover {
     background: transparent;
   }
@@ -23,6 +19,29 @@
 
   svg {
     margin: 0;
+  }
+}
+
+.button--search {
+  margin-right: $m-size;
+  
+  div {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    position: relative;
+
+    &:after {
+      content: '';
+      position: absolute;
+      right: -8px;
+      bottom: -2px;
+      transform: rotate(45deg);
+      width: 10px;
+      height: 1px;
+      background: #fff;
+    }
   }
 }
 

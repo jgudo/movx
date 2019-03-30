@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+// const cancelSource = axios.CancelToken.source();
 const tmdb = 'https://api.themoviedb.org/3/';
 const tmdbKey = process.env.TMDB_KEY;
 
@@ -26,4 +27,14 @@ export const fetchMovieKeywords = async (category, id) => {
 export const fetchMovieReviews = async (category, id) => {
   const reviewsRequest = await axios.get(`${tmdb + category}/${id}/reviews?api_key=${tmdbKey}`);
   return reviewsRequest.data;
+};
+
+export const fetchPerson = async (id) => {
+  const personRequest = await axios.get(`${tmdb}person/${id}?api_key=${tmdbKey}&append_to_response=images`);
+  return personRequest.data;
+};
+
+export const fetchPersonCasting = async (id) => {
+  const castingRequest = await axios.get(`${tmdb}person/${id}/combined_credits?api_key=${tmdbKey}`);
+  return castingRequest.data.cast;
 };

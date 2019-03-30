@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -7,7 +7,6 @@ import LoadingScreen from '../layout/LoadingScreen';
 import MovieCard from '../movies/MovieCard';
 import PaginationBar from '../layout/PaginationBar';
 import Footer from '../layout/Footer';
-import Error from '../layout/Error';
 
 // actions
 import { fetchGenreCategory, isCurrentlyFetching } from '../../actions/actions';
@@ -16,26 +15,22 @@ import { fetchGenreCategory, isCurrentlyFetching } from '../../actions/actions';
 import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
 
 const ViewGenre = (props) => {
-  const [error, setIfError] = useState(undefined);
   const { genreMovies, isLoading } = props;
-  const { genre } = props.match.params;
-  const queryString = 'discover/movie?';
+  const { genre, id } = props.match.params;
 
   const fetchMovieGenre = (page = 1) => {
-    const genreId = props.match.params.id;
-    const fullQuery = `${queryString}&with_genres=${genreId}`;
+    const query = `discover/movie?&with_genres=${id}`;
 
     props.isCurrentlyFetching();
-    props.fetchGenreCategory(fullQuery, page);
+    props.fetchGenreCategory(query, page);
   };
 
   useEffect(() => {
     fetchMovieGenre();
   }, []);
 
-
   const handlePageChange = (e) => {
-    if (props.genreMovies.page !== e && !props.isLoading) {
+    if (genreMovies.page !== e && !isLoading) {
       fetchMovieGenre(e);
     }
   };
@@ -46,7 +41,7 @@ const ViewGenre = (props) => {
       {isEmpty(genreMovies) && <LoadingScreen />}
       <div className="container">
         <div className="container__wrapper container__movies">
-          {(!isEmpty(genreMovies) && !error) && (
+          {!isEmpty(genreMovies) && (
             <React.Fragment>
               <div className="movie__header">
                 <div className="movie__header-title">
@@ -75,9 +70,6 @@ const ViewGenre = (props) => {
             />
             <Footer />
             </React.Fragment>
-          )}
-          {error && (
-            <Error error={error} />
           )}
         </div>  
     </div>

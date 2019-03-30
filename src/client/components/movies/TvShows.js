@@ -6,7 +6,6 @@ import LoadingScreen from '../layout/LoadingScreen';
 import MovieCard from './MovieCard';
 import PaginationBar from '../layout/PaginationBar';
 import Footer from '../layout/Footer';
-import Error from '../layout/Error';
 import Filter from '../layout/Filter';
 
 // actions
@@ -16,10 +15,6 @@ import { fetchTvShows, isCurrentlyFetching } from '../../actions/actions';
 import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
 
 class TvShows extends Component {
-  state = {
-    error: undefined
-  };
-
   componentDidMount() {
     if (isEmpty(this.props.tvShows)) {
       this.fetchMovies();
@@ -47,7 +42,6 @@ class TvShows extends Component {
   };
 
   render() {
-    const { error } = this.state;
     const { tvShows, isLoading, filter } = this.props;
   
     return (
@@ -55,7 +49,7 @@ class TvShows extends Component {
         {(isLoading && isEmpty(tvShows)) && <LoadingScreen />}
         <div className="container">
           <div className="container__wrapper container__movies">
-            {(!isEmpty(tvShows) && !error) && (
+            {!isEmpty(tvShows) && (
               <React.Fragment>
                 <div className="movie__header">
                   <div className="movie__header-title">
@@ -92,9 +86,6 @@ class TvShows extends Component {
               </React.Fragment>
             )}
           </div>    
-          {error && (
-            <Error error={error} />
-          )}
         </div>
       </React.Fragment>
     );

@@ -1,7 +1,7 @@
 .people__card {
   height: 320px;
 
-  @media (max-width: $tablet) {
+  @media (max-width: $mobile) {
     height: 250px;
   }
 }

@@ -8,7 +8,6 @@ import PaginationBar from '../layout/PaginationBar';
 import Footer from '../layout/Footer';
 
 // actions
-import { FETCH_POPULAR_MOVIES } from '../../constants/constants';
 import { fetchPopularMovies, isCurrentlyFetching } from '../../actions/actions';
 
 // helpers

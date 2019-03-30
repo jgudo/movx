@@ -5,19 +5,9 @@ import Tabs from '../tabs/Tabs';
 import MoviePoster from './MoviePoster';
 import MovieBackdrop from './MovieBackdrop';
 
-const tmdbBackdropPath = 'https://image.tmdb.org/t/p/w1400_and_h450_face/';
-
 const ViewMoviePoster = (props) => {
-  const { 
-    movie, 
-    movie: {
-      images: {
-        posters,
-        backdrops
-      }
-    } 
-  } = props;
-  
+  const { movie } = props;
+  const tmdbBackdropPath = 'https://image.tmdb.org/t/p/w1400_and_h450_face/';  
   const goPreviousPage = () => {
     props.history.goBack();
   };
@@ -36,7 +26,9 @@ const ViewMoviePoster = (props) => {
           <h1>
             {movie.original_title || 
              movie.original__name || 
-             movie.name} &nbsp;
+             movie.name           ||
+             'Movie Title Not Found'
+            } &nbsp;
              {(movie.release_date || movie.first_air_date) && (
               <span>{`(${getReleaseYear(movie.release_date || movie.first_air_date)})`}</span>
              )}
@@ -50,15 +42,15 @@ const ViewMoviePoster = (props) => {
       </div>
       <div className="container__wrapper">
         <Tabs>
-          <div label={`Posters (${posters.length})`}>
+          <div label={`Posters (${movie.images ? movie.images.posters.length : 0})`}>
             <MoviePoster 
                 id={movie.id}
-                posters={posters} 
+                posters={movie.images ? movie.images.posters : []} 
             />
           </div>
-          <div label={`Backdrops (${backdrops.length})`}>
+          <div label={`Backdrops (${movie.images ? movie.images.backdrops.length : 0})`}>
             <MovieBackdrop 
-                backdrops={backdrops}
+                backdrops={movie.images ? movie.images.backdrops : []}
                 id={movie.id}
             />
           </div>

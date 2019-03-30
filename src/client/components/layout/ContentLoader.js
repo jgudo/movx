@@ -8,6 +8,7 @@ const Loader = () => {
     if (window.screen.width <= 480) {
       setIfMobile(true);
     }
+    window.scrollTo(null, 0);
   }, []);
 
   return (

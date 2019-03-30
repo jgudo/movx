@@ -1,14 +1,15 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom'; 
 
-const PageNotFound = (props) => {
+const NetworkError = (props) => {
   const returnHome = () => {
     props.history.push('/');
   };
 
   return (
     <div className="error">
-      <h1>The Page Your Requested Could Not Be Found</h1>
+      <h1>Network Error</h1>
+      <p>It looks like you don't have an intenet connection</p>
       <button 
           className="button--primary" 
           onClick={returnHome}
@@ -19,4 +20,4 @@ const PageNotFound = (props) => {
   );
 };
 
-export default withRouter(PageNotFound);
+export default withRouter(NetworkError);

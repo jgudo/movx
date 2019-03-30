@@ -40,7 +40,6 @@
   @include transition();
 
   @media (max-width: $tablet) {
-    padding: 0 $m-size;
     position: absolute;
     left: 0;
     top: 0;
@@ -126,6 +125,7 @@
     display: block;
     width: 100%;
     padding: $m-size;
+    padding-left: $l-size;
     margin: 0;
   }
 }
@@ -142,6 +142,7 @@
 
   @media (max-width: $tablet) {
     color: $blue;
+    background: transparentize($blue, .9);
   }
 }
 
@@ -150,14 +151,21 @@
   position: absolute;
   bottom: -30px;
   left: 0;
-  right: 0;
   margin: auto;
   width: 100%;
   height: 2px;
   background: $blue;
+  
+  @media (min-width: $tablet) {
+    right: 0;
+  }
 
   @media (max-width: $tablet) {
-    display: none;
+    bottom: 0;
+    top: 0;
+    width: 3px;
+    height: 100%;
+    // display: none;
   }
 }
 
@@ -295,17 +303,6 @@
       opacity: 0;
       left: -100%;
     }
-  }
-}
-
-.search__toggle {
-  position: absolute;
-  right: 0;
-  display: none;
-  color: #fff;
-
-  @media (max-width: $tablet) {
-    display: block;
   }
 }
 

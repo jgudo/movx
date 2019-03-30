@@ -1,22 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import LoadingScreen from '../layout/LoadingScreen'; 
 import GenreCard from './GenreCard'; 
-import Error from '../layout/Error';
 
 import { isEmpty } from '../../helpers/helperFunctions';
 
 // actions
-import { fetchGenres } from '../../actions/actions';
+import { fetchGenres, isCurrentlyFetching } from '../../actions/actions';
 
 const Genres = (props) => {
-  const [error, setIfError] = useState(undefined);
   const { genres, isLoading } = props;
 
   useEffect(() => {
-    if (isEmpty(props.genres)) {
+    if (isEmpty(genres)) {
+      props.isCurrentlyFetching();
       props.fetchGenres('genre/movie/list?');
     }
   }, []);
@@ -25,7 +24,7 @@ const Genres = (props) => {
     <div className="container">
       {isLoading && <LoadingScreen />}
       <div className="container__wrapper container__movies">
-        {(genres.length >= 1 && !error) && (
+        {genres.length >= 1 && (
           <React.Fragment>
             <h1>Genres</h1>
             <div className="genre__wrapper">
@@ -40,9 +39,6 @@ const Genres = (props) => {
               })}
             </div>
           </React.Fragment>
-        )}
-        {error && (
-          <Error error={error} />
         )}
       </div>  
     </div>
@@ -59,7 +55,8 @@ const mapStateToProps = ({ genres, isLoading }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchGenres: (url, page) => dispatch(fetchGenres(url, page))
+  fetchGenres: (url, page) => dispatch(fetchGenres(url, page)),
+  isCurrentlyFetching: () => dispatch(isCurrentlyFetching())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Genres);
