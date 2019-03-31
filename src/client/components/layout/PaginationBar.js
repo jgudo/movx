@@ -17,6 +17,7 @@ const PaginationBar = ({
       setMobile(true);
     } 
   }, []); 
+  
   return (
     <div className="pagination__wrapper">
       <p>Page {activePage}/{totalPage > 1000 ? 1000 : totalPage}</p>

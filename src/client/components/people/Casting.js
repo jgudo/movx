@@ -6,6 +6,11 @@ import MovieCard from '../movies/MovieCard';
 const Casting = (props) => {
   const { casting, actor } = props;
   const actorId = props.match.params.id;
+  
+  const onClickLink = () => {
+    props.history.push(`/view/person/profile/${actorId}/casting`);
+    window.scrollTo(null, 0);
+  };
 
   return (
     <div className="movie__casts">
@@ -15,23 +20,18 @@ const Casting = (props) => {
             <h1>Known For</h1>
           </div>
           <div className="movie__casts-grid">
-            {casting.map((movie, index) => {
-              return index < 8 && (
-                  <MovieCard 
-                      category={movie.media_type}
-                      key={`${movie.id}_${movie.character}`}
-                      movie={movie}
-                  />
-              );
-            })}
+            {casting.map((movie, index) => index < 8 && (
+              <MovieCard 
+                  category={movie.media_type}
+                  key={`${movie.id}_${movie.character}`}
+                  movie={movie}
+              />
+            ))}
           </div>
           <div className="movie__casts-action">
             <button 
                 className="button--primary"
-                onClick={() => {
-                  props.history.push(`/view/person/profile/${actorId}/casting`);
-                  window.scrollTo(null, 0);
-                }}
+                onClick={onClickLink}
             >
               View All Casting
             </button>
@@ -50,16 +50,20 @@ const Casting = (props) => {
             <h4>Gender</h4>
             <p>{actor.gender === 1 ? 'Female' : 'Male'}</p>
           </div>
-          <div>
-            <h4>Place of Birth</h4>
-            <p>{actor.place_of_birth}</p>
-          </div>
-          <div>
-            <h4>Also Known As</h4>
-            {actor.also_known_as && actor.also_known_as.map(name => (
-              <p key={name}>{name}</p>
-            ))}
-          </div>
+          {actor.place_of_birth && (
+            <div>
+              <h4>Place of Birth</h4>
+              <p>{actor.place_of_birth}</p>
+            </div>
+          )}
+          {actor.also_known_as.length !== 0 && (
+            <div>
+              <h4>Also Known As</h4>
+              {actor.also_known_as && actor.also_known_as.map(name => (
+                <p key={name}>{name}</p>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>

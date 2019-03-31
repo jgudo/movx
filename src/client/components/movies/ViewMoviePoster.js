@@ -5,11 +5,13 @@ import Tabs from '../tabs/Tabs';
 import MoviePoster from './MoviePoster';
 import MovieBackdrop from './MovieBackdrop';
 
-const ViewMoviePoster = (props) => {
-  const { movie } = props;
-  const tmdbBackdropPath = 'https://image.tmdb.org/t/p/w1400_and_h450_face/';  
+const ViewMoviePoster = ({ movie, history }) => {
+  const posters = movie.images ? movie.images.posters : [];
+  const backdrops = movie.images ? movie.images.backdrops : [];
+  const tmdbBackdropPath = 'https://image.tmdb.org/t/p/w1400_and_h450_face/'; 
+
   const goPreviousPage = () => {
-    props.history.goBack();
+    history.goBack();
   };
 
   const getReleaseYear = (date) => {
@@ -42,17 +44,29 @@ const ViewMoviePoster = (props) => {
       </div>
       <div className="container__wrapper">
         <Tabs>
-          <div label={`Posters (${movie.images ? movie.images.posters.length : 0})`}>
-            <MoviePoster 
-                id={movie.id}
-                posters={movie.images ? movie.images.posters : []} 
-            />
+          <div label={`Posters (${posters.length})`}>
+            {posters.length >= 1 ? (
+              <MoviePoster 
+                  id={movie.id}
+                  posters={posters} 
+              />
+            ) : (
+              <div className="search__no-result">
+                <h1>No posters found.</h1>
+              </div>
+            )}
           </div>
-          <div label={`Backdrops (${movie.images ? movie.images.backdrops.length : 0})`}>
-            <MovieBackdrop 
-                backdrops={movie.images ? movie.images.backdrops : []}
-                id={movie.id}
-            />
+          <div label={`Backdrops (${backdrops.length})`}>
+            {backdrops.length >= 1 ? (
+              <MovieBackdrop 
+                  backdrops={backdrops}
+                  id={movie.id}
+              />
+            ) : (
+              <div className="search__no-result">
+                <h1>No backdrop image found.</h1>
+              </div>
+            )}
           </div>
         </Tabs>
       </div>

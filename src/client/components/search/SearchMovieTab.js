@@ -24,15 +24,13 @@ const SearchMovieTab = (props) => {
     (!isEmpty(movies) && movies.results.length !== 0) ? (
       <React.Fragment>
         <div className="movie__wrapper">
-          {movies.results.map((movie, index) => {
-            return (
-              <MovieCard 
-                  category="movie"
-                  key={`${movie.id}_${index}`}
-                  movie={movie} 
-              />
-            )
-          })}
+          {movies.results.map((movie, index) => (
+            <MovieCard 
+                category="movie"
+                key={`${movie.id}_${index}`}
+                movie={movie} 
+            />
+          ))}
         </div>
         {movies.total_pages > 1 && (
           <PaginationBar 
@@ -54,7 +52,6 @@ const SearchMovieTab = (props) => {
 };
 
 SearchMovieTab.propTypes = {
-  searchMovies: PropTypes.func,
   isCurrentlyFetching: PropTypes.func,
   isLoading: PropTypes.bool,
   movies: PropTypes.shape({
@@ -63,7 +60,8 @@ SearchMovieTab.propTypes = {
     total_results: PropTypes.number,
     results: PropTypes.arrayOf(PropTypes.object)
   }),
-  query: PropTypes.string
+  query: PropTypes.string,
+  searchMovies: PropTypes.func
 };
 
 const mapDispatchToProps = dispatch => ({

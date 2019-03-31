@@ -24,15 +24,13 @@ const SearchTvTab = (props) => {
     (!isEmpty(tvShows) && tvShows.results.length !== 0) ? (
       <React.Fragment>
         <div className="movie__wrapper">
-          {tvShows.results.map((tv, index) => {
-            return (
-              <MovieCard 
-                  category="tv"
-                  key={`${tv.id}_${index}`}
-                  movie={tv} 
-              />
-            )
-          })}
+          {tvShows.results.map((tv, index) => (
+            <MovieCard 
+                category="tv"
+                key={`${tv.id}_${index}`}
+                movie={tv} 
+            />
+          ))}
         </div>
         {tvShows.total_page > 1 && (
           <PaginationBar 
@@ -54,10 +52,10 @@ const SearchTvTab = (props) => {
 };
 
 SearchTvTab.propTypes = {
-  searchTvShows: PropTypes.func,
   isCurrentlyFetching: PropTypes.func,
   isLoading: PropTypes.bool,
   query: PropTypes.string,
+  searchTvShows: PropTypes.func,
   tvShows: PropTypes.shape({
     page: PropTypes.number,
     total_page: PropTypes.number,

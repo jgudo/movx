@@ -32,41 +32,37 @@ const TopRatedMovies = (props) => {
 
   return (
     <React.Fragment>
-      {(isLoading && isEmpty(topRatedMovies)) && <LoadingScreen />}
-      <div className="container">
-        <div className="container__wrapper container__movies">
-          {!isEmpty(topRatedMovies) && (
-            <React.Fragment>
-              <div className="movie__header">
-                <div className="movie__header-title">
-                  <h1>Top Rated Movies</h1>
-                  <h3>{numberWithCommas(topRatedMovies.total_results)} Movies</h3>
-                </div>
+      {(isEmpty(topRatedMovies) && isLoading) && <LoadingScreen />}
+      {!isEmpty(topRatedMovies) && (
+        <div className="container">
+          <div className="container__wrapper container__movies">
+            <div className="movie__header">
+              <div className="movie__header-title">
+                <h1>Top Rated Movies</h1>
+                <h3>{numberWithCommas(topRatedMovies.total_results)} Movies</h3>
               </div>
-              <div className="movie__wrapper">
-                {topRatedMovies.results.map((movie, index) => {
-                  return (
-                    <MovieCard 
-                        category="movie"
-                        key={`${movie.id}_${index}`}
-                        movie={movie} 
-                    />
-                  )
-                })}
-              </div>
-              <PaginationBar 
-                  activePage={topRatedMovies.page}
-                  itemsCountPerPage={1}
-                  onChange={handlePageChange}
-                  pageRangeDisplayed={10}
-                  totalItemsCount={topRatedMovies.total_pages}
-                  totalPage={topRatedMovies.total_pages}
-              />
-              <Footer />
-            </React.Fragment>
-          )}
-        </div>  
-    </div>
+            </div>
+            <div className="movie__wrapper">
+              {topRatedMovies.results.map((movie, index) => (
+                <MovieCard 
+                    category="movie"
+                    key={`${movie.id}_${index}`}
+                    movie={movie} 
+                />
+              ))}
+            </div>
+            <PaginationBar 
+                activePage={topRatedMovies.page}
+                itemsCountPerPage={1}
+                onChange={handlePageChange}
+                pageRangeDisplayed={10}
+                totalItemsCount={topRatedMovies.total_pages}
+                totalPage={topRatedMovies.total_pages}
+            />
+            <Footer />
+          </div>  
+      </div>
+      )}
     </React.Fragment>
   );
 };

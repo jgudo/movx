@@ -46,47 +46,43 @@ class TvShows extends Component {
   
     return (
       <React.Fragment>
-        {(isLoading && isEmpty(tvShows)) && <LoadingScreen />}
-        <div className="container">
-          <div className="container__wrapper container__movies">
-            {!isEmpty(tvShows) && (
-              <React.Fragment>
-                <div className="movie__header">
-                  <div className="movie__header-title">
-                    <h1>TV Shows</h1>
-                    <h3>{numberWithCommas(tvShows.total_results)} TV Shows</h3>
-                  </div> 
-                  <Filter 
-                      filterCategory="tv"
-                      filterData={filter.tv}
-                  /> 
-                </div>
-              <div className="movie__wrapper">
-                {tvShows.results.map((show) => {
-                  return (
-                    <MovieCard 
-                        key={show.id}
-                        category="tv"
-                        movie={show} 
-                    />
-                  )
-                })}
+        {(isEmpty(tvShows) && isLoading) && <LoadingScreen />}
+        {!isEmpty(tvShows) && (
+          <div className="container">
+            <div className="container__wrapper container__movies">
+              <div className="movie__header">
+                <div className="movie__header-title">
+                  <h1>TV Shows</h1>
+                  <h3>{numberWithCommas(tvShows.total_results)} TV Shows</h3>
+                </div> 
+                <Filter 
+                    filterCategory="tv"
+                    filterData={filter.tv}
+                /> 
               </div>
-              {tvShows.total_pages > 1 && (
-                <PaginationBar 
-                    activePage={tvShows.page}
-                    itemsCountPerPage={1}
-                    onChange={this.handlePageChange}
-                    pageRangeDisplayed={10}
-                    totalItemsCount={tvShows.total_pages}
-                    totalPage={tvShows.total_pages}
+            <div className="movie__wrapper">
+              {tvShows.results.map(show => (
+                <MovieCard 
+                    category="tv"
+                    key={show.id}
+                    movie={show} 
                 />
-              )}
-              <Footer />
-              </React.Fragment>
+              ))}
+            </div>
+            {tvShows.total_pages > 1 && (
+              <PaginationBar 
+                  activePage={tvShows.page}
+                  itemsCountPerPage={1}
+                  onChange={this.handlePageChange}
+                  pageRangeDisplayed={10}
+                  totalItemsCount={tvShows.total_pages}
+                  totalPage={tvShows.total_pages}
+              />
             )}
-          </div>    
-        </div>
+            <Footer />
+            </div>    
+          </div>
+        )}
       </React.Fragment>
     );
   }

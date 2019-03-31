@@ -16,6 +16,7 @@ const Navigation = (props) => {
   const toggler = useRef(null);
   const menu = useRef(null);
   const searchMenu = useRef(null);
+  
   const onInputChange = (e) => {
     const query = e.target.value;
     setQuery(query);

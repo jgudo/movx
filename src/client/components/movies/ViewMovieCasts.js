@@ -6,15 +6,12 @@ import ImageLoader from '../layout/ImageLoader';
 
 import { numberWithCommas } from '../../helpers/helperFunctions';
 
-const ViewMoviePoster = (props) => {
-  const { 
-    movie, 
-    casts
-  } = props;
+const ViewMoviePoster = ({ movie, casts, history }) => {
   const tmdbBackdropPath = 'https://image.tmdb.org/t/p/w1400_and_h450_face/';
   const tmdbPosterPath = 'https://image.tmdb.org/t/p/w185_and_h278_face/';
+  
   const goPreviousPage = () => {
-    props.history.goBack();
+    history.goBack();
   };
 
   const getReleaseYear = (date) => {

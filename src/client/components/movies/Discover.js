@@ -46,45 +46,42 @@ class DiscoverMovies extends Component {
 
     return (
       <React.Fragment>
-        {(isLoading && isEmpty(discoverMovies)) && <LoadingScreen />}
-        <div className="container">
-          <div className="container__wrapper container__movies">
-            {!isEmpty(discoverMovies) && (
-              <React.Fragment>
-                <div className="movie__header">
-                  <div className="movie__header-title">
-                    <h1>Discover Movies</h1>
-                    <h3>{numberWithCommas(discoverMovies.total_results)} Movies</h3>
-                  </div>
-                  <Filter 
-                      filterCategory="discover"
-                      filterData={filter.discover}
-                  />
-                </div>  
-                <div className="movie__wrapper">
-                  {discoverMovies.results.map((movie, index) => {
-                    return (
-                      <MovieCard 
-                          category="movie"
-                          key={`${movie.id}_${index}`}
-                          movie={movie} 
-                      />
-                    );
-                  })}
+        {(isEmpty(discoverMovies) && isLoading) && <LoadingScreen />}
+        {!isEmpty(discoverMovies) && (
+          <div className="container">
+            <div className="container__wrapper container__movies">
+              <div className="movie__header">
+                <div className="movie__header-title">
+                  <h1>Discover Movies</h1>
+                  <h3>{numberWithCommas(discoverMovies.total_results)} Movies</h3>
                 </div>
-                <PaginationBar 
-                    activePage={discoverMovies.page}
-                    itemsCountPerPage={1}
-                    onChange={this.handlePageChange}
-                    pageRangeDisplayed={10}
-                    totalItemsCount={discoverMovies.total_pages}
-                    totalPage={discoverMovies.total_pages}
+                <Filter 
+                    filterCategory="discover"
+                    filterData={filter.discover}
                 />
-                <Footer />
-              </React.Fragment>
-            )}
+              </div>  
+              <div className="movie__wrapper">
+                {discoverMovies.results.map((movie, index) => (
+                  <MovieCard 
+                      category="movie"
+                      key={`${movie.id}_${index}`}
+                      movie={movie} 
+                  />
+                ))}
+              </div>
+              <PaginationBar 
+                  activePage={discoverMovies.page}
+                  itemsCountPerPage={1}
+                  onChange={this.handlePageChange}
+                  pageRangeDisplayed={10}
+                  totalItemsCount={discoverMovies.total_pages}
+                  totalPage={discoverMovies.total_pages}
+              />
+              <Footer />
+            </div>
           </div>
-        </div>
+        )}
+        
       </React.Fragment>
     );
   }

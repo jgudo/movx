@@ -1,32 +1,27 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import PropTypes from 'prop-types';
 import LazyLoad from 'react-lazy-load';
 import ImageLoader from '../layout/ImageLoader';
+import { downloadFileUrl } from '../../helpers/helperFunctions';
 
-const tmdbPosterPath = 'https://image.tmdb.org/t/p/w500_and_h282_face/';
-const tmdbPosterBase = 'https://image.tmdb.org/t/p/original';
-
-/* eslint-disable */
+/* eslint camelcase: 0 */
 const BackdropCard = (props) => {
   const [isDownloading, setIfDownloading] = useState(false);
   const { file_path } = props.backdrop;
+  const tmdbPosterPath = 'https://image.tmdb.org/t/p/w500_and_h282_face/';
+  const tmdbPosterBase = 'https://image.tmdb.org/t/p/original';
 
   const download = () => {
     setIfDownloading(true);
-    return axios
-    .get(`${tmdbPosterBase + file_path}`, {
-      responseType: 'blob'
-    })
-    .then((response) => {
-      const url = window.URL.createObjectURL(new Blob([response.data]));
-      const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', 'poster.jpg');
-      document.body.appendChild(link);
-      link.click();
+
+    try {
+      downloadFileUrl(`${tmdbPosterBase + file_path}`, () => {
+        setIfDownloading(false);
+      });
+    } catch (e) {
+      console.log('Cannot download file ', e);
       setIfDownloading(false);
-    });
+    }
   };
 
   return (
@@ -35,24 +30,24 @@ const BackdropCard = (props) => {
         <LazyLoad 
             debounce={false}
             offsetVertical={500}
-          >
-            <ImageLoader 
-                src={file_path ? `${tmdbPosterPath + file_path}` : '/images/img-placeholder.jpg'} 
+        >
+          <ImageLoader 
+              src={file_path ? `${tmdbPosterPath + file_path}` : '/images/img-placeholder.jpg'} 
             />
         </LazyLoad>
       </div>
       <div className="card__details poster__details">
         <button 
             className="button--link poster__download m-auto"
-            onClick={download}
             disabled={isDownloading}
+            onClick={download}
         >
           {isDownloading ? 'Downloading, Please wait' : 'Download'}
         </button>
       </div>
     </div>
   );
-}
+};
 
 BackdropCard.propTypes = {
   backdrop: PropTypes.shape({

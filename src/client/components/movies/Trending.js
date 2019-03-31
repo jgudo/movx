@@ -36,41 +36,37 @@ class TrendingMovies extends Component {
     
     return (
       <React.Fragment>
-        {(isLoading && isEmpty(trendingMovies)) && <LoadingScreen />}
-        <div className="container">
-          <div className="container__wrapper container__movies">
-            {!isEmpty(trendingMovies) && (
-              <React.Fragment>
-                <div className="movie__header">
-                  <div className="movie__header-title">
-                    <h1>Trending Movies</h1>
-                    <h3>{numberWithCommas(trendingMovies.total_results)} Movies</h3>
-                  </div>
+        {(isEmpty(trendingMovies) && isLoading) && <LoadingScreen />}
+        {!isEmpty(trendingMovies) && (
+          <div className="container">
+            <div className="container__wrapper container__movies">
+              <div className="movie__header">
+                <div className="movie__header-title">
+                  <h1>Trending Movies</h1>
+                  <h3>{numberWithCommas(trendingMovies.total_results)} Movies</h3>
                 </div>
-                <div className="movie__wrapper">
-                  {trendingMovies.results.map((movie, index) => {
-                    return (
-                      <MovieCard 
-                          category="movie"
-                          key={`${movie.id}_${index}`}
-                          movie={movie} 
-                      />
-                    );
-                  })}
-                </div>
-                <PaginationBar 
-                    activePage={trendingMovies.page}
-                    itemsCountPerPage={1}
-                    onChange={this.handlePageChange}
-                    pageRangeDisplayed={10}
-                    totalItemsCount={trendingMovies.total_pages}
-                    totalPage={trendingMovies.total_pages}
-              />
-              <Footer />
-              </React.Fragment>
-            )}
-          </div>  
-        </div>
+              </div>
+              <div className="movie__wrapper">
+                {trendingMovies.results.map((movie, index) => (
+                  <MovieCard 
+                      category="movie"
+                      key={`${movie.id}_${index}`}
+                      movie={movie} 
+                  />
+                ))}
+              </div>
+              <PaginationBar 
+                  activePage={trendingMovies.page}
+                  itemsCountPerPage={1}
+                  onChange={this.handlePageChange}
+                  pageRangeDisplayed={10}
+                  totalItemsCount={trendingMovies.total_pages}
+                  totalPage={trendingMovies.total_pages}
+            />
+            <Footer />
+            </div>  
+          </div>
+        )}
       </React.Fragment>
     );
   }

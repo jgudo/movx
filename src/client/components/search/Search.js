@@ -55,49 +55,47 @@ class Search extends Component {
     return (
       <React.Fragment>
         {isLoading && <LoadingScreen />}
-        <div className="container">
-          <div className="container__wrapper">
-            {(!isEmpty(movies) && !isLoading) && (
-              <React.Fragment>
-                <div className="movie__header">
-                  <div className="movie__header-title">
-                    <h1>Search Result</h1>
-                    <h3>
-                     {numberWithCommas(totalFound)}&nbsp; 
-                      total result with keyword: &nbsp;
-                      <span className="result__keyword">
-                        {match.params.query}
-                      </span>
-                    </h3>
-                  </div>
+        {(!isEmpty(movies) && !isLoading) && (
+          <div className="container">
+            <div className="container__wrapper">
+              <div className="movie__header">
+                <div className="movie__header-title">
+                  <h1>Search Result</h1>
+                  <h3>
+                  {numberWithCommas(totalFound)}&nbsp; 
+                    total result with keyword: &nbsp;
+                    <span className="result__keyword">
+                      {match.params.query}
+                    </span>
+                  </h3>
                 </div>
-                <Tabs>
-                  <div label={`Movies (${numberWithCommas(movies.total_results)})`}>
-                    <SearchMovieTab
-                        isLoading={isLoading} 
-                        movies={movies}
-                        query={match.params.query}
-                    />
-                  </div>
-                  <div label={`TV Shows (${numberWithCommas(tv.total_results)})`}>
-                    <SearchTvTab 
-                        isLoading={isLoading} 
-                        query={match.params.query}
-                        tvShows={tv}
-                    />
-                  </div>
-                  <div label={`People (${numberWithCommas(people.total_results)})`}>
+              </div>
+              <Tabs>
+                <div label={`Movies (${numberWithCommas(movies.total_results)})`}>
+                  <SearchMovieTab
+                      isLoading={isLoading} 
+                      movies={movies}
+                      query={match.params.query}
+                  />
+                </div>
+                <div label={`TV Shows (${numberWithCommas(tv.total_results)})`}>
+                  <SearchTvTab 
+                      isLoading={isLoading} 
+                      query={match.params.query}
+                      tvShows={tv}
+                  />
+                </div>
+                <div label={`People (${numberWithCommas(people.total_results)})`}>
                   <SearchPeopleTab 
                       isLoading={isLoading} 
                       people={people}
                       query={match.params.query}
                   />
-                  </div>
-                </Tabs>
-              </React.Fragment>
-            )}
-          </div>  
-        </div>
+                </div>
+              </Tabs>
+            </div>  
+          </div>
+        )}
       </React.Fragment>
     );
   }

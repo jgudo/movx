@@ -23,24 +23,22 @@ const Genres = (props) => {
   return (
     <div className="container">
       {isLoading && <LoadingScreen />}
-      <div className="container__wrapper container__movies">
-        {genres.length >= 1 && (
-          <React.Fragment>
-            <h1>Genres</h1>
-            <div className="genre__wrapper">
-              {genres.map((genre) => {
-                return (
-                  <GenreCard 
-                      category="genre"
-                      genre={genre} 
-                      key={genre.id}
-                  />
-                );
-              })}
-            </div>
-          </React.Fragment>
-        )}
-      </div>  
+      {genres.length >= 1 && (
+        <div className="container__wrapper container__movies">
+          <h1>Genres</h1>
+          <div className="genre__wrapper">
+            {genres.map((genre) => {
+              return (
+                <GenreCard 
+                    category="genre"
+                    genre={genre} 
+                    key={genre.id}
+                />
+              );
+            })}
+          </div>
+        </div>  
+      )}
     </div>
   );
 };

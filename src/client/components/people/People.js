@@ -35,11 +35,10 @@ const People = (props) => {
 
   return (
     <React.Fragment>
-      {isLoading && <LoadingScreen />}
-      <div className="container">
-        <div className="container__wrapper container__movies">
-          {!isEmpty(people) && (
-            <React.Fragment>
+      {(isEmpty(people) && isLoading) && <LoadingScreen />}
+      {!isEmpty(people) && (
+        <div className="container">
+          <div className="container__wrapper container__movies">
             <div className="movie__header">
               <div className="movie__header-title">
                 <h1>Popular People</h1>
@@ -47,15 +46,13 @@ const People = (props) => {
               </div>
             </div>
             <div className="movie__wrapper">
-              {people.results.map((person) => {
-                return (
-                  <PeopleCard 
-                      category="people"
-                      key={person.id}
-                      people={person} 
-                  />
-                );
-              })}
+              {people.results.map(person => (
+                <PeopleCard 
+                    category="people"
+                    key={person.id}
+                    people={person} 
+                />
+              ))}
             </div>
             <PaginationBar 
                 activePage={people.page}
@@ -66,10 +63,9 @@ const People = (props) => {
                 totalPage={people.total_pages}
             />
             <Footer />
-            </React.Fragment>
-          )}
-        </div>  
-      </div>
+          </div>  
+        </div>
+      )}
     </React.Fragment>
   );
 };

@@ -24,14 +24,12 @@ const MoviesSlider = ({ movies }) => {
   return (
     <div className="movie__slider">
       <Slider {...settings}>
-        {movies && movies.map((movie, index) => {
-          return index < 10 && (
-            <SliderItem 
-                key={movie.id} 
-                movie={movie}
-            />
-          );
-        })}
+        {movies && movies.map((movie, index) => index < 10 && (
+          <SliderItem 
+              key={movie.id} 
+              movie={movie}
+          />
+        ))}
       </Slider>
     </div>
   );

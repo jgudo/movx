@@ -32,41 +32,37 @@ const UpcomingMovies = (props) => {
  
   return (
     <React.Fragment>
-      {(isLoading && isEmpty(upcomingMovies)) && <LoadingScreen />}
-      <div className="container">
-        <div className="container__wrapper container__movies">
-          {!isEmpty(upcomingMovies) && (
-            <React.Fragment>
-              <div className="movie__header">
-                <div className="movie__header-title">
-                  <h1>Upcoming Movies</h1>
-                  <h3>{numberWithCommas(upcomingMovies.total_results)} Movies</h3>
-                </div>
+      {(isEmpty(upcomingMovies) && isLoading) && <LoadingScreen />}
+      {!isEmpty(upcomingMovies) && (
+        <div className="container">
+          <div className="container__wrapper container__movies">
+            <div className="movie__header">
+              <div className="movie__header-title">
+                <h1>Upcoming Movies</h1>
+                <h3>{numberWithCommas(upcomingMovies.total_results)} Movies</h3>
               </div>
-              <div className="movie__wrapper">
-                {upcomingMovies.results.map((movie, index) => {
-                  return (
-                    <MovieCard 
-                        category="movie"
-                        key={`${movie.id}_${index}`}
-                        movie={movie} 
-                    />
-                  )
-                })}
-              </div>
-              <PaginationBar 
-                  activePage={upcomingMovies.page}
-                  itemsCountPerPage={1}
-                  onChange={handlePageChange}
-                  pageRangeDisplayed={10}
-                  totalItemsCount={upcomingMovies.total_pages}
-                  totalPage={upcomingMovies.total_pages}
+            </div>
+            <div className="movie__wrapper">
+              {upcomingMovies.results.map((movie, index) => (
+                <MovieCard 
+                    category="movie"
+                    key={`${movie.id}_${index}`}
+                    movie={movie} 
+                />
+              ))}
+            </div>
+            <PaginationBar 
+                activePage={upcomingMovies.page}
+                itemsCountPerPage={1}
+                onChange={handlePageChange}
+                pageRangeDisplayed={10}
+                totalItemsCount={upcomingMovies.total_pages}
+                totalPage={upcomingMovies.total_pages}
             />
             <Footer />
-            </React.Fragment>
-          )}
-        </div>  
-    </div>
+          </div>  
+      </div>
+      )}
     </React.Fragment>
   );
 };

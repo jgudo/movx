@@ -3,22 +3,18 @@ import { connect } from 'react-redux';
 
 import { addToFavorites, removeFromFavorites } from '../../actions/actions';
 
-const tmdbPosterPath = 'https://image.tmdb.org/t/p/w300_and_h450_face/';
-const tmdbBackdropPath = 'https://image.tmdb.org/t/p/original';
-
-const SliderItem = ({ 
-  movie, 
-  favorites,
-  addToFavorites,
-  removeFromFavorites 
-}) => {
+const SliderItem = (props) => {
+  const { movie, favorites } = props;
+  const tmdbPosterPath = 'https://image.tmdb.org/t/p/w300_and_h450_face/';
+  const tmdbBackdropPath = 'https://image.tmdb.org/t/p/original';
+  
   const found = () => {
     return favorites.some(item => item.id === movie.id);
   };
 
   const onAddToFavorites = () => {
-    if (!found()) addToFavorites(movie);
-    else removeFromFavorites(movie.id); 
+    if (!found()) props.addToFavorites(movie);
+    else props.removeFromFavorites(movie.id); 
   };
 
   return (

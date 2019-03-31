@@ -8,7 +8,7 @@ import ImageLoader from '../layout/ImageLoader';
 
 import { addToFavorites, removeFromFavorites } from '../../actions/actions';
 
-/* eslint-disable */
+/* eslint camelcase: 0 */
 const MovieCard = (props) => {
   const { 
     id,
@@ -21,19 +21,18 @@ const MovieCard = (props) => {
     title
   } = props.movie;
   const tmdbPosterPath = 'https://image.tmdb.org/t/p/w185_and_h278_face/';
+  
   const releaseYear = (date) => {
     if (date) return date.split('-')[0];
   };
 
-  const found = () => {
+  const favoriteFound = () => {
     return props.favorites.some(item => item.id === id);
   };
 
   const onAddToFavorites = () => {
-    if (!found()) 
-      props.addToFavorites(props.movie);
-    else
-      props.removeFromFavorites(id); 
+    if (!favoriteFound()) props.addToFavorites(props.movie);
+    else props.removeFromFavorites(id); 
   };
 
   return (
@@ -54,12 +53,12 @@ const MovieCard = (props) => {
       </Link>
       <div className="card__details">
         <StarRatings
-          rating={vote_average}
-          starRatedColor="yellow"
-          numberOfStars={10}
-          starDimension="14px"
-          starSpacing="2px"
-          name='rating'
+            name="rating"
+            numberOfStars={10}
+            rating={vote_average}
+            starDimension="14px"
+            starRatedColor="yellow"
+            starSpacing="2px"
         />
         <h4>{original_title || original_name || title || 'Not Available'}</h4>
         <div className="card__footer">
@@ -75,13 +74,13 @@ const MovieCard = (props) => {
           <span 
               className="icon icon-heart"
               style={{
-                color: found() ? '#ff2e4f' : '#5b6166'
+                color: favoriteFound() ? '#ff2e4f' : '#5b6166'
               }}>
               ♥
           </span>
           </button>
           <div className="tooltip">
-            <span>{found() ? 'Remove from favorites' : 'Add To Favorites'}</span>
+            <span>{favoriteFound() ? 'Remove from favorites' : 'Add To Favorites'}</span>
           </div>
         </div>
       </div>

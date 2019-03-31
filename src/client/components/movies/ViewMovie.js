@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import MovieOverview from './MovieOverview';
@@ -25,9 +24,9 @@ class ViewMovie extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const movieId = nextProps.match.params.id;
-    if (this.props.match.params.id !== movieId) {
-      this.fetchMovie(movieId);
+    const newId = nextProps.match.params.id;
+    if (this.props.match.params.id !== newId) {
+      this.fetchMovie(newId);
     }
   }
 
@@ -40,6 +39,11 @@ class ViewMovie extends Component {
     }
   };
 
+  onClickViewImage = () => {
+    this.props.history.push(`/view/movie/${this.props.match.params.id}/images`);
+    window.scrollTo(null, 0);
+  };
+
   render() {
     const {
       movie, 
@@ -49,64 +53,54 @@ class ViewMovie extends Component {
       keywords,
       isLoading
     } = this.props;
+    const posters = movie.images ? movie.images.posters : [];
    
     return (
       <React.Fragment>
         {isLoading && <ContentLoader />}
-        <div className="container pt-0 mt-0">
-          <MovieOverview 
-              favorites={favorites}
-              isLoading={isLoading}
-              movie={movie}
-          />
-          <div className="movie__casts">
-            <div className="movie__casts-content">
-              <MovieCast 
-                  casts={casts} 
-                  isLoading={isLoading}
-                  />
-              <MovieDetails 
-                isLoading={isLoading}
-                keywords={keywords}
+        {(!isLoading && !isEmpty(movie)) && (
+          <div className="container pt-0 mt-0">
+            <MovieOverview 
+                favorites={favorites}
                 movie={movie}
-              />
+            />
+            <div className="movie__casts">
+              <div className="movie__casts-content">
+                <MovieCast casts={casts} />
+                <MovieDetails 
+                    keywords={keywords}
+                    movie={movie}
+                />
+              </div>
             </div>
-          </div>
-          {(movie.images && !isLoading) && (
-            <React.Fragment>
+            {movie.images && (
               <div className="poster">
                 <div className="poster__wrapper">
                   <MoviePoster 
                       id={movie.id}
-                      posters={
-                        movie.images.posters &&
-                        movie.images.posters.length > 10 ? movie.images.posters.slice(0, 10) : movie.images.posters
-                      }
+                      posters={posters.length > 10 ? posters.slice(0, 10) : posters}
                   />
                   <button 
                       className="button--primary button--block m-auto"
-                      onClick={() => {
-                        this.props.history.push(`/view/movie/${this.props.match.params.id}/images`);
-                        window.scrollTo(null, 0);
-                      }}
+                      onClick={this.onClickViewImage}
                   >
                     View All Posters
                   </button>
                 </div>
               </div>
-            </React.Fragment>
-          )}
-          {(movie.similar && !isLoading) && (
-            <div className="similar">
-              <SimilarMovies movies={movie.similar.results} />
-            </div>
-          )}
-          {(!isEmpty(reviews) && reviews.results.length !== 0 && !isLoading) && (
-            <div className="reviews">
-              <Reviews reviews={reviews} />
-            </div>
-          )}
-        </div>
+            )}
+            {movie.similar && (
+              <div className="similar">
+                <SimilarMovies movies={movie.similar.results} />
+              </div>
+            )}
+            {(!isEmpty(reviews) && reviews.results.length !== 0) && (
+              <div className="reviews">
+                <Reviews reviews={reviews} />
+              </div>
+            )}
+          </div>
+        )}
       </React.Fragment>
     );
   }
@@ -121,7 +115,8 @@ ViewMovie.propTypes = {
   isLoading: PropTypes.bool,
   keywords: PropTypes.arrayOf(PropTypes.object),
   movie: PropTypes.object,
-  removeFromFavorites: PropTypes.func
+  removeFromFavorites: PropTypes.func,
+  reviews: PropTypes.object
 };
 
 const mapStateToProps = ({ favorites, current, isLoading }) => ({
@@ -138,4 +133,4 @@ const mapDispatchToProps = dispatch => ({
   fetchSelectedMovie: (category, id) => dispatch(fetchSelectedMovie(category, id))
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ViewMovie));
+export default connect(mapStateToProps, mapDispatchToProps)(ViewMovie);

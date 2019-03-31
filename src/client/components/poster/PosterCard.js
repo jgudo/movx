@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import PropTypes from 'prop-types';
 import LazyLoad from 'react-lazy-load';
 import ImageLoader from '../layout/ImageLoader';
+import { downloadFileUrl } from '../../helpers/helperFunctions';
 
 const tmdbPosterPath = 'https://image.tmdb.org/t/p/w185_and_h278_face/';
 const tmdbPosterBase = 'https://image.tmdb.org/t/p/original';
@@ -14,19 +14,15 @@ const PosterCard = (props) => {
 
   const download = () => {
     setIfDownloading(true);
-    return axios
-    .get(`${tmdbPosterBase + file_path}`, {
-      responseType: 'blob'
-    })
-    .then((response) => {
-      const url = window.URL.createObjectURL(new Blob([response.data]));
-      const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', 'poster.jpg');
-      document.body.appendChild(link);
-      link.click();
+
+    try {
+      downloadFileUrl(`${tmdbPosterBase + file_path}`, () => {
+        setIfDownloading(false);
+      });
+    } catch (e) {
+      console.log('Cannot download file ', e);
       setIfDownloading(false);
-    });
+    }
   };
 
   return (

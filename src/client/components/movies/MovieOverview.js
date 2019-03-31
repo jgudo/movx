@@ -5,7 +5,6 @@ import LazyLoad from 'react-lazy-load';
 import ModalVideo from 'react-modal-video';
 import Modal from 'react-responsive-modal';
 import ImageLoader from '../layout/ImageLoader';
-import { isEmpty } from '../../helpers/helperFunctions';
 
 // actions
 import { addToFavorites, removeFromFavorites } from '../../actions/actions';
@@ -66,7 +65,7 @@ class MovieOverview extends Component {
   };
   
   render() {
-    const { movie, isLoading } = this.props;
+    const { movie } = this.props;
     const { isOpenModal, isOpenVideoModal } = this.state;
     const youtube = 'https://www.youtube.com/results?search_query=';
     const modalStyle = {
@@ -78,103 +77,94 @@ class MovieOverview extends Component {
       },
       closeButton: {
         top: '10px',
-        right: '0'
+        right: '10px'
       },
       closeIcon: {
         fill: '#fff'
       }  
     };
 
-
     return (
-      <React.Fragment>
-        <div className="container pt-0 mt-0">
-          <ModalVideo 
-              channel="youtube" 
-              isOpen={isOpenVideoModal}
-              onClose={this.closeVideoModal} 
-              videoId={this.getTrailerKey() || null} 
-          />
-          <Modal 
-              center
-              onClose={this.closeModal} 
-              open={isOpenModal} 
-              styles={modalStyle}
-          >
-            <h2>No Trailer Found</h2>
-            <p>View in youtube instead</p>
-            <a  
-                className="modal__link"
-                href={`${youtube + movie.original_title + this.getReleaseYear(movie.release_date)}`}
-                target="_blank">
-              Search in Youtube
-            </a>
-          </Modal>
-          {(!isLoading && !isEmpty(movie)) && (
-            <React.Fragment>
-              <div className="backdrop__container">
-                <img 
-                    alt=""
-                    className="backdrop__image"
-                    src={movie.backdrop_path ? `${tmdbBackdropPath + movie.backdrop_path}` : '/images/background.jpg'} 
+      <div className="container pt-0 mt-0">
+        <ModalVideo 
+            channel="youtube" 
+            isOpen={isOpenVideoModal}
+            onClose={this.closeVideoModal} 
+            videoId={this.getTrailerKey() || null} 
+        />
+        <Modal 
+            center
+            onClose={this.closeModal} 
+            open={isOpenModal} 
+            styles={modalStyle}
+        >
+          <h2>No Trailer Found</h2>
+          <p>View in youtube instead</p>
+          <a  
+              className="modal__link"
+              href={`${youtube + movie.original_title + this.getReleaseYear(movie.release_date)}`}
+              target="_blank">
+            Search in Youtube
+          </a>
+        </Modal>
+          <div className="backdrop__container">
+            <img 
+                alt=""
+                className="backdrop__image"
+                src={movie.backdrop_path ? `${tmdbBackdropPath + movie.backdrop_path}` : '/images/background.jpg'} 
+            />
+          </div>
+          <div className="back__button">
+            <button 
+                className="button--back"
+                onClick={this.goPreviousPage}>
+              Back
+            </button>
+          </div>
+          <div className="view">
+            <div className="view__poster">
+              <LazyLoad 
+                  debounce={false}
+                  offsetVertical={500}
+              >
+                <ImageLoader 
+                    alt={movie.original_title || movie.original_name || movie.title}
+                    imgId={movie.id} 
+                    src={movie.poster_path ? `${tmdbPosterPath + movie.poster_path}` : '/images/img-placeholder.jpg'} 
                 />
-              </div>
-              <div className="back__button">
+              </LazyLoad>
+            </div>
+            <div className="view__details">
+              <h1 className="view__title">
+                {movie.original_title || movie.original_name}
+                {movie.release_date && <span>{` (${this.getReleaseYear(movie.release_date)}) `}</span>}
+              </h1>
+              <p className="view__rating">
+                <span className="icon icon-star">★</span>
+                &nbsp;{movie.vote_average} Rating
+              </p>
+              <h4 className="view__overview-title">Overview</h4>
+              <p className="view__overview">{movie.overview}</p>
+              <div className="view__actions">
+                <button className="button--primary" onClick={this.openVideoModal}>
+                  Watch Trailer
+                  <span className="icon icon-play">►</span>
+                </button>
                 <button 
-                    className="button--back"
-                    onClick={this.goPreviousPage}>
-                  Back
+                    className="button--outlined button--favorites"
+                    onClick={this.onAddToFavorites}
+                    style={{
+                      background: this.found() ? '#ff2e4f' : 'transparent',
+                      border: this.found() ? '1px solid #ff2e4f' : '1px solid #fff'
+                    }}
+                >
+                  {this.found() ? 'Remove From Favorites' : 'Add To Favorites'}
+                  <span className="icon icon-heart">♥</span>
                 </button>
               </div>
-              <div className="view">
-                <div className="view__poster">
-                  <LazyLoad 
-                      debounce={false}
-                      offsetVertical={500}
-                    >
-                      <ImageLoader 
-                          alt={movie.original_title || movie.original_name || movie.title}
-                          imgId={movie.id} 
-                          src={movie.poster_path ? `${tmdbPosterPath + movie.poster_path}` : '/images/img-placeholder.jpg'} 
-                      />
-                  </LazyLoad>
-                </div>
-                <div className="view__details">
-                  <h1 className="view__title">
-                    {movie.original_title || movie.original_name}
-                    &nbsp;
-                    {movie.release_date && <span>{`(${this.getReleaseYear(movie.release_date)})`}</span>
-                    }
-                  </h1>
-                  <p className="view__rating">
-                    <span className="icon icon-star">★</span>
-                    &nbsp;{movie.vote_average} Rating
-                  </p>
-                  <h4 className="view__overview-title">Overview</h4>
-                  <p className="view__overview">{movie.overview}</p>
-                  <div className="view__actions">
-                    <button className="button--primary" onClick={this.openVideoModal}>
-                      Watch Trailer
-                      <span className="icon icon-play">►</span>
-                    </button>
-                    <button 
-                        className="button--outlined button--favorites"
-                        onClick={this.onAddToFavorites}
-                        style={{
-                          background: this.found() ? '#ff2e4f' : 'transparent',
-                          border: this.found() ? '1px solid #ff2e4f' : '1px solid #fff'
-                        }}
-                    >
-                      {this.found() ? 'Remove From Favorites' : 'Add To Favorites'}
-                      <span className="icon icon-heart">♥</span>
-                    </button>
-                  </div>
-                </div>            
-              </div>
-            </React.Fragment>
-          )}
-        </div>
-     </React.Fragment>
+            </div>            
+          </div>
+      </div>
     );
   }
 }

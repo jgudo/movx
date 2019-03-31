@@ -4,17 +4,15 @@ import LazyLoad from 'react-lazy-load';
 import { Link } from 'react-router-dom';
 import ImageLoader from '../layout/ImageLoader';
 
-const tmdbPosterPath = 'https://image.tmdb.org/t/p/w185_and_h278_face/';
-
-/* eslint-disable */
+/* eslint camelcase: 0 */
 const PeopleCard = (props) => {
   const { 
     id,
     profile_path,
     name,
-    character,
-    known_for_department
+    character
   } = props.people;
+  const tmdbPosterPath = 'https://image.tmdb.org/t/p/w185_and_h278_face/';
 
   return (
     <div className="card people__card">
@@ -23,12 +21,12 @@ const PeopleCard = (props) => {
           <LazyLoad 
               debounce={false}
               offsetVertical={500}
-            >
-              <ImageLoader 
-                  alt={name}
-                  imgId={id} 
-                  src={profile_path ? `${tmdbPosterPath + profile_path}` : '/images/placeholder.jpg'} 
-              />
+          >
+            <ImageLoader 
+                alt={name}
+                imgId={id} 
+                src={profile_path ? `${tmdbPosterPath + profile_path}` : '/images/placeholder.jpg'} 
+            />
           </LazyLoad>
         </div>
       </Link>

@@ -31,9 +31,7 @@ const ScrollTop = () => {
   return (
     <div 
         className="scrolltop" 
-        onClick={() => {
-          scrollToTop(0, 400);
-        }}
+        onClick={() => scrollToTop(0, 400)}
         ref={scroll} 
     />
   );
