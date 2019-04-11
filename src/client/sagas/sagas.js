@@ -32,7 +32,7 @@ export function* fetchRequestSaga({ type, query, page }) {
     }
   } catch (e) {
     console.dir(e.message);
-    yield put({ type: IS_LOADING, bool: false});
+    yield put({ type: IS_LOADING, bool: false });
     if (!navigator.onLine) yield call(history.push, '/network-error');
     else yield call(history.push, '/error');
   }
@@ -60,7 +60,7 @@ export function* updateFilterQuerySaga({ target }) {
     }
   } catch (e) {
     console.log(e);
-    yield put({ type: IS_LOADING, bool: false});
+    yield put({ type: IS_LOADING, bool: false });
   }
 }
 
@@ -85,7 +85,7 @@ export function* fetchSelectedMovieSaga({ category, id }) {
     window.scrollTo(null, 0);
   } catch (e) {
     console.log(e);
-    yield put({ type: IS_LOADING, bool: false});
+    yield put({ type: IS_LOADING, bool: false });
     if (!navigator.onLine) yield call(history.push, '/network-error');
     else yield call(history.push, '/error');
   }
@@ -102,7 +102,7 @@ export function* fetchSelectedPersonSaga({ id }) {
     window.scrollTo(null, 0);
   } catch (e) {
     console.log(e);
-    yield put({ type: IS_LOADING, bool: false});
+    yield put({ type: IS_LOADING, bool: false });
     if (!navigator.onLine) yield call(history.push, '/network-error');
     else yield call(history.push, '/error');
   }

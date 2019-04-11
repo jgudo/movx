@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { Router, Switch, Route } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 
-import App from '../App';
+import Home from '../App';
 import Navigation from '../components/layout/Navigation';
 import DiscoverMovies from '../components/movies/Discover';
 import TrendingMovies from '../components/movies/Trending';
@@ -36,7 +36,7 @@ const AppRouter = () => (
       <ScrollTop />
       <Switch>
         <Route 
-            component={App} 
+            component={Home} 
             exact={true}
             path="/" 
         />
@@ -100,8 +100,9 @@ const AppRouter = () => (
             exact={true}  
             path="/genre" 
         />
-         <Route 
+        <Route 
             component={ViewGenre}
+            exact={true}  
             path="/genre/:genre/:id" 
         />
         <Route 

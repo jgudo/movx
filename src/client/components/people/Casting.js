@@ -3,12 +3,11 @@ import { withRouter } from 'react-router-dom';
 
 import MovieCard from '../movies/MovieCard';
 
-const Casting = (props) => {
-  const { casting, actor } = props;
-  const actorId = props.match.params.id;
+const Casting = ({ casting, actor, match, history }) => {
+  const actorId = match.params.id;
   
   const onClickLink = () => {
-    props.history.push(`/view/person/profile/${actorId}/casting`);
+    history.push(`/view/person/profile/${actorId}/casting`);
     window.scrollTo(null, 0);
   };
 

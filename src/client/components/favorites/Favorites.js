@@ -42,7 +42,6 @@ Favorites.propTypes = {
   }))
 };
 
-
 const mapStateToProps = ({ favorites }) => ({
   favorites
 });

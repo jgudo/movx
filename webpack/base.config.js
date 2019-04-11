@@ -1,10 +1,11 @@
-/* eslint-disable import/no-extraneous-dependencies */
-const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const HtmlPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 const path = require('path');
+const webpack = require('webpack');
 const DotEnv = require('dotenv');
+
+const resolve = (dir) => {
+  return path.join(__dirname, '..', dir);
+};
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
@@ -13,10 +14,12 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 module.exports = {
-  entry: ['@babel/polyfill', path.resolve(__dirname, '../src/client/index.js')],
+  entry: [
+    '@babel/polyfill', resolve('src/client/index.js')
+  ],
   output: {
-    path: path.join(__dirname, '../public'),
-    filename: '[name].bundle.js',
+    path: resolve('dist'),
+    filename: 'js/[name].bundle.js',
     publicPath: '/'
   },
   module: {
@@ -29,7 +32,6 @@ module.exports = {
     }, {
       test: /\.s?css$/,
       use: [{
-        // loader: 'style-loader'
         loader: MiniCssExtractPlugin.loader
       }, {
         loader: 'css-loader',
@@ -47,40 +49,46 @@ module.exports = {
       use: [{
         loader: 'file-loader',
         options: {
+          limit: 10000,
           outputPath: 'images',
-          name: '[name][hash].[ext]'
+          name: '[name].[hash].[ext]'
         }
       }]
+    }, {
+      test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
+      loader: 'file-loader',
+      options: {
+        limit: 10000,
+        name: '[name].[hash].[ext]',
+        outputPath: 'media'
+      }
     }, {
       test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
       use: [{
         loader: 'file-loader',
         options: {
-          name: '[name].[ext]',
+          limit: 10000,
+          name: '[name].[hash].[ext]',
           outputPath: 'fonts'
         }
       }]
     }]
-  },
+  }, 
   resolve: {
     modules: [
-      path.resolve(__dirname, '../src'),
+      resolve('src'),
       'node_modules'
     ],
     extensions: ['*', '.js', '.jsx']
   },
   plugins: [
-    new CleanWebpackPlugin(['public']),
+    new MiniCssExtractPlugin({
+      filename: 'css/[name].css',
+      chunkFilename: 'css/[name].[contenthash]_[id].css'
+    }),
     new webpack.DefinePlugin({
       'process.env.TMDB_KEY': JSON.stringify(process.env.TMDB_KEY)
-    }),
-    new MiniCssExtractPlugin({
-      filename: '[name].css',
-      chunkFilename: '[name]_[id].css'
-    }),
-    new HtmlPlugin({
-      title: 'Movx | Browse Your Favorite Movies',
-      template: path.resolve(__dirname, '../public/index.html')
     })
   ]
 };
+

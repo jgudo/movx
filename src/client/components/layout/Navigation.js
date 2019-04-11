@@ -7,6 +7,7 @@ import { NavLink, withRouter, Link } from 'react-router-dom';
 import TopProgressLoader from './TopProgressLoader'; 
 
 import { addSearchHistory, clearSearchHistory } from '../../actions/actions';
+import logo from '../../images/logo.png';
 
 const Navigation = (props) => {
   const [searchQuery, setQuery] = useState('');
@@ -101,7 +102,7 @@ const Navigation = (props) => {
           </div>
           <div className="navigation__logo">
             <Link to="/">
-              <img src="/images/logo.png" alt=""/>
+              <img src={logo} alt=""/>
             </Link>
           </div>
           <div className="navigation__menu-wrapper">

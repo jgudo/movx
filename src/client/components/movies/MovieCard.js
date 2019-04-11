@@ -42,12 +42,12 @@ const MovieCard = (props) => {
           <LazyLoad 
               debounce={false}
               offsetVertical={500}
-            >
-              <ImageLoader 
-                  alt={original_title || original_name || title}
-                  imgId={id} 
-                  src={poster_path ? `${tmdbPosterPath + poster_path}` : '/images/img-placeholder.jpg'} 
-              />
+          >
+            <ImageLoader 
+                alt={original_title || original_name || title}
+                imgId={id} 
+                src={poster_path ? `${tmdbPosterPath + poster_path}` : '/images/img-placeholder.jpg'} 
+            />
           </LazyLoad>
         </div>
       </Link>
