@@ -6,15 +6,24 @@ Built with react js | TMDB api
 
 ### Install Dependencies
 ```sh
-$npm install 
+$ npm install 
+```
+### Get API key
+Login into themoviedb to get your api key. Login [here](https://www.themoviedb.org/settings/api)
+
+Create a .env file in the root of your project folder and name it _.env.development_
+and add the following
+
+```
+TMDB_KEY=[yourapikey]
 ```
 
 ### Run development server
 ```sh 
-$npm run dev-server
+$ npm run dev-server
 ```
 
 ### Build the project
 ```sh
-$npm run build
+$ npm run build
 ```
