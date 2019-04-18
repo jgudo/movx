@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import LoadingScreen from '../layout/LoadingScreen'; 
+import Loader from '../hoc/Loader';
 import MovieCard from './MovieCard';
 import PaginationBar from '../layout/PaginationBar';
 import Footer from '../layout/Footer';
 
 // actions
-import { fetchTrendingMovies, isCurrentlyFetching } from '../../actions/actions';
+import { fetchTrendingMovies } from '../../actions/actions';
 
 // helpers
 import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
@@ -27,54 +27,47 @@ class TrendingMovies extends Component {
   };
 
   fetchMovies = (page = 1) => {
-    this.props.isCurrentlyFetching();
     this.props.fetchTrendingMovies('trending/all/day?', page);
   };
 
   render() {
-    const { trendingMovies, isLoading } = this.props;
-    
-    return (
-      <React.Fragment>
-        {(isEmpty(trendingMovies) && isLoading) && <LoadingScreen />}
-        {!isEmpty(trendingMovies) && (
-          <div className="container">
-            <div className="container__wrapper container__movies">
-              <div className="movie__header">
-                <div className="movie__header-title">
-                  <h1>Trending Movies</h1>
-                  <h3>{numberWithCommas(trendingMovies.total_results)} Movies</h3>
-                </div>
-              </div>
-              <div className="movie__wrapper">
-                {trendingMovies.results.map((movie, index) => (
-                  <MovieCard 
-                      category="movie"
-                      key={`${movie.id}_${index}`}
-                      movie={movie} 
-                  />
-                ))}
-              </div>
-              <PaginationBar 
-                  activePage={trendingMovies.page}
-                  itemsCountPerPage={1}
-                  onChange={this.handlePageChange}
-                  pageRangeDisplayed={10}
-                  totalItemsCount={trendingMovies.total_pages}
-                  totalPage={trendingMovies.total_pages}
-            />
-            <Footer />
-            </div>  
+    const { trendingMovies } = this.props;
+
+    return !isEmpty(trendingMovies) && (
+      <div className="container">
+        <div className="container__wrapper container__movies">
+          <div className="movie__header">
+            <div className="movie__header-title">
+              <h1>Trending Movies</h1>
+              <h3>{numberWithCommas(trendingMovies.total_results)} Movies</h3>
+            </div>
           </div>
-        )}
-      </React.Fragment>
+          <div className="movie__wrapper">
+            {trendingMovies.results.map((movie, index) => (
+              <MovieCard 
+                  category="movie"
+                  key={`${movie.id}_${index}`}
+                  movie={movie} 
+              />
+            ))}
+          </div>
+          <PaginationBar 
+              activePage={trendingMovies.page}
+              itemsCountPerPage={1}
+              onChange={this.handlePageChange}
+              pageRangeDisplayed={10}
+              totalItemsCount={trendingMovies.total_pages}
+              totalPage={trendingMovies.total_pages}
+        />
+        <Footer />
+        </div>  
+      </div>
     );
   }
 }
 
 TrendingMovies.propTypes = {
   fetchRequest: PropTypes.func,
-  isCurrentlyFetching: PropTypes.func,
   trendingMovies: PropTypes.shape({
     page: PropTypes.number,
     total_page: PropTypes.number,
@@ -89,8 +82,7 @@ const mapStateToProps = ({ trendingMovies, isLoading }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchTrendingMovies: (query, page) => dispatch(fetchTrendingMovies(query, page)),
-  isCurrentlyFetching: bool => dispatch(isCurrentlyFetching(bool))
+  fetchTrendingMovies: (query, page) => dispatch(fetchTrendingMovies(query, page))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TrendingMovies);
+export default connect(mapStateToProps, mapDispatchToProps)(Loader('trendingMovies')(TrendingMovies));

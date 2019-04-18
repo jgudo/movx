@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import LoadingScreen from '../layout/LoadingScreen'; 
+import Loader from '../hoc/Loader';
 import SearchMovieTab from './SearchMovieTab';
 import SearchTvTab from './SearchTvTab';
 import SearchPeopleTab from './SearchPeopleTab';
@@ -12,8 +12,7 @@ import {
   searchMovies, 
   searchTvShows,
   searchPeople,
-  updateSearchQuery,
-  isCurrentlyFetching 
+  updateSearchQuery
 } from '../../actions/actions';
 
 // helpers
@@ -22,6 +21,7 @@ import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
 class Search extends Component {
   componentDidMount() {
     const queryString = this.props.match.params.query;
+    
     if (queryString !== this.props.query) {
       this.search(queryString);
       this.props.updateSearchQuery(queryString);
@@ -36,7 +36,6 @@ class Search extends Component {
   }
 
   search = (query) => {
-    this.props.isCurrentlyFetching();
     this.props.searchMovies(`search/movie?query=${query}`);
     this.props.searchTvShows(`search/tv?query=${query}`);
     this.props.searchPeople(`search/person?query=${query}`);
@@ -52,51 +51,46 @@ class Search extends Component {
       isLoading 
     } = this.props;
     
-    return (
-      <React.Fragment>
-        {isLoading && <LoadingScreen />}
-        {(!isEmpty(movies) && !isLoading) && (
-          <div className="container">
-            <div className="container__wrapper">
-              <div className="movie__header">
-                <div className="movie__header-title">
-                  <h1>Search Result</h1>
-                  <h3>
-                  {numberWithCommas(totalFound)}&nbsp; 
-                    total result with keyword: &nbsp;
-                    <span className="result__keyword">
-                      {match.params.query}
-                    </span>
-                  </h3>
-                </div>
-              </div>
-              <Tabs>
-                <div label={`Movies (${numberWithCommas(movies.total_results)})`}>
-                  <SearchMovieTab
-                      isLoading={isLoading} 
-                      movies={movies}
-                      query={match.params.query}
-                  />
-                </div>
-                <div label={`TV Shows (${numberWithCommas(tv.total_results)})`}>
-                  <SearchTvTab 
-                      isLoading={isLoading} 
-                      query={match.params.query}
-                      tvShows={tv}
-                  />
-                </div>
-                <div label={`People (${numberWithCommas(people.total_results)})`}>
-                  <SearchPeopleTab 
-                      isLoading={isLoading} 
-                      people={people}
-                      query={match.params.query}
-                  />
-                </div>
-              </Tabs>
-            </div>  
+    return (!isEmpty(movies) && !isLoading) && (
+      <div className="container">
+        <div className="container__wrapper">
+          <div className="movie__header">
+            <div className="movie__header-title">
+              <h1>Search Result</h1>
+              <h3>
+              {numberWithCommas(totalFound)}&nbsp; 
+                total result with keyword: &nbsp;
+                <span className="result__keyword">
+                  {match.params.query}
+                </span>
+              </h3>
+            </div>
           </div>
-        )}
-      </React.Fragment>
+          <Tabs>
+            <div label={`Movies (${numberWithCommas(movies.total_results)})`}>
+              <SearchMovieTab
+                  isLoading={isLoading} 
+                  movies={movies}
+                  query={match.params.query}
+              />
+            </div>
+            <div label={`TV Shows (${numberWithCommas(tv.total_results)})`}>
+              <SearchTvTab 
+                  isLoading={isLoading} 
+                  query={match.params.query}
+                  tvShows={tv}
+              />
+            </div>
+            <div label={`People (${numberWithCommas(people.total_results)})`}>
+              <SearchPeopleTab 
+                  isLoading={isLoading} 
+                  people={people}
+                  query={match.params.query}
+              />
+            </div>
+          </Tabs>
+        </div>  
+      </div>
     );
   }
 }
@@ -105,8 +99,8 @@ Search.propTypes = {
   isLoading: PropTypes.bool, 
   movies: PropTypes.object, 
   people: PropTypes.object,
-  tv: PropTypes.object, 
-  totalFound: PropTypes.number
+  totalFound: PropTypes.number,
+  tv: PropTypes.object
 };
 
 const mapStateToProps = ({ search, isLoading }) => ({
@@ -122,8 +116,7 @@ const mapDispatchToProps = dispatch => ({
   searchMovies: (url, page) => dispatch(searchMovies(url, page)),
   searchPeople: (url, page) => dispatch(searchPeople(url, page)),
   searchTvShows: (url, page) => dispatch(searchTvShows(url, page)),
-  isCurrentlyFetching: bool => dispatch(isCurrentlyFetching(bool)),
   updateSearchQuery: query => dispatch(updateSearchQuery(query))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Search);
+export default connect(mapStateToProps, mapDispatchToProps)(Loader(undefined)(Search));

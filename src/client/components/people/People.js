@@ -2,22 +2,21 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import LoadingScreen from '../layout/LoadingScreen'; 
+import Loader from '../hoc/Loader'; 
 import PeopleCard from './PeopleCard';
 import PaginationBar from '../layout/PaginationBar';
 import Footer from '../layout/Footer';
 
 // actions
-import { fetchPeople, isCurrentlyFetching } from '../../actions/actions';
+import { fetchPeople } from '../../actions/actions';
 
 // helpers
 import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
 
 const People = (props) => {
-  const { people, isLoading } = props;
+  const { people } = props;
 
   const getPeople = (page = 1) => {
-    props.isCurrentlyFetching();
     props.fetchPeople('person/popular?', page);
   };
 
@@ -33,46 +32,40 @@ const People = (props) => {
     }
   };
 
-  return (
-    <React.Fragment>
-      {(isEmpty(people) && isLoading) && <LoadingScreen />}
-      {!isEmpty(people) && (
-        <div className="container">
-          <div className="container__wrapper container__movies">
-            <div className="movie__header">
-              <div className="movie__header-title">
-                <h1>Popular People</h1>
-                <h3>{numberWithCommas(people.total_results)} People</h3>
-              </div>
-            </div>
-            <div className="movie__wrapper">
-              {people.results.map(person => (
-                <PeopleCard 
-                    category="people"
-                    key={person.id}
-                    people={person} 
-                />
-              ))}
-            </div>
-            <PaginationBar 
-                activePage={people.page}
-                itemsCountPerPage={1}
-                onChange={handlePageChange}
-                pageRangeDisplayed={10}
-                totalItemsCount={people.total_pages}
-                totalPage={people.total_pages}
-            />
-            <Footer />
-          </div>  
+  return !isEmpty(people) && (
+    <div className="container">
+      <div className="container__wrapper container__movies">
+        <div className="movie__header">
+          <div className="movie__header-title">
+            <h1>Popular People</h1>
+            <h3>{numberWithCommas(people.total_results)} People</h3>
+          </div>
         </div>
-      )}
-    </React.Fragment>
+        <div className="movie__wrapper">
+          {people.results.map(person => (
+            <PeopleCard 
+                category="people"
+                key={person.id}
+                people={person} 
+            />
+          ))}
+        </div>
+        <PaginationBar 
+            activePage={people.page}
+            itemsCountPerPage={1}
+            onChange={handlePageChange}
+            pageRangeDisplayed={10}
+            totalItemsCount={people.total_pages}
+            totalPage={people.total_pages}
+        />
+        <Footer />
+      </div>  
+    </div>
   );
 };
 
 People.propTypes = {
   fetchPeople: PropTypes.func,
-  isCurrentlyFetching: PropTypes.func,
   isLoading: PropTypes.bool,
   people: PropTypes.shape({
     results: PropTypes.arrayOf(PropTypes.object),
@@ -88,8 +81,7 @@ const mapStateToProps = ({ people, isLoading }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchPeople: (url, page) => dispatch(fetchPeople(url, page)),
-  isCurrentlyFetching: bool => dispatch(isCurrentlyFetching(bool))
+  fetchPeople: (url, page) => dispatch(fetchPeople(url, page))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(People);
+export default connect(mapStateToProps, mapDispatchToProps)(Loader('people')(People));

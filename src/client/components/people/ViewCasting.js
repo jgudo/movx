@@ -1,12 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import imgBackground from '../../images/background.jpg';
 
 import MovieCard from '../movies/MovieCard';
 
 const ViewPictures = ({ actor, casting, history }) => (
   <div className="container pt-0 mt-0">
     <div className="posters__banner">
-      <img src="/images/background.jpg" alt=""/>
+      <img src={imgBackground} alt=""/>
       <div className="posters__banner-content">
         <h1>{actor.name}</h1>
         <button 

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import LazyLoad from 'react-lazy-load';
 import { Link } from 'react-router-dom';
 import ImageLoader from '../layout/ImageLoader';
+import imgPlaceholder from '../../images/placeholder.jpg';
 
 /* eslint camelcase: 0 */
 const PeopleCard = (props) => {
@@ -25,7 +26,7 @@ const PeopleCard = (props) => {
             <ImageLoader 
                 alt={name}
                 imgId={id} 
-                src={profile_path ? `${tmdbPosterPath + profile_path}` : '/images/placeholder.jpg'} 
+                src={profile_path ? `${tmdbPosterPath + profile_path}` : imgPlaceholder} 
             />
           </LazyLoad>
         </div>

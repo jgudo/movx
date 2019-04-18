@@ -6,7 +6,7 @@ import MovieCard from '../movies/MovieCard';
 import PaginationBar from '../layout/PaginationBar';
 
 // actions
-import { searchMovies, isCurrentlyFetching } from '../../actions/actions';
+import { searchMovies } from '../../actions/actions';
 
 // helpers
 import { isEmpty } from '../../helpers/helperFunctions';
@@ -15,13 +15,12 @@ const SearchMovieTab = (props) => {
   const { movies, isLoading, query } = props;
   const handlePageChange = (e) => {
     if (movies.page !== e && !isLoading) {
-      props.isCurrentlyFetching();
       props.searchMovies(`search/movie?query=${query}`, e);
     }
   };
 
   return (
-    (!isEmpty(movies) && movies.results.length !== 0) ? (
+    !isEmpty(movies) && movies.results.length !== 0 ? (
       <React.Fragment>
         <div className="movie__wrapper">
           {movies.results.map((movie, index) => (
@@ -52,7 +51,6 @@ const SearchMovieTab = (props) => {
 };
 
 SearchMovieTab.propTypes = {
-  isCurrentlyFetching: PropTypes.func,
   isLoading: PropTypes.bool,
   movies: PropTypes.shape({
     page: PropTypes.number,
@@ -65,8 +63,7 @@ SearchMovieTab.propTypes = {
 };
 
 const mapDispatchToProps = dispatch => ({
-  searchMovies: (url, page) => dispatch(searchMovies(url, page)),
-  isCurrentlyFetching: bool => dispatch(isCurrentlyFetching(bool))
+  searchMovies: (url, page) => dispatch(searchMovies(url, page))
 });
 
 export default connect(undefined, mapDispatchToProps)(SearchMovieTab);

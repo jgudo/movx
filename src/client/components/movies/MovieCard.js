@@ -5,6 +5,7 @@ import LazyLoad from 'react-lazy-load';
 import StarRatings from 'react-star-ratings';
 import { Link } from 'react-router-dom';
 import ImageLoader from '../layout/ImageLoader';
+import imgPlaceholder from '../../images/img-placeholder.jpg';
 
 import { addToFavorites, removeFromFavorites } from '../../actions/actions';
 
@@ -46,7 +47,7 @@ const MovieCard = (props) => {
             <ImageLoader 
                 alt={original_title || original_name || title}
                 imgId={id} 
-                src={poster_path ? `${tmdbPosterPath + poster_path}` : '/images/img-placeholder.jpg'} 
+                src={poster_path ? `${tmdbPosterPath + poster_path}` : imgPlaceholder} 
             />
           </LazyLoad>
         </div>

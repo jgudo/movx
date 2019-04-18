@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import LazyLoad from 'react-lazy-load';
 import Modal from 'react-responsive-modal';
 import ImageLoader from '../layout/ImageLoader';
+import imgBackground from '../../images/background.jpg';
 
 const PersonBiography = (props) => {
   const [isOpenModal, setModalVisibility] = useState(false);
@@ -47,7 +48,7 @@ const PersonBiography = (props) => {
         <img 
             alt=""
             className="backdrop__image"
-            src="/images/background.jpg" 
+            src={imgBackground} 
         />
       </div>
       <Modal 

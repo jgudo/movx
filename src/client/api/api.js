@@ -2,7 +2,8 @@ import axios from 'axios';
 
 // const cancelSource = axios.CancelToken.source();
 const tmdb = 'https://api.themoviedb.org/3/';
-const tmdbKey = process.env.TMDB_KEY;
+const tmdbKey = '4377cb2eef06cc002bf39f55a2fb6421';
+// const tmdbKey = process.env.TMDB_KEY;
 
 export const fetchRequest = async (query, page) => {
   const request = await axios.get(`${tmdb + query}&api_key=${tmdbKey}&page=${page}`);

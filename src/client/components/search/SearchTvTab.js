@@ -6,7 +6,7 @@ import MovieCard from '../movies/MovieCard';
 import PaginationBar from '../layout/PaginationBar';
 
 // actions
-import { searchTvShows, isCurrentlyFetching } from '../../actions/actions';
+import { searchTvShows } from '../../actions/actions';
 
 // helpers
 import { isEmpty } from '../../helpers/helperFunctions';
@@ -15,13 +15,12 @@ const SearchTvTab = (props) => {
   const { tvShows, isLoading, query } = props;
   const handlePageChange = (e) => {
     if (tvShows.page !== e && !isLoading) {
-      props.isCurrentlyFetching();
       props.searchTvShows(`search/tv?query=${query}`, e);
     }
   };
 
   return (
-    (!isEmpty(tvShows) && tvShows.results.length !== 0) ? (
+    !isEmpty(tvShows) && tvShows.results.length !== 0 ? (
       <React.Fragment>
         <div className="movie__wrapper">
           {tvShows.results.map((tv, index) => (
@@ -52,7 +51,6 @@ const SearchTvTab = (props) => {
 };
 
 SearchTvTab.propTypes = {
-  isCurrentlyFetching: PropTypes.func,
   isLoading: PropTypes.bool,
   query: PropTypes.string,
   searchTvShows: PropTypes.func,
@@ -65,8 +63,7 @@ SearchTvTab.propTypes = {
 };
 
 const mapDispatchToProps = dispatch => ({
-  searchTvShows: (url, page) => dispatch(searchTvShows(url, page)),
-  isCurrentlyFetching: bool => dispatch(isCurrentlyFetching(bool))
+  searchTvShows: (url, page) => dispatch(searchTvShows(url, page))
 });
 
 export default connect(undefined, mapDispatchToProps)(SearchTvTab);

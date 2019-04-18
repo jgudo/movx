@@ -2,19 +2,19 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import LoadingScreen from '../layout/LoadingScreen'; 
+import Loader from '../hoc/Loader';  
 import MovieCard from '../movies/MovieCard';
 import PaginationBar from '../layout/PaginationBar';
 import Footer from '../layout/Footer';
 
 // actions
-import { fetchTopRatedMovies, isCurrentlyFetching } from '../../actions/actions';
+import { fetchTopRatedMovies } from '../../actions/actions';
 
 // helpers
 import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
 
 const TopRatedMovies = (props) => {
-  const { topRatedMovies, isLoading } = props;
+  const { topRatedMovies } = props;
   const queryString = 'movie/top_rated?';
   
   useEffect(() => {
@@ -25,51 +25,44 @@ const TopRatedMovies = (props) => {
  
   const handlePageChange = (e) => {
     if (props.topRatedMovies.page !== e && !props.isLoading) {
-      props.isCurrentlyFetching();
       props.fetchTopRatedMovies(queryString, e);
     }
   };
 
-  return (
-    <React.Fragment>
-      {(isEmpty(topRatedMovies) && isLoading) && <LoadingScreen />}
-      {!isEmpty(topRatedMovies) && (
-        <div className="container">
-          <div className="container__wrapper container__movies">
-            <div className="movie__header">
-              <div className="movie__header-title">
-                <h1>Top Rated Movies</h1>
-                <h3>{numberWithCommas(topRatedMovies.total_results)} Movies</h3>
-              </div>
-            </div>
-            <div className="movie__wrapper">
-              {topRatedMovies.results.map((movie, index) => (
-                <MovieCard 
-                    category="movie"
-                    key={`${movie.id}_${index}`}
-                    movie={movie} 
-                />
-              ))}
-            </div>
-            <PaginationBar 
-                activePage={topRatedMovies.page}
-                itemsCountPerPage={1}
-                onChange={handlePageChange}
-                pageRangeDisplayed={10}
-                totalItemsCount={topRatedMovies.total_pages}
-                totalPage={topRatedMovies.total_pages}
+  return !isEmpty(topRatedMovies) && (
+    <div className="container">
+      <div className="container__wrapper container__movies">
+        <div className="movie__header">
+          <div className="movie__header-title">
+            <h1>Top Rated Movies</h1>
+            <h3>{numberWithCommas(topRatedMovies.total_results)} Movies</h3>
+          </div>
+        </div>
+        <div className="movie__wrapper">
+          {topRatedMovies.results.map((movie, index) => (
+            <MovieCard 
+                category="movie"
+                key={`${movie.id}_${index}`}
+                movie={movie} 
             />
-            <Footer />
-          </div>  
-      </div>
-      )}
-    </React.Fragment>
+          ))}
+        </div>
+        <PaginationBar 
+            activePage={topRatedMovies.page}
+            itemsCountPerPage={1}
+            onChange={handlePageChange}
+            pageRangeDisplayed={10}
+            totalItemsCount={topRatedMovies.total_pages}
+            totalPage={topRatedMovies.total_pages}
+        />
+        <Footer />
+      </div>  
+    </div>
   );
 };
 
 TopRatedMovies.propTypes = {
   fetchTopRatedMovies: PropTypes.func,
-  isCurrentlyFetching: PropTypes.func,
   topRatedMovies: PropTypes.shape({
     page: PropTypes.number,
     total_page: PropTypes.number,
@@ -84,8 +77,7 @@ const mapStateToProps = ({ topRatedMovies, isLoading }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchTopRatedMovies: (url, page) => dispatch(fetchTopRatedMovies(url, page)),
-  isCurrentlyFetching: bool => dispatch(isCurrentlyFetching(bool))
+  fetchTopRatedMovies: (url, page) => dispatch(fetchTopRatedMovies(url, page))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TopRatedMovies);
+export default connect(mapStateToProps, mapDispatchToProps)(Loader('topRatedMovies')(TopRatedMovies));

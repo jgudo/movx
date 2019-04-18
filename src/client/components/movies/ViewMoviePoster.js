@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Tabs from '../tabs/Tabs';
 import MoviePoster from './MoviePoster';
 import MovieBackdrop from './MovieBackdrop';
+import imgBackground from '../../images/background.jpg';
 
 const ViewMoviePoster = ({ movie, history }) => {
   const posters = movie.images ? movie.images.posters : [];
@@ -23,7 +24,7 @@ const ViewMoviePoster = ({ movie, history }) => {
   return (
     <div className="container pt-0 mt-0">
       <div className="posters__banner">
-        <img src={`${tmdbBackdropPath + movie.backdrop_path}`} alt=""/>
+        <img src={movie.backdrop_path ? `${tmdbBackdropPath + movie.backdrop_path}` : imgBackground} alt=""/>
         <div className="posters__banner-content">
           <h1>
             {movie.original_title || 

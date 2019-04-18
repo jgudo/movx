@@ -5,7 +5,8 @@ import LazyLoad from 'react-lazy-load';
 import ModalVideo from 'react-modal-video';
 import Modal from 'react-responsive-modal';
 import ImageLoader from '../layout/ImageLoader';
-
+import imgPlaceholder from '../../images/img-placeholder.jpg';
+import imgBackground from '../../images/background.jpg';
 // actions
 import { addToFavorites, removeFromFavorites } from '../../actions/actions';
 
@@ -111,7 +112,7 @@ class MovieOverview extends Component {
             <img 
                 alt=""
                 className="backdrop__image"
-                src={movie.backdrop_path ? `${tmdbBackdropPath + movie.backdrop_path}` : '/images/background.jpg'} 
+                src={movie.backdrop_path ? `${tmdbBackdropPath + movie.backdrop_path}` : imgBackground} 
             />
           </div>
           <div className="back__button">
@@ -130,7 +131,7 @@ class MovieOverview extends Component {
                 <ImageLoader 
                     alt={movie.original_title || movie.original_name || movie.title}
                     imgId={movie.id} 
-                    src={movie.poster_path ? `${tmdbPosterPath + movie.poster_path}` : '/images/img-placeholder.jpg'} 
+                    src={movie.poster_path ? `${tmdbPosterPath + movie.poster_path}` : imgPlaceholder} 
                 />
               </LazyLoad>
             </div>

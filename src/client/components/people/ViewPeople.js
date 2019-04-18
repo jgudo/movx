@@ -6,7 +6,7 @@ import ContentLoader from '../layout/ContentLoader';
 import Casting from './Casting';
 import PersonBiography from './PersonBiography';
 
-import { fetchSelectedPerson, isCurrentlyFetching } from '../../actions/actions';
+import { fetchSelectedPerson } from '../../actions/actions';
 
 // helpers
 import { isEmpty } from '../../helpers/helperFunctions';
@@ -17,7 +17,6 @@ const ViewPeople = (props) => {
 
   useEffect(() => {
     if (parseInt(actorId, 10) !== props.actor.id) {
-      props.isCurrentlyFetching();
       props.fetchSelectedPerson(actorId);
     }
   }, []);
@@ -62,8 +61,7 @@ const mapStateToProps = ({ person, isLoading }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchSelectedPerson: id => dispatch(fetchSelectedPerson(id)),
-  isCurrentlyFetching: () => dispatch(isCurrentlyFetching())
+  fetchSelectedPerson: id => dispatch(fetchSelectedPerson(id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ViewPeople);

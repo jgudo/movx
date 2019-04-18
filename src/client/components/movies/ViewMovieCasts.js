@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import LazyLoad from 'react-lazy-load';
 import ImageLoader from '../layout/ImageLoader';
+import imgPlaceholder from '../../images/placeholder.jpg';
 
 import { numberWithCommas } from '../../helpers/helperFunctions';
 
@@ -65,7 +66,7 @@ const ViewMoviePoster = ({ movie, casts, history }) => {
                       <ImageLoader 
                           alt={cast.name}
                           imgId={cast.id} 
-                          src={cast.profile_path ? `${tmdbPosterPath + cast.profile_path}` : '/images/placeholder.jpg'} 
+                          src={cast.profile_path ? `${tmdbPosterPath + cast.profile_path}` : imgPlaceholder} 
                       />
                     </LazyLoad>
                   </div>

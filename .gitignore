@@ -1,3 +1,4 @@
-node_modules
-.env.development
+node_modules/
 .netlify/
+dist/
+.env.development

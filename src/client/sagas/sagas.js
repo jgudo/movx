@@ -25,6 +25,7 @@ import {
 
 export function* fetchRequestSaga({ type, query, page }) {
   try {
+    yield put({ type: IS_LOADING, bool: true });
     const data = yield call(fetchRequest, query, page);
     if (data) {
       yield put({ type: `${type}_SUCCESS`, data });
@@ -66,6 +67,7 @@ export function* updateFilterQuerySaga({ target }) {
 
 export function* fetchSelectedMovieSaga({ category, id }) {
   try {
+    yield put({ type: IS_LOADING, bool: true });
     const [movie, keywords, casts, reviews] = yield all([
       call(fetchMovie, category, id),
       call(fetchMovieKeywords, category, id),
@@ -93,6 +95,7 @@ export function* fetchSelectedMovieSaga({ category, id }) {
 
 export function* fetchSelectedPersonSaga({ id }) {
   try {
+    yield put({ type: IS_LOADING, bool: true });
     const [actor, casting] = yield all([
       call(fetchPerson, id),
       call(fetchPersonCasting, id)

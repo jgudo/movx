@@ -6,8 +6,7 @@ import PeopleCard from '../people/PeopleCard';
 import PaginationBar from '../layout/PaginationBar';
 
 // actions
-import { SEARCH_PEOPLE } from '../../constants/constants';
-import { searchPeople, isCurrentlyFetching } from '../../actions/actions';
+import { searchPeople } from '../../actions/actions';
 
 // helpers
 import { isEmpty } from '../../helpers/helperFunctions';
@@ -16,13 +15,12 @@ const SearchPeopleTab = (props) => {
   const { people, isLoading, query } = props;
   const handlePageChange = (e) => {
     if (props.people.page !== e && !isLoading) {
-      props.isCurrentlyFetching();
       props.searchPeople(`search/person?query=${query}`, e);
     }
   };
 
   return (
-    (!isEmpty(people) && people.results.length !== 0) ? (
+    !isEmpty(people) && people.results.length !== 0 ? (
       <React.Fragment>
         <div className="movie__wrapper">
           {people.results.map((person) => {
@@ -55,8 +53,6 @@ const SearchPeopleTab = (props) => {
 };
 
 SearchPeopleTab.propTypes = {
-  searchPeople: PropTypes.func,
-  isCurrentlyFetching: PropTypes.func,
   isLoading: PropTypes.bool,
   people: PropTypes.shape({
     page: PropTypes.number,
@@ -64,12 +60,12 @@ SearchPeopleTab.propTypes = {
     total_results: PropTypes.number,
     results: PropTypes.arrayOf(PropTypes.object)
   }),
-  query: PropTypes.string
+  query: PropTypes.string,
+  searchPeople: PropTypes.func
 };
 
 const mapDispatchToProps = dispatch => ({
-  searchPeople: (url, page) => dispatch(searchPeople(url, page)),
-  isCurrentlyFetching: bool => dispatch(isCurrentlyFetching(bool))
+  searchPeople: (url, page) => dispatch(searchPeople(url, page))
 });
 
 export default connect(undefined, mapDispatchToProps)(SearchPeopleTab);
