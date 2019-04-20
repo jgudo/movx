@@ -13,19 +13,18 @@ import { fetchUpcomingMovies } from '../../actions/actions';
 // helpers
 import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
 
-const UpcomingMovies = (props) => {
-  const { upcomingMovies } = props;
+const UpcomingMovies = ({ upcomingMovies, fetchUpcoming, isLoading }) => {
   const queryString = 'movie/upcoming?';
 
   useEffect(() => {
-    if (isEmpty(props.upcomingMovies)) {
-      props.fetchUpcomingMovies(queryString);
+    if (isEmpty(upcomingMovies)) {
+      fetchUpcoming(queryString);
     }
   }, []);
 
   const handlePageChange = (e) => {
-    if (props.upcomingMovies.page !== e && !props.isLoading) {
-      props.fetchUpcomingMovies(queryString, e);
+    if (upcomingMovies.page !== e && !isLoading) {
+      fetchUpcoming(queryString, e);
     }
   };
  
@@ -77,7 +76,7 @@ const mapStateToProps = ({ upcomingMovies, isLoading }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchUpcomingMovies: (url, page) => dispatch(fetchUpcomingMovies(url, page))
+  fetchUpcoming: (url, page) => dispatch(fetchUpcomingMovies(url, page))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Loader('upcomingMovies')(UpcomingMovies));

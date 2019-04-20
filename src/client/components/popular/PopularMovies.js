@@ -13,19 +13,18 @@ import { fetchPopularMovies } from '../../actions/actions';
 // helpers
 import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
 
-const PopularMovies = (props) => {
-  const { popularMovies } = props;
+const PopularMovies = ({ popularMovies, fetchPopular, isLoading }) => {
   const queryString = 'movie/popular?';
   
   useEffect(() => {
-    if (isEmpty(props.popularMovies)) {
-      props.fetchPopularMovies(queryString);
+    if (isEmpty(popularMovies)) {
+      fetchPopular(queryString);
     }
   }, []);
 
   const handlePageChange = (e) => {
-    if (props.popularMovies.page !== e && !props.isLoading) {
-      props.fetchPopularMovies(queryString, e);
+    if (popularMovies.page !== e && !isLoading) {
+      fetchPopular(queryString, e);
     }
   };
 
@@ -77,7 +76,7 @@ const mapStateToProps = ({ popularMovies, isLoading }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchPopularMovies: (url, page) => dispatch(fetchPopularMovies(url, page))
+  fetchPopular: (url, page) => dispatch(fetchPopularMovies(url, page))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Loader('popularMovies')(PopularMovies));

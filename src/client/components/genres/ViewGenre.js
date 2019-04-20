@@ -14,22 +14,16 @@ import { fetchGenreCategory } from '../../actions/actions';
 import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
 
 const ViewGenre = (props) => {
-  const { genreMovies } = props;
-  const { genre, id } = props.match.params;
-
-  const fetchMovieGenre = (page = 1) => {
-    const query = `discover/movie?&with_genres=${id}`;
-
-    props.fetchGenreCategory(query, page);
-  };
+  const { genreMovies, getGenreCategory, isLoading } = props;
+  const query = `discover/movie?&with_genres=${props.match.params.id}`;
 
   useEffect(() => {
-    fetchMovieGenre();
+    getGenreCategory(query);
   }, []);
 
   const handlePageChange = (e) => {
     if (genreMovies.page !== e && !isLoading) {
-      fetchMovieGenre(e);
+      getGenreCategory(query, e);
     }
   };
 
@@ -38,7 +32,7 @@ const ViewGenre = (props) => {
       <div className="container__wrapper container__movies">
         <div className="movie__header">
           <div className="movie__header-title">
-            <h1>{genre.replace('-', ' ')}</h1>
+            <h1>{props.match.params.genre.replace('-', ' ')}</h1>
             <h3>{numberWithCommas(genreMovies.total_results)} Movies</h3>
           </div>
         </div>
@@ -84,7 +78,7 @@ const mapStateToProps = ({ genreMovies, isLoading, error }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchGenreCategory: (action, url, page) => dispatch(fetchGenreCategory(action, url, page))
+  getGenreCategory: (action, url, page) => dispatch(fetchGenreCategory(action, url, page))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Loader('genreMovies')(ViewGenre));

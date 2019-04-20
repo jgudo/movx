@@ -67,7 +67,7 @@ module.exports = merge(baseConfig, {
     // new webpack.optimize.ModuleConcatenationPlugin(),
     // generate service worker
     new workboxPlugin.GenerateSW({
-      cacheId: 'movx', // change this
+      cacheId: 'movx-v2', // change this
       swDest: 'sw.js',
       navigateFallback: '/index.html',
       clientsClaim: true,

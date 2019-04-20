@@ -15,6 +15,7 @@ import {
   FETCH_TRENDING_MOVIES_SUCCESS,
   FETCH_TOPRATED_MOVIES_SUCCESS,
   FETCH_UPCOMING_MOVIES_SUCCESS,
+  FETCH_MAIN_MOVIES_SUCCESS,
   SET_DISCOVER_YEAR_FILTER,
   SET_TV_YEAR_FILTER,
   SET_DISCOVER_SORT_FILTER,
@@ -23,6 +24,7 @@ import {
   SET_TV_GENRE_FILTER,
   UPDATE_DISCOVER_QUERY,
   UPDATE_TV_QUERY,
+  SEARCH_SUCCESS,
   SEARCH_MOVIES_SUCCESS,
   SEARCH_TV_SHOWS_SUCCESS,
   SEARCH_PEOPLE_SUCCESS,
@@ -145,6 +147,14 @@ const moviesReducer = (state = {
         upcomingMovies: action.data, 
         isLoading: false
       };
+    case FETCH_MAIN_MOVIES_SUCCESS:
+      return {
+        ...state,
+        upcomingMovies: action.data.upcoming,
+        topRatedMovies: action.data.topRated,
+        popularMovies: action.data.popular, 
+        isLoading: false
+      };
     case SET_DISCOVER_YEAR_FILTER:
       return {
         ...state,
@@ -264,6 +274,17 @@ const moviesReducer = (state = {
       return {
         ...state,
         isLoading: action.bool
+      };
+    case SEARCH_SUCCESS:
+      return {
+        ...state,
+        search: {
+          ...state.search,
+          movies: action.data.movies,
+          tv: action.data.tv,
+          people: action.data.people
+        },
+        isLoading: false
       };
     case SEARCH_MOVIES_SUCCESS:
       return {

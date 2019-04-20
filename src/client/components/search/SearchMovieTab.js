@@ -19,34 +19,32 @@ const SearchMovieTab = (props) => {
     }
   };
 
-  return (
-    !isEmpty(movies) && movies.results.length !== 0 ? (
-      <React.Fragment>
-        <div className="movie__wrapper">
-          {movies.results.map((movie, index) => (
-            <MovieCard 
-                category="movie"
-                key={`${movie.id}_${index}`}
-                movie={movie} 
-            />
-          ))}
-        </div>
-        {movies.total_pages > 1 && (
-          <PaginationBar 
-              activePage={movies.page}
-              itemsCountPerPage={1}
-              onChange={handlePageChange}
-              pageRangeDisplayed={10}
-              totalItemsCount={movies.total_pages}
-              totalPage={movies.total_pages}
+  return (!isEmpty(movies) && movies.results.length !== 0) ? (
+    <React.Fragment>
+      <div className="movie__wrapper">
+        {movies.results.map((movie, index) => (
+          <MovieCard 
+              category="movie"
+              key={`${movie.id}_${index}`}
+              movie={movie} 
           />
-        )}
-      </React.Fragment>
-    ) : (
-      <div className="search__no-result">
-        <h1>No result found.</h1>
+        ))}
       </div>
-    )
+      {movies.total_pages > 1 && (
+        <PaginationBar 
+            activePage={movies.page}
+            itemsCountPerPage={1}
+            onChange={handlePageChange}
+            pageRangeDisplayed={10}
+            totalItemsCount={movies.total_pages}
+            totalPage={movies.total_pages}
+        />
+      )}
+    </React.Fragment>
+  ) : (
+    <div className="search__no-result">
+      <h1>No result found.</h1>
+    </div>
   );
 };
 

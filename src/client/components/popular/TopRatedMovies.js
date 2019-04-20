@@ -13,19 +13,18 @@ import { fetchTopRatedMovies } from '../../actions/actions';
 // helpers
 import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
 
-const TopRatedMovies = (props) => {
-  const { topRatedMovies } = props;
+const TopRatedMovies = ({ topRatedMovies, fetchTopRated, isLoading }) => {
   const queryString = 'movie/top_rated?';
   
   useEffect(() => {
-    if (isEmpty(props.topRatedMovies)) {
-      props.fetchTopRatedMovies(queryString);
+    if (isEmpty(topRatedMovies)) {
+      fetchTopRated(queryString);
     }
   }, []);
  
   const handlePageChange = (e) => {
-    if (props.topRatedMovies.page !== e && !props.isLoading) {
-      props.fetchTopRatedMovies(queryString, e);
+    if (topRatedMovies.page !== e && !isLoading) {
+      fetchTopRated(queryString, e);
     }
   };
 
@@ -77,7 +76,7 @@ const mapStateToProps = ({ topRatedMovies, isLoading }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchTopRatedMovies: (url, page) => dispatch(fetchTopRatedMovies(url, page))
+  fetchTopRated: (url, page) => dispatch(fetchTopRatedMovies(url, page))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Loader('topRatedMovies')(TopRatedMovies));

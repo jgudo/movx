@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import TabItem from './TabItem';
 
 const Tabs = (props) => {
-  const [activeTab, setActiveTab] = useState(props.children[0].props.label);
+  const [activeTab, setActiveTab] = useState(props.children[0].props.index);
   
   const onClickTabItem = (tab) => {
     setActiveTab(tab);
@@ -14,10 +14,11 @@ const Tabs = (props) => {
     <div className="tabs">
       <ol className="tab-list">
         {props.children.map((child) => {
-          const { label } = child.props;
+          const { label, index } = child.props;
           return (
             <TabItem
                 activeTab={activeTab}
+                index={index}
                 key={label}
                 label={label}
                 onClick={onClickTabItem}
@@ -27,7 +28,7 @@ const Tabs = (props) => {
       </ol>
       <div className="tab-content">
         {props.children.map((child) => {
-          if (child.props.label !== activeTab) return undefined;
+          if (child.props.index !== activeTab) return undefined;
           return child.props.children;
         })}
       </div>

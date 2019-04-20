@@ -38,3 +38,18 @@ export const fetchPersonCasting = async (id) => {
   const castingRequest = await axios.get(`${tmdb}person/${id}/combined_credits?api_key=${tmdbKey}`);
   return castingRequest.data.cast;
 };
+
+export const searchMovie = async (query) => {
+  const castingRequest = await axios.get(`${tmdb}search/movie?query=${query}&api_key=${tmdbKey}`);
+  return castingRequest.data;
+};
+
+export const searchTv = async (query) => {
+  const castingRequest = await axios.get(`${tmdb}search/tv?query=${query}&api_key=${tmdbKey}`);
+  return castingRequest.data;
+};
+
+export const searchPerson = async (query) => {
+  const castingRequest = await axios.get(`${tmdb}search/person?query=${query}&api_key=${tmdbKey}`);
+  return castingRequest.data;
+};

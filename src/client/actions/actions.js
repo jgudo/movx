@@ -24,10 +24,12 @@ import {
   SET_DISCOVER_SORT_FILTER,
   SET_TV_SORT_FILTER,
   SET_DISCOVER_GENRE_FILTER,
-  SET_TV_GENRE_FILTER
+  SET_TV_GENRE_FILTER,
+  SEARCH,
+  FETCH_MAIN_MOVIES
 } from '../constants/constants';
 
-export const fetchTrendingMovies = (query, page) => ({
+export const fetchTrendingMovies = (query, page = 1) => ({
   type: FETCH_TRENDING_MOVIES,
   query,
   page
@@ -80,6 +82,15 @@ export const fetchGenreCategory = (query, page = 1) => ({
   type: FETCH_GENRE_CATEGORY,
   query,
   page
+});
+
+export const fetchMainMovies = () => ({
+  type: FETCH_MAIN_MOVIES
+});
+
+export const search = query => ({
+  type: SEARCH,
+  query
 });
 
 export const searchTvShows = (query, page = 1) => ({

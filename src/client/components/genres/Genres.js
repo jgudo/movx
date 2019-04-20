@@ -8,14 +8,13 @@ import GenreCard from './GenreCard';
 import { isEmpty } from '../../helpers/helperFunctions';
 
 // actions
-import { fetchGenres, isCurrentlyFetching } from '../../actions/actions';
+import { fetchGenres } from '../../actions/actions';
 
 const Genres = (props) => {
   const { genres, isLoading } = props;
 
   useEffect(() => {
     if (isEmpty(genres)) {
-      props.isCurrentlyFetching();
       props.fetchGenres('genre/movie/list?');
     }
   }, []);
@@ -53,8 +52,7 @@ const mapStateToProps = ({ genres, isLoading }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchGenres: (url, page) => dispatch(fetchGenres(url, page)),
-  isCurrentlyFetching: () => dispatch(isCurrentlyFetching())
+  fetchGenres: (url, page) => dispatch(fetchGenres(url, page))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Genres);

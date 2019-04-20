@@ -2,14 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const TabItem = (props) => {
+  const { 
+    index, 
+    label, 
+    onClick,
+    activeTab 
+  } = props;
   let className = 'tab-list-item';
   
   const onClickTab = () => {
-    const { label, onClick } = props;
-    onClick(label);
+    onClick(index);
   };
 
-  if (props.activeTab === props.label) {
+  if (activeTab === index) {
     className += ' tab-list-active';
   }
 
@@ -18,13 +23,14 @@ const TabItem = (props) => {
         className={className}
         onClick={onClickTab}
     >
-      {props.label}
+      {label}
     </li>
   );
 };
 
 TabItem.propTypes = {
-  activeTab: PropTypes.string.isRequired,
+  activeTab: PropTypes.number.isRequired,
+  index: PropTypes.number.isRequired,
   label: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired
 };

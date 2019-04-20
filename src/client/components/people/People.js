@@ -13,22 +13,18 @@ import { fetchPeople } from '../../actions/actions';
 // helpers
 import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
 
-const People = (props) => {
-  const { people } = props;
-
-  const getPeople = (page = 1) => {
-    props.fetchPeople('person/popular?', page);
-  };
+const People = ({ people, getPeople }) => {
+  const query = 'person/popular?';
 
   useEffect(() => {
-    if (isEmpty(props.people)) {
-      getPeople();
+    if (isEmpty(people)) {
+      getPeople(query);
     } 
   }, []);
 
   const handlePageChange = (e) => {
-    if (props.people.page !== e) {
-      getPeople(e);
+    if (people.page !== e) {
+      getPeople(query, e);
     }
   };
 
@@ -81,7 +77,7 @@ const mapStateToProps = ({ people, isLoading }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchPeople: (url, page) => dispatch(fetchPeople(url, page))
+  getPeople: (url, page) => dispatch(fetchPeople(url, page))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Loader('people')(People));

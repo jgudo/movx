@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -14,71 +14,69 @@ import { fetchDiscoverMovies } from '../../actions/actions';
 // helpers
 import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions'; 
 
-class DiscoverMovies extends Component {
-  componentDidMount() {
-    if (isEmpty(this.props.discoverMovies)) {
-      this.fetchMovies();
+const DiscoverMovies = (props) => {
+  const { 
+    fetchDiscover,
+    discoverMovies, 
+    filter, 
+    filter: {
+      discover
+    } 
+  } = props;
+  const query = 'discover/movie?';
+
+  useEffect(() => {
+    if (isEmpty(discoverMovies)) {
+      fetchDiscover(`${query}${discover.query}`);
     }
-  }
+  }, []);
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.filter.discover.query !== this.props.filter.discover.query) {
-      this.fetchMovies();
-    }
-  }
+  // Will re-run only if the filters changed
+  useEffect(() => {
+    fetchDiscover(`${query}${discover.query}`);
+  }, [filter.discover.query]);
 
-  fetchMovies = (page = 1) => {
-    const { query } = this.props.filter.discover;
-    const path = 'discover/movie?';
-
-    this.props.fetchDiscoverMovies(path + query, page);
-  }
-
-  handlePageChange = (e) => {
-    if (this.props.discoverMovies.page !== e) {
-      this.fetchMovies(e);
+  const handlePageChange = (e) => {
+    if (discoverMovies.page !== e) {
+      fetchDiscover(`${query}${discover.query}`, e);
     }
   };
 
-  render() {
-    const { discoverMovies, filter } = this.props;
-
-    return !isEmpty(discoverMovies) && (
-      <div className="container">
-        <div className="container__wrapper container__movies">
-          <div className="movie__header">
-            <div className="movie__header-title">
-              <h1>Discover Movies</h1>
-              <h3>{numberWithCommas(discoverMovies.total_results)} Movies</h3>
-            </div>
-            <Filter 
-                filterCategory="discover"
-                filterData={filter.discover}
-            />
-          </div>  
-          <div className="movie__wrapper">
-            {discoverMovies.results.map((movie, index) => (
-              <MovieCard 
-                  category="movie"
-                  key={`${movie.id}_${index}`}
-                  movie={movie} 
-              />
-            ))}
+  return !isEmpty(discoverMovies) && (
+    <div className="container">
+      <div className="container__wrapper container__movies">
+        <div className="movie__header">
+          <div className="movie__header-title">
+            <h1>Discover Movies</h1>
+            <h3>{numberWithCommas(discoverMovies.total_results)} Movies</h3>
           </div>
-          <PaginationBar 
-              activePage={discoverMovies.page}
-              itemsCountPerPage={1}
-              onChange={this.handlePageChange}
-              pageRangeDisplayed={10}
-              totalItemsCount={discoverMovies.total_pages}
-              totalPage={discoverMovies.total_pages}
+          <Filter 
+              filterCategory="discover"
+              filterData={filter.discover}
           />
-          <Footer />
+        </div>  
+        <div className="movie__wrapper">
+          {discoverMovies.results.map((movie, index) => (
+            <MovieCard 
+                category="movie"
+                key={`${movie.id}_${index}`}
+                movie={movie} 
+            />
+          ))}
         </div>
+        <PaginationBar 
+            activePage={discoverMovies.page}
+            itemsCountPerPage={1}
+            onChange={handlePageChange}
+            pageRangeDisplayed={10}
+            totalItemsCount={discoverMovies.total_pages}
+            totalPage={discoverMovies.total_pages}
+        />
+        <Footer />
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 DiscoverMovies.propTypes = {
   discoverMovies: PropTypes.object,
@@ -92,7 +90,7 @@ const mapStateToProps = ({ discoverMovies, filter, isLoading }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchDiscoverMovies: (url, page) => dispatch(fetchDiscoverMovies(url, page))
+  fetchDiscover: (url, page) => dispatch(fetchDiscoverMovies(url, page))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Loader('discoverMovies')(DiscoverMovies));
