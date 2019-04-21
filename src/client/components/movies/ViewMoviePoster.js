@@ -45,7 +45,10 @@ const ViewMoviePoster = ({ movie, history }) => {
       </div>
       <div className="container__wrapper">
         <Tabs>
-          <div label={`Posters (${posters.length})`}>
+          <div 
+              index={0}
+              label={`Posters (${posters.length})`}
+          >
             {posters.length >= 1 ? (
               <MoviePoster 
                   id={movie.id}
@@ -57,7 +60,10 @@ const ViewMoviePoster = ({ movie, history }) => {
               </div>
             )}
           </div>
-          <div label={`Backdrops (${backdrops.length})`}>
+          <div 
+              index={1}
+              label={`Backdrops (${backdrops.length})`}
+          >
             {backdrops.length >= 1 ? (
               <MovieBackdrop 
                   backdrops={backdrops}
