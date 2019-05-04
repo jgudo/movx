@@ -11,6 +11,9 @@ import Loader from '../hoc/Loader';
 // actions
 import { fetchDiscoverMovies } from '../../actions/actions';
 
+// hooks 
+import useDidMount from '../../hooks/useDidMount';
+
 // helpers
 import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions'; 
 
@@ -24,16 +27,12 @@ const DiscoverMovies = (props) => {
     } 
   } = props;
   const query = 'discover/movie?';
+  const didMount = useDidMount();
 
   useEffect(() => {
-    if (isEmpty(discoverMovies)) {
+    if (isEmpty(discoverMovies) || didMount) {
       fetchDiscover(`${query}${discover.query}`);
     }
-  }, []);
-
-  // Will re-run only if the filters changed
-  useEffect(() => {
-    fetchDiscover(`${query}${discover.query}`);
   }, [filter.discover.query]);
 
   const handlePageChange = (e) => {

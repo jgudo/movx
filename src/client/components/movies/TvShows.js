@@ -11,22 +11,20 @@ import Filter from '../layout/Filter';
 // actions
 import { fetchTvShows } from '../../actions/actions';
 
+// hooks 
+import useDidMount from '../../hooks/useDidMount';
+
 // helpers
 import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
 
 const TvShows = ({ tvShows, filter, fetchTv }) => {
   const query = 'discover/tv?&language=en-US';
+  const didMount = useDidMount();
 
   useEffect(() => {
-    if (isEmpty(tvShows)) {
+    if (isEmpty(tvShows) || didMount) {
       fetchTv(`${query}${filter.tv.query}`);
     }
-  }, []);
-  
-  useEffect(() => {
-    setTimeout(() => {
-      fetchTv(`${query}${filter.tv.query}`);
-    }, 200);
   }, [filter.tv.query]);
 
   const handlePageChange = (e) => {
