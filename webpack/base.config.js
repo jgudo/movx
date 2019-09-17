@@ -7,11 +7,7 @@ const resolve = (dir) => {
   return path.join(__dirname, '..', dir);
 };
 
-process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-
-if (process.env.NODE_ENV === 'development') {
-  DotEnv.config({ path: '.env.development' });
-}
+DotEnv.config({ path: '.env.development' });
 
 module.exports = {
   entry: [
