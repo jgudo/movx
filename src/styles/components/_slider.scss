@@ -1,0 +1,168 @@
+.movie__slider {
+  width: 100%;
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+
+  @media (max-width: $mobile) {
+    height: 300px;
+  }
+}
+
+.movie__slider-content  {
+  padding-top: $top;
+}
+
+.movie__slider-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  &:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 100%;  
+    height: 100%;
+    background: transparentize($dark-blue-0, .3);
+    z-index: 1;
+  }
+}
+
+.movie__slider-backdrop {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+  position: relative;
+
+  @media (max-width: $mobile) {
+    height: 300px;
+  }
+}
+
+.movie__slider-content {
+  width: 85%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  padding: $xl-size;
+  padding-top: rem(150);
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @media (min-width: $desktop) {
+    width: 1360px;
+    margin: auto;
+  }
+
+  @media (max-width: $mobile) {
+    flex-direction: column;
+    width: 100%;
+    padding-left: $l-size; 
+    padding-right: $l-size; 
+  }
+
+  .view__poster {
+    @media (max-width: $tablet) {
+      display: none;
+    }
+  }
+}
+
+.movie__slider-description {
+  width: 50%;
+  display: flex;
+  align-content: flex-end;
+  flex-direction: column;
+  text-align: left;
+
+  @media (max-width: $tablet) {
+    width: 100%;
+  }
+
+  h1 {
+    font-size: $xl-size;
+    margin-bottom: $s-size;
+
+    @media (max-width: $mobile) {
+      font-size: 28px;
+      line-height: $l-size;
+    }
+  }
+
+  .view__overview {
+    max-height: 150px;
+    @media (max-width: $mobile) {
+      display: none;
+    }
+  }
+
+  .view__actions {
+    @media (max-width: $mobile) {
+      display: none;
+    }
+  }
+}
+
+.slick-slider,
+.slick-list,
+.slick-track {
+  height: 100%;
+}
+
+
+
+.slick-arrow {
+  z-index: 10;
+  padding: 20px;
+  border-radius: 50%;
+
+  @media (max-width: $mobile) {
+    display: none !important;
+  }
+
+  &:before {
+    font-size: 28px; 
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 5px;
+  }
+}
+
+.slick-next {
+  right: 0;
+}
+
+.slick-prev {
+  left: 0;
+  margin-left: 15px;
+}
+
+.slick-dots {
+  bottom: 10px;
+
+  li {
+    margin: 0;
+  }
+  
+  button {
+    &:before {
+      width: 15px !important;
+      height: 15px !important;
+      font-size: 5px !important;
+      color: #fff !important;
+    }
+  }
+}
