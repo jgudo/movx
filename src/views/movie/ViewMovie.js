@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component, useEffect } from 'react';
+import { connect, useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-
+import useDidMount from '../../hooks/useDidMount';
 import MovieOverview from '../../components/movies/MovieOverview';
 import MovieCast from '../../components/movies/MovieCast';
 import MoviePoster from '../../components/movies/MoviePoster';
@@ -10,55 +10,57 @@ import SimilarMovies from '../../components/movies/SimilarMovies';
 import ContentLoader from '../../components/common/ContentLoader';
 
 // actions
-import { fetchSelectedMovie, isCurrentlyFetching } from '../../actions/actions';
+import { fetchSelectedMovie } from '../../actions/movieActions';
+import { isCurrentlyFetching } from '../../actions/miscActions';
 
 // helpers
 import { isEmpty } from '../../helpers/helperFunctions';
 
-class ViewMovie extends Component {
-  componentDidMount() {
-    const movieId = this.props.match.params.id;
-    this.fetchMovie(movieId);
+const ViewMovie = (props) => {
+  const { favorites, movie, casts, keywords, reviews, isLoading } = useSelector(state => ({
+    favorites: state._misc.favorites,
+    movie: state._movies.current.movie,
+    casts: state._movies.current.casts,
+    keywords: state._movies.current.keywords,
+    reviews: state._movies.current.reviews,
+    isLoading: state._misc.isLoading
+  }));
+  const dispatch = useDispatch();
+  const didMount = useDidMount();
+  const posters = movie.images ? movie.images.posters : [];
+
+  useEffect(() => {
+    const movieId = props.match.params.id;
+    fetchMovie(movieId);
     window.scrollTo(undefined, 0);
-  }
+  }, []);
 
-  componentWillReceiveProps(nextProps) {
-    const newId = nextProps.match.params.id;
-    if (this.props.match.params.id !== newId) {
-      this.fetchMovie(newId);
+  useEffect(() => {
+    if (didMount || !movie.id) {
+      fetchMovie(props.match.params.id);
     }
-  }
+  }, [props.match.params.id]);
 
-  fetchMovie = (id) => {
-    const { category } = this.props.match.params;
+  const fetchMovie = (id) => {
+    const { category } = props.match.params;
 
-    if (parseInt(id, 10) !== this.props.movie.id) {
-      this.props.isCurrentlyFetching();
-      this.props.fetchSelectedMovie(category, id);
+    if (parseInt(id, 10) !== movie.id) {
+      dispatch(isCurrentlyFetching());
+      dispatch(fetchSelectedMovie(category, id));
     }
   };
 
-  onClickViewImage = () => {
-    this.props.history.push(`/view/movie/${this.props.match.params.id}/images`);
+  const onClickViewImage = () => {
+    props.history.push(`/view/movie/${props.match.params.id}/images`);
     window.scrollTo(null, 0);
   };
 
-  render() {
-    const {
-      movie, 
-      reviews,
-      favorites,
-      casts,
-      keywords,
-      isLoading
-    } = this.props;
-    const posters = movie.images ? movie.images.posters : [];
-   
-    return (
-      <>
-        {isLoading && <ContentLoader />}
-        {(!isLoading && !isEmpty(movie)) && (
-          <div className="container-full">
+  return (
+    <>
+      {/* {isLoading && <ContentLoader />} */}
+      <div className="container-full">
+        {!isLoading ? (
+          <>
             <MovieOverview 
                 favorites={favorites}
                 movie={movie}
@@ -72,50 +74,35 @@ class ViewMovie extends Component {
                 />
                 <button 
                     className="button--primary button--block m-auto"
-                    onClick={this.onClickViewImage}
+                    onClick={onClickViewImage}
                 >
                   View All Posters
                 </button>
               </div>
             )}
             {movie.similar && (
-              <SimilarMovies movies={movie.similar.results} />
+              <SimilarMovies 
+                  favorites={favorites}
+                  movies={movie.similar.results} 
+              />
             )}
-            {(!isEmpty(reviews) && reviews.results.length !== 0) && (
+            {reviews.results && (
               <Reviews reviews={reviews} />
             )}
-          </div>
+          </>
+          ) : (
+          <>
+            <MovieOverview 
+                favorites={[]}
+                movie={{}}
+            />
+          </> 
         )}
-      </>
-    );
-  }
-}
-
-ViewMovie.propTypes = {
-  addToFavorites: PropTypes.func,
-  casts: PropTypes.arrayOf(PropTypes.object),
-  favorites: PropTypes.arrayOf(PropTypes.object),
-  fetchSelectedMovie: PropTypes.func,
-  isCurrentlyFetching: PropTypes.func,
-  isLoading: PropTypes.bool,
-  keywords: PropTypes.arrayOf(PropTypes.object),
-  movie: PropTypes.object,
-  removeFromFavorites: PropTypes.func,
-  reviews: PropTypes.object
+      </div>
+      {/* {(!isLoading && !isEmpty(movie)) && (
+      )} */}
+    </>
+  );
 };
 
-const mapStateToProps = ({ favorites, current, isLoading }) => ({
-  favorites,
-  movie: current.movie,
-  casts: current.casts,
-  keywords: current.keywords,
-  reviews: current.reviews,
-  isLoading
-});
-
-const mapDispatchToProps = dispatch => ({
-  isCurrentlyFetching: () => dispatch(isCurrentlyFetching()),
-  fetchSelectedMovie: (category, id) => dispatch(fetchSelectedMovie(category, id))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ViewMovie);
+export default ViewMovie;

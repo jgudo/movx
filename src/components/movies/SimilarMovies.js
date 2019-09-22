@@ -2,7 +2,7 @@ import React from 'react';
 
 import MovieCard from './MovieCard';
 
-const SimilarMovies = ({ movies }) => (
+const SimilarMovies = ({ movies, favorites }) => (
   movies.length >= 1 && (
     <div className="similar">
       <div className="container__wrapper similar__wrapper">
@@ -15,6 +15,7 @@ const SimilarMovies = ({ movies }) => (
                 category="movie"
                 key={`${movie.id}_${index}`}
                 movie={movie} 
+                favorites={favorites}
             />
           ))}
         </div>

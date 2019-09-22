@@ -18,7 +18,7 @@ const MovieCast = ({ casts, movie, keywords, history, match }) => {
             <h1>Top Billed Casts</h1>
           </div>
           {casts.length >= 1 ? (
-            <React.Fragment>
+            <>
               <div className="movie__casts-grid">
                 {casts.map((person, index) => index < 12 && (
                   <PeopleCard 
@@ -35,7 +35,7 @@ const MovieCast = ({ casts, movie, keywords, history, match }) => {
               >
                 View All Casts
               </button>
-            </React.Fragment>
+            </>
           ) : (
             <p style={{ opacity: '.7', fontStyle: 'italic' }}>
               No casts found for this movie.

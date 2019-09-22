@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Loader from '../../components/hoc/Loader'; 
 import PeopleCard from '../../components/people/PeopleCard';
@@ -8,23 +7,25 @@ import PaginationBar from '../../components/common/PaginationBar';
 import Footer from '../../components/common/Footer';
 
 // actions
-import { fetchPeople } from '../../actions/actions';
+import { fetchPeople } from '../../actions/peopleActions';
 
 // helpers
 import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
 
-const People = ({ people, getPeople }) => {
-  const query = 'person/popular?';
+const People = (props) => {
+  const people = useSelector(state => state._people.people);
+  const dispatch = useDispatch();
+  const query = '/person/popular?';
 
   useEffect(() => {
     if (isEmpty(people)) {
-      getPeople(query);
+      dispatch(fetchPeople(query));
     } 
   }, []);
 
-  const handlePageChange = (e) => {
-    if (people.page !== e) {
-      getPeople(query, e);
+  const handlePageChange = (page) => {
+    if (people.page !== page) {
+      dispatch(fetchPeople(query, page));
     }
   };
 
@@ -58,24 +59,4 @@ const People = ({ people, getPeople }) => {
   );
 };
 
-People.propTypes = {
-  fetchPeople: PropTypes.func,
-  isLoading: PropTypes.bool,
-  people: PropTypes.shape({
-    results: PropTypes.arrayOf(PropTypes.object),
-    page: PropTypes.number,
-    total_pages: PropTypes.number,
-    total_results: PropTypes.number
-  })
-};
-
-const mapStateToProps = ({ people, isLoading }) => ({
-  people,
-  isLoading
-});
-
-const mapDispatchToProps = dispatch => ({
-  getPeople: (url, page) => dispatch(fetchPeople(url, page))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Loader('people')(People));
+export default Loader('people')(People);

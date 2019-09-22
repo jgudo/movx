@@ -1,41 +1,42 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
 import MoviesSlider from '../../components/slider/MoviesSlider';
 import MovieCard from '../../components/movies/MovieCard';
 import Footer from '../../components/common/Footer';
 import Loader from '../../components/hoc/Loader';
 
-import { fetchMainMovies } from '../../actions/actions';
+import { fetchMainMovies } from '../../actions/movieActions';
 import { isEmpty } from '../../helpers/helperFunctions';
 
 const App = (props) => {
-  const { 
-    popularMovies,
-    topRatedMovies,
-    upcomingMovies
-  } = props;
-
+  const { popularMovies, topRatedMovies, upcomingMovies, favorites } = useSelector(state => ({
+    popularMovies: state._movies.popularMovies,
+    topRatedMovies: state._movies.topRatedMovies,
+    upcomingMovies: state._movies.upcomingMovies,
+    favorites: state._misc.favorites
+  }));
+  const dispatch = useDispatch();
   useEffect(() => {
     if (isEmpty(popularMovies) || 
         isEmpty(topRatedMovies) || 
         isEmpty(upcomingMovies) || 
         popularMovies.page !== 1 
     ) {
-      props.fetchMainMovies();
+      dispatch(fetchMainMovies());
     }
   }, []);
 
   const onClickLink = (location) => {
     props.history.push(location);
-    window.scrollTo(undefined, 0);
+    window.scrollTo(0, 0);
   };
 
   return (
     <div className="container-full">
       <MoviesSlider 
-          movies={popularMovies.results}
+          movies={popularMovies.results || []}
+          favorites={favorites}
       />
       <div className="container__wrapper">
         <div className="movie__header">
@@ -52,6 +53,7 @@ const App = (props) => {
                   category="movie"
                   key={`${movie.id}_${index}`}
                   movie={movie} 
+                  favorites={favorites}
               />
             );
           })}
@@ -76,6 +78,7 @@ const App = (props) => {
                   category="movie"
                   key={`${movie.id}_${index}`}
                   movie={movie} 
+                  favorites={favorites}
               />
             );
           })}
@@ -92,22 +95,4 @@ const App = (props) => {
   );
 };
 
-const mapStateToProps = ({ 
-  popularMovies, 
-  topRatedMovies,
-  upcomingMovies,
-  isLoading
-}) => ({
-  popularMovies,
-  topRatedMovies,
-  upcomingMovies,
-  isLoading
-});
-
-const mapDispatchToProps = dispatch => ({
-  fetchMainMovies: () => dispatch(fetchMainMovies())
-});
-
-const appWithLoader = Loader('popularMovies')(App);
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(appWithLoader));
+export default Loader('popularMovies')(App);

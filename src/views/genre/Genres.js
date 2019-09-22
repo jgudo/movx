@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
 
 import LoadingScreen from '../../components/common/LoadingScreen'; 
 import GenreCard from '../../components/genres/GenreCard'; 
@@ -8,14 +7,18 @@ import GenreCard from '../../components/genres/GenreCard';
 import { isEmpty } from '../../helpers/helperFunctions';
 
 // actions
-import { fetchGenres } from '../../actions/actions';
+import { fetchGenres } from '../../actions/genreActions';
 
 const Genres = (props) => {
-  const { genres, isLoading } = props;
+  const { genres, isLoading } = useSelector(state => ({
+    genres: state._genre.genres,
+    isLoading: state._misc.isLoading
+  }));
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (isEmpty(genres)) {
-      props.fetchGenres('genre/movie/list?');
+      dispatch(fetchGenres('/genre/movie/list?'));
     }
   }, []);
 
@@ -42,17 +45,4 @@ const Genres = (props) => {
   );
 };
 
-Genres.propTypes = {
-  genres: PropTypes.arrayOf(PropTypes.object)
-};
-
-const mapStateToProps = ({ genres, isLoading }) => ({
-  genres,
-  isLoading
-});
-
-const mapDispatchToProps = dispatch => ({
-  fetchGenres: (url, page) => dispatch(fetchGenres(url, page))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Genres);
+export default Genres;

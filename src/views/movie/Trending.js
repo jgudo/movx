@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Loader from '../../components/hoc/Loader';
 import MovieCard from '../../components/movies/MovieCard';
@@ -8,24 +7,29 @@ import PaginationBar from '../../components/common/PaginationBar';
 import Footer from '../../components/common/Footer';
 
 // actions
-import { fetchTrendingMovies } from '../../actions/actions';
+import { fetchTrendingMovies } from '../../actions/movieActions';
 
 // helpers
 import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
 
 const TrendingMovies = (props) => {
-  const { fetchTrending, trendingMovies, isLoading } = props;
-  const query = 'trending/all/day?';
+  const { trendingMovies, isLoading, favorites } = useSelector(state => ({
+    trendingMovies: state._movies.trendingMovies,
+    isLoading: state._misc.isLoading,
+    favorites: state._misc.favorites
+  }));
+  const dispatch = useDispatch();
+  const query = '/trending/all/day';
 
   useEffect(() => {
     if (isEmpty(trendingMovies)) {
-      fetchTrending(query);
+      dispatch(fetchTrendingMovies(query));
     }
   }, []);
 
-  const handlePageChange = (e) => {
-    if (trendingMovies.page !== e && !isLoading) {
-      fetchTrending(query, e);
+  const handlePageChange = (page) => {
+    if (trendingMovies.page !== page && !isLoading) {
+      dispatch(fetchTrendingMovies(query, page));
     }
   };
 
@@ -43,6 +47,7 @@ const TrendingMovies = (props) => {
               category="movie"
               key={`${movie.id}_${index}`}
               movie={movie} 
+              favorites={favorites}
           />
         ))}
       </div>
@@ -57,25 +62,6 @@ const TrendingMovies = (props) => {
       <Footer />
     </div>
   );
-}
-
-TrendingMovies.propTypes = {
-  fetchRequest: PropTypes.func,
-  trendingMovies: PropTypes.shape({
-    page: PropTypes.number,
-    total_page: PropTypes.number,
-    total_results: PropTypes.number,
-    results: PropTypes.arrayOf(PropTypes.object)
-  })
 };
 
-const mapStateToProps = ({ trendingMovies, isLoading }) => ({
-  trendingMovies,
-  isLoading
-});
-
-const mapDispatchToProps = dispatch => ({
-  fetchTrending: (query, page) => dispatch(fetchTrendingMovies(query, page))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Loader('trendingMovies')(TrendingMovies));
+export default Loader('trendingMovies')(TrendingMovies);

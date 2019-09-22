@@ -1,27 +1,27 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 
 import MovieCard from '../../../components/movies/MovieCard';
 import PaginationBar from '../../../components/common/PaginationBar';
 
 // actions
-import { searchTvShows } from '../../../actions/actions';
+import { searchTvShows } from '../../../actions/searchActions';
 
 // helpers
 import { isEmpty } from '../../../helpers/helperFunctions';
 
-const SearchTvTab = (props) => {
-  const { tvShows, isLoading, query } = props;
-  const handlePageChange = (e) => {
-    if (tvShows.page !== e && !isLoading) {
-      props.searchTvShows(`search/tv?query=${query}`, e);
+const SearchTvTab = ({ tvShows, isLoading, query }) => {
+  const dispatch = useDispatch();
+
+  const handlePageChange = (page) => {
+    if (tvShows.page !== page && !isLoading) {
+      dispatch(searchTvShows(`/search/tv?query=${query}`, page));
     }
   };
 
   return (
     !isEmpty(tvShows) && tvShows.results.length !== 0 ? (
-      <React.Fragment>
+      <>
         <div className="movie__wrapper">
           {tvShows.results.map((tv, index) => (
             <MovieCard 
@@ -41,7 +41,7 @@ const SearchTvTab = (props) => {
               totalPage={tvShows.total_pages}
           />
         )}
-      </React.Fragment>
+      </>
     ) : (
       <div className="search__no-result">
         <h1>No result found.</h1>
@@ -50,20 +50,4 @@ const SearchTvTab = (props) => {
   );
 };
 
-SearchTvTab.propTypes = {
-  isLoading: PropTypes.bool,
-  query: PropTypes.string,
-  searchTvShows: PropTypes.func,
-  tvShows: PropTypes.shape({
-    page: PropTypes.number,
-    total_page: PropTypes.number,
-    total_results: PropTypes.number,
-    results: PropTypes.arrayOf(PropTypes.object)
-  })
-};
-
-const mapDispatchToProps = dispatch => ({
-  searchTvShows: (url, page) => dispatch(searchTvShows(url, page))
-});
-
-export default connect(undefined, mapDispatchToProps)(SearchTvTab);
+export default SearchTvTab;

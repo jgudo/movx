@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 import 'normalize.css/normalize.css';
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css'; 
@@ -9,6 +10,7 @@ import WebFont from 'webfontloader';
 
 import configureStore from './store/configureStore';
 import AppRouter from './routers/AppRouter';
+import LoadingScreen from './components/common/LoadingScreen';
 
 WebFont.load({
   google: {
@@ -16,7 +18,7 @@ WebFont.load({
   }
 });
 
-const store = configureStore();
+const { store, persistor } = configureStore();
 
 if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
   navigator.serviceWorker.register('/sw.js').then((registration) => {
@@ -28,7 +30,9 @@ if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
 
 ReactDOM.render(
   <Provider store={store}>
-    <AppRouter />
+    <PersistGate loading={<LoadingScreen />} persistor={persistor}>
+      <AppRouter />
+    </PersistGate>
   </Provider>,
   document.getElementById('app')
 );

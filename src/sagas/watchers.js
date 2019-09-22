@@ -1,28 +1,5 @@
 import { takeLatest, takeEvery } from 'redux-saga/effects';
-import { 
-  FETCH_TRENDING_MOVIES,
-  FETCH_DISCOVER_MOVIES,
-  FETCH_TV_SHOWS,
-  FETCH_PEOPLE, 
-  FETCH_POPULAR_MOVIES,
-  FETCH_TOPRATED_MOVIES,
-  FETCH_UPCOMING_MOVIES,
-  FETCH_MAIN_MOVIES,
-  FETCH_GENRES,
-  SEARCH,
-  SEARCH_TV_SHOWS,
-  SEARCH_PEOPLE,
-  SEARCH_MOVIES,
-  FETCH_GENRE_CATEGORY,
-  SET_DISCOVER_GENRE_FILTER,
-  SET_DISCOVER_SORT_FILTER,
-  SET_DISCOVER_YEAR_FILTER,
-  SET_TV_GENRE_FILTER,
-  SET_TV_SORT_FILTER,
-  SET_TV_YEAR_FILTER,
-  FETCH_SELECTED_MOVIE,
-  FETCH_SELECTED_PERSON
-} from '../constants/constants';
+import * as action from '../constants/constants';
 
 import { 
   fetchRequestSaga, 
@@ -35,36 +12,36 @@ import {
 
 function* rootSaga() {
   yield takeLatest([
-    FETCH_TRENDING_MOVIES,
-    FETCH_DISCOVER_MOVIES,
-    FETCH_TV_SHOWS,
-    FETCH_PEOPLE,
-    FETCH_GENRES,
-    FETCH_GENRE_CATEGORY,
-    SEARCH_TV_SHOWS,
-    SEARCH_PEOPLE,
-    SEARCH_MOVIES
+    action.FETCH_TRENDING_MOVIES,
+    action.FETCH_DISCOVER_MOVIES,
+    action.FETCH_TV_SHOWS,
+    action.FETCH_PEOPLE,
+    action.FETCH_GENRES,
+    action.FETCH_GENRE_CATEGORY,
+    action.SEARCH_TV_SHOWS,
+    action.SEARCH_PEOPLE,
+    action.SEARCH_MOVIES
   ], fetchRequestSaga);
 
   yield takeEvery([
-    FETCH_POPULAR_MOVIES,
-    FETCH_TOPRATED_MOVIES,
-    FETCH_UPCOMING_MOVIES
+    action.FETCH_POPULAR_MOVIES,
+    action.FETCH_TOPRATED_MOVIES,
+    action.FETCH_UPCOMING_MOVIES
   ], fetchRequestSaga);
 
   yield takeEvery([
-    SET_DISCOVER_GENRE_FILTER,
-    SET_DISCOVER_SORT_FILTER,
-    SET_DISCOVER_YEAR_FILTER,
-    SET_TV_GENRE_FILTER,
-    SET_TV_SORT_FILTER,
-    SET_TV_YEAR_FILTER
+    action.SET_DISCOVER_GENRE_FILTER,
+    action.SET_DISCOVER_SORT_FILTER,
+    action.SET_DISCOVER_YEAR_FILTER,
+    action.SET_TV_GENRE_FILTER,
+    action.SET_TV_SORT_FILTER,
+    action.SET_TV_YEAR_FILTER
   ], updateFilterQuerySaga);
 
-  yield takeLatest(FETCH_SELECTED_MOVIE, fetchSelectedMovieSaga);
-  yield takeLatest(SEARCH, searchSaga);
-  yield takeLatest(FETCH_MAIN_MOVIES, fetchMainMoviesSaga);
-  yield takeLatest(FETCH_SELECTED_PERSON, fetchSelectedPersonSaga);
+  yield takeLatest(action.FETCH_SELECTED_MOVIE, fetchSelectedMovieSaga);
+  yield takeLatest(action.SEARCH, searchSaga);
+  yield takeLatest(action.FETCH_MAIN_MOVIES, fetchMainMoviesSaga);
+  yield takeLatest(action.FETCH_SELECTED_PERSON, fetchSelectedPersonSaga);
 }
 
 export default rootSaga;

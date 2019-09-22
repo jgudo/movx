@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Loader from '../../components/hoc/Loader';  
 import MovieCard from '../../components/movies/MovieCard';
@@ -8,23 +7,29 @@ import PaginationBar from '../../components/common/PaginationBar';
 import Footer from '../../components/common/Footer';
 
 // actions
-import { fetchTopRatedMovies } from '../../actions/actions';
+import { fetchTopRatedMovies } from '../../actions/movieActions';
 
 // helpers
 import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
 
-const TopRatedMovies = ({ topRatedMovies, fetchTopRated, isLoading }) => {
-  const queryString = 'movie/top_rated?';
+const TopRatedMovies = (props) => {
+  const { topRatedMovies, isLoading, favorites } = useSelector(state => ({
+    topRatedMovies: state._movies.topRatedMovies,
+    isLoading: state._misc.isLoading,
+    favorites: state._misc.favorites
+  }));
+  const dispatch = useDispatch();
+  const queryString = '/movie/top_rated';
   
   useEffect(() => {
     if (isEmpty(topRatedMovies)) {
-      fetchTopRated(queryString);
+      dispatch(fetchTopRatedMovies(queryString));
     }
   }, []);
  
-  const handlePageChange = (e) => {
-    if (topRatedMovies.page !== e && !isLoading) {
-      fetchTopRated(queryString, e);
+  const handlePageChange = (page) => {
+    if (topRatedMovies.page !== page && !isLoading) {
+      dispatch(fetchTopRatedMovies(queryString, page));
     }
   };
 
@@ -42,6 +47,7 @@ const TopRatedMovies = ({ topRatedMovies, fetchTopRated, isLoading }) => {
               category="movie"
               key={`${movie.id}_${index}`}
               movie={movie} 
+              favorites={favorites}
           />
         ))}
       </div>
@@ -58,23 +64,4 @@ const TopRatedMovies = ({ topRatedMovies, fetchTopRated, isLoading }) => {
   );
 };
 
-TopRatedMovies.propTypes = {
-  fetchTopRatedMovies: PropTypes.func,
-  topRatedMovies: PropTypes.shape({
-    page: PropTypes.number,
-    total_page: PropTypes.number,
-    total_results: PropTypes.number,
-    results: PropTypes.arrayOf(PropTypes.object)
-  })
-};
-
-const mapStateToProps = ({ topRatedMovies, isLoading }) => ({
-  topRatedMovies,
-  isLoading
-});
-
-const mapDispatchToProps = dispatch => ({
-  fetchTopRated: (url, page) => dispatch(fetchTopRatedMovies(url, page))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Loader('topRatedMovies')(TopRatedMovies));
+export default Loader('topRatedMovies')(TopRatedMovies);

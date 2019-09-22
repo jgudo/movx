@@ -1,11 +1,5 @@
-import { 
-  call, 
-  put,  
-  select,
-  all
-} from 'redux-saga/effects';
+import {  call, put, select, all } from 'redux-saga/effects';
 import { history } from '../routers/AppRouter';
-
 import { 
   IS_LOADING, 
   UPDATE_DISCOVER_QUERY, 
@@ -16,29 +10,22 @@ import {
   SEARCH_SUCCESS,
   UPDATE_SEARCH_QUERY
 } from '../constants/constants';
-import { 
-  fetchRequest,
-  fetchMovie,
-  fetchMovieCredits,
-  fetchMovieKeywords,
-  fetchMovieReviews,
-  fetchPerson,
-  fetchPersonCasting,
-  searchMovie,
-  searchTv,
-  searchPerson
-} from '../api/api';
+import * as api from '../api/api';
 
 function updateQuery(year, sort, genre) {
   const yearFilter = year ? `&year=${year}&first_air_date_year=${year}` : '';
   const sortFilter = sort ? `&sort_by=${sort}` : '';
   const genreFilter = genre ? `&with_genres=${genre}` : '';
-  return `${yearFilter + sortFilter + genreFilter}`;
+  return `${yearFilter}${sortFilter}${genreFilter}`;
+}
+
+function* init() {
+  yield put({ type: 'IS_LOADING', payload: true });
 }
 
 function* errorHandler(e) {
   console.log(e);
-  yield put({ type: IS_LOADING, bool: false });
+  yield put({ type: IS_LOADING, payload: false });
 
   if (!navigator.onLine) {
     yield call(history.push, '/network-error');
@@ -47,81 +34,92 @@ function* errorHandler(e) {
   } 
 }
 
-export function* fetchRequestSaga({ type, query, page }) {
+export function* fetchRequestSaga({ type, payload }) {
+  const { query, page } = payload;
+
   try {
-    yield put({ type: IS_LOADING, bool: true });
-    const data = yield call(fetchRequest, query, page);
-    if (data) {
-      yield put({ type: `${type}_SUCCESS`, data });
-      window.scrollTo(null, 0);
-    }
+    yield init();
+    const data = yield call(api.fetchRequest, query, page);
+    yield put({ type: `${type}_SUCCESS`, payload: data });
+    yield put({ type: 'IS_LOADING', payload: false });
+    window.scrollTo(null, 0);
   } catch (e) {
     yield call(errorHandler, e);
   }
 }
 
-export function* updateFilterQuerySaga({ target }) {
+export function* updateFilterQuerySaga({ payload }) {
+  const { target } = payload;
+
   try {
     const state = yield select();
-    const { year, sort, genre } = state.filter[target];
+    const { year, sort, genre } = state._filters[target];
 
     if (target === 'discover') {
       const query = updateQuery(year, sort, genre);
-      yield put({ type: UPDATE_DISCOVER_QUERY, query });
+      yield put({ type: UPDATE_DISCOVER_QUERY, payload: query });
     } else if (target === 'tv') {
       const query = updateQuery(year, sort, genre);
-      yield put({ type: UPDATE_TV_QUERY, query });
+      yield put({ type: UPDATE_TV_QUERY, payload: query });
     }
   } catch (e) {
     console.log(e);
-    yield put({ type: IS_LOADING, bool: false });
+    yield put({ type: IS_LOADING, payload: false });
   }
 }
 
-export function* fetchSelectedMovieSaga({ category, id }) {
+export function* fetchSelectedMovieSaga({ payload }) {
+  const { category, id } = payload;
+
   try {
-    yield put({ type: IS_LOADING, bool: true });
+    yield init();
+
     const [movie, keywords, casts, reviews] = yield all([
-      call(fetchMovie, category, id),
-      call(fetchMovieKeywords, category, id),
-      call(fetchMovieCredits, category, id),
-      call(fetchMovieReviews, category, id)
+      call(api.fetchMovie, category, id),
+      call(api.fetchMovieKeywords, category, id),
+      call(api.fetchMovieCredits, category, id),
+      call(api.fetchMovieReviews, category, id)
     ]);
 
     yield put({ 
       type: FETCH_SELECTED_MOVIE_SUCCESS, 
-      data: { 
+      payload: { 
         movie, 
         keywords, 
         casts, 
         reviews 
       } 
     });
+    yield put({ type: 'IS_LOADING', payload: false });
     window.scrollTo(null, 0);
   } catch (e) {
     yield call(errorHandler, e);
+    
   }
 } 
 
 // Fetching movies, tv-shows, and people all together
-export function* searchSaga({ query }) {
+export function* searchSaga({ payload }) {
+  const { query } = payload;
+
   try {
-    yield put({ type: IS_LOADING, bool: true });
+    yield init();
     const [tv, movies, people] = yield all([
-      call(searchTv, query),
-      call(searchMovie, query),
-      call(searchPerson, query)
+      call(api.searchTv, query),
+      call(api.searchMovie, query),
+      call(api.searchPerson, query)
     ]);
 
     yield put({ 
       type: SEARCH_SUCCESS, 
-      data: { 
+      payload: { 
         movies, 
         tv, 
         people 
       } 
     });
-    yield put({ type: UPDATE_SEARCH_QUERY, query });
+    yield put({ type: 'IS_LOADING', payload: false });
+    yield put({ type: UPDATE_SEARCH_QUERY, payload: query });
     window.scrollTo(null, 0);
   } catch (e) {
     yield call(errorHandler, e);
@@ -131,36 +129,41 @@ export function* searchSaga({ query }) {
 // Fetching popular, top-rated, and upcoming movies for home page
 export function* fetchMainMoviesSaga() {
   try {
-    yield put({ type: IS_LOADING, bool: true });
+    yield init();
     const [popular, topRated, upcoming] = yield all([
-      call(fetchRequest, 'movie/popular?', 1),
-      call(fetchRequest, 'movie/top_rated?', 1),
-      call(fetchRequest, 'movie/upcoming?', 1)
+      call(api.fetchRequest, '/movie/popular', 1),
+      call(api.fetchRequest, '/movie/top_rated', 1),
+      call(api.fetchRequest, '/movie/upcoming', 1)
     ]);
 
     yield put({ 
       type: FETCH_MAIN_MOVIES_SUCCESS, 
-      data: { 
+      payload: { 
         popular, 
         topRated, 
         upcoming 
       } 
     });
+    yield put({ type: 'IS_LOADING', payload: false });
     window.scrollTo(null, 0);
   } catch (e) {
     yield call(errorHandler, e);
   }
 }
 
-export function* fetchSelectedPersonSaga({ id }) {
+export function* fetchSelectedPersonSaga({ payload }) {
   try {
-    yield put({ type: IS_LOADING, bool: true });
+    yield init();
     const [actor, casting] = yield all([
-      call(fetchPerson, id),
-      call(fetchPersonCasting, id)
+      call(api.fetchPerson, payload),
+      call(api.fetchPersonCasting, payload)
     ]);
 
-    yield put({ type: FETCH_SELECTED_PERSON_SUCCESS, actor, casting });
+    yield put({ type: 'IS_LOADING', payload: false });
+    yield put({ 
+      type: FETCH_SELECTED_PERSON_SUCCESS, 
+      payload: { actor, casting } 
+    });
     window.scrollTo(null, 0);
   } catch (e) {
     yield call(errorHandler, e);

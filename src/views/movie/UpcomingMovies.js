@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Loader from '../../components/hoc/Loader';  
 import MovieCard from '../../components/movies/MovieCard';
@@ -8,23 +7,29 @@ import PaginationBar from '../../components/common/PaginationBar';
 import Footer from '../../components/common/Footer';
 
 // actions
-import { fetchUpcomingMovies } from '../../actions/actions';
+import { fetchUpcomingMovies } from '../../actions/movieActions';
 
 // helpers
 import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
 
-const UpcomingMovies = ({ upcomingMovies, fetchUpcoming, isLoading }) => {
-  const queryString = 'movie/upcoming?';
+const UpcomingMovies = (props) => {
+  const { upcomingMovies, isLoading, favorites } = useSelector(state => ({
+    upcomingMovies: state._movies.upcomingMoves,
+    isLoading: state._misc.isLoading,
+    favorites: state._misc.favorites
+  }));
+  const dispatch = useDispatch();
+  const queryString = '/movie/upcoming';
 
   useEffect(() => {
     if (isEmpty(upcomingMovies)) {
-      fetchUpcoming(queryString);
+      dispatch(fetchUpcomingMovies(queryString));
     }
   }, []);
 
-  const handlePageChange = (e) => {
-    if (upcomingMovies.page !== e && !isLoading) {
-      fetchUpcoming(queryString, e);
+  const handlePageChange = (page) => {
+    if (upcomingMovies.page !== page && !isLoading) {
+      dispatch(fetchUpcomingMovies(queryString, page));
     }
   };
  
@@ -42,6 +47,7 @@ const UpcomingMovies = ({ upcomingMovies, fetchUpcoming, isLoading }) => {
               category="movie"
               key={`${movie.id}_${index}`}
               movie={movie} 
+              favorites={favorites}
           />
         ))}
       </div>
@@ -58,23 +64,4 @@ const UpcomingMovies = ({ upcomingMovies, fetchUpcoming, isLoading }) => {
   );
 };
 
-UpcomingMovies.propTypes = {
-  fetchUpcomingMovies: PropTypes.func,
-  upcomingMovies: PropTypes.shape({
-    page: PropTypes.number,
-    total_page: PropTypes.number,
-    total_results: PropTypes.number,
-    results: PropTypes.arrayOf(PropTypes.object)
-  })
-};
-
-const mapStateToProps = ({ upcomingMovies, isLoading }) => ({
-  upcomingMovies,
-  isLoading
-});
-
-const mapDispatchToProps = dispatch => ({
-  fetchUpcoming: (url, page) => dispatch(fetchUpcomingMovies(url, page))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Loader('upcomingMovies')(UpcomingMovies));
+export default Loader('upcomingMovies')(UpcomingMovies);

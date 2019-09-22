@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Loader from '../../components/hoc/Loader';
 import MovieCard from '../../components/movies/MovieCard';
@@ -8,22 +7,27 @@ import PaginationBar from '../../components/common/PaginationBar';
 import Footer from '../../components/common/Footer';
 
 // actions
-import { fetchGenreCategory } from '../../actions/actions';
+import { fetchGenreCategory } from '../../actions/genreActions';
 
 // helpers
 import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
 
 const ViewGenre = (props) => {
-  const { genreMovies, getGenreCategory, isLoading } = props;
-  const query = `discover/movie?&with_genres=${props.match.params.id}`;
+  const { genreMovies, isLoading, favorites } = useSelector(state => ({
+    genreMovies: state._genre.genreMovies,
+    isLoading: state._misc.isLoading,
+    favorites: state._misc.favorites
+  }));
+  const dispatch = useDispatch();
+  const query = `/discover/movie?&with_genres=${props.match.params.id}`;
 
   useEffect(() => {
-    getGenreCategory(query);
+    dispatch(fetchGenreCategory(query));
   }, []);
 
-  const handlePageChange = (e) => {
-    if (genreMovies.page !== e && !isLoading) {
-      getGenreCategory(query, e);
+  const handlePageChange = (page) => {
+    if (genreMovies.page !== page && !isLoading) {
+      dispatch(fetchGenreCategory(query, page));
     }
   };
 
@@ -42,6 +46,7 @@ const ViewGenre = (props) => {
                 category="movie"
                 key={`${movie.id}_${index}`}
                 movie={movie} 
+                favorites={favorites}
             />
           );
         })}
@@ -59,24 +64,4 @@ const ViewGenre = (props) => {
   );
 };
 
-ViewGenre.propTypes = {
-  genreMovies: PropTypes.shape({
-    total_results: PropTypes.number,
-    total_pages: PropTypes.number,
-    page: PropTypes.number,
-    results: PropTypes.arrayOf(PropTypes.object)
-  }),
-  isLoading: PropTypes.bool
-};
-
-const mapStateToProps = ({ genreMovies, isLoading, error }) => ({
-  genreMovies,
-  isLoading,
-  error
-});
-
-const mapDispatchToProps = dispatch => ({
-  getGenreCategory: (action, url, page) => dispatch(fetchGenreCategory(action, url, page))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Loader('genreMovies')(ViewGenre));
+export default ViewGenre;

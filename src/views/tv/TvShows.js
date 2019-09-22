@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Loader from '../../components/hoc/Loader';
@@ -9,7 +9,7 @@ import Footer from '../../components/common/Footer';
 import Filter from '../../components/common/Filter';
 
 // actions
-import { fetchTvShows } from '../../actions/actions';
+import { fetchTvShows } from '../../actions/movieActions';
 
 // hooks 
 import useDidMount from '../../hooks/useDidMount';
@@ -17,19 +17,25 @@ import useDidMount from '../../hooks/useDidMount';
 // helpers
 import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
 
-const TvShows = ({ tvShows, filter, fetchTv }) => {
-  const query = 'discover/tv?&language=en-US';
+const TvShows = (props) => {
+  const { tvShows, filter, favorites } = useSelector(state => ({
+    tvShows: state._movies.tvShows,
+    filter: state._filters,
+    favorites: state._misc.favorites
+  }));
+  const dispatch = useDispatch();
   const didMount = useDidMount();
+  const query = '/discover/tv?language=en-US';
 
   useEffect(() => {
     if (isEmpty(tvShows) || didMount) {
-      fetchTv(`${query}${filter.tv.query}`);
+      dispatch(fetchTvShows(`${query}${filter.tv.query}`));
     }
   }, [filter.tv.query]);
 
-  const handlePageChange = (e) => {
-    if (tvShows.page !== e) {
-      fetchTv(`${query}${filter.tv.query}`, e);
+  const handlePageChange = (page) => {
+    if (tvShows.page !== page) {
+      dispatch(fetchTvShows(`${query}${filter.tv.query}`, page));
     }
   };
 
@@ -49,6 +55,7 @@ const TvShows = ({ tvShows, filter, fetchTv }) => {
       {tvShows.results.map(show => (
         <MovieCard 
             category="tv"
+            favorites={favorites}
             key={show.id}
             movie={show} 
         />
@@ -69,25 +76,4 @@ const TvShows = ({ tvShows, filter, fetchTv }) => {
   );
 };
 
-TvShows.propTypes = {
-  fetchRequest: PropTypes.func,
-  filter: PropTypes.objectOf(PropTypes.object),
-  tvShows: PropTypes.shape({
-    page: PropTypes.number,
-    total_page: PropTypes.number,
-    total_results: PropTypes.number,
-    results: PropTypes.arrayOf(PropTypes.object)
-  })
-};
-
-const mapStateToProps = ({ tvShows, filter, isLoading }) => ({
-  tvShows,
-  filter,
-  isLoading
-});
-
-const mapDispatchToProps = dispatch => ({
-  fetchTv: (url, page) => dispatch(fetchTvShows(url, page))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Loader('tvShows')(TvShows));
+export default Loader('tvShows')(TvShows);

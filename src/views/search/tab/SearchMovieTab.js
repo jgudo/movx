@@ -1,26 +1,27 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import MovieCard from '../../../components/movies/MovieCard';
 import PaginationBar from '../../../components/common/PaginationBar';
 
 // actions
-import { searchMovies } from '../../../actions/actions';
+import { searchMovies } from '../../../actions/searchActions';
 
 // helpers
 import { isEmpty } from '../../../helpers/helperFunctions';
 
-const SearchMovieTab = (props) => {
-  const { movies, isLoading, query } = props;
-  const handlePageChange = (e) => {
-    if (movies.page !== e && !isLoading) {
-      props.searchMovies(`search/movie?query=${query}`, e);
+const SearchMovieTab = ({ movies, isLoading, query }) => {
+  const dispatch = useDispatch();
+
+  const handlePageChange = (page) => {
+    if (movies.page !== page && !isLoading) {
+      dispatch(searchMovies(`/search/movie?query=${query}`, page));
     }
   };
 
   return (!isEmpty(movies) && movies.results.length !== 0) ? (
-    <React.Fragment>
+    <>
       <div className="movie__wrapper">
         {movies.results.map((movie, index) => (
           <MovieCard 
@@ -40,7 +41,7 @@ const SearchMovieTab = (props) => {
             totalPage={movies.total_pages}
         />
       )}
-    </React.Fragment>
+    </>
   ) : (
     <div className="search__no-result">
       <h1>No result found.</h1>
@@ -48,20 +49,4 @@ const SearchMovieTab = (props) => {
   );
 };
 
-SearchMovieTab.propTypes = {
-  isLoading: PropTypes.bool,
-  movies: PropTypes.shape({
-    page: PropTypes.number,
-    total_page: PropTypes.number,
-    total_results: PropTypes.number,
-    results: PropTypes.arrayOf(PropTypes.object)
-  }),
-  query: PropTypes.string,
-  searchMovies: PropTypes.func
-};
-
-const mapDispatchToProps = dispatch => ({
-  searchMovies: (url, page) => dispatch(searchMovies(url, page))
-});
-
-export default connect(undefined, mapDispatchToProps)(SearchMovieTab);
+export default SearchMovieTab;

@@ -1,27 +1,28 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import PeopleCard from '../../../components/people/PeopleCard';
 import PaginationBar from '../../../components/common/PaginationBar';
 
 // actions
-import { searchPeople } from '../../../actions/actions';
+import { searchPeople } from '../../../actions/searchActions';
 
 // helpers
 import { isEmpty } from '../../../helpers/helperFunctions';
 
-const SearchPeopleTab = (props) => {
-  const { people, isLoading, query } = props;
-  const handlePageChange = (e) => {
-    if (props.people.page !== e && !isLoading) {
-      props.searchPeople(`search/person?query=${query}`, e);
+const SearchPeopleTab = ({ people, isLoading, query }) => {
+  const dispatch = useDispatch();
+
+  const handlePageChange = (page) => {
+    if (props.people.page !== page && !isLoading) {
+      dispatch(searchPeople(`/search/person?query=${query}`, page));
     }
   };
 
   return (
     !isEmpty(people) && people.results.length !== 0 ? (
-      <React.Fragment>
+      <>
         <div className="movie__wrapper">
           {people.results.map((person) => {
             return (
@@ -43,7 +44,7 @@ const SearchPeopleTab = (props) => {
               totalPage={people.total_pages}
           />
         )}
-      </React.Fragment>
+      </>
     ) : (
       <div className="search__no-result">
         <h1>No result found.</h1>
@@ -52,20 +53,4 @@ const SearchPeopleTab = (props) => {
   );
 };
 
-SearchPeopleTab.propTypes = {
-  isLoading: PropTypes.bool,
-  people: PropTypes.shape({
-    page: PropTypes.number,
-    total_page: PropTypes.number,
-    total_results: PropTypes.number,
-    results: PropTypes.arrayOf(PropTypes.object)
-  }),
-  query: PropTypes.string,
-  searchPeople: PropTypes.func
-};
-
-const mapDispatchToProps = dispatch => ({
-  searchPeople: (url, page) => dispatch(searchPeople(url, page))
-});
-
-export default connect(undefined, mapDispatchToProps)(SearchPeopleTab);
+export default SearchPeopleTab;

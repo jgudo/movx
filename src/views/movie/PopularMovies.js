@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Loader from '../../components/hoc/Loader'; 
@@ -8,23 +8,29 @@ import PaginationBar from '../../components/common/PaginationBar';
 import Footer from '../../components/common/Footer';
 
 // actions
-import { fetchPopularMovies } from '../../actions/actions';
+import { fetchPopularMovies } from '../../actions/movieActions';
 
 // helpers
 import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
 
-const PopularMovies = ({ popularMovies, fetchPopular, isLoading }) => {
-  const queryString = 'movie/popular?';
+const PopularMovies = (props) => {
+  const { popularMovies, isLoading, favorites } = useSelector(state => ({
+    popularMovies: state._movies.popularMovies,
+    isLoading: state._misc.isLoading,
+    favorites: state._misc.favorites
+  }));
+  const dispatch = useDispatch();
+  const route = '/movie/popular';
   
   useEffect(() => {
     if (isEmpty(popularMovies)) {
-      fetchPopular(queryString);
+      dispatch(fetchPopularMovies(route));
     }
   }, []);
 
-  const handlePageChange = (e) => {
-    if (popularMovies.page !== e && !isLoading) {
-      fetchPopular(queryString, e);
+  const handlePageChange = (page) => {
+    if (popularMovies.page !== page && !isLoading) {
+      dispatch(fetchPopularMovies(route, page));
     }
   };
 
@@ -42,6 +48,7 @@ const PopularMovies = ({ popularMovies, fetchPopular, isLoading }) => {
               category="movie"
               key={`${movie.id}_${index}`}
               movie={movie} 
+              favorites={favorites}
           />
         ))}
       </div>
@@ -68,13 +75,4 @@ PopularMovies.propTypes = {
   })
 };
 
-const mapStateToProps = ({ popularMovies, isLoading }) => ({
-  popularMovies,
-  isLoading
-});
-
-const mapDispatchToProps = dispatch => ({
-  fetchPopular: (url, page) => dispatch(fetchPopularMovies(url, page))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Loader('popularMovies')(PopularMovies));
+export default Loader('popularMovies')(PopularMovies);

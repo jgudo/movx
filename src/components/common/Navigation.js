@@ -1,12 +1,11 @@
 /* eslint-disable react/jsx-boolean-value */
 import React, { useState, useRef } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { NavLink, withRouter, Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { NavLink, Link } from 'react-router-dom';
 
 import TopProgressLoader from './TopProgressLoader'; 
 
-import { addSearchHistory, clearSearchHistory } from '../../actions/actions';
+import { addSearchHistory, clearSearchHistory } from '../../actions/searchActions';
 import logo from '../../images/logo.png';
 
 const Navigation = (props) => {
@@ -17,7 +16,12 @@ const Navigation = (props) => {
   const toggler = useRef(null);
   const menu = useRef(null);
   const searchMenu = useRef(null);
-  
+  const { recentSearch, isLoading } = useSelector(state => ({
+    recentSearch: state._search.recentSearch,
+    isLoading: state._misc.isLoading
+  }));
+  const dispatch = useDispatch();
+
   const onInputChange = (e) => {
     const query = e.target.value;
     setQuery(query);
@@ -28,20 +32,20 @@ const Navigation = (props) => {
       searchInput.current.blur();
       searchMenu.current.classList.remove('open');
       props.history.push(`/search/movie/${searchQuery}`);
-      if (!props.recentSearch.includes(searchQuery.toLowerCase())) {
-        props.addSearchHistory(searchQuery.toLowerCase());
+      if (!recentSearch.includes(searchQuery.toLowerCase())) {
+        dispatch(addSearchHistory(searchQuery.toLowerCase()));
       }
     }
   };
 
   const onFocusChange = () => {
-    if (props.recentSearch.length >= 1) {
+    if (recentSearch.length >= 1) {
       searchHistory.current.classList.add('visible');
     }
   };
 
   const onBlurChange = () => {
-    if (props.recentSearch.length >= 1) {
+    if (recentSearch.length >= 1) {
       searchHistory.current.classList.remove('visible');
     }
   };
@@ -73,6 +77,10 @@ const Navigation = (props) => {
       window.scrollTo(undefined, 0);
     }
   };
+  
+  const onClearHistory = () => {
+    dispatch(clearSearchHistory());
+  };  
 
   window.addEventListener('scroll', () => {
     if (window.pageYOffset === 0) {
@@ -86,7 +94,7 @@ const Navigation = (props) => {
 
   return (
     <React.Fragment>
-      <TopProgressLoader isLoading={props.isLoading} />
+      <TopProgressLoader isLoading={isLoading} />
       <div 
           className="navigation"
           onClick={onClickLink}
@@ -244,7 +252,7 @@ const Navigation = (props) => {
               >
                 <div/>
               </button>
-              {props.recentSearch.length >= 1 && (
+              {recentSearch.length >= 1 && (
                 <div 
                     className="search-history"
                     ref={searchHistory}
@@ -253,7 +261,7 @@ const Navigation = (props) => {
                     <p>Recent Searches</p>
                     <button 
                         className="search-clear"
-                        onClick={props.clearSearchHistory}
+                        onClick={onClearHistory}
                     >
                       Clear
                     </button>  
@@ -284,20 +292,4 @@ const Navigation = (props) => {
   );
 };
 
-Navigation.propTypes = {
-  addSearchHistory: PropTypes.func,
-  clearSearchHistory: PropTypes.func,
-  recentSearch: PropTypes.arrayOf(PropTypes.string)
-};
-
-const mapStateToProps = ({ recentSearch, isLoading }) => ({
-  recentSearch,
-  isLoading
-});
-
-const mapDispatchToProps = dispatch => ({
-  addSearchHistory: search => dispatch(addSearchHistory(search)),
-  clearSearchHistory: () => dispatch(clearSearchHistory())
-});
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Navigation));
+export default Navigation;

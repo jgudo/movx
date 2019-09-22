@@ -1,10 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-import { addToFavorites, removeFromFavorites } from '../../actions/actions';
+import { addToFavorites, removeFromFavorites } from '../../actions/miscActions';
 
-const SliderItem = (props) => {
-  const { movie, favorites } = props;
+const SliderItem = ({ movie, favorites, history }) => {
+  const dispatch = useDispatch();
   const tmdbPosterPath = 'https://image.tmdb.org/t/p/w300_and_h450_face/';
   const tmdbBackdropPath = 'https://image.tmdb.org/t/p/original';
   
@@ -13,8 +13,8 @@ const SliderItem = (props) => {
   };
 
   const onAddToFavorites = () => {
-    if (!found()) props.addToFavorites(movie);
-    else props.removeFromFavorites(movie.id); 
+    if (!found()) dispatch(addToFavorites(movie));
+    else dispatch(removeFromFavorites(movie.id)); 
   };
 
   return (
@@ -65,13 +65,4 @@ const SliderItem = (props) => {
   );
 }; 
 
-const mapStateToProps = ({ favorites }) => ({
-  favorites
-});
-
-const mapDispatchToProps = dispatch => ({
-  addToFavorites: favorites => dispatch(addToFavorites(favorites)),
-  removeFromFavorites: id => dispatch(removeFromFavorites(id))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(SliderItem);
+export default SliderItem;

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import SliderItem from './SliderItem';
 
-const MoviesSlider = ({ movies }) => {
+const MoviesSlider = ({ movies, favorites }) => {
   const [isMobile, setIfMobile] = useState(false);
 
   useEffect(() => {
@@ -24,10 +24,11 @@ const MoviesSlider = ({ movies }) => {
   return (
     <div className="movie__slider">
       <Slider {...settings}>
-        {movies && movies.map((movie, index) => index < 10 && (
+        {movies.map((movie, index) => index < 10 && (
           <SliderItem 
               key={movie.id} 
               movie={movie}
+              favorites={favorites}
           />
         ))}
       </Slider>

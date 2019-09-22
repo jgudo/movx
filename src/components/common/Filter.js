@@ -1,6 +1,5 @@
 import React, { useRef } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 
 import { 
   setDiscoverGenreFilter,
@@ -9,8 +8,7 @@ import {
   setTvGenreFilter,
   setTvYearFilter,
   setTvSortFilter
-} from '../../actions/actions';
-
+} from '../../actions/filterActions';
 
 const yearToday = new Date().getFullYear();
 const years = [];
@@ -19,16 +17,15 @@ for (let i = yearToday; i >= 1883; i--) {
   years.push(i);
 }
 
-const Filter = (props) => {
-  const { filterCategory } = props;
-  const { year, sort, genre } = props.filterData;
+const Filter = ({ filterCategory, filterData }) => {
+  const dispatch = useDispatch();
+  const { year, sort, genre } = filterData;
   const filterRef = useRef(null);
 
   const onFilterToggle = () => {
     filterRef.current.classList.toggle('open');
   };
 
-  
   const onFilterClose = () => {
     filterRef.current.classList.remove('open');
   };
@@ -37,24 +34,24 @@ const Filter = (props) => {
     const selected = e.target.value;
     onFilterClose();
 
-    if (filterCategory === 'discover') props.setDiscoverYearFilter(selected);
-    else if (filterCategory === 'tv') props.setTvYearFilter(selected);
+    if (filterCategory === 'discover') dispatch(setDiscoverYearFilter(selected));
+    else if (filterCategory === 'tv') dispatch(setTvYearFilter(selected));
   };
 
   const onSortFilterChange = (e) => {
     const selected = e.target.value;
     onFilterClose();
 
-    if (filterCategory === 'discover') props.setDiscoverSortFilter(selected);
-    else if (filterCategory) props.setTvSortFilter(selected);
+    if (filterCategory === 'discover') dispatch(setDiscoverSortFilter(selected));
+    else if (filterCategory) dispatch(setTvSortFilter(selected));
   };
 
   const onGenreFilterChange = (e) => {
     const selected = e.target.value;
     onFilterClose();
 
-    if (filterCategory === 'discover') props.setDiscoverGenreFilter(selected);
-    else if (filterCategory === 'tv') props.setTvGenreFilter(selected);
+    if (filterCategory === 'discover') dispatch(setDiscoverGenreFilter(selected));
+    else if (filterCategory === 'tv') dispatch(setTvGenreFilter(selected));
   };
 
   return (
@@ -144,23 +141,5 @@ const Filter = (props) => {
     </div>
   );
 };
-
-Filter.propTypes = {
-  filterCategory: PropTypes.string,
-  filterData: PropTypes.objectOf(PropTypes.string),
-  setGenreFilter: PropTypes.func,
-  setSortFilter: PropTypes.func,
-  setYearFilter: PropTypes.func,
-  updateQuery: PropTypes.func
-};
-
-const mapDispatchToProps = dispatch => ({
-  setDiscoverYearFilter: year => dispatch(setDiscoverYearFilter(year)),
-  setDiscoverSortFilter: sort => dispatch(setDiscoverSortFilter(sort)),
-  setDiscoverGenreFilter: genre => dispatch(setDiscoverGenreFilter(genre)),
-  setTvYearFilter: year => dispatch(setTvYearFilter(year)),
-  setTvSortFilter: sort => dispatch(setTvSortFilter(sort)),
-  setTvGenreFilter: genre => dispatch(setTvGenreFilter(genre))
-});
   
-export default connect(undefined, mapDispatchToProps)(Filter);
+export default Filter;

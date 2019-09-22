@@ -11,7 +11,7 @@ import Tabs from '../../components/tabs/Tabs';
 import { 
   search,
   updateSearchQuery
-} from '../../actions/actions';
+} from '../../actions/searchActions';
 
 // helpers
 import { numberWithCommas } from '../../helpers/helperFunctions';
@@ -101,13 +101,13 @@ Search.propTypes = {
   tv: PropTypes.object
 };
 
-const mapStateToProps = ({ search, isLoading }) => ({
-  movies: search.movies,
-  tv: search.tv,
-  query: search.query,
-  people: search.people,
-  totalFound: (search.movies.total_results + search.tv.total_results + search.people.total_results),
-  isLoading
+const mapStateToProps = ({ _search, _misc }) => ({
+  movies: _search.search.movies,
+  tv: _search.search.tv,
+  query: _search.search.query,
+  people: _search.search.people,
+  totalFound: (_search.search.movies.total_results + _search.search.tv.total_results + _search.search.people.total_results),
+  isLoading: _misc.isLoading
 });
 
 const mapDispatchToProps = dispatch => ({
