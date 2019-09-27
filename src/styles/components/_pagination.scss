@@ -24,6 +24,11 @@
     justify-content: center;
     align-items: center;
     padding: rem(5);
+    border-radius: 50%;
+
+    &:hover {
+      cursor: pointer;
+    }
 
     a {
       text-decoration: none;

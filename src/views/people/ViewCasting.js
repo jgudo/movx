@@ -1,8 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import imgBackground from '../../images/background.jpg';
-
-import MovieCard from '../../components/movies/MovieCard';
+import imgBackground from 'images/background.jpg';
+import MovieCard from 'components/movies/MovieCard';
 
 const ViewPictures = ({ history }) => {
   const { actor, casting } = useSelector(state => ({
@@ -11,7 +10,7 @@ const ViewPictures = ({ history }) => {
   }));
 
   return (
-    <div className="container-full">
+    <>
       <div className="posters__banner">
         <img src={imgBackground} alt=""/>
         <div className="posters__banner-content">
@@ -40,7 +39,7 @@ const ViewPictures = ({ history }) => {
           ))}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

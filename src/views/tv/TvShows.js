@@ -1,21 +1,14 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import PropTypes from 'prop-types';
 
-import Loader from '../../components/hoc/Loader';
-import MovieCard from '../../components/movies/MovieCard';
-import PaginationBar from '../../components/common/PaginationBar';
-import Footer from '../../components/common/Footer';
-import Filter from '../../components/common/Filter';
+import Loader from 'components/hoc/Loader';
+import MovieCard from 'components/movies/MovieCard';
+import PaginationBar from 'components/common/PaginationBar';
+import Filter from 'components/common/Filter';
 
-// actions
-import { fetchTvShows } from '../../actions/movieActions';
-
-// hooks 
-import useDidMount from '../../hooks/useDidMount';
-
-// helpers
-import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
+import useDidMount from 'hooks/useDidMount';
+import { fetchTvShows } from 'actions/movieActions';
+import { isEmpty, numberWithCommas } from 'helpers/helperFunctions';
 
 const TvShows = (props) => {
   const { tvShows, filter, favorites } = useSelector(state => ({
@@ -39,39 +32,45 @@ const TvShows = (props) => {
     }
   };
 
-  return !isEmpty(tvShows) && (
-    <div className="container__movies">
+  return (
+    <div className="container">
       <div className="movie__header">
         <div className="movie__header-title">
           <h1>TV Shows</h1>
           <h3>{numberWithCommas(tvShows.total_results)} TV Shows</h3>
         </div> 
-        <Filter 
-            filterCategory="tv"
-            filterData={filter.tv}
-        /> 
+        {tvShows.results && (
+          <Filter 
+              filterCategory="tv"
+              filterData={filter.tv}
+          /> 
+        )}
       </div>
-    <div className="movie__wrapper">
-      {tvShows.results.map(show => (
-        <MovieCard 
-            category="tv"
-            favorites={favorites}
-            key={show.id}
-            movie={show} 
-        />
-      ))}
-    </div>
-    {tvShows.total_pages > 1 && (
+      <div className="movie__wrapper">
+        {tvShows.results ? tvShows.results.map(show => (
+          <MovieCard 
+              category="tv"
+              favorites={favorites}
+              key={show.id}
+              movie={show} 
+          />
+        )) : new Array(10).fill({}).map((item, index) => (
+          <MovieCard 
+              category="tv"
+              favorites={[]}
+              key={`skeleton_tv_${index}`}
+              movie={{}} 
+          />
+        ))}
+      </div>
       <PaginationBar 
-            activePage={tvShows.page}
-            itemsCountPerPage={1}
-            onChange={handlePageChange}
-            pageRangeDisplayed={10}
-            totalItemsCount={tvShows.total_pages}
-            totalPage={tvShows.total_pages}
-        />
-      )}
-      <Footer />
+          activePage={tvShows.page}
+          itemsCountPerPage={1}
+          onChange={handlePageChange}
+          pageRangeDisplayed={10}
+          totalItemsCount={tvShows.total_pages}
+          totalPage={tvShows.total_pages}
+      />
     </div>    
   );
 };

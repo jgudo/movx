@@ -1,12 +1,12 @@
 /* eslint-disable react/jsx-boolean-value */
 import React, { useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, withRouter } from 'react-router-dom';
 
+import * as route from 'constants/routes';
+import { addSearchHistory, clearSearchHistory } from 'actions/searchActions';
 import TopProgressLoader from './TopProgressLoader'; 
-
-import { addSearchHistory, clearSearchHistory } from '../../actions/searchActions';
-import logo from '../../images/logo.png';
+import logo from 'images/logo.png';
 
 const Navigation = (props) => {
   const [searchQuery, setQuery] = useState('');
@@ -93,7 +93,7 @@ const Navigation = (props) => {
   });
 
   return (
-    <React.Fragment>
+    <>
       <TopProgressLoader isLoading={isLoading} />
       <div 
           className="navigation"
@@ -109,7 +109,7 @@ const Navigation = (props) => {
             <div/><div/><div/>
           </div>
           <div className="navigation__logo">
-            <Link to="/">
+            <Link to={route.HOME}>
               <img src={logo} alt=""/>
             </Link>
           </div>
@@ -123,7 +123,7 @@ const Navigation = (props) => {
                   className="navigation__link"
                   exact
                   strict
-                  to="/" 
+                  to={route.HOME} 
               >
                   Home
               </NavLink>
@@ -132,7 +132,7 @@ const Navigation = (props) => {
                   className="navigation__link"
                   exact
                   strict
-                  to="/trending" 
+                  to={route.TRENDING} 
               >
                 Trending
               </NavLink>
@@ -142,18 +142,18 @@ const Navigation = (props) => {
                     className="navigation__link navigation__dropdown-item"
                     exact
                     strict
-                    to="/discover" 
+                    to={route.DISCOVER}
                 >
                   Discover
                 </NavLink>
                 <div className="navigation__dropdown-wrapper">
-                  <Link to="/popular">
+                  <Link to={route.POPULAR}>
                     Popular
                   </Link>
-                  <Link to="/upcoming">
+                  <Link to={route.UPCOMING}>
                     Upcoming
                   </Link>
-                  <Link to="/top_rated">
+                  <Link to={route.TOP_RATED}>
                     Top Rated
                   </Link>
                 </div>
@@ -163,7 +163,7 @@ const Navigation = (props) => {
                   className="navigation__link desktop-none"
                   exact
                   strict
-                  to="/popular" 
+                  to={route.POPULAR} 
               >
                 Popular
               </NavLink>
@@ -172,7 +172,7 @@ const Navigation = (props) => {
                   className="navigation__link desktop-none"
                   exact
                   strict
-                  to="/top_rated" 
+                  to={route.TOP_RATED}
               >
                 Top Rated
               </NavLink>
@@ -181,7 +181,7 @@ const Navigation = (props) => {
                   className="navigation__link desktop-none"
                   exact
                   strict
-                  to="/upcoming" 
+                  to={route.UPCOMING}
               >
                 Upcoming
               </NavLink>
@@ -190,7 +190,7 @@ const Navigation = (props) => {
                   className="navigation__link"
                   exact
                   strict
-                  to="/tv" 
+                  to={route.TV} 
               >
                 TV Shows
               </NavLink>
@@ -199,7 +199,7 @@ const Navigation = (props) => {
                   className="navigation__link"
                   exact
                   strict
-                  to="/people" 
+                  to={route.PEOPLE} 
               >
                 People
               </NavLink>
@@ -207,7 +207,7 @@ const Navigation = (props) => {
                   activeClassName="navigation__active"
                   className="navigation__link"
                   exact
-                  to="/genre" 
+                  to={route.GENRE} 
               >
                 Genres
               </NavLink>
@@ -216,7 +216,7 @@ const Navigation = (props) => {
                   className="navigation__link"
                   exact
                   strict
-                  to="/favorites" 
+                  to={route.FAVORITES} 
               >
                 Favorites
               </NavLink>
@@ -266,7 +266,7 @@ const Navigation = (props) => {
                       Clear
                     </button>  
                   </div>
-                  {props.recentSearch.map((search, index) => (
+                  {recentSearch.map((search, index) => (
                     <Link 
                         key={search + index}
                         onClick={() => { setQuery(search); }}
@@ -288,8 +288,8 @@ const Navigation = (props) => {
           </button>
         </div>
       </div>
-    </React.Fragment>
+    </>
   );
 };
 
-export default Navigation;
+export default withRouter(Navigation);

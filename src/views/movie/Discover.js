@@ -1,20 +1,19 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import MovieCard from '../../components/movies/MovieCard';
-import PaginationBar from '../../components/common/PaginationBar';
-import Footer from '../../components/common/Footer';
-import Filter from '../../components/common/Filter';
-import Loader from '../../components/hoc/Loader';
+import MovieCard from 'components/movies/MovieCard';
+import PaginationBar from 'components/common/PaginationBar';
+import Filter from 'components/common/Filter';
+import Loader from 'components/hoc/Loader';
 
 // actions
-import { fetchDiscoverMovies } from '../../actions/movieActions';
+import { fetchDiscoverMovies } from 'actions/movieActions';
 
 // hooks 
-import useDidMount from '../../hooks/useDidMount';
+import useDidMount from 'hooks/useDidMount';
 
 // helpers
-import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions'; 
+import { isEmpty, numberWithCommas } from 'helpers/helperFunctions'; 
 
 const DiscoverMovies = (props) => {
   const { discoverMovies, filter, favorites } = useSelector(state => ({
@@ -22,7 +21,7 @@ const DiscoverMovies = (props) => {
     filter: state._filters,
     favorites: state._misc.favorites
   }));
-  const query = '/discover/movie?';
+  const query = '/discover/movie';
   const dispatch = useDispatch();
   const didMount = useDidMount();
 
@@ -32,33 +31,45 @@ const DiscoverMovies = (props) => {
     }
   }, [filter.discover.query]);
 
-  const handlePageChange = (e) => {
-    if (discoverMovies.page !== e) {
-      dispatch(fetchDiscoverMovies(`${query}${filter.discover.query}`, e));
+  const handlePageChange = (page) => {
+    if (discoverMovies.page !== page) {
+      dispatch(fetchDiscoverMovies(`${query}?${filter.discover.query}`, page));
     }
   };
 
-  return !isEmpty(discoverMovies) && (
-    <div className="container__movies">
+  return (
+    <div className="container">
       <div className="movie__header">
         <div className="movie__header-title">
           <h1>Discover Movies</h1>
           <h3>{numberWithCommas(discoverMovies.total_results)} Movies</h3>
         </div>
-        <Filter 
-            filterCategory="discover"
-            filterData={filter.discover}
-        />
+        {discoverMovies.results && (
+          <Filter 
+              filterCategory="discover"
+              filterData={filter.discover}
+          />
+        )}
       </div>  
       <div className="movie__wrapper">
-        {discoverMovies.results.map((movie, index) => (
-          <MovieCard 
-              category="movie"
-              key={`${movie.id}_${index}`}
-              movie={movie} 
-              favorites={favorites}
-          />
-        ))}
+        {discoverMovies.results ? 
+          discoverMovies.results.map((movie, index) => (
+            <MovieCard 
+                category="movie"
+                key={`${movie.id}_${index}`}
+                movie={movie} 
+                favorites={favorites}
+            />
+          ))
+          : new Array(10).fill({}).map((item, index) => (
+            <MovieCard 
+                category="movie"
+                key={`skeleton_${index}`}
+                movie={{}} 
+                favorites={[]}
+            />
+          ))
+        }
       </div>
       <PaginationBar 
           activePage={discoverMovies.page}
@@ -68,7 +79,6 @@ const DiscoverMovies = (props) => {
           totalItemsCount={discoverMovies.total_pages}
           totalPage={discoverMovies.total_pages}
       />
-      <Footer />
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { addToFavorites, removeFromFavorites } from '../../actions/miscActions';
+import { addToFavorites, removeFromFavorites } from 'actions/miscActions';
 
 const SliderItem = ({ movie, favorites, history }) => {
   const dispatch = useDispatch();
@@ -48,13 +48,6 @@ const SliderItem = ({ movie, favorites, history }) => {
           </div>
         </div>
         <div className="view__poster">
-          <div className="view__rank">
-            <h6>
-              <span className="icon icon-star">★</span>
-              Popular
-              <span className="icon icon-star">★</span>
-            </h6>
-          </div>
           <img 
               alt={movie.original_title || movie.original_name || movie.title}
               src={movie.poster_path ? `${tmdbPosterPath + movie.poster_path}` : '/images/img-placeholder.jpg'}

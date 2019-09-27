@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const workboxPlugin = require('workbox-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -67,7 +67,7 @@ module.exports = merge(baseConfig, {
     // new webpack.optimize.ModuleConcatenationPlugin(),
     // generate service worker
     new workboxPlugin.GenerateSW({
-      cacheId: 'movx-v2', // change this
+      cacheId: 'movx-v3', // change this
       swDest: 'sw.js',
       navigateFallback: '/index.html',
       clientsClaim: true,

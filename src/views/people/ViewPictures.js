@@ -1,14 +1,14 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import PersonProfiles from '../../components/people/PersonProfiles';
-import imgBackground from '../../images/background.jpg';
+import PersonProfiles from 'components/people/PersonProfiles';
+import imgBackground from 'images/background.jpg';
 
 const ViewPictures = ({ history }) => {
   const actor = useSelector(state => state._people.person.actor);
 
   return (
-    <div className="container-full">
+    <>
       <div className="posters__banner">
         <img src={imgBackground} alt=""/>
         <div className="posters__banner-content">
@@ -26,7 +26,7 @@ const ViewPictures = ({ history }) => {
             posters={actor.images.profiles} 
         />
       </div>
-    </div>
+    </>
   );
 };
 

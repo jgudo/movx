@@ -2,7 +2,7 @@ import {
   ADD_TO_FAVORITES,
   REMOVE_FROM_FAVORITES,
   IS_LOADING
-} from '../constants/constants';
+} from 'constants/constants';
 
 export default (state = {
   favorites: [],

@@ -19,8 +19,23 @@
   width: 100%;
   height: 270px;
   position: relative;
-  background: #f1f1f1;
   border-radius: 6px;
+  overflow: hidden;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 100%;
+    height: 99%;
+    border-radius: 6px;
+    background: #f1f1f1;
+    z-index: 0;
+  } 
 
   @media (max-width: $mobile) {
     width: 150px;
@@ -35,6 +50,11 @@
   img {
     border-radius: 6px;
     box-shadow: 0 10px 30px rgba(0,0,0,.4);
+  }
+
+  &>div, &>span {
+    position: relative;
+    z-index: 1;
   }
 }
 

@@ -8,7 +8,7 @@ import {
   setTvGenreFilter,
   setTvYearFilter,
   setTvSortFilter
-} from '../../actions/filterActions';
+} from 'actions/filterActions';
 
 const yearToday = new Date().getFullYear();
 const years = [];

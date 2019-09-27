@@ -1,8 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import MovieCard from '../../components/movies/MovieCard';
+import MovieCard from 'components/movies/MovieCard';
 
-import { numberWithCommas } from '../../helpers/helperFunctions';
+import { numberWithCommas } from 'helpers/helperFunctions';
 
 const Favorites = (props) => {
   const favorites = useSelector(state => state._misc.favorites);
@@ -10,7 +10,7 @@ const Favorites = (props) => {
   return (
     <>
       {favorites.length >= 1 ? (
-        <div className="container__movies">
+        <div className="container">
           <div className="movie__header">
             <div className="movie__header-title">
               <h1>My Favorite Movies</h1>

@@ -1,16 +1,10 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import Loader from '../../components/hoc/Loader';
-import MovieCard from '../../components/movies/MovieCard';
-import PaginationBar from '../../components/common/PaginationBar';
-import Footer from '../../components/common/Footer';
-
-// actions
-import { fetchGenreCategory } from '../../actions/genreActions';
-
-// helpers
-import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
+import MovieCard from 'components/movies/MovieCard';
+import PaginationBar from 'components/common/PaginationBar';
+import { fetchGenreCategory } from 'actions/genreActions';
+import { numberWithCommas } from 'helpers/helperFunctions';
 
 const ViewGenre = (props) => {
   const { genreMovies, isLoading, favorites } = useSelector(state => ({
@@ -31,8 +25,8 @@ const ViewGenre = (props) => {
     }
   };
 
-  return !isEmpty(genreMovies) && (
-    <div className="container__movies">
+  return (
+    <div className="container">
       <div className="movie__header">
         <div className="movie__header-title">
           <h1>{props.match.params.genre.replace('-', ' ')}</h1>
@@ -40,13 +34,22 @@ const ViewGenre = (props) => {
         </div>
       </div>
       <div className="movie__wrapper">
-        {genreMovies.results.map((movie, index) => {
+        {genreMovies.results ? genreMovies.results.map((movie, index) => {
           return (
             <MovieCard 
                 category="movie"
                 key={`${movie.id}_${index}`}
                 movie={movie} 
                 favorites={favorites}
+            />
+          );
+        }) : new Array(10).fill({}).map((item, index) => {
+          return (
+            <MovieCard 
+                category="movie"
+                key={`skeleton_genre_${index}`}
+                movie={{}} 
+                favorites={[]}
             />
           );
         })}
@@ -59,7 +62,6 @@ const ViewGenre = (props) => {
           totalItemsCount={genreMovies.total_pages}
           totalPage={genreMovies.total_pages}
       />
-      <Footer />
     </div>  
   );
 };

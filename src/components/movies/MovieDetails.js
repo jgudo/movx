@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 
-import { numberWithCommas, toHrsMins } from '../../helpers/helperFunctions';
+import { numberWithCommas, toHrsMins } from 'helpers/helperFunctions';
 
 const MovieDetails = ({ movie, keywords }) => (
   <div className="movie__details">

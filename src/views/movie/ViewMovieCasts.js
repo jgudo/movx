@@ -2,10 +2,9 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import LazyLoad from 'react-lazy-load';
-import ImageLoader from '../../components/common/ImageLoader';
-import imgPlaceholder from '../../images/placeholder.jpg';
-
-import { numberWithCommas } from '../../helpers/helperFunctions';
+import ImageLoader from 'components/common/ImageLoader';
+import imgPlaceholder from 'images/placeholder.jpg';
+import { numberWithCommas } from 'helpers/helperFunctions';
 
 const ViewMoviePoster = ({ history }) => {
   const { movie, casts } = useSelector(state => ({
@@ -22,7 +21,7 @@ const ViewMoviePoster = ({ history }) => {
   };
 
   return (
-    <div className="container-full">
+    <>
       <div className="posters__banner">
         <img src={`${tmdbBackdropPath + movie.backdrop_path}`} alt=""/>
         <div className="posters__banner-content">
@@ -79,7 +78,7 @@ const ViewMoviePoster = ({ history }) => {
           </div>
         )}
       </div>
-    </div>
+    </>
   );
 };
 

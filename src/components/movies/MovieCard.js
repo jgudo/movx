@@ -5,9 +5,9 @@ import LazyLoad from 'react-lazy-load';
 import StarRatings from 'react-star-ratings';
 import { Link } from 'react-router-dom';
 import ImageLoader from '../common/ImageLoader';
-import imgPlaceholder from '../../images/img-placeholder.jpg';
+import imgPlaceholder from 'images/img-placeholder.jpg';
 
-import { addToFavorites, removeFromFavorites } from '../../actions/miscActions';
+import { addToFavorites, removeFromFavorites } from 'actions/miscActions';
 
 /* eslint camelcase: 0 */
 const MovieCard = ({ favorites, movie, category }) => {
@@ -39,7 +39,6 @@ const MovieCard = ({ favorites, movie, category }) => {
 
   return (
     <SkeletonTheme color="#0f1214" highlightColor="#181d20">
-
       <div className="card">
         <Link to={`/view/${category}/${id}`}>
           <div className="card__image">
@@ -72,8 +71,9 @@ const MovieCard = ({ favorites, movie, category }) => {
             </>
           ) : (
             <>
-              <Skeleton width={'60%'} height={15}/><br/>
-              <Skeleton width={'80%'} height={25}/><br/>
+              <br/><br/>
+              <Skeleton width={'100%'} height={15}/>
+              <br/><br/>
             </>
           )}
           <div className="card__footer">
@@ -102,8 +102,8 @@ const MovieCard = ({ favorites, movie, category }) => {
               </>
             ) : (
               <>
-                <Skeleton width={30} height={15}/>
-                <Skeleton width={15} height={15}/>
+                <Skeleton width={50} height={10}/>
+                <Skeleton width={25} height={10}/>
               </>
             )}
           </div>

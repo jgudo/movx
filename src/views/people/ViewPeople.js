@@ -1,51 +1,41 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import ContentLoader from '../../components/common/ContentLoader';
-import Casting from '../../components/people/Casting';
-import PersonBiography from '../../components/people/PersonBiography';
-
-import { fetchSelectedPerson } from '../../actions/peopleActions';
-
-// helpers
-import { isEmpty } from '../../helpers/helperFunctions';
+import Casting from 'components/people/Casting';
+import PersonBiography from 'components/people/PersonBiography';
+import { fetchSelectedPerson } from 'actions/peopleActions';
+import { isEmpty } from 'helpers/helperFunctions';
 
 const ViewPeople = (props) => {
-  const { actor, casting, isLoading } = useSelector(state => ({
+  const { actor, casting, favorites, isLoading } = useSelector(state => ({
     actor: state._people.person.actor,
     casting: state._people.person.casting,
-    isLoading: state._misc.isLoading
+    isLoading: state._misc.isLoading,
+    favorites: state._misc.favorites
   }));
   const dispatch = useDispatch();
   const actorId = props.match.params.id;
 
   useEffect(() => { 
-    if (parseInt(actorId, 10) !== props.actor.id) {
+    if (parseInt(actorId, 10) !== actor.id) {
       dispatch(fetchSelectedPerson(actorId));
     }
   }, []);
 
-  return (
+  return !isLoading ? (
     <>
-      {isLoading && <ContentLoader />}
-      {(!isLoading && !isEmpty(actor)) && (
-        <div className="container-full">
-          <PersonBiography 
-              actor={actor}
-              id={actorId}
+      <PersonBiography actor={actor} />
+      {casting.length >= 1 && (
+        <div className="container__wrapper">
+          <Casting 
+              actor={actor} 
+              casting={casting} 
+              favorites={favorites}
           />
-          {casting.length >= 1 && (
-            <div className="container__wrapper">
-              <Casting 
-                  actor={actor} 
-                  casting={casting} 
-              />
-            </div>
-          )}
         </div>
       )}
     </>
-  );
+  ) : <PersonBiography actor={{}} />;
 };
 
 export default ViewPeople;

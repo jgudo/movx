@@ -1,4 +1,4 @@
-import { FETCH_SELECTED_PERSON, FETCH_PEOPLE } from '../constants/constants';
+import { FETCH_SELECTED_PERSON, FETCH_PEOPLE } from 'constants/constants';
 
 export const fetchSelectedPerson = id => ({
   type: FETCH_SELECTED_PERSON,

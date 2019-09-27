@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import LazyLoad from 'react-lazy-load';
 import ImageLoader from '../common/ImageLoader';
-import { downloadFileUrl } from '../../helpers/helperFunctions';
+import { downloadFileUrl } from 'helpers/helperFunctions';
 
 /* eslint camelcase: 0 */
 const BackdropCard = (props) => {

@@ -1,4 +1,4 @@
-import { FETCH_PEOPLE_SUCCESS, FETCH_SELECTED_PERSON_SUCCESS } from '../constants/constants';
+import { FETCH_PEOPLE_SUCCESS, FETCH_SELECTED_PERSON_SUCCESS } from 'constants/constants';
 
 export default (state = {
   people: {},

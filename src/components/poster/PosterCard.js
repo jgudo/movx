@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import LazyLoad from 'react-lazy-load';
 import ImageLoader from '../common/ImageLoader';
-import { downloadFileUrl } from '../../helpers/helperFunctions';
+import { downloadFileUrl } from 'helpers/helperFunctions';
 
 const tmdbPosterPath = 'https://image.tmdb.org/t/p/w185_and_h278_face/';
 const tmdbPosterBase = 'https://image.tmdb.org/t/p/original';

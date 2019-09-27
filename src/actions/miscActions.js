@@ -2,7 +2,7 @@ import {
   IS_LOADING, 
   ADD_TO_FAVORITES, 
   REMOVE_FROM_FAVORITES 
-} from '../constants/constants';
+} from 'constants/constants';
 
 export const isCurrentlyFetching = (bool = true) => ({
   type: IS_LOADING,

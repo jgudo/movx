@@ -1,17 +1,12 @@
 import React, { useEffect } from 'react';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import Loader from '../../components/hoc/Loader'; 
-import MovieCard from '../../components/movies/MovieCard';
-import PaginationBar from '../../components/common/PaginationBar';
-import Footer from '../../components/common/Footer';
-
-// actions
-import { fetchPopularMovies } from '../../actions/movieActions';
-
-// helpers
-import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
+import Loader from 'components/hoc/Loader'; 
+import MovieCard from 'components/movies/MovieCard';
+import PaginationBar from 'components/common/PaginationBar';
+import { fetchPopularMovies } from 'actions/movieActions';
+import { isEmpty, numberWithCommas } from 'helpers/helperFunctions';
 
 const PopularMovies = (props) => {
   const { popularMovies, isLoading, favorites } = useSelector(state => ({
@@ -34,8 +29,8 @@ const PopularMovies = (props) => {
     }
   };
 
-  return !isEmpty(popularMovies) && (
-    <div className="container__movies">
+  return (
+    <div className="container">
       <div className="movie__header">
         <div className="movie__header-title">
           <h1>Popular Movies</h1>
@@ -43,12 +38,19 @@ const PopularMovies = (props) => {
         </div>
       </div>
       <div className="movie__wrapper">
-        {popularMovies.results.map((movie, index) => (
+        {popularMovies.results ? popularMovies.results.map((movie, index) => (
           <MovieCard 
               category="movie"
               key={`${movie.id}_${index}`}
               movie={movie} 
               favorites={favorites}
+          />
+        )) : new Array(10).fill({}).map((item, index) => (
+          <MovieCard 
+              category="movie"
+              key={`skeleton_popular_${index}`}
+              movie={{}} 
+              favorites={[]}
           />
         ))}
       </div>
@@ -60,7 +62,6 @@ const PopularMovies = (props) => {
           totalItemsCount={popularMovies.total_pages}
           totalPage={popularMovies.total_pages}
       />
-      <Footer />
     </div>  
   );
 };

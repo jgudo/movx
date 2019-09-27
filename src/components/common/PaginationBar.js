@@ -18,7 +18,7 @@ const PaginationBar = ({
     } 
   }, []); 
   
-  return (
+  return (!!totalPage || totalPage > 1) ? (
     <div className="pagination__wrapper">
       <p>Page {activePage}/{totalPage > 1000 ? 1000 : totalPage}</p>
       <Pagination
@@ -35,7 +35,7 @@ const PaginationBar = ({
           totalItemsCount={totalItemsCount > 1000 ? 1000 : totalItemsCount}
       />
     </div>
-  );
+  ) : null;
 };
 
 PaginationBar.propTypes = {

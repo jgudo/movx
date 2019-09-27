@@ -1,4 +1,4 @@
-import * as act from '../constants/constants';
+import * as act from 'constants/constants';
 
 export default (state = {
   tv: {

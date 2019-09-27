@@ -10,7 +10,6 @@ html {
 body {
   font-family: 'Yantramanav', Helvetica, Arial, sans-serif;
   font-size: 1.6rem;
-  height: 100vh;
   background: $dark-blue-0;
   color: #fff;
 }
@@ -48,6 +47,11 @@ button:focus {
   outline: none;
 } 
 
+button:disabled {
+  cursor: not-allowed;
+  opacity: .5;
+}
+
 body::-webkit-scrollbar {
   width: 7px;
 }
@@ -65,4 +69,9 @@ body::-webkit-scrollbar-thumb {
   display: flex;
   flex-direction: column;
   position: relative;
+}
+
+#main {
+  width: 100%;
+  min-height: 100vh;
 }

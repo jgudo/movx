@@ -1,17 +1,13 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import PropTypes from 'prop-types';
 
-import MovieCard from '../../../components/movies/MovieCard';
-import PaginationBar from '../../../components/common/PaginationBar';
+import MovieCard from 'components/movies/MovieCard';
+import PaginationBar from 'components/common/PaginationBar';
 
-// actions
-import { searchMovies } from '../../../actions/searchActions';
+import { searchMovies } from 'actions/searchActions';
+import { isEmpty } from 'helpers/helperFunctions';
 
-// helpers
-import { isEmpty } from '../../../helpers/helperFunctions';
-
-const SearchMovieTab = ({ movies, isLoading, query }) => {
+const SearchMovieTab = ({ movies, favorites, isLoading, query }) => {
   const dispatch = useDispatch();
 
   const handlePageChange = (page) => {
@@ -26,21 +22,20 @@ const SearchMovieTab = ({ movies, isLoading, query }) => {
         {movies.results.map((movie, index) => (
           <MovieCard 
               category="movie"
+              favorites={favorites}
               key={`${movie.id}_${index}`}
               movie={movie} 
           />
         ))}
       </div>
-      {movies.total_pages > 1 && (
-        <PaginationBar 
-            activePage={movies.page}
-            itemsCountPerPage={1}
-            onChange={handlePageChange}
-            pageRangeDisplayed={10}
-            totalItemsCount={movies.total_pages}
-            totalPage={movies.total_pages}
-        />
-      )}
+      <PaginationBar 
+          activePage={movies.page}
+          itemsCountPerPage={1}
+          onChange={handlePageChange}
+          pageRangeDisplayed={10}
+          totalItemsCount={movies.total_pages}
+          totalPage={movies.total_pages}
+      />
     </>
   ) : (
     <div className="search__no-result">

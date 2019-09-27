@@ -1,4 +1,4 @@
-import { FETCH_GENRES_SUCCESS, FETCH_GENRE_CATEGORY_SUCCESS } from '../constants/constants';
+import { FETCH_GENRES_SUCCESS, FETCH_GENRE_CATEGORY_SUCCESS } from 'constants/constants';
 
 export default (state = {
   genres: [],

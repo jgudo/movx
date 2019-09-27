@@ -1,10 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import Tabs from '../../components/tabs/Tabs';
-import MoviePoster from '../../components/movies/MoviePoster';
-import MovieBackdrop from '../../components/movies/MovieBackdrop';
-import imgBackground from '../../images/background.jpg';
+import Tabs from 'components/tabs/Tabs';
+import MoviePoster from 'components/movies/MoviePoster';
+import MovieBackdrop from 'components/movies/MovieBackdrop';
+import imgBackground from 'images/background.jpg';
 
 const ViewMoviePoster = ({ history }) => {
   const movie = useSelector(state => state._movies.current.movie);
@@ -19,7 +19,7 @@ const ViewMoviePoster = ({ history }) => {
   };
 
   return (
-    <div className="container-full">
+    <>
       <div className="posters__banner">
         <img src={movie.backdrop_path ? `${tmdbBackdropPath}${movie.backdrop_path}` : imgBackground} alt=""/>
         <div className="posters__banner-content">
@@ -71,7 +71,7 @@ const ViewMoviePoster = ({ history }) => {
           </div>
         </Tabs>
       </div>
-    </div>
+    </>
   );
 };
 

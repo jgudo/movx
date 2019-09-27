@@ -1,13 +1,11 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import LoadingScreen from '../../components/common/LoadingScreen'; 
-import GenreCard from '../../components/genres/GenreCard'; 
+import LoadingScreen from 'components/common/LoadingScreen'; 
+import GenreCard from 'components/genres/GenreCard'; 
 
-import { isEmpty } from '../../helpers/helperFunctions';
-
-// actions
-import { fetchGenres } from '../../actions/genreActions';
+import { isEmpty } from 'helpers/helperFunctions';
+import { fetchGenres } from 'actions/genreActions';
 
 const Genres = (props) => {
   const { genres, isLoading } = useSelector(state => ({
@@ -23,7 +21,7 @@ const Genres = (props) => {
   }, []);
 
   return (
-    <>
+    <div className="container">
       {isLoading && <LoadingScreen />}
       {genres.length >= 1 && (
         <>
@@ -41,7 +39,7 @@ const Genres = (props) => {
           </div>
         </>  
       )}
-    </>
+    </div>
   );
 };
 

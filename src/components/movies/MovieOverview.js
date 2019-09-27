@@ -6,10 +6,10 @@ import LazyLoad from 'react-lazy-load';
 import ModalVideo from 'react-modal-video';
 import Modal from 'react-responsive-modal';
 import ImageLoader from '../common/ImageLoader';
-import imgPlaceholder from '../../images/img-placeholder.jpg';
-import imgBackground from '../../images/background.jpg';
+import imgPlaceholder from 'images/img-placeholder.jpg';
+import imgBackground from 'images/background.jpg';
 // actions
-import { addToFavorites, removeFromFavorites } from '../../actions/miscActions';
+import { addToFavorites, removeFromFavorites } from 'actions/miscActions';
 
 const tmdbPosterPath = 'https://image.tmdb.org/t/p/w300_and_h450_face/';
 const tmdbBackdropPath = 'https://image.tmdb.org/t/p/original';

@@ -1,16 +1,11 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import Loader from '../../components/hoc/Loader';
-import MovieCard from '../../components/movies/MovieCard';
-import PaginationBar from '../../components/common/PaginationBar';
-import Footer from '../../components/common/Footer';
-
-// actions
-import { fetchTrendingMovies } from '../../actions/movieActions';
-
-// helpers
-import { isEmpty, numberWithCommas } from '../../helpers/helperFunctions';
+import Loader from 'components/hoc/Loader';
+import MovieCard from 'components/movies/MovieCard';
+import PaginationBar from 'components/common/PaginationBar';
+import { fetchTrendingMovies } from 'actions/movieActions';
+import { isEmpty, numberWithCommas } from 'helpers/helperFunctions';
 
 const TrendingMovies = (props) => {
   const { trendingMovies, isLoading, favorites } = useSelector(state => ({
@@ -33,8 +28,8 @@ const TrendingMovies = (props) => {
     }
   };
 
-  return !isEmpty(trendingMovies) && (
-    <div className="container__movies">
+  return (
+    <div className="container">
       <div className="movie__header">
         <div className="movie__header-title">
           <h1>Trending Movies</h1>
@@ -42,12 +37,19 @@ const TrendingMovies = (props) => {
         </div>
       </div>
       <div className="movie__wrapper">
-        {trendingMovies.results.map((movie, index) => (
+        {trendingMovies.results ? trendingMovies.results.map((movie, index) => (
           <MovieCard 
               category="movie"
               key={`${movie.id}_${index}`}
               movie={movie} 
               favorites={favorites}
+          />
+        )) : new Array(10).fill({}).map((item, index) => (
+          <MovieCard 
+              category="movie"
+              key={`skeleton_trending_${index}`}
+              movie={{}} 
+              favorites={[]}
           />
         ))}
       </div>
@@ -59,7 +61,6 @@ const TrendingMovies = (props) => {
             totalItemsCount={trendingMovies.total_pages}
             totalPage={trendingMovies.total_pages}
       />
-      <Footer />
     </div>
   );
 };

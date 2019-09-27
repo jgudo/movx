@@ -1,5 +1,5 @@
 import React from 'react';
-import { isEmpty } from '../../helpers/helperFunctions'
+import { isEmpty } from 'helpers/helperFunctions'
 import LoadingScreen from '../common/LoadingScreen';
 
 const Loader = propName => (Component) => {

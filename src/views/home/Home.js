@@ -1,13 +1,10 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import MoviesSlider from '../../components/slider/MoviesSlider';
-import MovieCard from '../../components/movies/MovieCard';
-import Footer from '../../components/common/Footer';
-import Loader from '../../components/hoc/Loader';
-
-import { fetchMainMovies } from '../../actions/movieActions';
-import { isEmpty } from '../../helpers/helperFunctions';
+import MoviesSlider from 'components/slider/MoviesSlider';
+import MovieCard from 'components/movies/MovieCard';
+import { fetchMainMovies } from 'actions/movieActions';
+import { isEmpty } from 'helpers/helperFunctions';
 
 const App = (props) => {
   const { popularMovies, topRatedMovies, upcomingMovies, favorites } = useSelector(state => ({
@@ -27,17 +24,16 @@ const App = (props) => {
     }
   }, []);
 
-  const onClickLink = (location) => {
-    props.history.push(location);
-    window.scrollTo(0, 0);
-  };
-
   return (
-    <div className="container-full">
-      <MoviesSlider 
-          movies={popularMovies.results || []}
-          favorites={favorites}
-      />
+    <>
+      {popularMovies.results ? (
+        <MoviesSlider 
+            movies={popularMovies.results || []}
+            favorites={favorites}
+        />
+      ) : (
+        <><br/><br/><br/></>
+      )}
       <div className="container__wrapper">
         <div className="movie__header">
           <div className="movie__header-title">
@@ -47,7 +43,7 @@ const App = (props) => {
           </div>
         </div>
         <div className="movie__wrapper">
-          {!isEmpty(upcomingMovies) && upcomingMovies.results.map((movie, index) => {
+          {upcomingMovies.results ? upcomingMovies.results.map((movie, index) => {
             return index < 10 && (
               <MovieCard 
                   category="movie"
@@ -56,14 +52,23 @@ const App = (props) => {
                   favorites={favorites}
               />
             );
-          })}
+          }) : new Array(10).fill({}).map((item, index) => (
+            <MovieCard 
+                category="movie"
+                key={`skeleton_upcoming_${index}`}
+                movie={{}} 
+                favorites={[]}
+            />
+          ))}
         </div>
-        <button 
-            className="button--primary m-auto"
-            onClick={() => onClickLink('/upcoming')}
-        >
-        View All Upcoming Movies
-        </button>
+        {upcomingMovies.results && (
+          <button 
+              className="button--primary m-auto"
+              onClick={() => props.history.push('/upcoming')}
+          >
+            View All Upcoming Movies
+          </button>
+        )}
         <div className="movie__header">
           <div className="movie__header-title">
             <br/>
@@ -72,27 +77,36 @@ const App = (props) => {
           </div>
         </div>
         <div className="movie__wrapper">
-          {!isEmpty(topRatedMovies) && topRatedMovies.results.map((movie, index) => {
+          {topRatedMovies.results ? topRatedMovies.results.map((movie, index) => {
             return index < 10 && (
-              <MovieCard 
-                  category="movie"
-                  key={`${movie.id}_${index}`}
-                  movie={movie} 
-                  favorites={favorites}
-              />
+                <MovieCard 
+                    category="movie"
+                    key={`${movie.id}_${index}`}
+                    movie={movie} 
+                    favorites={favorites}
+                />
+              
             );
-          })}
+          }) : new Array(10).fill({}).map((item, index) => (
+            <MovieCard 
+                category="movie"
+                key={`skeleton_toprated_${index}`}
+                movie={{}} 
+                favorites={[]}
+            />
+          ))}
         </div>
-        <button 
-            className="button--primary m-auto"
-            onClick={() => onClickLink('/top_rated')}
-        >
-        View All Top Rated Movies
-        </button>
-        <Footer />
+        {topRatedMovies.results && (
+          <button 
+              className="button--primary m-auto"
+              onClick={() => props.history.push('/top_rated')}
+          >
+            View All Top Rated Movies
+          </button>
+        )}
       </div>
-    </div>
+    </>
   );
 };
 
-export default Loader('popularMovies')(App);
+export default App;

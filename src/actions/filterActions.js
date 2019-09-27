@@ -1,4 +1,4 @@
-import * as action from '../constants/constants';
+import * as action from 'constants/constants';
 
 export const setDiscoverYearFilter = year => ({
   type: action.SET_DISCOVER_YEAR_FILTER,

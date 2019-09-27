@@ -1,5 +1,5 @@
 import {  call, put, select, all } from 'redux-saga/effects';
-import { history } from '../routers/AppRouter';
+import { history } from 'routers/AppRouter';
 import { 
   IS_LOADING, 
   UPDATE_DISCOVER_QUERY, 
@@ -9,8 +9,8 @@ import {
   FETCH_MAIN_MOVIES_SUCCESS,
   SEARCH_SUCCESS,
   UPDATE_SEARCH_QUERY
-} from '../constants/constants';
-import * as api from '../api/api';
+} from 'constants/constants';
+import * as api from 'api/api';
 
 function updateQuery(year, sort, genre) {
   const yearFilter = year ? `&year=${year}&first_air_date_year=${year}` : '';

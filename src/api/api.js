@@ -11,7 +11,7 @@ axios.defaults.params['api_key'] = tmdbKey;
 export const fetchRequest = async (param, page = 1) => {
   const request = await axios({
     method: 'GET',
-    url: `${tmdb}${param}`,
+    url: `${param}`,
     params: { 
       page, 
       api_key: tmdbKey
@@ -24,7 +24,7 @@ export const fetchRequest = async (param, page = 1) => {
 export const fetchMovie = async (category, id) => {
   const movieRequest = await axios({
     method: 'GET',
-    url: `${tmdb}/${category}/${id}`,
+    url: `/${category}/${id}`,
     params: {
       append_to_response: 'similar,videos,images',
       api_key: tmdbKey
@@ -36,7 +36,7 @@ export const fetchMovie = async (category, id) => {
 export const fetchMovieCredits = async (category, id) => {
   const creditsRequest = await axios({
     method: 'GET',
-    url: `${tmdb}/${category}/${id}/credits`,
+    url: `/${category}/${id}/credits`,
     params: {
       api_key: tmdbKey
     }
@@ -48,7 +48,7 @@ export const fetchMovieCredits = async (category, id) => {
 export const fetchMovieKeywords = async (category, id) => {
   const keywordsRequest = await axios({
     method: 'GET',
-    url: `${tmdb}/${category}/${id}/keywords`,
+    url: `/${category}/${id}/keywords`,
     params: {
       api_key: tmdbKey
     }
@@ -59,7 +59,7 @@ export const fetchMovieKeywords = async (category, id) => {
 export const fetchMovieReviews = async (category, id) => {
   const reviewsRequest = await axios({
     method: 'GET',
-    url: `${tmdb}/${category}/${id}/reviews`,
+    url: `/${category}/${id}/reviews`,
     params: {
       api_key: tmdbKey
     }
@@ -71,7 +71,7 @@ export const fetchMovieReviews = async (category, id) => {
 export const fetchPerson = async (id) => {
   const personRequest = await axios({
     method: 'GET',
-    url: `${tmdb}/person/${id}`,
+    url: `/person/${id}`,
     params: {
       api_key: tmdbKey,
       append_to_response: 'images'
@@ -83,7 +83,7 @@ export const fetchPerson = async (id) => {
 export const fetchPersonCasting = async (id) => {
   const castingRequest = await axios({
     method: 'GET',
-    url: `${tmdb}/person/${id}/combined_credits`,
+    url: `/person/${id}/combined_credits`,
     params: {
       api_key: tmdbKey,
     }
@@ -94,7 +94,7 @@ export const fetchPersonCasting = async (id) => {
 export const searchMovie = async (query) => {
   const castingRequest = await axios({
     method: 'GET',
-    url: `${tmdb}/search/movie`,
+    url: `/search/movie`,
     params: {
       api_key: tmdbKey,
       query
@@ -106,7 +106,7 @@ export const searchMovie = async (query) => {
 export const searchTv = async (query) => {
   const castingRequest = await axios({
     method: 'GET',
-    url: `${tmdb}/search/tv`,
+    url: `/search/tv`,
     params: {
       api_key: tmdbKey,
       query
@@ -118,7 +118,7 @@ export const searchTv = async (query) => {
 export const searchPerson = async (query) => {
   const castingRequest = await axios({
     method: 'GET',
-    url: `${tmdb}/search/person`,
+    url: `/search/person`,
     params: {
       api_key: tmdbKey,
       query

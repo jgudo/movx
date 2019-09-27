@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 
 import MovieCard from '../movies/MovieCard';
 
-const Casting = ({ casting, actor, match, history }) => {
+const Casting = ({ casting, favorites, actor, match, history }) => {
   const actorId = match.params.id;
   
   const onClickLink = () => {
@@ -22,6 +22,7 @@ const Casting = ({ casting, actor, match, history }) => {
             {casting.map((movie, index) => index < 8 && (
               <MovieCard 
                   category={movie.media_type}
+                  favorites={favorites}
                   key={`${movie.id}_${movie.character}`}
                   movie={movie}
               />

@@ -1,20 +1,19 @@
-import React, { Component, useEffect } from 'react';
-import { connect, useSelector, useDispatch } from 'react-redux';
-import PropTypes from 'prop-types';
-import useDidMount from '../../hooks/useDidMount';
-import MovieOverview from '../../components/movies/MovieOverview';
-import MovieCast from '../../components/movies/MovieCast';
-import MoviePoster from '../../components/movies/MoviePoster';
-import Reviews from '../../components/movies/Reviews';
-import SimilarMovies from '../../components/movies/SimilarMovies';
-import ContentLoader from '../../components/common/ContentLoader';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
+import useDidMount from 'hooks/useDidMount';
+import MovieOverview from 'components/movies/MovieOverview';
+import MovieCast from 'components/movies/MovieCast';
+import MoviePoster from 'components/movies/MoviePoster';
+import Reviews from 'components/movies/Reviews';
+import SimilarMovies from 'components/movies/SimilarMovies';
 
 // actions
-import { fetchSelectedMovie } from '../../actions/movieActions';
-import { isCurrentlyFetching } from '../../actions/miscActions';
+import { fetchSelectedMovie } from 'actions/movieActions';
+import { isCurrentlyFetching } from 'actions/miscActions';
 
 // helpers
-import { isEmpty } from '../../helpers/helperFunctions';
+import { isEmpty } from 'helpers/helperFunctions';
 
 const ViewMovie = (props) => {
   const { favorites, movie, casts, keywords, reviews, isLoading } = useSelector(state => ({
@@ -32,7 +31,6 @@ const ViewMovie = (props) => {
   useEffect(() => {
     const movieId = props.match.params.id;
     fetchMovie(movieId);
-    window.scrollTo(undefined, 0);
   }, []);
 
   useEffect(() => {
@@ -52,55 +50,49 @@ const ViewMovie = (props) => {
 
   const onClickViewImage = () => {
     props.history.push(`/view/movie/${props.match.params.id}/images`);
-    window.scrollTo(null, 0);
   };
 
   return (
     <>
-      {/* {isLoading && <ContentLoader />} */}
-      <div className="container-full">
-        {!isLoading ? (
-          <>
-            <MovieOverview 
-                favorites={favorites}
-                movie={movie}
-            />
-            <MovieCast casts={casts} keywords={keywords} movie={movie} />
-            {movie.images && (
-              <div className="container__wrapper">
-                <MoviePoster 
-                    id={movie.id}
-                    posters={posters.length > 10 ? posters.slice(0, 10) : posters}
-                />
-                <button 
-                    className="button--primary button--block m-auto"
-                    onClick={onClickViewImage}
-                >
-                  View All Posters
-                </button>
-              </div>
-            )}
-            {movie.similar && (
-              <SimilarMovies 
-                  favorites={favorites}
-                  movies={movie.similar.results} 
+      {!isLoading ? (
+        <>
+          <MovieOverview 
+              favorites={favorites}
+              movie={movie}
+          />
+          <MovieCast casts={casts} keywords={keywords} movie={movie} />
+          {movie.images && (
+            <div className="container__wrapper">
+              <MoviePoster 
+                  id={movie.id}
+                  posters={posters.length > 10 ? posters.slice(0, 10) : posters}
               />
-            )}
-            {reviews.results && (
-              <Reviews reviews={reviews} />
-            )}
-          </>
-          ) : (
-          <>
-            <MovieOverview 
-                favorites={[]}
-                movie={{}}
+              <button 
+                  className="button--primary button--block m-auto"
+                  onClick={onClickViewImage}
+              >
+                View All Posters
+              </button>
+            </div>
+          )}
+          {movie.similar && (
+            <SimilarMovies 
+                favorites={favorites}
+                movies={movie.similar.results} 
             />
-          </> 
-        )}
-      </div>
-      {/* {(!isLoading && !isEmpty(movie)) && (
-      )} */}
+          )}
+          {reviews.results && (
+            <Reviews reviews={reviews} />
+          )}
+        </>
+        ) : (
+        <>
+          <MovieOverview 
+              favorites={[]}
+              movie={{}}
+          />
+        </> 
+      )}
     </>
   );
 };
