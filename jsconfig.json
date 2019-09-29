@@ -1,6 +1,16 @@
 {
   "compilerOptions": {
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "target": "es6",
+    "module": "commonjs",
+    "allowSyntheticDefaultImports": true
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": [
+    "node_modules",
+    "bower_components",
+    "jspm_packages",
+    "tmp",
+    "temp"
+  ]
 }

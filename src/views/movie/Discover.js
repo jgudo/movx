@@ -21,7 +21,7 @@ const DiscoverMovies = (props) => {
     filter: state._filters,
     favorites: state._misc.favorites
   }));
-  const query = '/discover/movie';
+  const query = '/discover/movie?';
   const dispatch = useDispatch();
   const didMount = useDidMount();
 

@@ -4,9 +4,10 @@ import imgBackground from 'images/background.jpg';
 import MovieCard from 'components/movies/MovieCard';
 
 const ViewPictures = ({ history }) => {
-  const { actor, casting } = useSelector(state => ({
+  const { actor, casting, favorites } = useSelector(state => ({
     actor: state._people.person.actor,
-    casting: state._people.person.casting
+    casting: state._people.person.casting,
+    favorites: state._misc.favorites
   }));
 
   return (
@@ -17,7 +18,7 @@ const ViewPictures = ({ history }) => {
           <h1>{actor.name}</h1>
           <button 
               className="button--back"
-              onClick={() => history.goBack()}>
+              onClick={history.goBack}>
             Back
           </button>
         </div>
@@ -33,6 +34,7 @@ const ViewPictures = ({ history }) => {
           {casting.map((movie, index) => (
             <MovieCard 
                 category="movie"
+                favorites={favorites}
                 key={`${movie.id}_${index}`}
                 movie={movie} 
             />
