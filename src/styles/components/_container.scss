@@ -6,6 +6,11 @@
   padding-top: $top;
   position: relative;
 
+  @media (min-width: $desktop) {
+    width: 1360px;
+    margin: auto;
+  }
+
   @media (max-width: $laptop) {
     padding: $l-size;
   }

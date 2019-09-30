@@ -43,7 +43,6 @@ const ViewMovie = (props) => {
     const { category } = props.match.params;
 
     if (parseInt(id, 10) !== movie.id) {
-      dispatch(isCurrentlyFetching());
       dispatch(fetchSelectedMovie(category, id));
     }
   };
@@ -52,48 +51,42 @@ const ViewMovie = (props) => {
     props.history.push(`/view/movie/${props.match.params.id}/images`);
   };
 
-  return (
+  return !isLoading ? (
     <>
-      {!isLoading ? (
-        <>
-          <MovieOverview 
-              favorites={favorites}
-              movie={movie}
+      <MovieOverview 
+          favorites={favorites}
+          movie={movie}
+      />
+      <MovieCast casts={casts} keywords={keywords} movie={movie} />
+      {movie.images && (
+        <div className="container__wrapper">
+          <MoviePoster 
+              id={movie.id}
+              posters={posters.length > 10 ? posters.slice(0, 10) : posters}
           />
-          <MovieCast casts={casts} keywords={keywords} movie={movie} />
-          {movie.images && (
-            <div className="container__wrapper">
-              <MoviePoster 
-                  id={movie.id}
-                  posters={posters.length > 10 ? posters.slice(0, 10) : posters}
-              />
-              <button 
-                  className="button--primary button--block m-auto"
-                  onClick={onClickViewImage}
-              >
-                View All Posters
-              </button>
-            </div>
-          )}
-          {movie.similar && (
-            <SimilarMovies 
-                favorites={favorites}
-                movies={movie.similar.results} 
-            />
-          )}
-          {reviews.results && (
-            <Reviews reviews={reviews} />
-          )}
-        </>
-        ) : (
-        <>
-          <MovieOverview 
-              favorites={[]}
-              movie={{}}
-          />
-        </> 
+          <button 
+              className="button--primary button--block m-auto"
+              onClick={onClickViewImage}
+          >
+            View All Posters
+          </button>
+        </div>
+      )}
+      {movie.similar && (
+        <SimilarMovies 
+            favorites={favorites}
+            movies={movie.similar.results} 
+        />
+      )}
+      {(reviews.results && !!reviews.total_pages) && (
+        <Reviews reviews={reviews} />
       )}
     </>
+    ) : (
+    <MovieOverview 
+        favorites={[]}
+        movie={{}}
+    />
   );
 };
 

@@ -91,7 +91,6 @@ export function* fetchSelectedMovieSaga({ payload }) {
       } 
     });
     yield put({ type: 'IS_LOADING', payload: false });
-    window.scrollTo(null, 0);
   } catch (e) {
     yield call(errorHandler, e);
     
@@ -120,7 +119,6 @@ export function* searchSaga({ payload }) {
     });
     yield put({ type: 'IS_LOADING', payload: false });
     yield put({ type: UPDATE_SEARCH_QUERY, payload: query });
-    window.scrollTo(null, 0);
   } catch (e) {
     yield call(errorHandler, e);
   }
@@ -145,7 +143,6 @@ export function* fetchMainMoviesSaga() {
       } 
     });
     yield put({ type: 'IS_LOADING', payload: false });
-    window.scrollTo(null, 0);
   } catch (e) {
     yield call(errorHandler, e);
   }
@@ -164,7 +161,6 @@ export function* fetchSelectedPersonSaga({ payload }) {
       type: FETCH_SELECTED_PERSON_SUCCESS, 
       payload: { actor, casting } 
     });
-    window.scrollTo(null, 0);
   } catch (e) {
     yield call(errorHandler, e);
   }

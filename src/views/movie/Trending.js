@@ -54,12 +54,12 @@ const TrendingMovies = (props) => {
         ))}
       </div>
       <PaginationBar 
-            activePage={trendingMovies.page}
-            itemsCountPerPage={1}
-            onChange={handlePageChange}
-            pageRangeDisplayed={10}
-            totalItemsCount={trendingMovies.total_pages}
-            totalPage={trendingMovies.total_pages}
+          activePage={trendingMovies.page}
+          itemsCountPerPage={1}
+          onChange={handlePageChange}
+          pageRangeDisplayed={10}
+          totalItemsCount={trendingMovies.total_pages}
+          totalPage={trendingMovies.total_pages}
       />
     </div>
   );
