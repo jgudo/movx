@@ -1,17 +1,21 @@
 .search__input {
   color: #fff;
-  font-size: 18px;
+  font-size: 1.6rem;
+  width: 100%;
+  padding: 1.4rem;
+  background: lighten($dark-blue-0, 5%) !important;
+  border-radius: $border-radius;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .search__button {
-  border-radius: 0;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  border-left: 1px solid rgba(255, 255, 255, .2);
-
-  &:hover path {
-    fill: #fff;
-  }
+  border-radius: $border-radius;
+  padding: 1.5rem;
+  background: $yellow;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  // border-left: 1px solid rgba(255, 255, 255, .2);
 }
 
 .search-history {
@@ -20,38 +24,45 @@
   width: 100%;
   top: 70px;
   left: 0;
-  background: $blue;
+  border-radius: $border-radius;
+  background: $off-white;
   max-height: rem(500);
   overflow-y: scroll;
   opacity: 0;
   visibility: hidden;
   @include transition();
 
-  @media (max-width: $tablet) {
-    top: 55px;
+  @include tablet {
+    width: 90%;
+    top: 65px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
   }
 
   &::-webkit-scrollbar {
-    width: 7px;
+    width: 5px;
   }
   
   &::-webkit-scrollbar-track {
-      background: lighten($blue, 15%);
+      background: darken($off-white, 10%);
   }
   
   &::-webkit-scrollbar-thumb {
     background-color: darken($blue, 15%);
     outline: 1px solid lighten($blue, 10%);
+    border-radius: 2px;
   }
 
   p {
     padding-left: $s-size;
+    color: $off-black;
   }
 
   a {
     display: block;
     text-decoration: none;
-    color: #fff;
+    color: $off-black;
     padding: $s-size;
     width: 100%;
     white-space: nowrap;
@@ -60,11 +71,12 @@
   }
 
   a:not(:last-child) {
-    border-bottom: 1px solid lighten($blue, 10%);
+    border-bottom: 1px solid darken($off-white, 2%);
   }
 
   a:hover {
-    background: darken($blue, 5%);
+    background: $blue;
+    color: #fff;
   }
   
   &.visible {
@@ -76,7 +88,7 @@
 
 .search__toggle {
   position: absolute;
-  right: 0;
+  right: 10px;
   display: none;
   color: #fff;
 
@@ -90,11 +102,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+
 }
 
 .search-clear {
   padding: 0;
-  color: #fff;
+  color: $off-black;
+  font-weight: bold;
   font-size: 14px;
   margin-right: $m-size;
 }

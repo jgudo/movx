@@ -53,3 +53,51 @@
     @content;
   } 
 }
+
+@mixin l-desktop {
+  @media (min-width: $l-desktop) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: $desktop) {
+    @content;
+  }
+}
+
+@mixin laptop {
+  @media (max-width: $laptop) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: $tablet) {
+    @content;
+  }
+}
+
+@mixin only-tablet {
+  @media (min-width: $mobile) and (max-width: $tablet) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: $mobile) {
+    @content;
+  }
+}
+
+@mixin only-mobile {
+  @media (min-width: $x-mobile) and (max-width: $mobile) {
+    @content;
+  }
+}
+
+@mixin s-mobile {
+  @media (max-width: $x-mobile) {
+    @content;
+  }
+}

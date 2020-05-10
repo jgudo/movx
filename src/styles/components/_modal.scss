@@ -8,7 +8,7 @@
 }
 
 .styles_modal__gNwvD {
-  @media (max-width: $mobile) {
+  @include mobile {
     padding: $l-size !important;
   }
 }

@@ -2,8 +2,7 @@ import {  call, put, select, all } from 'redux-saga/effects';
 import { history } from 'routers/AppRouter';
 import { 
   IS_LOADING, 
-  UPDATE_DISCOVER_QUERY, 
-  UPDATE_TV_QUERY,
+  UPDATE_QUERY, 
   FETCH_SELECTED_PERSON_SUCCESS,
   FETCH_SELECTED_MOVIE_SUCCESS,
   FETCH_MAIN_MOVIES_SUCCESS,
@@ -20,7 +19,7 @@ function updateQuery(year, sort, genre) {
 }
 
 function* init() {
-  yield put({ type: 'IS_LOADING', payload: true });
+  yield put({ type: IS_LOADING, payload: true });
 }
 
 function* errorHandler(e) {
@@ -41,7 +40,7 @@ export function* fetchRequestSaga({ type, payload }) {
     yield init();
     const data = yield call(api.fetchRequest, query, page);
     yield put({ type: `${type}_SUCCESS`, payload: data });
-    yield put({ type: 'IS_LOADING', payload: false });
+    yield put({ type: IS_LOADING, payload: false });
     window.scrollTo(null, 0);
   } catch (e) {
     yield call(errorHandler, e);
@@ -55,13 +54,8 @@ export function* updateFilterQuerySaga({ payload }) {
     const state = yield select();
     const { year, sort, genre } = state._filters[target];
 
-    if (target === 'discover') {
-      const query = updateQuery(year, sort, genre);
-      yield put({ type: UPDATE_DISCOVER_QUERY, payload: query });
-    } else if (target === 'tv') {
-      const query = updateQuery(year, sort, genre);
-      yield put({ type: UPDATE_TV_QUERY, payload: query });
-    }
+    const query = updateQuery(year, sort, genre);
+    yield put({ type: UPDATE_QUERY, payload: { query, target } });
   } catch (e) {
     console.log(e);
     yield put({ type: IS_LOADING, payload: false });
@@ -90,7 +84,7 @@ export function* fetchSelectedMovieSaga({ payload }) {
         reviews 
       } 
     });
-    yield put({ type: 'IS_LOADING', payload: false });
+    yield put({ type: IS_LOADING, payload: false });
   } catch (e) {
     yield call(errorHandler, e);
     
@@ -117,7 +111,7 @@ export function* searchSaga({ payload }) {
         people 
       } 
     });
-    yield put({ type: 'IS_LOADING', payload: false });
+    yield put({ type: IS_LOADING, payload: false });
     yield put({ type: UPDATE_SEARCH_QUERY, payload: query });
   } catch (e) {
     yield call(errorHandler, e);
@@ -142,7 +136,7 @@ export function* fetchMainMoviesSaga() {
         upcoming 
       } 
     });
-    yield put({ type: 'IS_LOADING', payload: false });
+    yield put({ type: IS_LOADING, payload: false });
   } catch (e) {
     yield call(errorHandler, e);
   }
@@ -156,7 +150,7 @@ export function* fetchSelectedPersonSaga({ payload }) {
       call(api.fetchPersonCasting, payload)
     ]);
 
-    yield put({ type: 'IS_LOADING', payload: false });
+    yield put({ type: IS_LOADING, payload: false });
     yield put({ 
       type: FETCH_SELECTED_PERSON_SUCCESS, 
       payload: { actor, casting } 

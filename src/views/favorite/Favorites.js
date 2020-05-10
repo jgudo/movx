@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import MovieCard from 'components/movies/MovieCard';
+import Container from 'components/common/Container';
 
 import { numberWithCommas } from 'helpers/helperFunctions';
 
@@ -10,7 +11,7 @@ const Favorites = (props) => {
   return (
     <>
       {favorites.length >= 1 ? (
-        <div className="container">
+        <Container>
           <div className="movie__header">
             <div className="movie__header-title">
               <h1>My Favorite Movies</h1>
@@ -27,7 +28,7 @@ const Favorites = (props) => {
               />
             ))}
           </div>
-        </div>
+        </Container>
       ) : (
         <div className="error">
           <h1>You Don't Have Favorites</h1>

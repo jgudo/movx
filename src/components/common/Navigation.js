@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-boolean-value */
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, Link, withRouter } from 'react-router-dom';
 
@@ -10,6 +10,7 @@ import logo from 'images/logo.png';
 
 const Navigation = (props) => {
   const [searchQuery, setQuery] = useState('');
+  const [isOpen, setOpen] = useState({ search: false, navigation: false });
   const searchHistory = useRef(null);
   const navigation = useRef(null);
   const searchInput = useRef(null);
@@ -22,6 +23,13 @@ const Navigation = (props) => {
   }));
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    if (window.screen.width > 768) {
+      window.addEventListener('scroll', scrollHandler);
+    }
+     return () => window.removeEventListener('scroll', scrollHandler);
+  });
+
   const onInputChange = (e) => {
     const query = e.target.value;
     setQuery(query);
@@ -30,8 +38,10 @@ const Navigation = (props) => {
   const onSubmitQuery = () => {
     if (searchQuery) {
       searchInput.current.blur();
-      searchMenu.current.classList.remove('open');
+      document.body.classList.remove('is-search-open');
+      setOpen({ ...isOpen, search: false });
       props.history.push(`/search/movie/${searchQuery}`);
+      
       if (!recentSearch.includes(searchQuery.toLowerCase())) {
         dispatch(addSearchHistory(searchQuery.toLowerCase()));
       }
@@ -57,24 +67,24 @@ const Navigation = (props) => {
   };
 
   const onNavigationToggle = () => {
-    searchMenu.current.classList.remove('open');
-    toggler.current.classList.toggle('open');
-    menu.current.classList.toggle('open');
+    document.body.classList.toggle('is-navigation-open');
+    document.body.classList.remove('is-search-open');
+    setOpen({ ...isOpen, search: false, navigation: !isOpen.navigation });
   };
 
   const onSearchToggle = () => {
-    searchMenu.current.classList.toggle('open');
-    toggler.current.classList.remove('open');
-    menu.current.classList.remove('open');
+    document.body.classList.toggle('is-search-open');
+    document.body.classList.remove('is-navigation-open');
+    setOpen({ ...isOpen, search: !isOpen.search, navigation: false });
   };
 
   const onClickLink = (e) => {
-    const current = e.target;
-    if (current.nodeName === 'A') {
-      toggler.current.classList.remove('open');
-      menu.current.classList.remove('open');
-      searchMenu.current.classList.remove('open');
-      window.scrollTo(undefined, 0);
+    const target = e.target;
+
+    if (target.nodeName === 'A') {
+       document.body.classList.remove('is-navigation-open');
+       setOpen({ ...isOpen, navigation: false });
+      window.scrollTo(0, 0);
     }
   };
   
@@ -82,15 +92,13 @@ const Navigation = (props) => {
     dispatch(clearSearchHistory());
   };  
 
-  window.addEventListener('scroll', () => {
-    if (window.pageYOffset === 0) {
-      navigation.current.style.background = 'transparent';
-      navigation.current.style.boxShadow = 'none';
+  const scrollHandler = () => {
+    if (window.pageYOffset > 200) {
+      document.body.classList.add('is-scrolled');
     } else {
-      navigation.current.style.background = '#050607';
-      navigation.current.style.boxShadow = '0 8px 20px rgba(0,0,0,.1)';  
+      document.body.classList.remove('is-scrolled');
     }
-  });
+  }
 
   return (
     <>
@@ -101,13 +109,13 @@ const Navigation = (props) => {
           ref={navigation}
       >
         <div className="navigation__wrapper">
-          <div 
+          <button 
               className="navigation__toggle"
               onClick={onNavigationToggle}
               ref={toggler}
           >
-            <div/><div/><div/>
-          </div>
+            <i className={`fa fa-${isOpen.navigation ? 'times' : 'bars'}`}/>
+          </button>
           <div className="navigation__logo">
             <Link to={route.HOME}>
               <img src={logo} alt=""/>
@@ -160,7 +168,7 @@ const Navigation = (props) => {
               </div>
               <NavLink 
                   activeClassName="navigation__active"
-                  className="navigation__link desktop-none"
+                  className="navigation__link desktop-hide"
                   exact
                   strict
                   to={route.POPULAR} 
@@ -169,7 +177,7 @@ const Navigation = (props) => {
               </NavLink>
               <NavLink 
                   activeClassName="navigation__active"
-                  className="navigation__link desktop-none"
+                  className="navigation__link desktop-hide"
                   exact
                   strict
                   to={route.TOP_RATED}
@@ -178,7 +186,7 @@ const Navigation = (props) => {
               </NavLink>
               <NavLink 
                   activeClassName="navigation__active"
-                  className="navigation__link desktop-none"
+                  className="navigation__link desktop-hide"
                   exact
                   strict
                   to={route.UPCOMING}
@@ -229,7 +237,7 @@ const Navigation = (props) => {
                   onChange={onInputChange}
                   onFocus={onFocusChange}
                   onKeyPress={onKeyEnter}
-                  placeholder="Search for movie, tv show, or people"
+                  placeholder="Search"
                   ref={searchInput}
                   type="text" 
                   value={searchQuery}
@@ -247,10 +255,10 @@ const Navigation = (props) => {
                 x
               </button>
               <button 
-                  className="button--link button--search search__button"
+                  className="search__button button--icon"
                   onClick={onSubmitQuery}
               >
-                <div/>
+                <i className="fa fa-search" />
               </button>
               {recentSearch.length >= 1 && (
                 <div 
@@ -269,7 +277,7 @@ const Navigation = (props) => {
                   {recentSearch.map((search, index) => (
                     <Link 
                         key={search + index}
-                        onClick={() => { setQuery(search); }}
+                        onClick={() => setQuery(search)}
                         to={`/search/movie/${search}`} 
                     >
 
@@ -281,10 +289,10 @@ const Navigation = (props) => {
             </div>
           </div>
           <button 
-              className="button--link button--search search__toggle"
+              className="search__toggle button--icon"
               onClick={onSearchToggle}
           >
-            <div/>
+            <i className={`fa fa-${isOpen.search ? 'times' : 'search'}`} />
           </button>
         </div>
       </div>

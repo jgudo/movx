@@ -88,13 +88,12 @@ const MovieCard = ({ favorites, movie, category }) => {
                     className="button--add-favorite"
                     onClick={onAddToFavorites}
                 >
-                <span 
-                    className="icon icon-heart"
+                <i 
+                    className="fa fa-heart"
                     style={{
                       color: favoriteFound() ? '#ff2e4f' : '#5b6166'
-                    }}>
-                    ♥
-                </span>
+                    }} />
+                    
                 </button>
                 <div className="tooltip">
                   <span>{favoriteFound() ? 'Remove from favorites' : 'Add To Favorites'}</span>

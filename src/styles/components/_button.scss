@@ -107,3 +107,20 @@
     background: rgba(255, 255, 255, .2);
   }
 }
+
+.button--icon {
+  font-size: 1.6rem !important;
+}
+
+.button--muted {
+  background: $muted;
+  color: $off-black;
+
+  &:hover {
+    background: darken($muted, 10%);
+  }
+
+  &:disabled {
+    opacity: 1;
+  }
+}

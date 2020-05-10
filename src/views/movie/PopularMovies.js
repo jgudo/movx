@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import Loader from 'components/hoc/Loader'; 
 import MovieCard from 'components/movies/MovieCard';
+import Container from 'components/common/Container';
 import PaginationBar from 'components/common/PaginationBar';
 import { fetchPopularMovies } from 'actions/movieActions';
 import { isEmpty, numberWithCommas } from 'helpers/helperFunctions';
@@ -30,7 +31,7 @@ const PopularMovies = (props) => {
   };
 
   return (
-    <div className="container">
+    <Container>
       <div className="movie__header">
         <div className="movie__header-title">
           <h1>Popular Movies</h1>
@@ -62,7 +63,7 @@ const PopularMovies = (props) => {
           totalItemsCount={popularMovies.total_pages}
           totalPage={popularMovies.total_pages}
       />
-    </div>  
+    </Container>  
   );
 };
 

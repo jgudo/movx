@@ -11,7 +11,7 @@
   margin: auto;
   margin-bottom: rem(50);
 
-  @media (max-width: $mobile) {
+  @include mobile {
     max-width: 100%;
     padding-left: 0;
   }

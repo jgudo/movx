@@ -5,7 +5,7 @@ const Reviews = ({ reviews }) => {
   return (
     <div className="reviews">
       <div className="container__wrapper">
-        <div className="reviews__header"> 
+        <div className="reviews__header header__title"> 
           <h1>Reviews</h1>
         </div>
         {reviews.results.map(review => (

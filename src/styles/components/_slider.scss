@@ -3,10 +3,11 @@
   position: relative;
   height: 100vh;
   overflow: hidden;
+  background: lighten($dark-blue-0, 7%);
 
-  @media (max-width: $mobile) {
-    height: 300px;
-  }
+  // @include mobile {
+  //   height: 550px;
+  // }
 }
 
 .movie__slider-content  {
@@ -40,9 +41,9 @@
   object-fit: cover;
   position: relative;
 
-  @media (max-width: $mobile) {
-    height: 300px;
-  }
+  // @include mobile {
+  //   height: 550px;
+  // }
 }
 
 .movie__slider-content {
@@ -61,21 +62,50 @@
   justify-content: space-between;
   align-items: center;
 
-  @media (min-width: $desktop) {
+  @include desktop {
     width: 1360px;
     margin: auto;
   }
 
-  @media (max-width: $mobile) {
+  @include tablet {
     flex-direction: column;
+    justify-content: center;
+  }
+
+  @include mobile {
     width: 100%;
     padding-left: $l-size; 
     padding-right: $l-size; 
   }
 
+  .view__overview {
+    @include mobile {
+      width: 100%;
+      max-height: 80px;
+      // white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display:block;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
+  }
+
   .view__poster {
-    @media (max-width: $tablet) {
-      display: none;
+    @include tablet {
+      order: 1;
+      margin: 0;
+    }
+
+    @include only-tablet {
+      width: 200px;
+      height: 300px;
+    }
+
+    @include mobile {
+      width: 120px !important;
+      height: 180px !important;
     }
   }
 }
@@ -87,31 +117,53 @@
   flex-direction: column;
   text-align: left;
 
-  @media (max-width: $tablet) {
+  @include tablet {
     width: 100%;
+    text-align: center;
+    order: 2;
   }
 
   h1 {
-    font-size: $xl-size;
-    margin-bottom: $s-size;
+    font-size: 28px;
+    margin-bottom: 0;
 
-    @media (max-width: $mobile) {
-      font-size: 28px;
+    @include mobile {
+      font-size: 2rem;
       line-height: $l-size;
     }
   }
 
   .view__overview {
     max-height: 150px;
-    @media (max-width: $mobile) {
-      display: none;
-    }
+    // @include mobile {
+    //   display: none;
+    // }
   }
 
-  .view__actions {
-    @media (max-width: $mobile) {
-      display: none;
-    }
+  // .view__actions {
+  //   @include mobile {
+  //     display: none;
+  //   }
+  // }
+}
+
+.movie__slider-rating {
+  @include mobile {
+    margin: 0;
+  }
+}
+
+.movie__slider-button {
+  width: 100%;
+  display: flex;
+
+  @include tablet {
+    justify-content: center;
+    order: 4;
+  }
+
+  @include mobile {
+    margin-top: 2rem;
   }
 }
 
@@ -128,7 +180,7 @@
   padding: 20px;
   border-radius: 50%;
 
-  @media (max-width: $mobile) {
+  @include mobile {
     display: none !important;
   }
 

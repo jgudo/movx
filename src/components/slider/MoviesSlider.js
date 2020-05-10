@@ -15,23 +15,29 @@ const MoviesSlider = ({ movies, favorites }) => {
   const settings = {
     dots: isMobile,
     infinite: true,
-    speed: 500,
+    speed: 800,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: true
+    autoplay: true,
+    autoplaySpeed: 10000,
+    draggable: true,
+    easing: 'easeInOutQuad',
+    fade: true
   };
 
   return (
     <div className="movie__slider">
-      <Slider {...settings}>
-        {movies.map((movie, index) => index < 10 && (
-          <SliderItem 
-              key={movie.id} 
-              movie={movie}
-              favorites={favorites}
-          />
-        ))}
-      </Slider>
+      {movies.length !== 0 && (
+        <Slider {...settings}>
+          {movies.map((movie, index) => index < 10 && (
+            <SliderItem 
+                key={movie.id} 
+                movie={movie}
+                favorites={favorites}
+            />
+          ))}
+        </Slider>
+      )}
     </div>
   );
 };

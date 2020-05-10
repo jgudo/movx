@@ -37,7 +37,7 @@
 .Collapsible__contentInner {
   padding: $l-size;
 
-  @media (max-width: $mobile) {
+  @include mobile {
     padding: $m-size $s-size;
   }
 }

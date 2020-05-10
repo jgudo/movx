@@ -14,7 +14,7 @@ const MovieCast = ({ casts, movie, keywords, history, match }) => {
     <div className="movie__casts">
       <div className="container__wrapper movie__casts-content">
         <div className="movie__casts-wrapper">
-          <div className="movie__casts-header">
+          <div className="movie__casts-header header__title">
             <h1>Top Billed Casts</h1>
           </div>
           {casts.length >= 1 ? (
@@ -30,7 +30,7 @@ const MovieCast = ({ casts, movie, keywords, history, match }) => {
               </div>
               <br/>
               <button 
-                  className="button--primary button--block"
+                  className="button--primary button--block m-auto"
                   onClick={onClickLink}
               >
                 View All Casts

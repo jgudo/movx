@@ -15,7 +15,7 @@ const Casting = ({ casting, favorites, actor, match, history }) => {
     <div className="movie__casts">
       <div className="movie__casts-content">
         <div className="movie__casts-wrapper">
-          <div className="movie__casts-header">
+          <div className="movie__casts-header header__title">
             <h1>Known For</h1>
           </div>
           <div className="movie__casts-grid">
@@ -30,7 +30,7 @@ const Casting = ({ casting, favorites, actor, match, history }) => {
           </div>
           <div className="movie__casts-action">
             <button 
-                className="button--primary"
+                className="button--primary m-auto"
                 onClick={onClickLink}
             >
               View All Casting

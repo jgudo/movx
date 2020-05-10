@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
+import Container from 'components/common/Container';
 import LoadingScreen from 'components/common/LoadingScreen'; 
 import GenreCard from 'components/genres/GenreCard'; 
 
@@ -21,11 +22,13 @@ const Genres = (props) => {
   }, []);
 
   return (
-    <div className="container">
+    <Container>
       {isLoading && <LoadingScreen />}
       {genres.length >= 1 && (
         <>
-          <h1>Genres</h1>
+          <div className="header__title">
+            <h1>Genres</h1>
+          </div>
           <div className="genre__wrapper">
             {genres.map((genre) => {
               return (
@@ -39,7 +42,7 @@ const Genres = (props) => {
           </div>
         </>  
       )}
-    </div>
+    </Container>
   );
 };
 

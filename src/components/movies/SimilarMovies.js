@@ -6,7 +6,7 @@ const SimilarMovies = ({ movies, favorites }) => (
   movies.length >= 1 && (
     <div className="similar">
       <div className="container__wrapper similar__wrapper">
-        <div className="poster__header">
+        <div className="poster__header header__title">
           <h1>Similar Movies</h1>
         </div>  
         <div className="movie__wrapper">

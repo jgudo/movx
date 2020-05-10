@@ -11,7 +11,7 @@ const SearchPeopleTab = ({ people, isLoading, query }) => {
   const dispatch = useDispatch();
 
   const handlePageChange = (page) => {
-    if (props.people.page !== page && !isLoading) {
+    if (people.page !== page && !isLoading) {
       dispatch(searchPeople(`/search/person?query=${query}`, page));
     }
   };

@@ -15,70 +15,42 @@ export default (state = {
   }
 }, action) => {
   switch (action.type) {
-    case act.SET_DISCOVER_YEAR_FILTER:
+    case act.SET_YEAR_FILTER:
       return {
         ...state,
-        discover: {
-          ...state.discover,
+        [action.payload.target]: {
+          ...state[action.payload.target],
           year: action.payload.year
         }
       };
-    case act.SET_TV_YEAR_FILTER:
+      break;
+    case act.SET_GENRE_FILTER:
       return {
         ...state,
-        tv: {
-          ...state.tv,
-          year: action.payload.year
+        [action.payload.target]: {
+          ...state[action.payload.target],
+          genre: action.payload.genre
         }
-      }; 
-    case act.SET_DISCOVER_SORT_FILTER:
+      };
+      break;
+    case act.SET_SORT_FILTER:
       return {
         ...state,
-        discover: {
-          ...state.discover,
+        [action.payload.target]: {
+          ...state[action.payload.target],
           sort: action.payload.sort
         }
       };
-    case act.SET_TV_SORT_FILTER:
+      break;
+    case act.UPDATE_QUERY:
       return {
         ...state,
-        tv: {
-          ...state.tv,
-          sort: action.payload.sort
+        [action.payload.target]: {
+          ...state[action.payload.target],
+          query: action.payload.query
         }
       };
-    case act.SET_DISCOVER_GENRE_FILTER:
-      return {
-        ...state,
-        discover: {
-          ...state.discover,
-          genre: action.payload.genre
-        }
-      };     
-    case act.SET_TV_GENRE_FILTER:
-      return {
-        ...state,
-        tv: {
-          ...state.tv,
-          genre: action.payload.genre
-        }
-      };   
-    case act.UPDATE_DISCOVER_QUERY:
-      return {
-        ...state,
-        discover: {
-          ...state.discover,
-          query: action.payload
-        }
-      };
-    case act.UPDATE_TV_QUERY:
-      return {
-        ...state,
-        tv: {
-          ...state.tv,
-          query: action.payload
-        }
-      };
+      break;
     default:
       return state;
   }

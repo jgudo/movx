@@ -1,42 +1,17 @@
 .scrolltop {
   width: 50px;
   height: 50px;
-  border-radius: 50%;
-  background: $yellow;
   position: fixed;
   bottom: $l-size;
   right: $l-size;
+  padding: 0;
+  justify-content: center;
   box-shadow: 0 15px 20px rgba(0, 0, 0, .2);
   z-index: 20;
   @include transform(scale(0));
   @include transition();
 
-  @media (max-width: $mobile) {
+  @include mobile {
     right: $m-size;
-  }
-
-  &:hover {
-    cursor: pointer;
-    background: darken($yellow, 10%);
-  }
-
-  &:before,
-  &:after {
-    content: '';
-    position: absolute;
-    top: 25px;
-    width: 15px;
-    height: 2px;
-    background: $dark-blue-0;
-  }
-
-  &:before {
-    left: 13px;
-    @include transform(rotate(-45deg));
-  }
-
-  &:after {
-    right: 13px;
-    @include transform(rotate(45deg));
   }
 }

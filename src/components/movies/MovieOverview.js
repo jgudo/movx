@@ -144,7 +144,7 @@ const MovieOverview = ({ movie, favorites, history }) => {
                         {movie.release_date && <span>{` (${getReleaseYear(movie.release_date)}) `}</span>}
                       </h1>
                       <p className="view__rating">
-                        <span className="icon icon-star">★</span>
+                        <i className="fa fa-star" style={{color: 'yellow'}}/>
                         &nbsp;{movie.vote_average} Rating
                       </p>
                       <h4 className="view__overview-title">Overview</h4>
@@ -153,9 +153,9 @@ const MovieOverview = ({ movie, favorites, history }) => {
                   ) : (
                     <>
                       <br/>
-                      <Skeleton width={'70%'} height={50}/><br/>
-                      <Skeleton width={180} height={20}/><br/>
-                      <Skeleton width={150} height={20}/><br/>
+                      <Skeleton width={'70%'} height={35}/><br/>
+                      <Skeleton width={180} height={15}/><br/>
+                      <Skeleton width={150} height={15}/><br/>
                       <p>
                         <Skeleton count={4} />
                       </p>
@@ -167,8 +167,10 @@ const MovieOverview = ({ movie, favorites, history }) => {
                       <>
                         <button className="button--primary" onClick={openVideoModal}>
                           Watch Trailer
-                          <span className="icon icon-play">►</span>
+                          &nbsp;&nbsp;
+                          <i className="fa fa-play" />
                         </button>
+                        &nbsp;
                         <button 
                             className="button--outlined button--favorites"
                             onClick={onAddToFavorites}
@@ -177,8 +179,9 @@ const MovieOverview = ({ movie, favorites, history }) => {
                               border: found() ? '1px solid #ff2e4f' : '1px solid #fff'
                             }}
                         >
-                          {found() ? 'Remove From Favorites' : 'Add To Favorites'}
-                          <span className="icon icon-heart">♥</span>
+                          {found() ? 'Unfavorite' : 'Add To Favorites'}
+                          &nbsp;&nbsp;
+                          <i className="fa fa-heart" />
                         </button>
                       </>
                     ) : (

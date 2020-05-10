@@ -16,10 +16,19 @@ body {
 
 h1 {
   line-height: 5rem;
+
+  @include mobile {
+    font-size: 2.5rem;
+  }
 }
 
 p {
   line-height: 3rem;
+
+  @include mobile {
+    font-size: 1.3rem;
+    line-height: 2.4rem;
+  }
 }
 
 a {
@@ -31,12 +40,17 @@ button {
   background: none;
   border: none;
   padding: $m-size $l-size;
-  border-radius: 5px;
+  border-radius: $border-radius;
   font-weight: 700;
   display: flex;
   justify-content: space-between;
   align-items: center;
   @include transition();
+
+  @include mobile {
+    font-size: 1.2rem !important;
+    padding: 1.5rem;
+  }
 }
 
 button:hover {

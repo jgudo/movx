@@ -1,14 +1,7 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { 
-  setDiscoverGenreFilter,
-  setDiscoverSortFilter,
-  setDiscoverYearFilter,
-  setTvGenreFilter,
-  setTvYearFilter,
-  setTvSortFilter
-} from 'actions/filterActions';
+import { setGenreFilter, setYearFilter, setSortFilter } from 'actions/filterActions';
 
 const yearToday = new Date().getFullYear();
 const years = [];
@@ -17,53 +10,47 @@ for (let i = yearToday; i >= 1883; i--) {
   years.push(i);
 }
 
-const Filter = ({ filterCategory, filterData }) => {
+const Filter = ({ filterCategory, filterData, isLoading }) => {
   const dispatch = useDispatch();
   const { year, sort, genre } = filterData;
-  const filterRef = useRef(null);
 
   const onFilterToggle = () => {
-    filterRef.current.classList.toggle('open');
+    document.body.classList.toggle('is-filter-open');
   };
 
   const onFilterClose = () => {
-    filterRef.current.classList.remove('open');
+    document.body.classList.remove('is-filter-open');
   };
 
   const onYearFilterChange = (e) => {
     const selected = e.target.value;
-    onFilterClose();
 
-    if (filterCategory === 'discover') dispatch(setDiscoverYearFilter(selected));
-    else if (filterCategory === 'tv') dispatch(setTvYearFilter(selected));
+    onFilterClose();
+    dispatch(setYearFilter(selected, filterCategory));
   };
 
   const onSortFilterChange = (e) => {
     const selected = e.target.value;
+   
     onFilterClose();
-
-    if (filterCategory === 'discover') dispatch(setDiscoverSortFilter(selected));
-    else if (filterCategory) dispatch(setTvSortFilter(selected));
+    dispatch(setSortFilter(selected, filterCategory));
   };
 
   const onGenreFilterChange = (e) => {
     const selected = e.target.value;
-    onFilterClose();
 
-    if (filterCategory === 'discover') dispatch(setDiscoverGenreFilter(selected));
-    else if (filterCategory === 'tv') dispatch(setTvGenreFilter(selected));
+    onFilterClose();
+    dispatch(setGenreFilter(selected, filterCategory));
   };
 
   return (
     <div className="filter">
-      <div 
-          className="filter__wrapper"
-          ref={filterRef}
-      >
+      <div className="filter__wrapper">
         <div className="filter__item">
           <span>Year</span>
           <br/>
           <select 
+              disabled={isLoading}
               id="yearFilter"
               name="yearFilter"
               onChange={onYearFilterChange}
@@ -76,28 +63,10 @@ const Filter = ({ filterCategory, filterData }) => {
           </select>
         </div>
         <div className="filter__item">
-          <span>Sort By</span>
-          <br/>    
-          <select 
-              id="sortFilter"
-              name="sortFilter"
-              onChange={onSortFilterChange}
-              value={sort}
-          >
-            <option value="popularity.desc">Popularity Desc</option>
-            <option value="popularity.asc">Popularity Asc</option>
-            <option value="release_date.desc">Release Date Desc</option>
-            <option value="release_date.asc">Release Date Asc</option>
-            <option value="vote_count.desc">Vote Desc</option>
-            <option value="vote_count.asc">Vote Asc</option>
-            <option value="original_title.asc">Title (A-Z)</option>
-            <option value="original_title.desc">Title (Z-A)</option>
-          </select>
-        </div>
-        <div className="filter__item">
           <span>Genre</span>
           <br/>    
           <select 
+              disabled={isLoading}
               id="genreFilter"
               name="genreFilter"
               onChange={onGenreFilterChange} 
@@ -125,6 +94,26 @@ const Filter = ({ filterCategory, filterData }) => {
             <option value="37">Western</option>
           </select>
         </div>
+        <div className="filter__item">
+          <span>Sort By</span>
+          <br/>    
+          <select 
+              disabled={isLoading}
+              id="sortFilter"
+              name="sortFilter"
+              onChange={onSortFilterChange}
+              value={sort}
+          >
+            <option value="popularity.desc">Popularity Desc</option>
+            <option value="popularity.asc">Popularity Asc</option>
+            <option value="release_date.desc">Release Date Desc</option>
+            <option value="release_date.asc">Release Date Asc</option>
+            <option value="vote_count.desc">Vote Desc</option>
+            <option value="vote_count.asc">Vote Asc</option>
+            <option value="original_title.asc">Title (A-Z)</option>
+            <option value="original_title.desc">Title (Z-A)</option>
+          </select>
+        </div>
         <button 
             className="filter__close"
             onClick={onFilterClose}
@@ -133,10 +122,10 @@ const Filter = ({ filterCategory, filterData }) => {
         </button>
       </div>
       <button 
-          className="filter__toggle"
+          className="filter__toggle button--muted"
           onClick={onFilterToggle}
       >
-      Filter
+        <i className="fa fa-filter" />
       </button>
     </div>
   );

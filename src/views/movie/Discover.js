@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import MovieCard from 'components/movies/MovieCard';
 import PaginationBar from 'components/common/PaginationBar';
+import Container from 'components/common/Container';
 import Filter from 'components/common/Filter';
 import Loader from 'components/hoc/Loader';
 
@@ -16,10 +17,16 @@ import useDidMount from 'hooks/useDidMount';
 import { isEmpty, numberWithCommas } from 'helpers/helperFunctions'; 
 
 const DiscoverMovies = (props) => {
-  const { discoverMovies, filter, favorites } = useSelector(state => ({
+  const { 
+    discoverMovies, 
+    filter, 
+    favorites,
+    isLoading 
+  } = useSelector(state => ({
     discoverMovies: state._movies.discoverMovies,
     filter: state._filters,
-    favorites: state._misc.favorites
+    favorites: state._misc.favorites,
+    isLoading: state._misc.isLoading
   }));
   const query = '/discover/movie?';
   const dispatch = useDispatch();
@@ -38,7 +45,7 @@ const DiscoverMovies = (props) => {
   };
 
   return (
-    <div className="container">
+    <Container>
       <div className="movie__header">
         <div className="movie__header-title">
           <h1>Discover Movies</h1>
@@ -48,6 +55,7 @@ const DiscoverMovies = (props) => {
           <Filter 
               filterCategory="discover"
               filterData={filter.discover}
+              isLoading={isLoading}
           />
         )}
       </div>  
@@ -79,7 +87,7 @@ const DiscoverMovies = (props) => {
           totalItemsCount={discoverMovies.total_pages}
           totalPage={discoverMovies.total_pages}
       />
-    </div>
+    </Container>
   );
 };
 

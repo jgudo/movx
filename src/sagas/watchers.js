@@ -30,12 +30,9 @@ function* rootSaga() {
   ], fetchRequestSaga);
 
   yield takeEvery([
-    action.SET_DISCOVER_GENRE_FILTER,
-    action.SET_DISCOVER_SORT_FILTER,
-    action.SET_DISCOVER_YEAR_FILTER,
-    action.SET_TV_GENRE_FILTER,
-    action.SET_TV_SORT_FILTER,
-    action.SET_TV_YEAR_FILTER
+    action.SET_GENRE_FILTER,
+    action.SET_SORT_FILTER,
+    action.SET_YEAR_FILTER,
   ], updateFilterQuerySaga);
 
   yield takeLatest(action.FETCH_SELECTED_MOVIE, fetchSelectedMovieSaga);

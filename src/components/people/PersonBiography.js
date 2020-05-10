@@ -102,9 +102,9 @@ const PersonBiography = ({ actor, history }) => {
                 ) : (
                   <>
                     <br/>
-                    <Skeleton width={'60%'} height={50}/><br/>
-                    <Skeleton width={180} height={20}/><br/>
-                    <Skeleton width={150} height={20}/><br/>
+                    <Skeleton width={'60%'} height={35}/><br/>
+                    <Skeleton width={180} height={15}/><br/>
+                    <Skeleton width={150} height={15}/><br/>
                     <p><Skeleton count={4} /></p>
                     <br/><br/>
                   </>
@@ -118,13 +118,18 @@ const PersonBiography = ({ actor, history }) => {
                             onClick={openModal}
                         >
                           Read Full Biography
+                          &nbsp;&nbsp;
+                          <i className="fa fa-info-circle" />
                         </button>
                       )}
+                      &nbsp;
                       <button 
-                          className="button--primary"
+                          className="button--outlined"
                           onClick={onClickLink}
                       >
                         View All Pictures
+                        &nbsp;&nbsp;
+                        <i className="fa fa-image" />
                       </button>
                     </>
                   ) : (

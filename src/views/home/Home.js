@@ -26,19 +26,14 @@ const App = (props) => {
 
   return (
     <>
-      {popularMovies.results ? (
-        <MoviesSlider 
-            movies={popularMovies.results || []}
-            favorites={favorites}
-        />
-      ) : (
-        <><br/><br/><br/></>
-      )}
+      <MoviesSlider 
+          movies={popularMovies.results || []}
+          favorites={favorites}
+      />
       <div className="container__wrapper">
         <div className="movie__header">
-          <div className="movie__header-title">
-            <br/>
-            <br/>
+          <div className="movie__header-title header__title">
+            <br/><br/><br/><br/>
             <h1>Upcoming Movies</h1>
           </div>
         </div>
@@ -70,7 +65,7 @@ const App = (props) => {
           </button>
         )}
         <div className="movie__header">
-          <div className="movie__header-title">
+          <div className="movie__header-title header__title">
             <br/>
             <br/>
             <h1>Top Rated Movies</h1>

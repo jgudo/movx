@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import Container from 'components/common/Container';
 import LoadingScreen from 'components/common/LoadingScreen';
 import SearchMovieTab from './tab/SearchMovieTab';
 import SearchTvTab from './tab/SearchTvTab';
@@ -38,8 +39,8 @@ const Search = ({ match }) => {
     }
   }, [match.params.query]);
 
-  return !isLoading ? (
-    <div className="container">
+  return (
+    <Container>
       <div className="movie__header">
         <div className="movie__header-title">
           <h1>Search Result</h1>
@@ -86,8 +87,8 @@ const Search = ({ match }) => {
           />
         </div>
       </Tabs>
-    </div>
-  ) : <LoadingScreen />;
+    </Container>
+  );
 };
 
 export default Search;

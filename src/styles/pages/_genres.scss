@@ -5,8 +5,7 @@
   justify-items: center;
   padding: $l-size $m-size;
 
-  @media (max-width: $mobile) {
-    grid-template-columns: repeat(1, 1fr);
+  @include mobile {
     padding: 0;
   }
 }

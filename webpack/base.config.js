@@ -35,6 +35,11 @@ module.exports = {
           sourceMap: true
         }
       }, {
+        loader: "group-css-media-queries-loader",
+        options: { 
+          sourceMap: true
+        }
+      }, {
         loader: 'sass-loader',
         options: {
           sourceMap: true

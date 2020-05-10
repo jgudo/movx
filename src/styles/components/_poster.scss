@@ -4,7 +4,7 @@
 }
 
 .poster__wrapper {
-  // @media (max-width: $tablet) {
+  // @include tablet {
   //   width: 90%;
   // }
 }
@@ -13,14 +13,13 @@
   padding-top: $xl-size;
   padding-left: $l-size;
 
-  @media (max-width: $tablet) {
+  @include tablet {
     padding-left: 0;
   }
 
-  @media (max-width: $mobile) {
+  @include mobile {
     text-align: center;
     padding: $m-size;
-    
   }
 }
 
@@ -28,7 +27,7 @@
   height: 270px;
   overflow: hidden;
 
-  @media (max-width: $mobile) {
+  @include mobile {
     height: 225px;
     margin-bottom: 0;
   }
@@ -48,7 +47,7 @@
   //   border-radius: 6px;
   //   z-index: 0;
 
-  //   @media (max-width: $tablet) {
+  //   @include tablet {
   //     display: none;
   //   }
   // }
@@ -56,13 +55,9 @@
 
 .poster__download {
   text-decoration: none;
-  color: #fff;
-  font-weight: 700;
   text-align: center;
-
-  @media (max-width: $tablet) {
-    font-size: 12px;
-  }
+  width: 100%;
+  padding: 1.5rem;
 }
 
 .poster__details {
@@ -71,18 +66,18 @@
   bottom: 0;
   z-index: 1;
   text-align: center;
-  padding: $m-size 0;
-  border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 6px;
-  background: transparentize($dark-blue-0, .4);
-  background: linear-gradient(to bottom, transparentize($dark-blue-0, 1) 0%, $blue 80%);
+  // padding: $m-size 0;
+  // border-bottom-left-radius: 6px;
+  // border-bottom-right-radius: 6px;
+  // background: transparentize($dark-blue-0, .4);
+  // background: linear-gradient(to bottom, transparentize($dark-blue-0, 1) 0%, $blue 80%);
   @include transition();
 
-  @media (max-width: $tablet) {
-    bottom: 0;
-    padding: 0;
-    background: $blue;
-  }
+  // @include tablet {
+  //   bottom: 0;
+  //   padding: 0;
+  //   background: $blue;
+  // }
 }
 
 .posters__banner {
@@ -91,16 +86,20 @@
   padding-top: rem(180);
   margin-bottom: $xl-size;
 
-  // &:after {
-  //   content: '';
-  //   position: absolute;
-  //   left: 0;
-  //   right: 0;
-  //   top: 0;
-  //   bottom: 0;
-  //   margin: auto;
-  //   background: transparentize($dark-blue-0, .2);
-  // }
+  @include mobile {
+    margin-bottom: 0;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    background: transparentize($dark-blue-0, .2);
+  }
 
   img {
     position: absolute;
@@ -121,13 +120,13 @@
   h1 {
     font-size: $l-size;
 
-    @media (max-width: $mobile) {
+    @include mobile {
       font-size: rem(28);
     }
   }
 
   button {
-    @media (max-width: $mobile) {
+    @include mobile {
       left: 20px;
     }
   }

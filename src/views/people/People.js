@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import Loader from 'components/hoc/Loader'; 
 import PeopleCard from 'components/people/PeopleCard';
+import Container from 'components/common/Container';
 import PaginationBar from 'components/common/PaginationBar';
 import { fetchPeople } from 'actions/peopleActions';
 import { isEmpty, numberWithCommas } from 'helpers/helperFunctions';
@@ -25,7 +26,7 @@ const People = (props) => {
   };
 
   return (
-    <div className="container">
+    <Container>
       <div className="movie__header">
         <div className="movie__header-title">
           <h1>Popular People</h1>
@@ -55,7 +56,7 @@ const People = (props) => {
           totalItemsCount={people.total_pages}
           totalPage={people.total_pages}
       />
-    </div>  
+    </Container>  
   );
 };
 

@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import Loader from 'components/hoc/Loader';
 import MovieCard from 'components/movies/MovieCard';
+import Container from 'components/common/Container';
 import PaginationBar from 'components/common/PaginationBar';
 import Filter from 'components/common/Filter';
 
@@ -11,10 +12,11 @@ import { fetchTvShows } from 'actions/movieActions';
 import { isEmpty, numberWithCommas } from 'helpers/helperFunctions';
 
 const TvShows = (props) => {
-  const { tvShows, filter, favorites } = useSelector(state => ({
+  const { tvShows, filter, favorites, isLoading } = useSelector(state => ({
     tvShows: state._movies.tvShows,
     filter: state._filters,
-    favorites: state._misc.favorites
+    favorites: state._misc.favorites,
+    isLoading: state._misc.isLoading
   }));
   const dispatch = useDispatch();
   const didMount = useDidMount();
@@ -33,7 +35,7 @@ const TvShows = (props) => {
   };
 
   return (
-    <div className="container">
+    <Container>
       <div className="movie__header">
         <div className="movie__header-title">
           <h1>TV Shows</h1>
@@ -43,6 +45,7 @@ const TvShows = (props) => {
           <Filter 
               filterCategory="tv"
               filterData={filter.tv}
+              isLoading={isLoading}
           /> 
         )}
       </div>
@@ -71,7 +74,7 @@ const TvShows = (props) => {
           totalItemsCount={tvShows.total_pages}
           totalPage={tvShows.total_pages}
       />
-    </div>    
+    </Container>    
   );
 };
 

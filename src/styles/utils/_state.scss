@@ -1,0 +1,33 @@
+.is-navigation-open {
+	.navigation__menu {
+	  visibility: visible;
+	  opacity: 1;
+	  @include transform(scaleY(1));
+	}
+}
+
+.is-search-open {
+	.navigation__search {
+	  	visibility: visible;
+	    opacity: 1;
+	    @include transform(scaleY(1));
+	}
+}
+
+.is-filter-open {
+	.filter__wrapper {
+  		opacity: 1;
+  		transform: scaleY(1);
+	}
+}
+
+.is-scrolled {
+	.navigation {
+		position: fixed;
+		animation: slide-down .3s ease;
+		animation-fill-mode: forwards; 
+		background: $dark-blue-0;
+		height: 80px;
+		box-shadow: 0 8px 20px rgba(0,0,0,.1);
+	}
+}

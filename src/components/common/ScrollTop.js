@@ -1,6 +1,12 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 const ScrollTop = () => {
+  useEffect(() => {
+     window.addEventListener('scroll', scrollHandler);
+
+     return () =>  window.removeEventListener('scroll', scrollHandler);
+  }, []);
+
   const scroll = useRef(null);
 
   const scrollToTop = (y, duration) => {
@@ -20,20 +26,22 @@ const ScrollTop = () => {
     window.requestAnimationFrame(step);
   };
 
-  window.addEventListener('scroll', () => {
+  const scrollHandler = () => {
     if (window.pageYOffset >= 500) {
       scroll.current.style.transform = 'scale(1)';
     } else {
       scroll.current.style.transform = 'scale(0)';
     }
-  });
+  }
 
   return (
-    <div 
-        className="scrolltop" 
+    <button 
+        className="scrolltop button--muted button--icon" 
         onClick={() => scrollToTop(0, 400)}
         ref={scroll} 
-    />
+    >
+      <i className="fa fa-chevron-up" />
+    </button>
   );
 };
 

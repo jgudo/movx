@@ -4,23 +4,23 @@
   display: flex;
   flex-direction: row;
 
-  @media (max-width: $tablet) {
+  @include tablet {
     padding: 0;
   }
 }
 
 .filter__wrapper {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   @include transition();
 
 
-  @media (max-width: $tablet) {
+  @include tablet {
     position: fixed;
     top: 60px;
     left: 0;
     z-index: 2;
-    flex-direction: column;
     padding: $m-size;
     width: 100%;
     background: $dark-blue-1;
@@ -28,22 +28,31 @@
     box-shadow: 0 10px 20px rgba(0,0,0, .2);
     opacity: 0;
     @include transform(scaleY(0));
-
-    &.open {
-      opacity: 1;
-      @include transform(scaleY(1));
-    }
   }
 
-  @media (max-width: $tablet) {
-    flex-direction: column;
+  .break {
+    flex-basis: 100%;
+    height: 0;
+    display: none;
+
+    @include tablet {
+      display: block;
+    }
   }
 }
 
 .filter__item {
-  @media (max-width: $tablet) {
-    width: 100%;
+
+  @include tablet {
+    flex-grow: 1;
+    padding: .5rem;
+
+    &:nth-child(1),
+    &:nth-child(2) {
+      flex-basis: 50%;
+    }
   }
+
   span {
     font-size: 12px;
     opacity: .5;
@@ -51,33 +60,24 @@
   }
 
   select {
-    @media (max-width: $tablet) {
+    @include tablet {
       width: 100%;
-      margin-bottom: 10px;
+      margin-bottom: 2rem;
     }
   }
 }
 
 .filter__toggle {
-  width: 50px;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 35px;
+  height: 35px;
   padding: 0;
   margin: 0;
   display: none;
-  color: #fff;
-  margin-top: $m-size;
+  margin-top: 2rem;
+  position: relative;
 
-  @media (max-width: $tablet) {
+  @include tablet {
     display: block;
-  }
-
-  svg { 
-    width: 15px;
-    height: 15px;
-    margin-left: 0; 
   }
 }
 
@@ -92,7 +92,7 @@
   margin-top: $s-size;
   display: none;
 
-  @media (max-width: $tablet) {
+  @include tablet {
     display: block;
   }
 }

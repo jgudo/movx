@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import MovieCard from 'components/movies/MovieCard';
+import Container from 'components/common/Container';
 import PaginationBar from 'components/common/PaginationBar';
 import { fetchGenreCategory } from 'actions/genreActions';
 import { numberWithCommas } from 'helpers/helperFunctions';
@@ -26,7 +27,7 @@ const ViewGenre = (props) => {
   };
 
   return (
-    <div className="container">
+    <Container>
       <div className="movie__header">
         <div className="movie__header-title">
           <h1>{props.match.params.genre.replace('-', ' ')}</h1>
@@ -62,7 +63,7 @@ const ViewGenre = (props) => {
           totalItemsCount={genreMovies.total_pages}
           totalPage={genreMovies.total_pages}
       />
-    </div>  
+    </Container>  
   );
 };
 

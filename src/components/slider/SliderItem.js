@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import { addToFavorites, removeFromFavorites } from 'actions/miscActions';
@@ -27,23 +28,18 @@ const SliderItem = ({ movie, favorites, history }) => {
       <div className="movie__slider-content">
         <div className="movie__slider-description">
           <h1>{movie.original_title}</h1>
-          <p>
-            <span className="icon icon-star">★</span>
+          <p className="movie__slider-rating">
+            <i className="fa fa-star" style={{color: 'yellow'}}/>
             &nbsp;{movie.vote_average} Rating
           </p>
           <p className="view__overview">{movie.overview}</p>
           <br/>
-          <div className="view__actions">
+          <div className="movie__slider-button">
             <button 
-                className="button--outlined button--favorites"
-                onClick={onAddToFavorites}
-                style={{
-                  background: found() ? '#ff2e4f' : 'transparent',
-                  border: found() ? '1px solid #ff2e4f' : '1px solid #fff'
-                }}
+                className="button--primary"
+                onClick={() => history.push(`/view/movie/${movie.id}`)}
             >
-              {found() ? 'Remove From Favorites' : 'Add To Favorites'}
-              <span className="icon icon-heart">♥</span>
+              View Movie
             </button>
           </div>
         </div>
@@ -58,4 +54,4 @@ const SliderItem = ({ movie, favorites, history }) => {
   );
 }; 
 
-export default SliderItem;
+export default withRouter(SliderItem);

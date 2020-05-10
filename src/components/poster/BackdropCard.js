@@ -14,14 +14,12 @@ const BackdropCard = (props) => {
   const download = () => {
     setIfDownloading(true);
 
-    try {
-      downloadFileUrl(`${tmdbPosterBase + file_path}`, () => {
+    downloadFileUrl(`${tmdbPosterBase + file_path}`)
+      .then(() => setIfDownloading(false))
+      .catch((e) => {
         setIfDownloading(false);
+        console.log(e);
       });
-    } catch (e) {
-      console.log('Cannot download file ', e);
-      setIfDownloading(false);
-    }
   };
 
   return (
@@ -38,11 +36,12 @@ const BackdropCard = (props) => {
       </div>
       <div className="card__details poster__details">
         <button 
-            className="button--link poster__download m-auto"
+            className="button--muted poster__download"
             disabled={isDownloading}
             onClick={download}
         >
-          {isDownloading ? 'Downloading, Please wait' : 'Download'}
+          {isDownloading ? 'Downloading...' : 'Download'}
+          <i className="fa fa-download" />
         </button>
       </div>
     </div>

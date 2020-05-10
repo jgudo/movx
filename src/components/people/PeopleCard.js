@@ -39,7 +39,7 @@ const PeopleCard = (props) => {
           {id ? (
             <>
               <h4>{name || 'Not Available'}</h4>
-              {character && <p className="card__character">{`(${(character)}`}</p>}
+              {character && <p className="card__character">{`(${character})`}</p>}
             </>
           ) : (
             <>

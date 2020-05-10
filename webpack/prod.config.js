@@ -66,12 +66,16 @@ module.exports = merge(baseConfig, {
     // // enable scope hoisting
     // new webpack.optimize.ModuleConcatenationPlugin(),
     // generate service worker
-    new workboxPlugin.GenerateSW({
-      cacheId: 'movx-v3', // change this
-      swDest: 'sw.js',
-      navigateFallback: '/index.html',
-      clientsClaim: true,
-      skipWaiting: true
+    // new workboxPlugin.GenerateSW({
+    //   cacheId: 'movx-v3', // change this
+    //   swDest: 'sw.js',
+    //   navigateFallback: '/index.html',
+    //   clientsClaim: true,
+    //   skipWaiting: true
+    // })
+    new workboxPlugin.InjectManifest({
+      swSrc: path.resolve(__dirname, '../src/sw-src.js'),
+      swDest: 'sw.js'
     })
   ]
 });

@@ -4,6 +4,11 @@
   justify-content: center;
   align-items: center;
 
+  span {
+  	@include mobile 
+  	font-size: 1.3rem;
+  }
+
   a {
     color: #fff;
     text-decoration: none;

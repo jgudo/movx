@@ -5,7 +5,7 @@ import PosterCard from '../poster/PosterCard';
 const PersonProfiles = ({ posters, id }) => (
   posters.length >= 1 ? (
     <React.Fragment>
-      <div className="poster__header">
+      <div className="poster__header header__title">
         <h1>Profile Images</h1>
       </div>  
       <div className="movie__wrapper">

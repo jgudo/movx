@@ -6,7 +6,15 @@
   top: 0;
   left: 0;
 
-  @media (max-width: $tablet) {
-    height: 350px;
+  @include only-tablet {
+    height: 370px;
+  }
+
+  @include only-mobile {
+    height: 270px;
+  }
+
+  @include s-mobile {
+    heigt: 270px;
   }
 }
