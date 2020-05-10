@@ -40,10 +40,11 @@
   display: flex;
   position: relative;
   justify-content: space-between;
+  margin-top: 5rem;
 
   @include mobile {
     padding: $m-size 0;
-    // margin-top: 5rem;
+    margin-top: 0;
   }
 }
 

@@ -33,7 +33,7 @@ const App = (props) => {
       <div className="container__wrapper">
         <div className="movie__header">
           <div className="movie__header-title header__title">
-            <br/><br/><br/><br/>
+            <br/><br/>
             <h1>Upcoming Movies</h1>
           </div>
         </div>

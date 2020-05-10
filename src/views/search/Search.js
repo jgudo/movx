@@ -10,7 +10,7 @@ import Tabs from 'components/tabs/Tabs';
 
 import useDidMount from 'hooks/useDidMount';
 import { search } from 'actions/searchActions';
-import { numberWithCommas } from 'helpers/helperFunctions';
+import { numberWithCommas, isEmpty } from 'helpers/helperFunctions';
 
 const Search = ({ match }) => {
   useEffect(() => {
@@ -39,10 +39,11 @@ const Search = ({ match }) => {
     }
   }, [match.params.query]);
 
-  return (
+  return (!isLoading || (!isEmpty(movies) || !isEmpty(tv) || !isEmpty(people))) ? (
     <Container>
       <div className="movie__header">
         <div className="movie__header-title">
+          <br/><br/>
           <h1>Search Result</h1>
           <h3>
           {numberWithCommas(totalFound)}&nbsp; 
@@ -88,7 +89,7 @@ const Search = ({ match }) => {
         </div>
       </Tabs>
     </Container>
-  );
+  ) : <LoadingScreen />
 };
 
 export default Search;
