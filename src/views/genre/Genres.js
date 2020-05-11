@@ -23,7 +23,7 @@ const Genres = (props) => {
 
   return (
     <Container>
-      {isLoading && <LoadingScreen />}
+      {isLoading && <LoadingScreen msg="Loading Genres" />}
       {genres.length >= 1 && (
         <>
           <div className="header__title text-center">

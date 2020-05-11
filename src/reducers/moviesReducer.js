@@ -20,36 +20,43 @@ const moviesReducer = (state = {
         ...state,
         trendingMovies: { ...action.payload }
       };
+      break;
     case act.FETCH_DISCOVER_MOVIES_SUCCESS:
       return {
         ...state,
         discoverMovies: { ...action.payload }
       };
+      break;
     case act.FETCH_TV_SHOWS_SUCCESS:
       return {
         ...state,
         tvShows: { ...action.payload }
       };
+      break;
     case act.FETCH_SELECTED_MOVIE_SUCCESS:
       return {
         ...state,
         current: action.payload
       };
+      break;
     case act.FETCH_POPULAR_MOVIES_SUCCESS:
       return {
         ...state,
         popularMovies: action.payload
       };
+      break;
     case act.FETCH_TOPRATED_MOVIES_SUCCESS:
       return {
         ...state,
         topRatedMovies: action.payload
       };
+      break;
     case act.FETCH_UPCOMING_MOVIES_SUCCESS:
       return {
         ...state,
         upcomingMovies: action.payload
       };
+      break;
     case act.FETCH_MAIN_MOVIES_SUCCESS:
       return {
         ...state,
@@ -57,6 +64,7 @@ const moviesReducer = (state = {
         topRatedMovies: action.payload.topRated,
         popularMovies: action.payload.popular
       };
+      break;
     default: 
       return state;
   }

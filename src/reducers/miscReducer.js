@@ -16,17 +16,20 @@ export default (state = {
           action.payload,
           ...state.favorites 
         ]
-      };    
+      }; 
+      break;   
     case REMOVE_FROM_FAVORITES:
       return {
         ...state,
         favorites: state.favorites.filter(favorite => favorite.id !== action.payload)
       };
+      break;
     case IS_LOADING:
       return {
         ...state,
         isLoading: action.payload
       };
+      break;
     default:
       return state;
   }

@@ -9,6 +9,7 @@
   opacity: 0;
   visibility: hidden;
   @include transition();
+  z-index: map-get($z-index, 'tooltip');
 
   &:after {
     content: '';

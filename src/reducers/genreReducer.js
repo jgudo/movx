@@ -10,11 +10,13 @@ export default (state = {
         ...state,
         genres: [...action.payload.genres]
       }; 
+      break;
     case FETCH_GENRE_CATEGORY_SUCCESS:
       return {
         ...state,
         genreMovies: action.payload
       };
+      break;
     default:
       return state;
   }

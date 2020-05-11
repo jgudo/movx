@@ -3,32 +3,19 @@ import createSagaMiddleware from 'redux-saga';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import rootSaga from 'sagas/watchers';
-
-import moviesReducer from 'reducers/moviesReducer';
-import filtersReducer from 'reducers/filtersReducer';
-import genreReducer from 'reducers/genreReducer';
-import miscReducer from 'reducers/miscReducer';
-import peopleReducer from 'reducers/peopleReducer';
-import searchReducer from 'reducers/searchReducer';
+import reducers from 'reducers';
 
 const sagaMiddleware = createSagaMiddleware();
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const storageName = 'movx-v2';
 
 const config = {
-  key: 'movx',
-  storage
+  key: storageName,
+  storage,
+  whitelist: ['_misc', '_search', '_filters', '_genre']
 };
 
-const rootReducer = combineReducers({
-  _movies: moviesReducer,
-  _filters: filtersReducer,
-  _genre: genreReducer,
-  _misc: miscReducer,
-  _people: peopleReducer,
-  _search: searchReducer
-});
-const persistedReducer = persistReducer(config, rootReducer);
+const persistedReducer = persistReducer(config, combineReducers(reducers));
 
 export default () => {
   const store = createStore(

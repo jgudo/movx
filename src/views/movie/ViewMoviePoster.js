@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import Tabs from 'components/tabs/Tabs';
@@ -6,19 +6,21 @@ import MoviePoster from 'components/movies/MoviePoster';
 import MovieBackdrop from 'components/movies/MovieBackdrop';
 import imgBackground from 'images/background.jpg';
 
+import { isEmpty, getYear } from 'helpers/helperFunctions';
+
 const ViewMoviePoster = ({ history }) => {
   const movie = useSelector(state => state._movies.current.movie);
   const posters = movie.images ? movie.images.posters : [];
   const backdrops = movie.images ? movie.images.backdrops : [];
   const tmdbBackdropPath = 'https://image.tmdb.org/t/p/w1400_and_h450_face/'; 
 
-  const getReleaseYear = (date) => {
-    if (date) {
-      return date.split('-')[0];
+  useEffect(() => {
+    if (isEmpty(movie)) {
+      history.goBack();
     }
-  };
+  }, []);
 
-  return (
+  return !isEmpty(movie) && (
     <>
       <div className="posters__banner">
         <img src={movie.backdrop_path ? `${tmdbBackdropPath}${movie.backdrop_path}` : imgBackground} alt=""/>
@@ -27,7 +29,7 @@ const ViewMoviePoster = ({ history }) => {
             {movie.original_title || movie.original__name || movie.name || 'Movie Title Not Found'} 
             &nbsp;
             {(movie.release_date || movie.first_air_date) && (
-              <span>{`(${getReleaseYear(movie.release_date || movie.first_air_date)})`}</span>
+              <span>{`(${getYear(movie.release_date || movie.first_air_date)})`}</span>
             )}
           </h1>
           <button 

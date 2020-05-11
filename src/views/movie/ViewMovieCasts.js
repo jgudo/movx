@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import LazyLoad from 'react-lazy-load';
 import ImageLoader from 'components/common/ImageLoader';
 import imgPlaceholder from 'images/placeholder.jpg';
-import { numberWithCommas } from 'helpers/helperFunctions';
+import { numberWithCommas, isEmpty, getYear } from 'helpers/helperFunctions';
 
 const ViewMoviePoster = ({ history }) => {
   const { movie, casts } = useSelector(state => ({
@@ -13,14 +13,14 @@ const ViewMoviePoster = ({ history }) => {
   }));
   const tmdbBackdropPath = 'https://image.tmdb.org/t/p/w1400_and_h450_face/';
   const tmdbPosterPath = 'https://image.tmdb.org/t/p/w185_and_h278_face/';
-  
-  const getReleaseYear = (date) => {
-    if (date) {
-      return date.split('-')[0];
-    }
-  };
 
-  return (
+  useEffect(() => {
+    if (isEmpty(movie)) {
+      history.goBack();
+    }
+  }, []);
+
+  return !isEmpty(movie) && (
     <>
       <div className="posters__banner">
         <img src={`${tmdbBackdropPath + movie.backdrop_path}`} alt=""/>
@@ -29,7 +29,7 @@ const ViewMoviePoster = ({ history }) => {
             {movie.original_title || movie.original__name || movie.name || 'Movie Title Not Found'} 
             &nbsp;
             {(movie.release_date || movie.first_air_date) && (
-              <span>{`(${getReleaseYear(movie.release_date || movie.first_air_date)})`}</span>
+              <span>{`(${getYear(movie.release_date || movie.first_air_date)})`}</span>
             )}
           </h1>
           <button 

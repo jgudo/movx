@@ -2,12 +2,10 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import 'normalize.css/normalize.css';
-import 'slick-carousel/slick/slick-theme.css';
-import 'slick-carousel/slick/slick.css'; 
-import './styles/style.scss';
 import WebFont from 'webfontloader';
 import { Workbox } from "workbox-window";
+import 'normalize.css/normalize.css';
+import './styles/style.scss';
 
 import configureStore from './store/configureStore';
 import AppRouter from './routers/AppRouter';

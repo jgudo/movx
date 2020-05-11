@@ -11,8 +11,13 @@
   display: inline-block;
   list-style: none;
   margin-bottom: -1px;
-  padding: $s-size $m-size;
+  padding: 2rem 2.5rem;
   font-size: rem(28);
+  border: 1px solid lighten($dark-blue-1, 10%);
+  border-top-left-radius: $border-radius;
+  border-top-right-radius: $border-radius;
+  opacity: .3;
+  background: $dark-blue-1;
 
   @include mobile {
     font-size: 1.1rem;
@@ -21,11 +26,12 @@
 
   &:hover {
     cursor: pointer;
+    opacity: 1;
+    background: lighten($dark-blue-1, 10%);
   }
 }
 
 .tab-list-active {
-  background-color: $dark-blue-1;
-  border: 1px solid lighten($dark-blue-1, 10%);
+  opacity: 1;
   border-width: 1px 1px 0 1px;
 }

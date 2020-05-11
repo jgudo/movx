@@ -12,6 +12,12 @@ export const numberWithCommas = (x) => {
   return x ? x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : 0;  
 };
 
+export const getYear = (date) => {
+  if (date) {
+    return date.split('-')[0];
+  }
+};
+
 export const toHrsMins = (mins) => {
   let h = Math.floor(mins / 60);
   let m = mins % 60;

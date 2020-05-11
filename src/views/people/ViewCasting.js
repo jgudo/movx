@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+
 import imgBackground from 'images/background.jpg';
 import MovieCard from 'components/movies/MovieCard';
+
+import { isEmpty } from 'helpers/helperFunctions';
 
 const ViewPictures = ({ history }) => {
   const { actor, casting, favorites } = useSelector(state => ({
@@ -10,7 +13,13 @@ const ViewPictures = ({ history }) => {
     favorites: state._misc.favorites
   }));
 
-  return (
+  useEffect(() => {
+    if (isEmpty(actor)) {
+      history.goBack();
+    }
+  }, []);
+
+  return !isEmpty(actor) && (
     <>
       <div className="posters__banner">
         <img src={imgBackground} alt=""/>

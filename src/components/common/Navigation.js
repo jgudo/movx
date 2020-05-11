@@ -233,6 +233,7 @@ const Navigation = (props) => {
               <input 
                   autoComplete="off"
                   className="search__input"
+                  readOnly={isLoading}
                   onBlur={onBlurChange}
                   onChange={onInputChange}
                   onFocus={onFocusChange}
@@ -256,6 +257,7 @@ const Navigation = (props) => {
               </button>
               <button 
                   className="search__button button--icon"
+                  disabled={isLoading}
                   onClick={onSubmitQuery}
               >
                 <i className="fa fa-search" />

@@ -10,8 +10,18 @@ html {
 body {
   font-family: 'Yantramanav', Helvetica, Arial, sans-serif;
   font-size: 1.6rem;
-  background: $dark-blue-0;
+  background: $background;
   color: #fff;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Yantramanav', Helvetica, Arial, sans-serif;
+  color: $heading-color;
 }
 
 h1 {
@@ -23,6 +33,7 @@ h1 {
 }
 
 p {
+  font-size: 1.6rem;
   line-height: 3rem;
 
   @include mobile {
@@ -33,7 +44,7 @@ p {
 
 a {
   text-decoration: none;
-  color: #fff;
+  color: $blue;
 }
 
 button {
@@ -77,6 +88,26 @@ body::-webkit-scrollbar-track {
 body::-webkit-scrollbar-thumb {
   background-color: $blue;
   outline: 1px solid lighten($blue, 10%);
+  border-radius: $border-radius;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+textarea
+ {
+  color: #fff;
+  font-size: 1.6rem;
+  background: $input-bg;
+  border: none;
+  border-radius: $border-radius;
+  padding: 1.4rem;
+
+  &:focus {
+    background: $input-focus;
+    outline: none;
+  }
 }
 
 #app {
@@ -88,4 +119,5 @@ body::-webkit-scrollbar-thumb {
 #main {
   width: 100%;
   min-height: 100vh;
+  z-index: map-get($z-index, 'main');
 }

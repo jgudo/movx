@@ -1,4 +1,6 @@
 .is-navigation-open {
+	overflow: hidden;
+	
 	.navigation__menu {
 	  visibility: visible;
 	  opacity: 1;
@@ -29,5 +31,29 @@
 		background: $dark-blue-0;
 		height: 80px;
 		box-shadow: 0 8px 20px rgba(0,0,0,.1);
+	}
+
+	.navigation__active:after {
+	  content: '';
+	  position: absolute;
+	  bottom: -30px;
+	  left: 0;
+	  margin: auto;
+	  width: 100%;
+	  height: 2px;
+	  background: $blue;
+	  
+	  @include laptop {
+	    right: 0;
+	  }
+
+	  @include tablet {
+	    bottom: 0;
+	    top: 0;
+	    width: 3px;
+	    height: 100%;
+	    margin: 0;
+	    // display: none;
+	  }
 	}
 }

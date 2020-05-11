@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import PersonProfiles from 'components/people/PersonProfiles';
 import imgBackground from 'images/background.jpg';
 
+import { isEmpty } from 'helpers/helperFunctions';
+
 const ViewPictures = ({ history }) => {
   const actor = useSelector(state => state._people.person.actor);
 
-  return (
+  useEffect(() => {
+    if (isEmpty(actor)) {
+      history.goBack();
+    }
+  }, []);
+
+  return !isEmpty(actor) && (
     <>
       <div className="posters__banner">
         <img src={imgBackground} alt=""/>

@@ -4,13 +4,23 @@ import LoadingScreen from '../common/LoadingScreen';
 
 const Loader = propName => (Component) => {
   return (props) => {
-    return ((isEmpty(props[propName]) && props.isLoading) 
+  	const checkIfEmpty = () => {
+			if (typeof propName === 'string') {
+				return isEmpty(props[propName]); 
+			}	else if (typeof propName === 'array'){
+				return propName.every(prop => isEmpty(props[prop]));
+			} else {
+				return false;
+			}
+		};
+
+    return (checkIfEmpty() && props.isLoading) 
       ? (
         <React.Fragment>
           <LoadingScreen />
           <Component {...props} />
         </React.Fragment>
-      ) : <Component {...props} />);
+      ) : <Component {...props} />
   };
 };
 

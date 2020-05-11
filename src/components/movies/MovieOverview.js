@@ -8,8 +8,11 @@ import Modal from 'react-responsive-modal';
 import ImageLoader from '../common/ImageLoader';
 import imgPlaceholder from 'images/img-placeholder.jpg';
 import imgBackground from 'images/background.jpg';
+
 // actions
 import { addToFavorites, removeFromFavorites } from 'actions/miscActions';
+
+import { getYear, isEmpty } from 'helpers/helperFunctions';
 
 const tmdbPosterPath = 'https://image.tmdb.org/t/p/w300_and_h450_face/';
 const tmdbBackdropPath = 'https://image.tmdb.org/t/p/original';
@@ -18,6 +21,7 @@ const MovieOverview = ({ movie, favorites, history }) => {
   const [isOpenModal, setOpenModal] = useState(false);
   const [isOpenVideoModal, setOpenVideoModal] = useState(false);
   const dispatch = useDispatch();
+
   const youtube = 'https://www.youtube.com/results?search_query=';
   const modalStyle = {
     modal: {
@@ -43,39 +47,18 @@ const MovieOverview = ({ movie, favorites, history }) => {
     }
   };
 
-  const found = () => {
-    return favorites.some(item => item.id === movie.id);
-  };
+  const foundOnFavorites = () => favorites.some(item => item.id === movie.id);
 
   const onAddToFavorites = () => {
-    if (!found()) dispatch(addToFavorites(movie));
+    if (!foundOnFavorites()) dispatch(addToFavorites(movie));
     else dispatch(removeFromFavorites(movie.id)); 
   };
 
-  const closeVideoModal = () => {
-    setOpenVideoModal(false);
-  };
+  const closeVideoModal = () => setOpenVideoModal(false);
 
-  const openModal = () => {
-    setOpenModal(false);
-  };
+  const openModal = () => setOpenModal(false);
 
-  const closeModal = () => {
-    setOpenModal(false);
-  };
-  
-  const getReleaseYear = (date) => {
-    if (date) {
-      return date.split('-')[0];
-    }
-  };
-
-  const getTrailerKey = () => {
-    try {
-      const { key } = movie.videos.results[0];
-      return key;
-    } catch (e) {}
-  };
+  const closeModal = () => setOpenModal(false);
 
   return (
     <SkeletonTheme color="#0f1214" highlightColor="#181d20">
@@ -85,7 +68,7 @@ const MovieOverview = ({ movie, favorites, history }) => {
               channel="youtube" 
               isOpen={isOpenVideoModal}
               onClose={closeVideoModal} 
-              videoId={getTrailerKey() || null} 
+              videoId={isEmpty(movie) ? null : movie.videos.results[0] ? movie.videos.results[0].key : null} 
           />
           <Modal 
               center
@@ -97,7 +80,7 @@ const MovieOverview = ({ movie, favorites, history }) => {
             <p>View in youtube instead</p>
             <a  
                 className="modal__link"
-                href={`${youtube + movie.original_title + getReleaseYear(movie.release_date)}`}
+                href={`${youtube + movie.original_title + getYear(movie.release_date)}`}
                 target="_blank">
               Search in Youtube
             </a>
@@ -141,7 +124,7 @@ const MovieOverview = ({ movie, favorites, history }) => {
                     <>
                       <h1 className="view__title">
                         {movie.original_title || movie.original_name}
-                        {movie.release_date && <span>{` (${getReleaseYear(movie.release_date)}) `}</span>}
+                        {movie.release_date && <span>{` (${getYear(movie.release_date)}) `}</span>}
                       </h1>
                       <p className="view__rating">
                         <i className="fa fa-star" style={{color: 'yellow'}}/>
@@ -175,11 +158,11 @@ const MovieOverview = ({ movie, favorites, history }) => {
                             className="button--outlined button--favorites"
                             onClick={onAddToFavorites}
                             style={{
-                              background: found() ? '#ff2e4f' : 'transparent',
-                              border: found() ? '1px solid #ff2e4f' : '1px solid #fff'
+                              background: foundOnFavorites() ? '#ff2e4f' : 'transparent',
+                              border: foundOnFavorites() ? '1px solid #ff2e4f' : '1px solid #fff'
                             }}
                         >
-                          {found() ? 'Unfavorite' : 'Add To Favorites'}
+                          {foundOnFavorites() ? 'Unfavorite' : 'Add To Favorites'}
                           &nbsp;&nbsp;
                           <i className="fa fa-heart" />
                         </button>

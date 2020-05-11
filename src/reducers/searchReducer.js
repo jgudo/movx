@@ -18,21 +18,24 @@ export default (state = {
           action.payload
         ]
       };
+      break;
     case act.CLEAR_SEARCH_HISTORY:
       return {
         ...state,
         recentSearch: []
       };
+      break;
     case act.SEARCH_SUCCESS:
-        return {
-          ...state,
-          search: {
-            ...state.search,
-            movies: action.payload.movies,
-            tv: action.payload.tv,
-            people: action.payload.people
-          }
-        };
+      return {
+        ...state,
+        search: {
+          ...state.search,
+          movies: action.payload.movies,
+          tv: action.payload.tv,
+          people: action.payload.people
+        }
+      };
+      break;
     case act.SEARCH_MOVIES_SUCCESS:
       return {
         ...state,
@@ -41,6 +44,7 @@ export default (state = {
           movies: action.payload
         }
       };
+      break;
     case act.SEARCH_TV_SHOWS_SUCCESS:
       return {
         ...state,
@@ -49,6 +53,7 @@ export default (state = {
           tv: action.payload
         }
       };
+      break;
     case act.SEARCH_PEOPLE_SUCCESS:
       return {
         ...state,
@@ -57,6 +62,7 @@ export default (state = {
           people: action.payload
         }
       };
+      break;
     case act.UPDATE_SEARCH_QUERY:
       return {
         ...state,
@@ -65,6 +71,7 @@ export default (state = {
           query: action.payload
         }
       };
+      break;
     default: 
       return state;
   }

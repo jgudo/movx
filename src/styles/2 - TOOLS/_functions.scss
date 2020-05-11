@@ -1,4 +1,8 @@
-@function rem($pixels, $context: 16px) {
+// 
+// FUNCTIONS ---------
+//
+
+@function rem($pixels, $context: $baseFontSize) {
   @if (unitless($pixels)) {
     $pixels: $pixels * 1px;
   }

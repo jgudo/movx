@@ -1,19 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Slider from 'react-slick';
 import PropTypes from 'prop-types';
+import 'slick-carousel/slick/slick-theme.css';
+import 'slick-carousel/slick/slick.css'; 
 
 import SliderItem from './SliderItem';
 
 const MoviesSlider = ({ movies, favorites }) => {
-  const [isMobile, setIfMobile] = useState(false);
-
-  useEffect(() => {
-    if (window.screen.width <= 480) {
-      setIfMobile(true);
-    }
-  }, []);
   const settings = {
-    dots: isMobile,
+    dots: false,
     infinite: true,
     speed: 800,
     slidesToShow: 1,
@@ -27,17 +22,15 @@ const MoviesSlider = ({ movies, favorites }) => {
 
   return (
     <div className="movie__slider">
-      {movies.length !== 0 && (
-        <Slider {...settings}>
-          {movies.map((movie, index) => index < 10 && (
-            <SliderItem 
-                key={movie.id} 
-                movie={movie}
-                favorites={favorites}
-            />
-          ))}
-        </Slider>
-      )}
+      <Slider {...settings}>
+        {movies.map(movie => (
+          <SliderItem 
+              key={movie.id} 
+              movie={movie}
+              favorites={favorites}
+          />
+        ))}
+      </Slider>
     </div>
   );
 };

@@ -1,10 +1,10 @@
 import React from 'react';
 
-const LoadingScreen = () => (
+const LoadingScreen = ({ msg }) => (
   <div className="loading__wrapper">
     <div className="loading__body">
       <div className="loading__circular" />
-      <span>Loading</span>
+      <span>{msg || 'Loading'}</span>
     </div>
   </div>
 );

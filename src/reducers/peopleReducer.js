@@ -13,6 +13,7 @@ export default (state = {
         ...state,
         people: { ...action.payload }
       };   
+      break;
     case FETCH_SELECTED_PERSON_SUCCESS:
       return {
         ...state,
@@ -22,6 +23,7 @@ export default (state = {
           casting: action.payload.casting
         }
       };
+      break;
     default:
       return state;
   }

@@ -1,50 +1,70 @@
-// -------
-// Base declaration
-@import './base/settings';
-
-// ------
-// Libs
+// ---------------------------
+// 00 - VENDORS
 @import 'node_modules/react-modal-video/scss/modal-video.scss';
-// -------
-// Functions & mixins
-@import './functions/functions';
-@import './mixins/mixins';
 
-@import './base/base';
+// ---------------------------
+// 01 - SETTINGS
 
-// -------
-// Components
-@import './components/button';
-@import './components/select';
-@import './components/input';
-@import './components/search';
-@import './components/tooltip';
-@import './components/loader';
-@import './components/progressloader';
-@import './components/pagination';
-@import './components/image-loader';
-@import './components/card';
-@import './components/container';
-@import './components/navigation';
-@import './components/video-modal';
-@import './components/modal';
-@import './components/image';
-@import './components/footer';
-@import './components/filter';
-@import './components/tabs';
-@import './components/slider';
-@import './components/poster';
-@import './components/people';
-@import './components/backdrop';
-@import './components/reviews';
-@import './components/collapse';
-@import './components/scrolltop';
+@import './1 - SETTINGS/breakpoints';
+@import './1 - SETTINGS/colors';
+@import './1 - SETTINGS/sizes';
+@import './1 - SETTINGS/typography';
+@import './1 - SETTINGS/z-index';
 
-@import './pages/movies';
-@import './pages/view';
-@import './pages/genres';
-@import './pages/error';
+// ---------------------------
+// 02 - TOOLS
 
-@import './utils/utils';
-@import './utils/state';
-@import './utils/animations';
+@import './2 - TOOLS/functions';
+@import './2 - TOOLS/mixins';
+
+// ---------------------------
+// 03 - GENERIC
+
+
+// ---------------------------
+// 04 - ELEMENTS
+
+@import './4 - ELEMENTS/base';
+@import './4 - ELEMENTS/select';
+@import './4 - ELEMENTS/button';
+
+// ---------------------------
+// 04 - COMPONENTS
+
+@import './5 - COMPONENTS/search';
+@import './5 - COMPONENTS/tooltip';
+@import './5 - COMPONENTS/loader';
+@import './5 - COMPONENTS/progressloader';
+@import './5 - COMPONENTS/pagination';
+@import './5 - COMPONENTS/image-loader';
+@import './5 - COMPONENTS/card';
+@import './5 - COMPONENTS/container';
+@import './5 - COMPONENTS/navigation';
+@import './5 - COMPONENTS/video-modal';
+@import './5 - COMPONENTS/modal';
+@import './5 - COMPONENTS/image';
+@import './5 - COMPONENTS/footer';
+@import './5 - COMPONENTS/filter';
+@import './5 - COMPONENTS/tabs';
+@import './5 - COMPONENTS/slider';
+@import './5 - COMPONENTS/poster';
+@import './5 - COMPONENTS/people';
+@import './5 - COMPONENTS/backdrop';
+@import './5 - COMPONENTS/reviews';
+@import './5 - COMPONENTS/collapse';
+@import './5 - COMPONENTS/scrolltop';
+
+// ---------------------------
+// 04 - PAGES
+
+@import './6 - PAGES/movies';
+@import './6 - PAGES/view';
+@import './6 - PAGES/genres';
+@import './6 - PAGES/error';
+
+// ---------------------------
+// 04 - UTILS
+
+@import './7 - UTILS/utils';
+@import './7 - UTILS/state';
+@import './7 - UTILS/animations';

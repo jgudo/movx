@@ -89,7 +89,7 @@ const Search = ({ match }) => {
         </div>
       </Tabs>
     </Container>
-  ) : <LoadingScreen />
+  ) : <LoadingScreen msg="Searching, Please wait..." />
 };
 
 export default Search;

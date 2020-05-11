@@ -1,0 +1,43 @@
+.loader {
+  width: 100%;
+  height: 100vh;
+  background: transparent;
+  position: fixed;
+  opacity: 1;
+  pointer-events: none;
+  z-index: map-get($z-index, 'topProgressBar');
+  @include transition(opacity, 430ms, cubic-bezier(.4, 0, .2, 1));
+}
+  
+.loader__head {
+  background: rgba(255, 255, 255, .2);
+  height: 3px;
+  overflow: hidden;
+  position: relative;
+}
+
+.loader .first-indicator, 
+.loader .second-indicator {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  position: absolute;
+  -webkit-transform-origin: left center;
+  -moz-transform-origin: left center;
+  transform-origin: left center;
+  -webkit-transform: scaleX(0);
+  -moz-transform: scaleX(0);
+  transform: scaleX(0);
+}
+
+.loader .first-indicator {
+  background: $blue;
+  animation: first-indicator 2s linear infinite;
+}
+
+.loader .second-indicator {
+  background: $yellow;
+  animation: second-indicator 2s linear infinite;
+}
+

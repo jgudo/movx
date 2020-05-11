@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import Pagination from 'react-js-pagination';
 
 const PaginationBar = ({
@@ -11,6 +12,7 @@ const PaginationBar = ({
   totalItemsCount
 }) => {
   const [isMobile, setMobile] = useState(false);
+  const { isLoading } = useSelector(state => ({ isLoading: state._misc.isLoading }));
 
   useEffect(() => {
     if (window.screen.width <= 420) {
@@ -30,7 +32,8 @@ const PaginationBar = ({
           lastPageText="Last"
           nextPageText="Next"
           onChange={onChange}
-          pageRangeDisplayed={isMobile ? '5' : pageRangeDisplayed}
+          disabled={isLoading}
+          pageRangeDisplayed={isMobile ? '3' : pageRangeDisplayed}
           prevPageText="Prev"
           totalItemsCount={totalItemsCount > 1000 ? 1000 : totalItemsCount}
       />
