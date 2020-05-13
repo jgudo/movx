@@ -6,6 +6,10 @@
 
 .movie__overview-wrapper {
   padding-top: 12rem;
+
+  @include mobile {
+    padding-bottom: 0 !important;
+  }
 }
 
 .movie__header {

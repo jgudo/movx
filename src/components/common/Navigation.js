@@ -7,7 +7,7 @@ import * as route from 'constants/routes';
 import { addSearchHistory, clearSearchHistory } from 'actions/searchActions';
 import TopProgressLoader from './TopProgressLoader';
 import ThemeToggler from './ThemeToggler'; 
-import logo from 'images/logo.png';
+import logo from 'images/logo-full.png';
 
 const Navigation = (props) => {
   const [searchQuery, setQuery] = useState('');

@@ -72,6 +72,12 @@
   }
 }
 
+@mixin only-laptop {
+  @media (min-width: $tablet) and (max-width: $laptop) {
+    @content;
+  }
+}
+
 @mixin tablet {
   @media (max-width: $tablet) {
     @content;

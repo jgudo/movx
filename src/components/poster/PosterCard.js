@@ -2,10 +2,8 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import LazyLoad from 'react-lazy-load';
 import ImageLoader from '../common/ImageLoader';
+import { TMDB_POSTER_PATH, TMDB_POSTER_BASE } from 'constants/constants';
 import { downloadFileUrl } from 'helpers/helperFunctions';
-
-const tmdbPosterPath = 'https://image.tmdb.org/t/p/w185_and_h278_face/';
-const tmdbPosterBase = 'https://image.tmdb.org/t/p/original';
 
 /* eslint-disable */
 const PosterCard = (props) => {
@@ -15,7 +13,7 @@ const PosterCard = (props) => {
   const download = () => {
     setIfDownloading(true);
 
-    downloadFileUrl(`${tmdbPosterBase + file_path}`)
+    downloadFileUrl(`${TMDB_POSTER_BASE + file_path}`)
       .then(() => setIfDownloading(false))
       .catch((e) => {
         setIfDownloading(false);
@@ -31,7 +29,7 @@ const PosterCard = (props) => {
             offsetVertical={500}
           >
             <ImageLoader 
-                src={file_path ? `${tmdbPosterPath + file_path}` : '/images/img-placeholder.jpg'} 
+                src={file_path ? `${TMDB_POSTER_PATH + file_path}` : '/images/img-placeholder.jpg'} 
             />
         </LazyLoad>
       </div>

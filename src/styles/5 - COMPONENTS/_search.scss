@@ -114,6 +114,21 @@
 .search__no-result {
   text-align: center;
   margin-top: $xl-size; 
+  position: relative;
+
+  h1 {
+    opacity: 0.2;
+
+    @include mobile {
+      font-size: 1.5rem;
+    }
+  }
+
+  i {
+    color: var(--text-color);
+    opacity: 0.2;
+    font-size: 10rem;
+  }
 }
 
 .clear--button {

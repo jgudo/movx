@@ -33,7 +33,7 @@
     margin: auto;
     width: 99%;
     height: 99%;
-    background: #f1f1f1;
+    background: var(--input-background);
     z-index: 0;
   } 
 
@@ -166,7 +166,7 @@
     height: 100%;
     background: transparentize($dark-blue-0, .3);
     border-radius: 10px;
-    border: 1px solid lighten($dark-blue-1, 10%);
+    border: 1px solid var(--input-background);
     @include transition();
   }
 

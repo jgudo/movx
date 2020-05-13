@@ -38,6 +38,11 @@
   @extend .container;
   padding-top: 0;
   min-height: 100%;
+
+  @include mobile {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
 }
 
 .container__movies {

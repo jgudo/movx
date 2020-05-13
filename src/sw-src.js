@@ -2,7 +2,7 @@ workbox.precaching.precacheAndRoute(self.__precacheManifest);
 workbox.routing.registerRoute(
   /https:\/\/api\.themoviedb\.org\/3/,
   new workbox.strategies.NetworkFirst({
-    cacheName: "movx",
+    cacheName: "movx_v2",
     navigateFallback: '/index.html',
     plugins: [
       new workbox.expiration.Plugin({

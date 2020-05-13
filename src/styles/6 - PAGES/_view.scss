@@ -32,8 +32,6 @@
 .view__poster {
   width: 300px;
   height: 400px;
-  // height: 450px;
-  // background: #f1f1f1;
   border-radius: $border-radius;
   position: relative;
   // box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
@@ -72,11 +70,6 @@
   .LazyLoad {
     width: 100% !important;;
     height: 100% !important;;
-
-    // @include tablet {
-    //   width: 100% !important;
-    //   height: 100% !important;
-    // }
   }
 
   img {
@@ -120,6 +113,7 @@
   text-overflow: ellipsis;
 
   @include mobile {
+    color: var(--text-color);
     order: 3;
     margin-top: 0;
     max-height: none;
@@ -133,7 +127,9 @@
 
 .view__overview-title {
   color: $text-color;
+
   @include mobile {
+    color: var(--heading-color);
     display: none;
   }
 }
@@ -145,6 +141,7 @@
   position: relative;
 
   @include mobile {
+    color: var(--heading-color);
     order: 2;
     margin-top: 0;
     font-size: 2rem
@@ -154,6 +151,7 @@
     color: $text-subtle;
 
     @include mobile {
+      color: var(--text-color);
       font-size: $m-size;
     }
   }
@@ -164,9 +162,14 @@
   margin-top: 0;
 
   @include mobile {
+    color: var(--text-color);
     order: 1;
     margin-top: $s-size;
     margin-bottom: 0;
+  }
+
+  i {
+    color: var(--star-color);
   }
 }
 
@@ -188,11 +191,6 @@
   width: 100%;
   display: flex;
   align-items: center;
-  // justify-self: flex-end;
-
-  // @include mobile {
-    // flex-direction: column;
-  // }
 
   @include mobile {
     order: 4;
@@ -241,10 +239,4 @@
     top: 5rem;
     // display: none;
   }
-}
-
-.similar__wrapper {
-  // @include mobile {
-  //   width: 90%;
-  // }
 }

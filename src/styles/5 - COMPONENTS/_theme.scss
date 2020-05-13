@@ -66,11 +66,11 @@ $dark: #1792c7;
 }
 
 .theme-switch__label {
-    padding: 20px;
+    padding: 15px;
     // margin: 60px;
     transition: background-color 200ms ease;
-    width: 85px;
-    height: 30px;
+    width: 70px;
+    height: 25px;
     border-radius: 50px;
     text-align: center;
     background-color: $dark;
@@ -97,14 +97,14 @@ $dark: #1792c7;
     
     &::after {
         content: '\263C';
-        right: 54%;
+        right: 50%;
         margin-right: 10px;
         color: #fff;
     }
     
     &::before {
         content: '\263E';
-        left: 54%;
+        left: 50%;
         margin-left: 10px;
         color: #fff;
     }
@@ -120,8 +120,8 @@ $dark: #1792c7;
         position: absolute;
         top: calc(100% + 14px);
         left: 5px;
-        width: 30px;
-        height: 30px;
+        width: 23px;
+        height: 23px;
         content: '';
         border-radius: 50%;
         background-color: #fff;
@@ -130,9 +130,10 @@ $dark: #1792c7;
         z-index: 3;
 
         @include tablet {
-            width: 16px;
-            height: 16px;
-            top: calc(100% + 12px);
+            width: 18px;
+            height: 18px;
+            top: calc(100% + 11px);
+            left: 3px;
         }
     }
 }
@@ -150,7 +151,7 @@ $dark: #1792c7;
     }
     
     span::after {
-        transform: translate3d(45px, 0, 0);
+        transform: translate3d(40px, 0, 0);
 
         @include tablet {
             transform: translate3d(37px, 0, 0);

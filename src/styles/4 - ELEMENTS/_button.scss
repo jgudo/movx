@@ -5,17 +5,17 @@
   font-size: rem(24);
 
   &:hover {
-    background: transparent;
+    background: darken($blue, 10%);
   }
 
   i { color: #fff }
 }
 
 .button--outlined {
-  border: 1px solid transparentize(#fff, .5);
-  color: #fff;
+  border: 1px solid var(--text-color);
+  color: var(--text-color);
 
-  i { color: #fff; }
+  i { color: var(--text-color); }
 }
 
 .button--link {
@@ -86,17 +86,33 @@
   }
 }
 
-.button--add-favorite {
-  padding: 0;
-}
-
 .button--favorites {
+  border: 1px solid #fff;
+  color: #fff;
+
   &:hover {
-    background: $red !important;
-    border: 1px solid $red !important;
+    color: #fff;
+    background: $red;
+    border: 1px solid $red;
+
+    i { color: $text-color; }
   }
 
-  i { color: #fff }
+  @media (min-width: $tablet) {
+    color: $text-color !important; 
+    border: 1px solid $text-color !important;
+
+    i { color: $text-color !important; }
+  }
+
+  @include tablet {
+    color: var(--text-color);
+    border: 1px solid var(--text-color);
+
+    i { color: var(--text-color); }
+  }
+
+  i { color: #fff; }
 }
 
 .button--key {

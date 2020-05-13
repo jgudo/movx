@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import imgBackground from 'images/background.jpg';
-import MovieCard from 'components/movies/MovieCard';
+import MovieList from 'components/movies/MovieList';
 
 import { isEmpty } from 'helpers/helperFunctions';
 
@@ -39,16 +39,11 @@ const ViewPictures = ({ history }) => {
             <h3>{casting.length} Movies</h3>
           </div>
         </div>  
-        <div className="movie__wrapper">
-          {casting.map((movie, index) => (
-            <MovieCard 
-                category="movie"
-                favorites={favorites}
-                key={`${movie.id}_${index}`}
-                movie={movie} 
-            />
-          ))}
-        </div>
+        <MovieList
+            category="movie"
+            favorites={favorites}
+            movies={casting} 
+        />
       </div>
     </>
   );

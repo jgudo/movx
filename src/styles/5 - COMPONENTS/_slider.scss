@@ -71,6 +71,8 @@
   }
 
   .view__overview {
+    color: $text-color;
+    
     @include mobile {
       width: 100%;
       max-height: 80px;

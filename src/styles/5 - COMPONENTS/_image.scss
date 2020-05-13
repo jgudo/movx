@@ -3,15 +3,11 @@
   height: 100%;
   object-fit: cover;
 
-  @include only-tablet {
-    height: 370px;
-  }
-
   @include only-mobile {
-    height: 270px;
+    height: 300px;
   }
 
   @include s-mobile {
-    heigt: 270px;
+    heigt: 300px;
   }
 }

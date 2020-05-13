@@ -4,7 +4,7 @@ import Collapsible from 'react-collapsible';
 const Reviews = ({ reviews }) => {
   return (
     <div className="reviews">
-      <div className="container__wrapper">
+      <div className="container__wrapper reviews__wrapper">
         <div className="reviews__header header__title"> 
           <h1>Reviews</h1>
         </div>

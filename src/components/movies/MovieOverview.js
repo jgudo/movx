@@ -135,7 +135,7 @@ const MovieOverview = ({ movie, favorites, history }) => {
                   </h1>
                   <p className="view__rating">
                     {movie.id ? (
-                      <><i className="fa fa-star" style={{color: 'yellow'}}/>&nbsp;{movie.vote_average} Rating</>
+                      <><i className="fa fa-star" />&nbsp;{movie.vote_average} Rating</>
                     ) : <Skeleton width={180}/>}
                   </p>
                   <h4 className="view__overview-title">
@@ -154,16 +154,22 @@ const MovieOverview = ({ movie, favorites, history }) => {
                         </button>
                         &nbsp;
                         <button 
-                            className="button--outlined button--favorites"
+                            className="button--favorites"
                             onClick={onAddToFavorites}
                             style={{
+                              color: foundOnFavorites() ? '#fff' : getCSSVar('--text-color'),
                               background: foundOnFavorites() ? '#ff2e4f' : 'transparent',
-                              border: foundOnFavorites() ? '1px solid #ff2e4f' : '1px solid #fff'
+                              border: foundOnFavorites() ? '1px solid #ff2e4f' : `1px solid ${getCSSVar('--text-color')}`
                             }}
                         >
                           {foundOnFavorites() ? 'Unfavorite' : 'Favorite'}
                           &nbsp;&nbsp;
-                          <i className="fa fa-heart" />
+                          <i 
+                              className="fa fa-heart" 
+                              style={{ 
+                                color: foundOnFavorites() ? '#fff' : getCSSVar('--text-color')
+                              }}
+                          />
                         </button>
                       </>
                     )}
@@ -176,28 +182,5 @@ const MovieOverview = ({ movie, favorites, history }) => {
     </SkeletonTheme>
   );
 };
-
-// <button className="button--primary" onClick={openVideoModal}>
-//                       {movie.id ? (
-//                         <>Watch Trailer&nbsp;&nbsp;<i className="fa fa-play" /></>
-//                       ) : <Skeleton width={'100%'}/>}
-//                     </button>
-//                     &nbsp;
-//                     <button 
-//                         className="button--outlined button--favorites"
-//                         onClick={onAddToFavorites}
-//                         style={{
-//                           background: foundOnFavorites() ? '#ff2e4f' : 'transparent',
-//                           border: foundOnFavorites() ? '1px solid #ff2e4f' : '1px solid #fff'
-//                         }}
-//                     >
-//                       {movie.id ? (
-//                         <>
-//                           {foundOnFavorites() ? 'Unfavorite' : 'Add To Favorites'}
-//                           &nbsp;&nbsp;
-//                           <i className="fa fa-heart" />
-//                         </>
-//                       ) : <Skeleton width={'100%'}/>}
-//                     </button>
 
 export default withRouter(MovieOverview);

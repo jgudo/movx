@@ -37,7 +37,8 @@ const SearchTvTab = ({ tvShows, favorites, isLoading, query }) => {
     </>
   ) : (
     <div className="search__no-result">
-      <h1>No result found.</h1>
+      <h1>No TV show found.</h1>
+      <i className="fa fa-theater-masks" />
     </div>
   );
 };

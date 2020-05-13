@@ -16,6 +16,7 @@
 
   @include only-mobile {
     grid-template-columns: repeat(1, 1fr);
+    padding-top: 0;
   }
 
   a { 
@@ -23,7 +24,7 @@
 
     &:hover {
       .casts__item {
-        background: darken($dark-blue-0, 5%);
+        background: var(--input-background-focus);
       }
     }
   }
@@ -32,9 +33,9 @@
 .casts__item {
   width: 100%;
   display: flex;
-  background: $dark-blue-0;
+  background: var(--input-bacground);
   border-radius: 5px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, .2);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, .1);
   @include transition();
 }
 
@@ -55,15 +56,16 @@
 
 .casts__details {
   h4 {
+    color: var(--heading-color);
     margin: $m-size 0 0;
   }
 
   p {
+    color: var(--text-color);
     width: 180px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    color: $text-subtle;
   }
 
 }

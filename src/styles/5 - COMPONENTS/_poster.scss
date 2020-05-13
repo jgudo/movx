@@ -84,11 +84,16 @@
   color: #fff;
 
   h1 {
+    color: $heading-color;
     font-size: $l-size;
 
     @include mobile {
       font-size: rem(28);
     }
+  }
+
+  span {
+    color: $text-color;
   }
 
   button {

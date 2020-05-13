@@ -201,11 +201,11 @@
 }
 
 html[data-theme=default] .navigation__logo {
-  filter: invert(0);
+  filter: invert(1) brightness(3);
 }
 
 html[data-theme=light] .navigation__logo {
-  filter: invert(1);
+  filter: invert(0) saturate(3);
 }
 
 .navigation__logo {
@@ -213,11 +213,11 @@ html[data-theme=light] .navigation__logo {
   margin: $l-size;
 
   img {
-    width: 90px;
+    width: 100px;
     margin-top: 5px;
 
-    @include mobile {
-      width: 70px;
+    @include tablet {
+      width: 90px;
     }
   }
 
