@@ -1,9 +1,6 @@
 .people__card {
-  height: 320px;
-
-  @include mobile {
-    height: 250px;
-  }
+  margin: 0 !important;
+  margin-bottom: 1rem !important;
 }
 
 .casts__wrapper {
@@ -66,6 +63,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    color: $text-subtle;
   }
 
 }

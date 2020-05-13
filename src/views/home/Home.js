@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import MoviesSlider from 'components/slider/MoviesSlider';
-import MovieCard from 'components/movies/MovieCard';
+import MovieList from 'components/movies/MovieList';
 import { fetchMainMovies } from 'actions/movieActions';
 import { isEmpty } from 'helpers/helperFunctions';
 
@@ -25,8 +25,7 @@ const App = (props) => {
   useEffect(() => {
     if (isEmpty(popularMovies) || 
         isEmpty(topRatedMovies) || 
-        isEmpty(upcomingMovies) || 
-        popularMovies.page !== 1 
+        isEmpty(upcomingMovies) 
     ) {
       dispatch(fetchMainMovies());
     }
@@ -34,10 +33,17 @@ const App = (props) => {
 
   return (
     <>
-      <MoviesSlider 
-          movies={popularMovies.results || []}
-          favorites={favorites}
-      />
+      {popularMovies.results ? (
+        <MoviesSlider 
+            movies={popularMovies.results || []}
+            favorites={favorites}
+        />
+      ) : (
+        <MoviesSlider 
+            movies={[{}]}
+            favorites={[]}
+        />
+      )}
       <div className="container__wrapper">
         {upcomingMovies.results && (
           <>
@@ -47,18 +53,10 @@ const App = (props) => {
                 <h1>Upcoming Movies</h1>
               </div>
             </div>
-            <div className="movie__wrapper">
-              {upcomingMovies.results.map((movie, index) => {
-                return index < 10 && (
-                  <MovieCard 
-                      category="movie"
-                      key={`${movie.id}_${index}`}
-                      movie={movie} 
-                      favorites={favorites}
-                  />
-                );
-              })}
-            </div>
+            <MovieList 
+                favorites={favorites}
+                movies={upcomingMovies.results.slice(0, 10)} 
+            />
             <button 
                 className="button--primary m-auto"
                 onClick={() => props.history.push('/upcoming')}
@@ -76,18 +74,10 @@ const App = (props) => {
                 <h1>Top Rated Movies</h1>
               </div>
             </div>
-            <div className="movie__wrapper">
-              {topRatedMovies.results.map((movie, index) => {
-                return index < 10 && (
-                  <MovieCard 
-                      category="movie"
-                      key={`${movie.id}_${index}`}
-                      movie={movie} 
-                      favorites={favorites}
-                  />
-                );
-              })}
-            </div>
+            <MovieList 
+                favorites={favorites}
+                movies={topRatedMovies.results.slice(0, 10)} 
+            />
             <button 
                 className="button--primary m-auto"
                 onClick={() => props.history.push('/top_rated')}

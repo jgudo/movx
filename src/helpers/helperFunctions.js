@@ -8,6 +8,10 @@ export const isEmpty = (obj) => {
   return true;
 };
 
+export const getCSSVar = (prop) => {
+  return getComputedStyle(document.documentElement).getPropertyValue(prop);
+};
+
 export const numberWithCommas = (x) => {
   return x ? x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : 0;  
 };

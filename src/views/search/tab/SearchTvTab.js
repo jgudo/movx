@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import MovieCard from 'components/movies/MovieCard';
+import MovieList from 'components/movies/MovieList';
 import PaginationBar from 'components/common/PaginationBar';
 
 // actions
@@ -21,16 +21,11 @@ const SearchTvTab = ({ tvShows, favorites, isLoading, query }) => {
 
   return !isEmpty(tvShows) && tvShows.results.length !== 0 ? (
     <>
-      <div className="movie__wrapper">
-        {tvShows.results.map((tv, index) => (
-          <MovieCard 
-              category="tv"
-              favorites={favorites}
-              key={`${tv.id}_${index}`}
-              movie={tv} 
-          />
-        ))}
-      </div>
+      <MovieList 
+          category="tv"
+          movies={tvShows.results}
+          favorites={favorites}
+      />
       <PaginationBar 
           activePage={tvShows.page}
           itemsCountPerPage={1}

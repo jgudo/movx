@@ -8,7 +8,7 @@ const MoviePoster = ({ posters, id }) => (
       <div className="poster__header header__title">
         <h1>Movie Posters</h1>
       </div>  
-      <div className="movie__wrapper">
+      <div className="grid">
         {posters.map((poster, index) => {
           return (
             <PosterCard 

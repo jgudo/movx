@@ -5,18 +5,15 @@ import { NavLink, Link, withRouter } from 'react-router-dom';
 
 import * as route from 'constants/routes';
 import { addSearchHistory, clearSearchHistory } from 'actions/searchActions';
-import TopProgressLoader from './TopProgressLoader'; 
+import TopProgressLoader from './TopProgressLoader';
+import ThemeToggler from './ThemeToggler'; 
 import logo from 'images/logo.png';
 
 const Navigation = (props) => {
   const [searchQuery, setQuery] = useState('');
   const [isOpen, setOpen] = useState({ search: false, navigation: false });
   const searchHistory = useRef(null);
-  const navigation = useRef(null);
   const searchInput = useRef(null);
-  const toggler = useRef(null);
-  const menu = useRef(null);
-  const searchMenu = useRef(null);
   const { recentSearch, isLoading } = useSelector(state => ({
     recentSearch: state._search.recentSearch,
     isLoading: state._misc.isLoading
@@ -48,7 +45,8 @@ const Navigation = (props) => {
     }
   };
 
-  const onFocusChange = () => {
+  const onFocusChange = (e) => {
+    e.target.select();
     if (recentSearch.length >= 1) {
       searchHistory.current.classList.add('visible');
     }
@@ -93,7 +91,7 @@ const Navigation = (props) => {
   };  
 
   const scrollHandler = () => {
-    if (window.pageYOffset > 200) {
+    if (window.pageYOffset > 100) {
       document.body.classList.add('is-scrolled');
     } else {
       document.body.classList.remove('is-scrolled');
@@ -106,13 +104,11 @@ const Navigation = (props) => {
       <div 
           className="navigation"
           onClick={onClickLink}
-          ref={navigation}
       >
         <div className="navigation__wrapper">
           <button 
               className="navigation__toggle"
               onClick={onNavigationToggle}
-              ref={toggler}
           >
             <i className={`fa fa-${isOpen.navigation ? 'times' : 'bars'}`}/>
           </button>
@@ -124,8 +120,8 @@ const Navigation = (props) => {
           <div className="navigation__menu-wrapper">
             <div 
                 className="navigation__menu" 
-                ref={menu}
             >
+              <ThemeToggler id="themeSwitchNav" />
               <NavLink 
                   activeClassName="navigation__active"
                   className="navigation__link"
@@ -229,7 +225,7 @@ const Navigation = (props) => {
                 Favorites
               </NavLink>
             </div>
-            <div className="navigation__search" ref={searchMenu}>
+            <div className="navigation__search">
               <input 
                   autoComplete="off"
                   className="search__input"

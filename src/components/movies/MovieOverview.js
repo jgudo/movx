@@ -12,7 +12,7 @@ import imgBackground from 'images/background.jpg';
 // actions
 import { addToFavorites, removeFromFavorites } from 'actions/miscActions';
 
-import { getYear, isEmpty } from 'helpers/helperFunctions';
+import { getYear, isEmpty, getCSSVar } from 'helpers/helperFunctions';
 
 const tmdbPosterPath = 'https://image.tmdb.org/t/p/w300_and_h450_face/';
 const tmdbBackdropPath = 'https://image.tmdb.org/t/p/original';
@@ -25,7 +25,7 @@ const MovieOverview = ({ movie, favorites, history }) => {
   const youtube = 'https://www.youtube.com/results?search_query=';
   const modalStyle = {
     modal: {
-      background: '#272c30',
+      background: '#0f1214',
       padding: '50px',
       textAlign: 'center',
       borderRadius: '6px'
@@ -61,39 +61,44 @@ const MovieOverview = ({ movie, favorites, history }) => {
   const closeModal = () => setOpenModal(false);
 
   return (
-    <SkeletonTheme color="#0f1214" highlightColor="#181d20">
+    <SkeletonTheme 
+        color={getCSSVar('--skeleton-theme-color')} 
+        highlightColor={getCSSVar('--skeleton-theme-highlight')}
+    >
+      <ModalVideo 
+          channel="youtube" 
+          modalVideo="movie-modal-video"
+          isOpen={isOpenVideoModal}
+          onClose={closeVideoModal} 
+          playlist={isEmpty(movie) ? null : movie.videos.results[0] ? movie.videos.results.map(video => video.key) : null}
+          videoId={isEmpty(movie) ? null : movie.videos.results[0] ? movie.videos.results[0].key : null} 
+      />
+      <Modal 
+          center
+          onClose={closeModal} 
+          open={isOpenModal} 
+          styles={modalStyle}
+      >
+        <h2>No Trailer Found</h2>
+        <p>View in youtube instead</p>
+        <a  
+            className="modal__link"
+            href={`${youtube + movie.original_title + getYear(movie.release_date)}`}
+            target="_blank">
+          Search in Youtube
+        </a>
+      </Modal>
       <div className="movie__overview">
-        <div className="container__wrapper movie__overview-wrapper">
-          <ModalVideo 
-              channel="youtube" 
-              isOpen={isOpenVideoModal}
-              onClose={closeVideoModal} 
-              videoId={isEmpty(movie) ? null : movie.videos.results[0] ? movie.videos.results[0].key : null} 
-          />
-          <Modal 
-              center
-              onClose={closeModal} 
-              open={isOpenModal} 
-              styles={modalStyle}
-          >
-            <h2>No Trailer Found</h2>
-            <p>View in youtube instead</p>
-            <a  
-                className="modal__link"
-                href={`${youtube + movie.original_title + getYear(movie.release_date)}`}
-                target="_blank">
-              Search in Youtube
-            </a>
-          </Modal>
-            <div className="backdrop__container">
-              {movie.id && (
+        <div className="container movie__overview-wrapper">
+            {movie.id && (
+              <div className="backdrop__container">
                 <img 
                     alt=""
                     className="backdrop__image"
                     src={movie.backdrop_path ? `${tmdbBackdropPath + movie.backdrop_path}` : imgBackground} 
                 />
-              )}
-            </div>
+              </div>
+            )}
             <div className="view">
               <div className="back__button">
                 {movie.id ? (
@@ -120,33 +125,27 @@ const MovieOverview = ({ movie, favorites, history }) => {
                   ) : <Skeleton width={'100%'} height={'100%'}/>}
                 </div>
                 <div className="view__details">
-                  {movie.id ? (
-                    <>
-                      <h1 className="view__title">
+                  <h1 className="view__title">
+                    {movie.id ? (
+                      <>
                         {movie.original_title || movie.original_name}
                         {movie.release_date && <span>{` (${getYear(movie.release_date)}) `}</span>}
-                      </h1>
-                      <p className="view__rating">
-                        <i className="fa fa-star" style={{color: 'yellow'}}/>
-                        &nbsp;{movie.vote_average} Rating
-                      </p>
-                      <h4 className="view__overview-title">Overview</h4>
-                      <p className="view__overview">{movie.overview}</p>
-                    </>
-                  ) : (
-                    <>
-                      <br/>
-                      <Skeleton width={'70%'} height={35}/><br/>
-                      <Skeleton width={180} height={15}/><br/>
-                      <Skeleton width={150} height={15}/><br/>
-                      <p>
-                        <Skeleton count={4} />
-                      </p>
-                      <br/><br/>
-                    </>
-                  )}
-                  <div className="view__actions">
+                      </>
+                    ) : <Skeleton width={250}/>}
+                  </h1>
+                  <p className="view__rating">
                     {movie.id ? (
+                      <><i className="fa fa-star" style={{color: 'yellow'}}/>&nbsp;{movie.vote_average} Rating</>
+                    ) : <Skeleton width={180}/>}
+                  </p>
+                  <h4 className="view__overview-title">
+                    {movie.id ? 'Overview' : <Skeleton width={150}/>}
+                  </h4>
+                  <p className="view__overview">
+                    {movie.id ? movie.overview : <Skeleton count={4} />}
+                  </p>
+                  <div className="view__actions">
+                    {movie.id && (
                       <>
                         <button className="button--primary" onClick={openVideoModal}>
                           Watch Trailer
@@ -162,16 +161,10 @@ const MovieOverview = ({ movie, favorites, history }) => {
                               border: foundOnFavorites() ? '1px solid #ff2e4f' : '1px solid #fff'
                             }}
                         >
-                          {foundOnFavorites() ? 'Unfavorite' : 'Add To Favorites'}
+                          {foundOnFavorites() ? 'Unfavorite' : 'Favorite'}
                           &nbsp;&nbsp;
                           <i className="fa fa-heart" />
                         </button>
-                      </>
-                    ) : (
-                      <>
-                        <Skeleton width={220} height={60}/>
-                        &nbsp;&nbsp;
-                        <Skeleton width={220} height={60}/>
                       </>
                     )}
                   </div>
@@ -183,5 +176,28 @@ const MovieOverview = ({ movie, favorites, history }) => {
     </SkeletonTheme>
   );
 };
+
+// <button className="button--primary" onClick={openVideoModal}>
+//                       {movie.id ? (
+//                         <>Watch Trailer&nbsp;&nbsp;<i className="fa fa-play" /></>
+//                       ) : <Skeleton width={'100%'}/>}
+//                     </button>
+//                     &nbsp;
+//                     <button 
+//                         className="button--outlined button--favorites"
+//                         onClick={onAddToFavorites}
+//                         style={{
+//                           background: foundOnFavorites() ? '#ff2e4f' : 'transparent',
+//                           border: foundOnFavorites() ? '1px solid #ff2e4f' : '1px solid #fff'
+//                         }}
+//                     >
+//                       {movie.id ? (
+//                         <>
+//                           {foundOnFavorites() ? 'Unfavorite' : 'Add To Favorites'}
+//                           &nbsp;&nbsp;
+//                           <i className="fa fa-heart" />
+//                         </>
+//                       ) : <Skeleton width={'100%'}/>}
+//                     </button>
 
 export default withRouter(MovieOverview);

@@ -1,3 +1,8 @@
+.modal-video {
+	background: rgba(0, 0, 0, 0.8) !important;
+	z-index: 999 !important;
+}
+
 .modal-video-close-btn {
 	background: $red;
 	padding: 2px;
@@ -23,5 +28,5 @@
 }
 
 .modal-video-movie-wrap {
-  background: $dark-blue-0;
+  background: $dark-blue-1;
 }

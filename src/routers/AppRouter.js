@@ -6,6 +6,7 @@ import * as route from 'constants/routes';
 import Navigation from 'components/common/Navigation';
 import Footer from 'components/common/Footer';
 import ScrollTop from 'components/common/ScrollTop';
+import ThemeToggler from 'components/common/ThemeToggler';
 import ProgressTrigger from 'components/hoc/Progress';
 
 import Home from 'views/home/Home';
@@ -43,6 +44,7 @@ const AppRouter = () => (
     <>
       <Navigation />
       <ScrollTop />
+      <div className="theme__toggler-desktop"><ThemeToggler /></div>
       <main id="main">
         <Switch>
           <Route 

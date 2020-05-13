@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import MovieCard from 'components/movies/MovieCard';
+import MovieList from 'components/movies/MovieList';
 import Container from 'components/common/Container';
 import PaginationBar from 'components/common/PaginationBar';
 import { fetchGenreCategory } from 'actions/genreActions';
@@ -34,27 +34,12 @@ const ViewGenre = (props) => {
           <h3>{numberWithCommas(genreMovies.total_results)} Movies</h3>
         </div>
       </div>
-      <div className="movie__wrapper">
-        {genreMovies.results ? genreMovies.results.map((movie, index) => {
-          return (
-            <MovieCard 
-                category="movie"
-                key={`${movie.id}_${index}`}
-                movie={movie} 
-                favorites={favorites}
-            />
-          );
-        }) : new Array(10).fill({}).map((item, index) => {
-          return (
-            <MovieCard 
-                category="movie"
-                key={`skeleton_genre_${index}`}
-                movie={{}} 
-                favorites={[]}
-            />
-          );
-        })}
-      </div>
+      <MovieList 
+          category="movie"
+          favorites={favorites}
+          movies={genreMovies.results}
+          templateCount={10}
+      />
       <PaginationBar 
           activePage={genreMovies.page}
           itemsCountPerPage={1}

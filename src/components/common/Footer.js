@@ -5,7 +5,7 @@ const Footer = () => (
     <span>
       Made by 
       &nbsp;
-      <a href="https://github.com/jgudo" target="_blank">
+      <a href="https://juliusguevarra.tk" target="_blank">
         Julius Guevarra
       </a>
       &nbsp;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import MovieCard from 'components/movies/MovieCard';
+import MovieList from 'components/movies/MovieList';
 import PaginationBar from 'components/common/PaginationBar';
 
 import { searchMovies } from 'actions/searchActions';
@@ -18,16 +18,11 @@ const SearchMovieTab = ({ movies, favorites, isLoading, query }) => {
 
   return (!isEmpty(movies) && movies.results.length !== 0) ? (
     <>
-      <div className="movie__wrapper">
-        {movies.results.map((movie, index) => (
-          <MovieCard 
-              category="movie"
-              favorites={favorites}
-              key={`${movie.id}_${index}`}
-              movie={movie} 
-          />
-        ))}
-      </div>
+      <MovieList 
+          category="movie"
+          movies={movies.results}
+          favorites={favorites}
+      />
       <PaginationBar 
           activePage={movies.page}
           itemsCountPerPage={1}

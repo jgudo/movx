@@ -8,8 +8,12 @@
   justify-content: center;
   box-shadow: 0 15px 20px rgba(0, 0, 0, .2);
   z-index: map-get($z-index, 'scrolltop');
-  @include transform(scale(0));
+  transform: scale(0);
   @include transition();
+
+  i {
+    color: $off-black;
+  }
 
   @include mobile {
     right: $m-size;

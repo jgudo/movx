@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import ImageLoader from '../common/ImageLoader';
 import imgPlaceholder from 'images/img-placeholder.jpg';
 
+import { getCSSVar, getYear } from 'helpers/helperFunctions';
 import { addToFavorites, removeFromFavorites } from 'actions/miscActions';
 
 /* eslint camelcase: 0 */
@@ -23,10 +24,6 @@ const MovieCard = ({ favorites, movie, category }) => {
   } = movie;
   const dispatch = useDispatch();
   const tmdbPosterPath = 'https://image.tmdb.org/t/p/w185_and_h278_face/';
-  
-  const releaseYear = (date) => {
-    if (date) return date.split('-')[0];
-  };
 
   const favoriteFound = () => {
     return favorites.some(item => item.id === id);
@@ -38,7 +35,10 @@ const MovieCard = ({ favorites, movie, category }) => {
   };
 
   return (
-    <SkeletonTheme color="#0f1214" highlightColor="#181d20">
+    <SkeletonTheme 
+        color={getCSSVar('--skeleton-theme-color')} 
+        highlightColor={getCSSVar('--skeleton-theme-highlight')}
+    >
       <div className="card">
         <Link to={`/view/${category}/${id}`}>
           <div className="card__image">
@@ -57,33 +57,31 @@ const MovieCard = ({ favorites, movie, category }) => {
           </div>
         </Link>
         <div className="card__details">
-          {movie.id ? (
-            <>
-              <StarRatings
-                  name="rating"
-                  numberOfStars={10}
-                  rating={vote_average}
-                  starDimension="14px"
-                  starRatedColor="yellow"
-                  starSpacing="2px"
-              />
-              <h4>{original_title || original_name || title || 'Not Available'}</h4>
-            </>
-          ) : (
-            <>
-              <br/><br/>
-              <Skeleton width={'100%'} height={15}/>
-              <br/><br/>
-            </>
+          {id && (
+            <StarRatings
+                name="rating"
+                numberOfStars={10}
+                rating={vote_average}
+                starDimension="14px"
+                starRatedColor={getCSSVar('--star-color')}
+                starSpacing="2px"
+            />
           )}
+          <h4>
+            {id ? (original_title || original_name || title || 'Not Available') : (
+            <Skeleton width={'80%'} height={15}/>
+            )}
+          </h4>
           <div className="card__footer">
-            {movie.id ? (
+            <p>
+              {id ? (
+                getYear(release_date) || getYear(first_air_date) || 'Not Available'
+              ) : (
+                <Skeleton width={50}/>
+              )}
+            </p>
+            {id && (
               <>
-                <p>
-                  {releaseYear(release_date) || 
-                  releaseYear(first_air_date) || 
-                  'Not Available'}
-                </p>
                 <button
                     className="button--add-favorite"
                     onClick={onAddToFavorites}
@@ -98,11 +96,6 @@ const MovieCard = ({ favorites, movie, category }) => {
                 <div className="tooltip">
                   <span>{favoriteFound() ? 'Remove from favorites' : 'Add To Favorites'}</span>
                 </div>
-              </>
-            ) : (
-              <>
-                <Skeleton width={50} height={10}/>
-                <Skeleton width={25} height={10}/>
               </>
             )}
           </div>

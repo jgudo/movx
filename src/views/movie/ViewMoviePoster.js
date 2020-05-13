@@ -6,13 +6,13 @@ import MoviePoster from 'components/movies/MoviePoster';
 import MovieBackdrop from 'components/movies/MovieBackdrop';
 import imgBackground from 'images/background.jpg';
 
+import { TMDB_BACKDROP_PATH } from 'constants/constants';
 import { isEmpty, getYear } from 'helpers/helperFunctions';
 
 const ViewMoviePoster = ({ history }) => {
   const movie = useSelector(state => state._movies.current.movie);
   const posters = movie.images ? movie.images.posters : [];
   const backdrops = movie.images ? movie.images.backdrops : [];
-  const tmdbBackdropPath = 'https://image.tmdb.org/t/p/w1400_and_h450_face/'; 
 
   useEffect(() => {
     if (isEmpty(movie)) {
@@ -23,7 +23,7 @@ const ViewMoviePoster = ({ history }) => {
   return !isEmpty(movie) && (
     <>
       <div className="posters__banner">
-        <img src={movie.backdrop_path ? `${tmdbBackdropPath}${movie.backdrop_path}` : imgBackground} alt=""/>
+        <img src={movie.backdrop_path ? `${TMDB_BACKDROP_PATH}${movie.backdrop_path}` : imgBackground} alt=""/>
         <div className="posters__banner-content">
           <h1>
             {movie.original_title || movie.original__name || movie.name || 'Movie Title Not Found'} 

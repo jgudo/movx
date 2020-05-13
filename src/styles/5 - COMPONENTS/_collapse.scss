@@ -1,6 +1,6 @@
 .Collapsible {
-  background: lighten($dark-blue-0, 2%);
-  border: 1px solid lighten($dark-blue-1, 5%);
+  background: var(--input-background);
+  border: 1px solid var(--input-background-focus);
   margin-bottom: $s-size;
 }
 
@@ -9,10 +9,10 @@
   font-weight: 700;
   text-decoration: none;
   position: relative;
-  border: 1px solid lighten($dark-blue-1, 5%);
+  border: 1px solid var(--input-background);;
   padding: $m-size;
-  background: lighten($dark-blue-1, 2%);
-  color: white; 
+  background: var(--input-background-focus);
+  color: var(--text-color); 
 }
 
 .Collapsible__trigger:after {
@@ -22,6 +22,7 @@
   top: 15px;
   font-size: 12px;
   display: block;
+  color: var(--text-color);
   transition: transform 300ms; 
 }
 

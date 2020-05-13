@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import LazyLoad from 'react-lazy-load';
 import ImageLoader from 'components/common/ImageLoader';
 import imgPlaceholder from 'images/placeholder.jpg';
+import { TMDB_POSTER_PATH, TMDB_BACKDROP_PATH } from 'constants/constants';
 import { numberWithCommas, isEmpty, getYear } from 'helpers/helperFunctions';
 
 const ViewMoviePoster = ({ history }) => {
@@ -11,8 +12,6 @@ const ViewMoviePoster = ({ history }) => {
     movie: state._movies.current.movie,
     casts: state._movies.current.casts
   }));
-  const tmdbBackdropPath = 'https://image.tmdb.org/t/p/w1400_and_h450_face/';
-  const tmdbPosterPath = 'https://image.tmdb.org/t/p/w185_and_h278_face/';
 
   useEffect(() => {
     if (isEmpty(movie)) {
@@ -23,7 +22,7 @@ const ViewMoviePoster = ({ history }) => {
   return !isEmpty(movie) && (
     <>
       <div className="posters__banner">
-        <img src={`${tmdbBackdropPath + movie.backdrop_path}`} alt=""/>
+        <img src={`${TMDB_BACKDROP_PATH + movie.backdrop_path}`} alt=""/>
         <div className="posters__banner-content">
           <h1>
             {movie.original_title || movie.original__name || movie.name || 'Movie Title Not Found'} 
@@ -62,14 +61,14 @@ const ViewMoviePoster = ({ history }) => {
                       <ImageLoader 
                           alt={cast.name}
                           imgId={cast.id} 
-                          src={cast.profile_path ? `${tmdbPosterPath + cast.profile_path}` : imgPlaceholder} 
+                          src={cast.profile_path ? `${TMDB_POSTER_PATH + cast.profile_path}` : imgPlaceholder} 
                       />
                     </LazyLoad>
                   </div>
                   <div className="casts__details">
                     <h4>{cast.name || 'Not Available'}</h4>
                     {cast.character && (
-                      <p className="card__character">{`(${cast.character})`}</p> 
+                      <p className="card__character">{`${cast.character}`}</p> 
                     )}
                   </div>
                 </div>

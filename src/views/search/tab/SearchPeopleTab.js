@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import PeopleCard from 'components/people/PeopleCard';
+import PeopleList from 'components/people/PeopleList';
 import PaginationBar from 'components/common/PaginationBar';
 
 import { searchPeople } from 'actions/searchActions';
@@ -18,17 +18,10 @@ const SearchPeopleTab = ({ people, isLoading, query }) => {
 
   return !isEmpty(people) && people.results.length !== 0 ? (
     <>
-      <div className="movie__wrapper">
-        {people.results.map((person) => {
-          return (
-            <PeopleCard 
-                category="people"
-                key={person.id}
-                people={person}  
-            />
-          )
-        })}
-      </div>
+      <PeopleList 
+          category="people" 
+          people={people.results} 
+      />
       <PaginationBar 
           activePage={people.page}
           itemsCountPerPage={1}

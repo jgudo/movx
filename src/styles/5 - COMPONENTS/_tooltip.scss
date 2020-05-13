@@ -5,7 +5,7 @@
   padding: $s-size;
   font-size: 12px;
   background: $blue;
-  border-radius: 5px;
+  border-radius: $border-radius;
   opacity: 0;
   visibility: hidden;
   @include transition();
@@ -15,10 +15,14 @@
     content: '';
     position: absolute;
     top: 100%; 
-    right: 5%;
+    right: 3%;
     margin-left: -5px;
     border-width: 5px;
     border-style: solid;
     border-color: $blue transparent transparent transparent;
+  }
+
+  span {
+    color: #fff;
   }
 }

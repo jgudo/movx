@@ -73,10 +73,14 @@ const ViewMovie = (props) => {
         </div>
       )}
       {movie.similar && (
-        <SimilarMovies 
-            favorites={favorites}
-            movies={movie.similar.results} 
-        />
+        <>
+         {movie.similar.results.length !== 0 && (
+            <SimilarMovies 
+                favorites={favorites}
+                movies={movie.similar.results} 
+            />
+          )}
+        </>
       )}
       {(reviews.results && !!reviews.total_pages) && (
         <Reviews reviews={reviews} />

@@ -25,7 +25,7 @@
   top: 0;
   bottom: 0;
   margin: auto;
-  background: $dark-blue-0;
+  background: var(--background-color);
   z-index: 11;
 }
 
@@ -45,15 +45,15 @@
 
   span {
     font-size: 10px;
-    color: #cacaca;
-    margin-top: $s-size;
+    color: var(--text-color);
+    margin-top: 2rem;
   }
 }
 
 .loading__circular {
   width: 40px;
   height: 40px;
-  border: 3px solid $blue;
+  border: 3px solid var(--star-color);
   border-top: none;
   border-left: none;
   border-radius: 50%;

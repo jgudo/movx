@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import MovieCard from 'components/movies/MovieCard';
+import MovieList from 'components/movies/MovieList';
 import Container from 'components/common/Container';
 
 import { numberWithCommas } from 'helpers/helperFunctions';
@@ -18,16 +18,11 @@ const Favorites = (props) => {
               <h3>{numberWithCommas(favorites.length)} Movies</h3>
             </div>
           </div>
-          <div className="movie__wrapper">
-            {favorites.map((favorite, index) => (
-              <MovieCard 
-                  category="movie"
-                  key={`${favorite.id}_${index}`}
-                  movie={favorite} 
-                  favorites={favorites}
-              />
-            ))}
-          </div>
+          <MovieList 
+              category="movie"
+              favorites={favorites}
+              movies={favorites}
+          />
         </Container>
       ) : (
         <div className="error">

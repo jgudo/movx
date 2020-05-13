@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
-import MovieCard from '../movies/MovieCard';
+import MovieList from '../movies/MovieList';
 
 const Casting = ({ casting, favorites, actor, match, history }) => {
   const actorId = match.params.id;
@@ -18,16 +18,11 @@ const Casting = ({ casting, favorites, actor, match, history }) => {
           <div className="movie__casts-header header__title">
             <h1>Known For</h1>
           </div>
-          <div className="movie__casts-grid">
-            {casting.map((movie, index) => index < 8 && (
-              <MovieCard 
-                  category={movie.media_type}
-                  favorites={favorites}
-                  key={`${movie.id}_${movie.character}`}
-                  movie={movie}
-              />
-            ))}
-          </div>
+          <MovieList 
+              favorites={favorites}
+              gridClass="movie__casts-grid"
+              movies={casting.slice(0, 8)} 
+          />
           <div className="movie__casts-action">
             <button 
                 className="button--primary m-auto"

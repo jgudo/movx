@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Loader from 'components/hoc/Loader';
-import MovieCard from 'components/movies/MovieCard';
+import MovieList from 'components/movies/MovieList';
 import Container from 'components/common/Container';
 import PaginationBar from 'components/common/PaginationBar';
 import Filter from 'components/common/Filter';
@@ -49,23 +49,12 @@ const TvShows = (props) => {
           /> 
         )}
       </div>
-      <div className="movie__wrapper">
-        {tvShows.results ? tvShows.results.map(show => (
-          <MovieCard 
-              category="tv"
-              favorites={favorites}
-              key={show.id}
-              movie={show} 
-          />
-        )) : new Array(10).fill({}).map((item, index) => (
-          <MovieCard 
-              category="tv"
-              favorites={[]}
-              key={`skeleton_tv_${index}`}
-              movie={{}} 
-          />
-        ))}
-      </div>
+      <MovieList 
+          category="tv"
+          favorites={favorites}
+          movies={tvShows.results}
+          templateCount={10}
+      />
       <PaginationBar 
           activePage={tvShows.page}
           itemsCountPerPage={1}

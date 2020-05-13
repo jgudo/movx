@@ -3,21 +3,21 @@
   position: relative;
   height: 100vh;
   overflow: hidden;
-  background: lighten($dark-blue-0, 7%);
-
-  // @include mobile {
-  //   height: 550px;
-  // }
-}
-
-.movie__slider-content  {
-  padding-top: $top;
 }
 
 .movie__slider-wrapper {
   position: relative;
   width: 100%;
   height: 100%;
+}
+
+.movie__slider-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 0;
 
   &:after {
     content: '';
@@ -29,32 +29,22 @@
     margin: auto;
     width: 100%;  
     height: 100%;
+    border-radius: $border-radius;
     background: transparentize($dark-blue-0, .3);
     z-index: 1;
   }
-}
 
-.movie__slider-backdrop {
-  position: absolute;
-  width: 100%;
-  height: 100vh;
-  object-fit: cover;
-  position: relative;
-
-  // @include mobile {
-  //   height: 550px;
-  // }
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 }
 
 .movie__slider-content {
-  width: 85%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  margin: auto;
+  width: 100%;
+  height: 100vh;
+  position: relative;
   padding: $xl-size;
   padding-top: rem(150);
   z-index: 2;
@@ -74,8 +64,10 @@
 
   @include mobile {
     width: 100%;
-    padding-left: $l-size; 
-    padding-right: $l-size; 
+    padding: 0;
+    padding-bottom: 5rem;
+    // padding-left: $l-size; 
+    // padding-right: $l-size; 
   }
 
   .view__overview {
@@ -125,6 +117,7 @@
 
   h1 {
     font-size: 28px;
+    color: $heading-color;
     margin-bottom: 0;
 
     @include mobile {
@@ -139,17 +132,13 @@
     //   display: none;
     // }
   }
-
-  // .view__actions {
-  //   @include mobile {
-  //     display: none;
-  //   }
-  // }
 }
 
 .movie__slider-rating {
+  color: $text-color;
   @include mobile {
     margin: 0;
+    font-size: 1.1rem;
   }
 }
 
@@ -194,12 +183,11 @@
 }
 
 .slick-next {
-  right: 0;
+  right: 5% !important;
 }
 
 .slick-prev {
-  left: 0;
-  margin-left: 15px;
+  left: 5% !important;
 }
 
 .slick-dots {

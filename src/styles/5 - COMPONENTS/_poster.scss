@@ -1,12 +1,6 @@
 .poster {
-  background: $background;
+  background: var(--background-color);
   padding-bottom: $xl-size;
-}
-
-.poster__wrapper {
-  // @include tablet {
-  //   width: 90%;
-  // }
 }
 
 .poster__header {
@@ -29,28 +23,8 @@
 
   @include mobile {
     height: 225px;
-    margin-bottom: 0;
+    margin-bottom: 1rem;
   }
-
-  // &:before {
-  //   content: '';
-  //   position: absolute;
-  //   left: 0;
-  //   right: 0;
-  //   top: 0;
-  //   bottom: 0;
-  //   width: 100%;
-  //   height: 100%;
-  //   margin: auto;
-  //   background: transparentize($dark-blue-0, .4);
-  //   background: linear-gradient(to bottom, transparent 50%, transparentize($dark-blue-0, 1) 0%, $blue 90%);
-  //   border-radius: 6px;
-  //   z-index: 0;
-
-  //   @include tablet {
-  //     display: none;
-  //   }
-  // }
 }
 
 .poster__download {
@@ -58,6 +32,9 @@
   text-align: center;
   width: 100%;
   padding: 1.5rem;
+  color: $off-black;
+
+  i { color: $off-black; }
 }
 
 .poster__details {
@@ -66,18 +43,7 @@
   bottom: 0;
   z-index: 1;
   text-align: center;
-  // padding: $m-size 0;
-  // border-bottom-left-radius: 6px;
-  // border-bottom-right-radius: 6px;
-  // background: transparentize($dark-blue-0, .4);
-  // background: linear-gradient(to bottom, transparentize($dark-blue-0, 1) 0%, $blue 80%);
   @include transition();
-
-  // @include tablet {
-  //   bottom: 0;
-  //   padding: 0;
-  //   background: $blue;
-  // }
 }
 
 .posters__banner {

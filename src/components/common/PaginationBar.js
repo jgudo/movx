@@ -20,7 +20,7 @@ const PaginationBar = ({
     } 
   }, []); 
   
-  return (!!totalPage || totalPage > 1) ? (
+  return (!!totalPage && totalPage > 1) ? (
     <div className="pagination__wrapper">
       <p>Page {activePage}/{totalPage > 1000 ? 1000 : totalPage}</p>
       <Pagination

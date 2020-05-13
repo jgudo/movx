@@ -3,6 +3,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+  z-index: map-get($z-index, 'footer');
 
   span {
   	@include mobile 

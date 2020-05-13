@@ -41,3 +41,6 @@ export const SEARCH_TV_SHOWS_SUCCESS = 'SEARCH_TV_SHOWS_SUCCESS';
 export const SEARCH_PEOPLE = 'SEARCH_PEOPLE';
 export const SEARCH_PEOPLE_SUCCESS = 'SEARCH_PEOPLE_SUCCESS';
 export const UPDATE_SEARCH_QUERY = 'UPDATE_SEARCH_QUERY';
+export const SET_DARK_MODE = 'SET_DARK_MODE';
+export const TMDB_BACKDROP_PATH = 'https://image.tmdb.org/t/p/w1400_and_h450_face/';
+export const TMDB_POSTER_PATH = 'https://image.tmdb.org/t/p/w185_and_h278_face/';

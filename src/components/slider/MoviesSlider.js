@@ -23,9 +23,9 @@ const MoviesSlider = ({ movies, favorites }) => {
   return (
     <div className="movie__slider">
       <Slider {...settings}>
-        {movies.map(movie => (
+        {movies.map((movie, index) => (
           <SliderItem 
-              key={movie.id} 
+              key={movie.id || `movie_slider${index}`} 
               movie={movie}
               favorites={favorites}
           />

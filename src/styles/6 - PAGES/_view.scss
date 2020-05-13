@@ -1,6 +1,9 @@
 .view {
+  width: 100%;
+  position: relative;
   display: flex;
   flex-direction: column;
+  z-index: 1;
 
   @include only-tablet {
     margin-top: 5rem;
@@ -28,10 +31,13 @@
 
 .view__poster {
   width: 300px;
+  height: 400px;
   // height: 450px;
   // background: #f1f1f1;
   border-radius: $border-radius;
   position: relative;
+  // box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
 
   &:before {
     content: '';
@@ -43,7 +49,7 @@
     margin: auto;
     width: 99%;
     height: 99%;
-    border-radius: $border-radius;
+    // border-radius: $border-radius;
     background: #f1f1f1;
     z-index: 0;
   } 
@@ -93,11 +99,7 @@
   display: flex;
   flex-grow: 1;
   flex-direction: column;
-   
-  // @include tablet {
-    // padding-right: 0;
-    // padding-left: $m-size;
-  // }
+
 
   @include mobile {
     padding: 0;
@@ -106,15 +108,10 @@
   }
 }
 
-.view__overview-title {
-  @include mobile {
-    display: none;
-  }
-}
-
 .view__overview {
   width: 100%;
   max-height: 200px;
+  color: $text-color;
   display: block; /* Fallback for non-webkit */
   display: -webkit-box;
   -webkit-line-clamp: 7;
@@ -133,7 +130,16 @@
   }
 }
 
+
+.view__overview-title {
+  color: $text-color;
+  @include mobile {
+    display: none;
+  }
+}
+
 .view__title {
+  color: $heading-color;
   font-size: $l-size;
   margin-bottom: $s-size;
   position: relative;
@@ -145,7 +151,7 @@
   }
 
   span {
-    opacity: .5;
+    color: $text-subtle;
 
     @include mobile {
       font-size: $m-size;
@@ -154,6 +160,7 @@
 }
 
 .view__rating {
+  color: $text-subtle;
   margin-top: 0;
 
   @include mobile {
@@ -181,7 +188,7 @@
   width: 100%;
   display: flex;
   align-items: center;
-  justify-self: flex-end;
+  // justify-self: flex-end;
 
   // @include mobile {
     // flex-direction: column;
@@ -218,7 +225,7 @@
 .back__button {
   width: 150px;
   position: relative;
-  z-index: 1;
+  z-index: 10;
   padding-top: $l-size;
 
   @include desktop {

@@ -1,0 +1,41 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: $s-size;
+  justify-items: center;
+  padding: $l-size $m-size;
+
+  @include laptop {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  @include only-tablet {
+    grid-template-columns: repeat(3, 1fr);
+    padding: $l-size 0;
+  }
+
+  @include only-mobile {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0;
+    margin-bottom: 3.2rem;
+  }
+
+  @include s-mobile {
+    grid-gap: 0;
+  }
+}
+
+.movie__casts-grid  {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: $s-size;
+  justify-items: center;
+
+  @include only-tablet {
+    grid-template-columns: repeat(3, 1fr);  
+  }
+
+  @include only-mobile {
+    grid-template-columns: repeat(2, 1fr);  
+  }
+}

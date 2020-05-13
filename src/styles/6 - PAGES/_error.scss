@@ -11,9 +11,14 @@
   align-items: center;
   flex-direction: column;
   padding: $l-size;
+  z-index: map-get($z-index, 'error');
 
   h1 {
     margin-bottom: 0;
+
+    @include mobile {
+      font-size: 2rem;
+    }
   }
   
   p {

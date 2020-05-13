@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import LazyLoad from 'react-lazy-load';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { Link } from 'react-router-dom';
+import { getCSSVar } from 'helpers/helperFunctions';
 import ImageLoader from '../common/ImageLoader';
 import imgPlaceholder from 'images/placeholder.jpg';
 
@@ -17,7 +18,10 @@ const PeopleCard = (props) => {
   const tmdbPosterPath = 'https://image.tmdb.org/t/p/w185_and_h278_face/';
 
   return (
-    <SkeletonTheme color="#0f1214" highlightColor="#181d20">
+    <SkeletonTheme 
+        color={getCSSVar('--skeleton-theme-color')} 
+        highlightColor={getCSSVar('--skeleton-theme-highlight')}
+    >
       <div className="card people__card">
         <Link to={`/view/person/profile/${id}`}>
           <div className="card__image">
@@ -36,16 +40,11 @@ const PeopleCard = (props) => {
           </div>
         </Link>
         <div className="card__details">
-          {id ? (
-            <>
-              <h4>{name || 'Not Available'}</h4>
-              {character && <p className="card__character">{`(${character})`}</p>}
-            </>
-          ) : (
-            <>
-              <br/><br/>
-              <Skeleton width={'60%'} height={15}/>
-            </>
+          <h4>
+            {id ? name || 'Not Available' : <Skeleton width={'60%'}/>}
+          </h4>
+          {character && (
+            <p className="card__character">{character}</p>
           )}
         </div>
       </div>

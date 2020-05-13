@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Loader from 'components/hoc/Loader'; 
-import PeopleCard from 'components/people/PeopleCard';
+import PeopleList from 'components/people/PeopleList';
 import Container from 'components/common/Container';
 import PaginationBar from 'components/common/PaginationBar';
 import { fetchPeople } from 'actions/peopleActions';
@@ -33,21 +33,7 @@ const People = (props) => {
           <h3>{numberWithCommas(people.total_results)} People</h3>
         </div>
       </div>
-      <div className="movie__wrapper">
-        {people.results ? people.results.map(person => (
-          <PeopleCard 
-              category="people"
-              key={person.id}
-              people={person} 
-          />
-        )) : new Array(10).fill({}).map((item, index) => (
-          <PeopleCard 
-              category="people"
-              key={`skeleton_person_${index}`}
-              people={{}} 
-          />
-        ))}
-      </div>
+      <PeopleList people={people.results} templateCount={10} />
       <PaginationBar 
           activePage={people.page}
           itemsCountPerPage={1}

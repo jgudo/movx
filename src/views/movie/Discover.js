@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import MovieCard from 'components/movies/MovieCard';
+import MovieList from 'components/movies/MovieList';
 import PaginationBar from 'components/common/PaginationBar';
 import Container from 'components/common/Container';
 import Filter from 'components/common/Filter';
@@ -59,26 +59,11 @@ const DiscoverMovies = (props) => {
           />
         )}
       </div>  
-      <div className="movie__wrapper">
-        {discoverMovies.results ? 
-          discoverMovies.results.map((movie, index) => (
-            <MovieCard 
-                category="movie"
-                key={`${movie.id}_${index}`}
-                movie={movie} 
-                favorites={favorites}
-            />
-          ))
-          : new Array(10).fill({}).map((item, index) => (
-            <MovieCard 
-                category="movie"
-                key={`skeleton_${index}`}
-                movie={{}} 
-                favorites={[]}
-            />
-          ))
-        }
-      </div>
+     <MovieList 
+          movies={discoverMovies.results} 
+          favorites={favorites}
+          templateCount={10} 
+      />
       <PaginationBar 
           activePage={discoverMovies.page}
           itemsCountPerPage={1}

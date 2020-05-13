@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Loader from 'components/hoc/Loader'; 
-import MovieCard from 'components/movies/MovieCard';
+import MovieList from 'components/movies/MovieList';
 import Container from 'components/common/Container';
 import PaginationBar from 'components/common/PaginationBar';
 import { fetchPopularMovies } from 'actions/movieActions';
@@ -38,23 +38,11 @@ const PopularMovies = (props) => {
           <h3>{numberWithCommas(popularMovies.total_results)} Movies</h3>
         </div>
       </div>
-      <div className="movie__wrapper">
-        {popularMovies.results ? popularMovies.results.map((movie, index) => (
-          <MovieCard 
-              category="movie"
-              key={`${movie.id}_${index}`}
-              movie={movie} 
-              favorites={favorites}
-          />
-        )) : new Array(10).fill({}).map((item, index) => (
-          <MovieCard 
-              category="movie"
-              key={`skeleton_popular_${index}`}
-              movie={{}} 
-              favorites={[]}
-          />
-        ))}
-      </div>
+      <MovieList 
+          movies={popularMovies.results} 
+          favorites={favorites}
+          templateCount={10} 
+      />
       <PaginationBar 
           activePage={popularMovies.page}
           itemsCountPerPage={1}

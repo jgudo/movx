@@ -54,3 +54,9 @@
     transform: translate(100%) scaleX(0.1);
   }
 }
+
+@keyframes fadeInImg {
+  to {
+    opacity: 1;
+  }
+}

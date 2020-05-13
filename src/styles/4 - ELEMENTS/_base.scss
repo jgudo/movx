@@ -10,8 +10,8 @@ html {
 body {
   font-family: 'Yantramanav', Helvetica, Arial, sans-serif;
   font-size: 1.6rem;
-  background: $background;
-  color: #fff;
+  background: var(--background-color, $background);
+  color: var(--text-color, $text-color);
 }
 
 h1,
@@ -21,7 +21,7 @@ h4,
 h5,
 h6 {
   font-family: 'Yantramanav', Helvetica, Arial, sans-serif;
-  color: $heading-color;
+  color: var(--heading-color, $heading-color);
 }
 
 h1 {
@@ -29,12 +29,14 @@ h1 {
 
   @include mobile {
     font-size: 2.5rem;
+    line-height: 3.5rem;
   }
 }
 
 p {
   font-size: 1.6rem;
   line-height: 3rem;
+  color: var(--text-color, $text-color);
 
   @include mobile {
     font-size: 1.3rem;
@@ -45,6 +47,23 @@ p {
 a {
   text-decoration: none;
   color: $blue;
+
+  &:hover {
+    cursor: pointer;
+    color: lighten($blue, 10%);
+  }
+}
+
+span {
+  color: var(--text-color, $text-color);
+}
+
+i {
+  color: var(--text-color, $text-color);
+}
+
+li {
+  color: var(--text-color, $text-color);
 }
 
 button {
@@ -97,15 +116,15 @@ input[type="password"],
 input[type="number"],
 textarea
  {
-  color: #fff;
+  color: var(--text-color, $text-color);
   font-size: 1.6rem;
-  background: $input-bg;
+  background: var(--input-background);
   border: none;
   border-radius: $border-radius;
   padding: 1.4rem;
 
   &:focus {
-    background: $input-focus;
+    background: var(--input-background-focus);
     outline: none;
   }
 }

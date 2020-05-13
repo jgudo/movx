@@ -28,7 +28,7 @@
 		position: fixed;
 		animation: slide-down .3s ease;
 		animation-fill-mode: forwards; 
-		background: $dark-blue-0;
+		background: var(--nav-background);
 		height: 80px;
 		box-shadow: 0 8px 20px rgba(0,0,0,.1);
 	}

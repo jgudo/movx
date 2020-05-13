@@ -1,12 +1,14 @@
 import {
   ADD_TO_FAVORITES,
   REMOVE_FROM_FAVORITES,
-  IS_LOADING
+  IS_LOADING,
+  SET_DARK_MODE
 } from 'constants/constants';
 
 export default (state = {
   favorites: [],
-  isLoading: false
+  isLoading: false,
+  darkMode: true
 }, action) => {
   switch (action.type) {
     case ADD_TO_FAVORITES:
@@ -28,6 +30,12 @@ export default (state = {
       return {
         ...state,
         isLoading: action.payload
+      };
+      break;
+    case SET_DARK_MODE:
+      return {
+        ...state,
+        darkMode: action.payload
       };
       break;
     default:

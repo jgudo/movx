@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Loader from 'components/hoc/Loader';  
-import MovieCard from 'components/movies/MovieCard';
+import MovieList from 'components/movies/MovieList';
 import Container from 'components/common/Container';
 import PaginationBar from 'components/common/PaginationBar';
 import { fetchUpcomingMovies } from 'actions/movieActions';
@@ -37,23 +37,11 @@ const UpcomingMovies = (props) => {
           <h3>{numberWithCommas(upcomingMovies.total_results)} Movies</h3>
         </div>
       </div>
-      <div className="movie__wrapper">
-        {upcomingMovies.results ? upcomingMovies.results.map((movie, index) => (
-          <MovieCard 
-              category="movie"
-              key={`${movie.id}_${index}`}
-              movie={movie} 
-              favorites={favorites}
-          />
-        )) : new Array(10).fill({}).map((item, index) => (
-          <MovieCard 
-              category="movie"
-              key={`skeleton_upcoming_${index}`}
-              movie={{}} 
-              favorites={[]}
-          />
-        ))}
-      </div>
+      <MovieList 
+          movies={upcomingMovies.results} 
+          favorites={favorites}
+          templateCount={10} 
+      />
       <PaginationBar 
           activePage={upcomingMovies.page}
           itemsCountPerPage={1}
