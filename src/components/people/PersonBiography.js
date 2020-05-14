@@ -23,14 +23,15 @@ const PersonBiography = ({ actor, history }) => {
 
   const modalStyle = {
     modal: {
-      background: '#272c30',
+      background: getCSSVar('--background-color'),
       padding: '50px',
       textAlign: 'left',
       borderRadius: '6px'
     },
     closeButton: {
       top: '10px',
-      right: '10px'
+      right: '10px',
+      background: '#ff2e4f'
     },
     closeIcon: {
       fill: '#fff'

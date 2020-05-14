@@ -8,6 +8,7 @@
 }
 
 .styles_modal__gNwvD {
+  background: var(--background-color) !important;
   @include mobile {
     padding: $l-size !important;
   }
