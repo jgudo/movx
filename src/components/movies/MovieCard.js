@@ -75,7 +75,7 @@ const MovieCard = ({ favorites, movie, category }) => {
           <div className="card__footer">
             <p>
               {id ? (
-                getYear(release_date) || getYear(first_air_date) || 'Not Available'
+                getYear(release_date) || getYear(first_air_date) || 'N/A'
               ) : (
                 <Skeleton width={50}/>
               )}

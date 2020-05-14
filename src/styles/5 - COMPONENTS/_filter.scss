@@ -27,7 +27,7 @@
     z-index: 2;
     padding: $m-size;
     width: 100%;
-    background: $dark-blue-1;
+    background: var(--input-background);
     transform-origin: top;
     box-shadow: 0 10px 20px rgba(0,0,0, .2);
     opacity: 0;
@@ -58,8 +58,9 @@
   }
 
   span {
+    color: var(--text-color);
     font-size: 12px;
-    opacity: .5;
+    opacity: .7;
     padding-left: $s-size;
   }
 
@@ -87,7 +88,7 @@
 }
 
 .filter__close {
-  color: #fff;
+  color: var(--text-color);
   width: 100%;
   padding: $s-size;
   text-align: center;
