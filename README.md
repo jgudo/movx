@@ -11,7 +11,7 @@ Built with react js | TMDB api
 $ npm install 
 ```
 ### Get API key
-Login into themoviedb to get your api key. Login [here](https://www.themoviedb.org/settings/api)
+Login to TheMovieDB to get your api key. Login [here](https://www.themoviedb.org/settings/api)
 
 Create a .env file in the root of your project folder and name it _.env.development_
 and add the following
