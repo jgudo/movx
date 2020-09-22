@@ -80,6 +80,7 @@
     "react-router-dom": "^5.0.1",
     "react-slick": "^0.25.2",
     "react-star-ratings": "^2.3.0",
+    "react-toastify": "^6.0.8",
     "redux": "^4.0.4",
     "redux-persist": "^6.0.0",
     "redux-saga": "^1.1.1",

@@ -21,26 +21,27 @@ const SearchTvTab = ({ tvShows, favorites, isLoading, query }) => {
 
   return !isEmpty(tvShows) && tvShows.results.length !== 0 ? (
     <>
-      <MovieList 
-          category="tv"
-          movies={tvShows.results}
-          favorites={favorites}
+      <MovieList
+        category="tv"
+        isLoading={isLoading}
+        movies={tvShows.results}
+        favorites={favorites}
       />
-      <PaginationBar 
-          activePage={tvShows.page}
-          itemsCountPerPage={1}
-          onChange={handlePageChange}
-          pageRangeDisplayed={10}
-          totalItemsCount={tvShows.total_pages}
-          totalPage={tvShows.total_pages}
+      <PaginationBar
+        activePage={tvShows.page}
+        itemsCountPerPage={1}
+        onChange={handlePageChange}
+        pageRangeDisplayed={10}
+        totalItemsCount={tvShows.total_pages}
+        totalPage={tvShows.total_pages}
       />
     </>
   ) : (
-    <div className="search__no-result">
-      <h1>No TV show found.</h1>
-      <i className="fa fa-theater-masks" />
-    </div>
-  );
+      <div className="search__no-result">
+        <h1>No TV show found.</h1>
+        <i className="fa fa-theater-masks" />
+      </div>
+    );
 };
 
 export default SearchTvTab;

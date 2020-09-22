@@ -18,25 +18,26 @@ const SearchPeopleTab = ({ people, isLoading, query }) => {
 
   return !isEmpty(people) && people.results.length !== 0 ? (
     <>
-      <PeopleList 
-          category="people" 
-          people={people.results} 
+      <PeopleList
+        category="people"
+        isLoading={isLoading}
+        people={people.results}
       />
-      <PaginationBar 
-          activePage={people.page}
-          itemsCountPerPage={1}
-          onChange={handlePageChange}
-          pageRangeDisplayed={10}
-          totalItemsCount={people.total_pages}
-          totalPage={people.total_pages}
+      <PaginationBar
+        activePage={people.page}
+        itemsCountPerPage={1}
+        onChange={handlePageChange}
+        pageRangeDisplayed={10}
+        totalItemsCount={people.total_pages}
+        totalPage={people.total_pages}
       />
     </>
   ) : (
-    <div className="search__no-result">
-      <h1>No people found.</h1>
-      <i className="fa fa-user-friends" />
-    </div>
-  );
+      <div className="search__no-result">
+        <h1>No people found.</h1>
+        <i className="fa fa-user-friends" />
+      </div>
+    );
 };
 
 export default SearchPeopleTab;

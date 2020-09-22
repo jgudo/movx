@@ -3,12 +3,13 @@ import { useDispatch } from 'react-redux';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import LazyLoad from 'react-lazy-load';
 import StarRatings from 'react-star-ratings';
+import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
-import ImageLoader from '../common/ImageLoader';
 import imgPlaceholder from 'images/img-placeholder.jpg';
 
 import { getCSSVar, getYear } from 'helpers/helperFunctions';
 import { addToFavorites, removeFromFavorites } from 'actions/miscActions';
+import ImageLoader from '../common/ImageLoader';
 
 /* eslint camelcase: 0 */
 const MovieCard = ({ favorites, movie, category, isLoading }) => {
@@ -30,8 +31,17 @@ const MovieCard = ({ favorites, movie, category, isLoading }) => {
   };
 
   const onAddToFavorites = () => {
-    if (!favoriteFound()) dispatch(addToFavorites(movie));
-    else dispatch(removeFromFavorites(id));
+    if (!favoriteFound()) {
+      dispatch(addToFavorites(movie));
+      toast.dismiss();
+      toast.dark(`${original_name || original_title} \n\r Added to favorites`);
+    } else {
+      dispatch(removeFromFavorites(id));
+      toast.dismiss();
+      toast.dark(`${original_name || original_title} \n\r removed from favorites`, {
+        progressStyle: { backgroundColor: '#DC143C' }
+      });
+    }
   };
 
   const onClickCard = (e) => {

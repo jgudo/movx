@@ -18,26 +18,27 @@ const SearchMovieTab = ({ movies, favorites, isLoading, query }) => {
 
   return (!isEmpty(movies) && movies.results.length !== 0) ? (
     <>
-      <MovieList 
-          category="movie"
-          movies={movies.results}
-          favorites={favorites}
+      <MovieList
+        category="movie"
+        isLoading={isLoading}
+        movies={movies.results}
+        favorites={favorites}
       />
-      <PaginationBar 
-          activePage={movies.page}
-          itemsCountPerPage={1}
-          onChange={handlePageChange}
-          pageRangeDisplayed={10}
-          totalItemsCount={movies.total_pages}
-          totalPage={movies.total_pages}
+      <PaginationBar
+        activePage={movies.page}
+        itemsCountPerPage={1}
+        onChange={handlePageChange}
+        pageRangeDisplayed={10}
+        totalItemsCount={movies.total_pages}
+        totalPage={movies.total_pages}
       />
     </>
   ) : (
-    <div className="search__no-result">
-      <h1>No movie found.</h1>
-      <i className="fa fa-film" />
-    </div>
-  );
+      <div className="search__no-result">
+        <h1>No movie found.</h1>
+        <i className="fa fa-film" />
+      </div>
+    );
 };
 
 export default SearchMovieTab;

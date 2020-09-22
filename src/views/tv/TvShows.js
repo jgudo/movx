@@ -40,30 +40,31 @@ const TvShows = (props) => {
         <div className="movie__header-title">
           <h1>TV Shows</h1>
           <h3>{numberWithCommas(tvShows.total_results)} TV Shows</h3>
-        </div> 
+        </div>
         {tvShows.results && (
-          <Filter 
-              filterCategory="tv"
-              filterData={filter.tv}
-              isLoading={isLoading}
-          /> 
+          <Filter
+            filterCategory="tv"
+            filterData={filter.tv}
+            isLoading={isLoading}
+          />
         )}
       </div>
-      <MovieList 
-          category="tv"
-          favorites={favorites}
-          movies={tvShows.results}
-          templateCount={10}
+      <MovieList
+        category="tv"
+        favorites={favorites}
+        isLoading={isLoading}
+        movies={tvShows.results}
+        templateCount={10}
       />
-      <PaginationBar 
-          activePage={tvShows.page}
-          itemsCountPerPage={1}
-          onChange={handlePageChange}
-          pageRangeDisplayed={10}
-          totalItemsCount={tvShows.total_pages}
-          totalPage={tvShows.total_pages}
+      <PaginationBar
+        activePage={tvShows.page}
+        itemsCountPerPage={1}
+        onChange={handlePageChange}
+        pageRangeDisplayed={10}
+        totalItemsCount={tvShows.total_pages}
+        totalPage={tvShows.total_pages}
       />
-    </Container>    
+    </Container>
   );
 };
 

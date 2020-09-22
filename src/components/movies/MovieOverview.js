@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import LazyLoad from 'react-lazy-load';
+import { toast } from 'react-toastify';
 import ModalVideo from 'react-modal-video';
 import Modal from 'react-responsive-modal';
 import ImageLoader from '../common/ImageLoader';
@@ -50,8 +51,19 @@ const MovieOverview = ({ movie, favorites, history }) => {
   const foundOnFavorites = () => favorites.some(item => item.id === movie.id);
 
   const onAddToFavorites = () => {
-    if (!foundOnFavorites()) dispatch(addToFavorites(movie));
-    else dispatch(removeFromFavorites(movie.id));
+    if (!foundOnFavorites()) {
+      dispatch(addToFavorites(movie));
+      toast.dismiss();
+      toast.dark(`${movie.original_name || movie.original_title} \n\r Added to favorites`);
+    } else {
+      dispatch(removeFromFavorites(movie.id));
+      toast.dismiss();
+      const options = {
+        autoClose: 5000,
+        progressStyle: { backgroundColor: '#DC143C' }
+      };
+      toast.dark(`${movie.original_name || movie.original_title} \n\r removed from favorites`, options);
+    }
   };
 
   const closeVideoModal = () => setOpenVideoModal(false);

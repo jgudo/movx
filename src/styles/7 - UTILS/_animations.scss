@@ -60,3 +60,21 @@
     opacity: 1;
   }
 }
+
+// @keyframes slideIn {
+//   0% { transform: translateX(100%); }
+//   100% { transform: translateX(0%); }
+// }
+
+// @keyframes slideOut {
+//   0% { transform: translateX(0%); }
+//   100% { transform: translateX(120%); }
+// }
+
+// .slideIn {
+//   animation: slideIn .3s cubic-bezier(.4,1.22,.96,.99);
+// }
+
+// .slideOut {
+//   animation: slideOut .3s cubic-bezier(.4,1.22,.96,.99);
+// }
