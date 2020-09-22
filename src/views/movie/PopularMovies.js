@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import Loader from 'components/hoc/Loader'; 
+import Loader from 'components/hoc/Loader';
 import MovieList from 'components/movies/MovieList';
 import Container from 'components/common/Container';
 import PaginationBar from 'components/common/PaginationBar';
@@ -17,7 +17,7 @@ const PopularMovies = (props) => {
   }));
   const dispatch = useDispatch();
   const route = '/movie/popular';
-  
+
   useEffect(() => {
     if (isEmpty(popularMovies)) {
       dispatch(fetchPopularMovies(route));
@@ -38,20 +38,21 @@ const PopularMovies = (props) => {
           <h3>{numberWithCommas(popularMovies.total_results)} Movies</h3>
         </div>
       </div>
-      <MovieList 
-          movies={popularMovies.results} 
-          favorites={favorites}
-          templateCount={10} 
+      <MovieList
+        movies={popularMovies.results}
+        favorites={favorites}
+        isLoading={isLoading}
+        templateCount={10}
       />
-      <PaginationBar 
-          activePage={popularMovies.page}
-          itemsCountPerPage={1}
-          onChange={handlePageChange}
-          pageRangeDisplayed={10}
-          totalItemsCount={popularMovies.total_pages}
-          totalPage={popularMovies.total_pages}
+      <PaginationBar
+        activePage={popularMovies.page}
+        itemsCountPerPage={1}
+        onChange={handlePageChange}
+        pageRangeDisplayed={10}
+        totalItemsCount={popularMovies.total_pages}
+        totalPage={popularMovies.total_pages}
       />
-    </Container>  
+    </Container>
   );
 };
 

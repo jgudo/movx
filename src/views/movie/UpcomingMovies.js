@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import Loader from 'components/hoc/Loader';  
+import Loader from 'components/hoc/Loader';
 import MovieList from 'components/movies/MovieList';
 import Container from 'components/common/Container';
 import PaginationBar from 'components/common/PaginationBar';
@@ -28,7 +28,7 @@ const UpcomingMovies = (props) => {
       dispatch(fetchUpcomingMovies(queryString, page));
     }
   };
- 
+
   return (
     <Container>
       <div className="movie__header">
@@ -37,18 +37,19 @@ const UpcomingMovies = (props) => {
           <h3>{numberWithCommas(upcomingMovies.total_results)} Movies</h3>
         </div>
       </div>
-      <MovieList 
-          movies={upcomingMovies.results} 
-          favorites={favorites}
-          templateCount={10} 
+      <MovieList
+        movies={upcomingMovies.results}
+        favorites={favorites}
+        isLoading={isLoading}
+        templateCount={10}
       />
-      <PaginationBar 
-          activePage={upcomingMovies.page}
-          itemsCountPerPage={1}
-          onChange={handlePageChange}
-          pageRangeDisplayed={10}
-          totalItemsCount={upcomingMovies.total_pages}
-          totalPage={upcomingMovies.total_pages}
+      <PaginationBar
+        activePage={upcomingMovies.page}
+        itemsCountPerPage={1}
+        onChange={handlePageChange}
+        pageRangeDisplayed={10}
+        totalItemsCount={upcomingMovies.total_pages}
+        totalPage={upcomingMovies.total_pages}
       />
     </Container>
   );

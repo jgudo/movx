@@ -9,7 +9,7 @@ import imgPlaceholder from 'images/placeholder.jpg';
 
 /* eslint camelcase: 0 */
 const PeopleCard = (props) => {
-  const { 
+  const {
     id,
     profile_path,
     name,
@@ -17,31 +17,38 @@ const PeopleCard = (props) => {
   } = props.people;
   const tmdbPosterPath = 'https://image.tmdb.org/t/p/w185_and_h278_face/';
 
+  const onClickCard = (e) => {
+    // prevent clicking of cards if loading 
+    if (props.isLoading) {
+      e.preventDefault();
+    }
+  };
+
   return (
-    <SkeletonTheme 
-        color={getCSSVar('--skeleton-theme-color')} 
-        highlightColor={getCSSVar('--skeleton-theme-highlight')}
+    <SkeletonTheme
+      color={getCSSVar('--skeleton-theme-color')}
+      highlightColor={getCSSVar('--skeleton-theme-highlight')}
     >
       <div className="card people__card">
-        <Link to={`/view/person/profile/${id}`}>
+        <Link to={`/view/person/profile/${id}`} onClick={onClickCard}>
           <div className="card__image">
             {id ? (
-              <LazyLoad 
-                  debounce={false}
-                  offsetVertical={500}
+              <LazyLoad
+                debounce={false}
+                offsetVertical={500}
               >
-                <ImageLoader 
-                    alt={name}
-                    imgId={id} 
-                    src={profile_path ? `${tmdbPosterPath + profile_path}` : imgPlaceholder} 
+                <ImageLoader
+                  alt={name}
+                  imgId={id}
+                  src={profile_path ? `${tmdbPosterPath + profile_path}` : imgPlaceholder}
                 />
               </LazyLoad>
-            ) : <Skeleton width={'100%'} height={'100%'}/>}
+            ) : <Skeleton width={'100%'} height={'100%'} />}
           </div>
         </Link>
         <div className="card__details">
           <h4>
-            {id ? name || 'Not Available' : <Skeleton width={'60%'}/>}
+            {id ? name || 'Not Available' : <Skeleton width={'60%'} />}
           </h4>
           {character && (
             <p className="card__character">{character}</p>

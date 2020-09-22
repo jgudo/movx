@@ -14,15 +14,15 @@ import { fetchDiscoverMovies } from 'actions/movieActions';
 import useDidMount from 'hooks/useDidMount';
 
 // helpers
-import { isEmpty, numberWithCommas } from 'helpers/helperFunctions'; 
+import { isEmpty, numberWithCommas } from 'helpers/helperFunctions';
 
 const DiscoverMovies = (props) => {
-  const { 
-    discoverMovies, 
-    filter, 
+  const {
+    discoverMovies,
+    filter,
     favorites,
-    isLoading 
-  } = useSelector(state => ({
+    isLoading
+  } = useSelector((state) => ({
     discoverMovies: state._movies.discoverMovies,
     filter: state._filters,
     favorites: state._misc.favorites,
@@ -52,25 +52,26 @@ const DiscoverMovies = (props) => {
           <h3>{numberWithCommas(discoverMovies.total_results)} Movies</h3>
         </div>
         {discoverMovies.results && (
-          <Filter 
-              filterCategory="discover"
-              filterData={filter.discover}
-              isLoading={isLoading}
+          <Filter
+            filterCategory="discover"
+            filterData={filter.discover}
+            isLoading={isLoading}
           />
         )}
-      </div>  
-     <MovieList 
-          movies={discoverMovies.results} 
-          favorites={favorites}
-          templateCount={10} 
+      </div>
+      <MovieList
+        favorites={favorites}
+        isLoading={isLoading}
+        movies={discoverMovies.results}
+        templateCount={10}
       />
-      <PaginationBar 
-          activePage={discoverMovies.page}
-          itemsCountPerPage={1}
-          onChange={handlePageChange}
-          pageRangeDisplayed={10}
-          totalItemsCount={discoverMovies.total_pages}
-          totalPage={discoverMovies.total_pages}
+      <PaginationBar
+        activePage={discoverMovies.page}
+        itemsCountPerPage={1}
+        onChange={handlePageChange}
+        pageRangeDisplayed={10}
+        totalItemsCount={discoverMovies.total_pages}
+        totalPage={discoverMovies.total_pages}
       />
     </Container>
   );

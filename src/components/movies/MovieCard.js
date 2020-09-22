@@ -11,8 +11,8 @@ import { getCSSVar, getYear } from 'helpers/helperFunctions';
 import { addToFavorites, removeFromFavorites } from 'actions/miscActions';
 
 /* eslint camelcase: 0 */
-const MovieCard = ({ favorites, movie, category }) => {
-  const { 
+const MovieCard = ({ favorites, movie, category, isLoading }) => {
+  const {
     id,
     poster_path,
     original_name,
@@ -31,45 +31,52 @@ const MovieCard = ({ favorites, movie, category }) => {
 
   const onAddToFavorites = () => {
     if (!favoriteFound()) dispatch(addToFavorites(movie));
-    else dispatch(removeFromFavorites(id)); 
+    else dispatch(removeFromFavorites(id));
+  };
+
+  const onClickCard = (e) => {
+    // prevent clicking of movie cards if loading 
+    if (isLoading) {
+      e.preventDefault();
+    }
   };
 
   return (
-    <SkeletonTheme 
-        color={getCSSVar('--skeleton-theme-color')} 
-        highlightColor={getCSSVar('--skeleton-theme-highlight')}
+    <SkeletonTheme
+      color={getCSSVar('--skeleton-theme-color')}
+      highlightColor={getCSSVar('--skeleton-theme-highlight')}
     >
       <div className="card">
-        <Link to={`/view/${category}/${id}`}>
+        <Link to={`/view/${category}/${id}`} onClick={onClickCard}>
           <div className="card__image">
             {movie.id ? (
-              <LazyLoad 
-                  debounce={false}
-                  offsetVertical={500}
+              <LazyLoad
+                debounce={false}
+                offsetVertical={500}
               >
-                <ImageLoader 
-                    alt={original_title || original_name || title}
-                    imgId={id} 
-                    src={poster_path ? `${tmdbPosterPath + poster_path}` : imgPlaceholder} 
+                <ImageLoader
+                  alt={original_title || original_name || title}
+                  imgId={id}
+                  src={poster_path ? `${tmdbPosterPath + poster_path}` : imgPlaceholder}
                 />
               </LazyLoad>
-            ) : <Skeleton width={'100%'} height={'100%'}/>}
+            ) : <Skeleton width={'100%'} height={'100%'} />}
           </div>
         </Link>
         <div className="card__details">
           {id && (
             <StarRatings
-                name="rating"
-                numberOfStars={10}
-                rating={vote_average}
-                starDimension="14px"
-                starRatedColor={getCSSVar('--star-color')}
-                starSpacing="2px"
+              name="rating"
+              numberOfStars={10}
+              rating={vote_average}
+              starDimension="14px"
+              starRatedColor={getCSSVar('--star-color')}
+              starSpacing="2px"
             />
           )}
           <h4>
             {id ? (original_title || original_name || title || 'Not Available') : (
-            <Skeleton width={'80%'} height={15}/>
+              <Skeleton width={'80%'} height={15} />
             )}
           </h4>
           <div className="card__footer">
@@ -77,21 +84,21 @@ const MovieCard = ({ favorites, movie, category }) => {
               {id ? (
                 getYear(release_date) || getYear(first_air_date) || 'N/A'
               ) : (
-                <Skeleton width={50}/>
-              )}
+                  <Skeleton width={50} />
+                )}
             </p>
             {id && (
               <>
                 <button
-                    className="button--add-favorite"
-                    onClick={onAddToFavorites}
+                  className="button--add-favorite"
+                  onClick={onAddToFavorites}
                 >
-                <i 
+                  <i
                     className="fa fa-heart"
                     style={{
                       color: favoriteFound() ? '#ff2e4f' : '#5b6166'
                     }} />
-                    
+
                 </button>
                 <div className="tooltip">
                   <span>{favoriteFound() ? 'Remove from favorites' : 'Add To Favorites'}</span>

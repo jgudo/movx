@@ -37,18 +37,19 @@ const TrendingMovies = (props) => {
           <h3>{numberWithCommas(trendingMovies.total_results)} Movies</h3>
         </div>
       </div>
-      <MovieList 
-          movies={trendingMovies.results} 
-          favorites={favorites}
-          templateCount={10} 
+      <MovieList
+        movies={trendingMovies.results}
+        favorites={favorites}
+        isLoading={isLoading}
+        templateCount={10}
       />
-      <PaginationBar 
-          activePage={trendingMovies.page}
-          itemsCountPerPage={1}
-          onChange={handlePageChange}
-          pageRangeDisplayed={10}
-          totalItemsCount={trendingMovies.total_pages}
-          totalPage={trendingMovies.total_pages}
+      <PaginationBar
+        activePage={trendingMovies.page}
+        itemsCountPerPage={1}
+        onChange={handlePageChange}
+        pageRangeDisplayed={10}
+        totalItemsCount={trendingMovies.total_pages}
+        totalPage={trendingMovies.total_pages}
       />
     </Container>
   );
