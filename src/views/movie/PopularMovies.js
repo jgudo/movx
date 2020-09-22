@@ -6,6 +6,7 @@ import Loader from 'components/hoc/Loader';
 import MovieList from 'components/movies/MovieList';
 import Container from 'components/common/Container';
 import PaginationBar from 'components/common/PaginationBar';
+import useDocumentTitle from 'hooks/useDocumentTitle';
 import { fetchPopularMovies } from 'actions/movieActions';
 import { isEmpty, numberWithCommas } from 'helpers/helperFunctions';
 
@@ -18,6 +19,7 @@ const PopularMovies = (props) => {
   const dispatch = useDispatch();
   const route = '/movie/popular';
 
+  useDocumentTitle('Popular Movies | MOVX');
   useEffect(() => {
     if (isEmpty(popularMovies)) {
       dispatch(fetchPopularMovies(route));

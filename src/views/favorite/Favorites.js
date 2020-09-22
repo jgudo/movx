@@ -3,9 +3,11 @@ import { useSelector } from 'react-redux';
 import MovieList from 'components/movies/MovieList';
 import Container from 'components/common/Container';
 
+import useDocumentTitle from 'hooks/useDocumentTitle';
 import { numberWithCommas } from 'helpers/helperFunctions';
 
 const Favorites = (props) => {
+  useDocumentTitle('My Favorites | MOVX');
   const favorites = useSelector(state => state._misc.favorites);
 
   return (
@@ -18,18 +20,18 @@ const Favorites = (props) => {
               <h3>{numberWithCommas(favorites.length)} Movies</h3>
             </div>
           </div>
-          <MovieList 
-              category="movie"
-              favorites={favorites}
-              movies={favorites}
+          <MovieList
+            category="movie"
+            favorites={favorites}
+            movies={favorites}
           />
         </Container>
       ) : (
-        <div className="error">
-          <h1>You Don't Have Favorites</h1>
-          <p>Click the heart icon on the movie card to add it to favorites</p>
-        </div>
-      )}
+          <div className="error">
+            <h1>You Don't Have Favorites</h1>
+            <p>Click the heart icon on the movie card to add it to favorites</p>
+          </div>
+        )}
     </>
   );
 };

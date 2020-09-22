@@ -5,6 +5,7 @@ import Loader from 'components/hoc/Loader';
 import MovieList from 'components/movies/MovieList';
 import Container from 'components/common/Container';
 import PaginationBar from 'components/common/PaginationBar';
+import useDocumentTitle from 'hooks/useDocumentTitle';
 import { fetchUpcomingMovies } from 'actions/movieActions';
 import { isEmpty, numberWithCommas } from 'helpers/helperFunctions';
 
@@ -17,6 +18,7 @@ const UpcomingMovies = (props) => {
   const dispatch = useDispatch();
   const queryString = '/movie/upcoming';
 
+  useDocumentTitle('Upcoming Movies | MOVX');
   useEffect(() => {
     if (isEmpty(upcomingMovies)) {
       dispatch(fetchUpcomingMovies(queryString));

@@ -5,14 +5,15 @@ import MoviesSlider from 'components/slider/MoviesSlider';
 import MovieList from 'components/movies/MovieList';
 import { fetchMainMovies } from 'actions/movieActions';
 import { isEmpty } from 'helpers/helperFunctions';
+import useDocumentTitle from 'hooks/useDocumentTitle';
 
 const App = (props) => {
-  const { 
-    popularMovies, 
-    topRatedMovies, 
-    upcomingMovies, 
+  const {
+    popularMovies,
+    topRatedMovies,
+    upcomingMovies,
     favorites,
-    lastFetched 
+    lastFetched
   } = useSelector(state => ({
     popularMovies: state._movies.popularMovies,
     topRatedMovies: state._movies.topRatedMovies,
@@ -22,10 +23,11 @@ const App = (props) => {
   }));
   const dispatch = useDispatch();
 
+  useDocumentTitle();
   useEffect(() => {
-    if (isEmpty(popularMovies) || 
-        isEmpty(topRatedMovies) || 
-        isEmpty(upcomingMovies) 
+    if (isEmpty(popularMovies) ||
+      isEmpty(topRatedMovies) ||
+      isEmpty(upcomingMovies)
     ) {
       dispatch(fetchMainMovies());
     }
@@ -34,53 +36,53 @@ const App = (props) => {
   return (
     <>
       {popularMovies.results ? (
-        <MoviesSlider 
-            movies={popularMovies.results || []}
-            favorites={favorites}
+        <MoviesSlider
+          movies={popularMovies.results || []}
+          favorites={favorites}
         />
       ) : (
-        <MoviesSlider 
+          <MoviesSlider
             movies={[{}]}
             favorites={[]}
-        />
-      )}
+          />
+        )}
       <div className="container__wrapper">
         {upcomingMovies.results && (
           <>
             <div className="movie__header">
               <div className="movie__header-title header__title">
-                <br/><br/>
+                <br /><br />
                 <h1>Upcoming Movies</h1>
               </div>
             </div>
-            <MovieList 
-                favorites={favorites}
-                movies={upcomingMovies.results.slice(0, 10)} 
+            <MovieList
+              favorites={favorites}
+              movies={upcomingMovies.results.slice(0, 10)}
             />
-            <button 
-                className="button--primary m-auto"
-                onClick={() => props.history.push('/upcoming')}
+            <button
+              className="button--primary m-auto"
+              onClick={() => props.history.push('/upcoming')}
             >
               View All Upcoming Movies
             </button>
-          </>  
+          </>
         )}
         {topRatedMovies.results && (
           <>
             <div className="movie__header">
               <div className="movie__header-title header__title">
-                <br/>
-                <br/>
+                <br />
+                <br />
                 <h1>Top Rated Movies</h1>
               </div>
             </div>
-            <MovieList 
-                favorites={favorites}
-                movies={topRatedMovies.results.slice(0, 10)} 
+            <MovieList
+              favorites={favorites}
+              movies={topRatedMovies.results.slice(0, 10)}
             />
-            <button 
-                className="button--primary m-auto"
-                onClick={() => props.history.push('/top_rated')}
+            <button
+              className="button--primary m-auto"
+              onClick={() => props.history.push('/top_rated')}
             >
               View All Top Rated Movies
             </button>

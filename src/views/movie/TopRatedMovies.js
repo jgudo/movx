@@ -5,6 +5,7 @@ import Loader from 'components/hoc/Loader';
 import MovieList from 'components/movies/MovieList';
 import Container from 'components/common/Container';
 import PaginationBar from 'components/common/PaginationBar';
+import useDocumentTitle from 'hooks/useDocumentTitle';
 import { fetchTopRatedMovies } from 'actions/movieActions';
 import { isEmpty, numberWithCommas } from 'helpers/helperFunctions';
 
@@ -17,6 +18,7 @@ const TopRatedMovies = (props) => {
   const dispatch = useDispatch();
   const queryString = '/movie/top_rated';
 
+  useDocumentTitle('Top Rated Movies | MOVX');
   useEffect(() => {
     if (isEmpty(topRatedMovies)) {
       dispatch(fetchTopRatedMovies(queryString));

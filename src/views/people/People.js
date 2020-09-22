@@ -5,6 +5,7 @@ import Loader from 'components/hoc/Loader';
 import PeopleList from 'components/people/PeopleList';
 import Container from 'components/common/Container';
 import PaginationBar from 'components/common/PaginationBar';
+import useDocumentTitle from 'hooks/useDocumentTitle';
 import { fetchPeople } from 'actions/peopleActions';
 import { isEmpty, numberWithCommas } from 'helpers/helperFunctions';
 
@@ -16,6 +17,7 @@ const People = (props) => {
   const dispatch = useDispatch();
   const query = '/person/popular?';
 
+  useDocumentTitle('Discover People | MOVX');
   useEffect(() => {
     if (isEmpty(people)) {
       dispatch(fetchPeople(query));

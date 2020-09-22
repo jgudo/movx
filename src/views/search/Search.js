@@ -3,16 +3,18 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Container from 'components/common/Container';
 import LoadingScreen from 'components/common/LoadingScreen';
+import { numberWithCommas, isEmpty } from 'helpers/helperFunctions';
+import Tabs from 'components/tabs/Tabs';
+
+import useDocumentTitle from 'hooks/useDocumentTitle';
+import useDidMount from 'hooks/useDidMount';
+import { search } from 'actions/searchActions';
 import SearchMovieTab from './tab/SearchMovieTab';
 import SearchTvTab from './tab/SearchTvTab';
 import SearchPeopleTab from './tab/SearchPeopleTab';
-import Tabs from 'components/tabs/Tabs';
-
-import useDidMount from 'hooks/useDidMount';
-import { search } from 'actions/searchActions';
-import { numberWithCommas, isEmpty } from 'helpers/helperFunctions';
 
 const Search = ({ match }) => {
+  useDocumentTitle('Search | MOVX');
   useEffect(() => {
     const queryString = match.params.query;
 

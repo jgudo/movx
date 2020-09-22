@@ -8,12 +8,9 @@ import MoviePoster from 'components/movies/MoviePoster';
 import Reviews from 'components/movies/Reviews';
 import SimilarMovies from 'components/movies/SimilarMovies';
 
+import useDocumentTitle from 'hooks/useDocumentTitle';
 // actions
 import { fetchSelectedMovie } from 'actions/movieActions';
-import { isCurrentlyFetching } from 'actions/miscActions';
-
-// helpers
-import { isEmpty } from 'helpers/helperFunctions';
 
 const ViewMovie = (props) => {
   const { favorites, movie, casts, keywords, reviews, isLoading } = useSelector(state => ({
@@ -28,6 +25,7 @@ const ViewMovie = (props) => {
   const didMount = useDidMount();
   const posters = movie.images ? movie.images.posters : [];
 
+  useDocumentTitle(movie.id ? `${movie.original_name || movie.original_title} | MOVX` : 'View Movie | MOVX');
   useEffect(() => {
     const movieId = props.match.params.id;
     fetchMovie(movieId);
@@ -53,20 +51,20 @@ const ViewMovie = (props) => {
 
   return !isLoading ? (
     <>
-      <MovieOverview 
-          favorites={favorites}
-          movie={movie}
+      <MovieOverview
+        favorites={favorites}
+        movie={movie}
       />
       <MovieCast casts={casts} keywords={keywords} movie={movie} />
       {movie.images && (
         <div className="container__wrapper">
-          <MoviePoster 
-              id={movie.id}
-              posters={posters.length > 10 ? posters.slice(0, 10) : posters}
+          <MoviePoster
+            id={movie.id}
+            posters={posters.length > 10 ? posters.slice(0, 10) : posters}
           />
-          <button 
-              className="button--primary button--block m-auto"
-              onClick={onClickViewImage}
+          <button
+            className="button--primary button--block m-auto"
+            onClick={onClickViewImage}
           >
             View All Posters
           </button>
@@ -74,10 +72,10 @@ const ViewMovie = (props) => {
       )}
       {movie.similar && (
         <>
-         {movie.similar.results.length !== 0 && (
-            <SimilarMovies 
-                favorites={favorites}
-                movies={movie.similar.results} 
+          {movie.similar.results.length !== 0 && (
+            <SimilarMovies
+              favorites={favorites}
+              movies={movie.similar.results}
             />
           )}
         </>
@@ -86,12 +84,12 @@ const ViewMovie = (props) => {
         <Reviews reviews={reviews} />
       )}
     </>
-    ) : (
-    <MovieOverview 
+  ) : (
+      <MovieOverview
         favorites={[]}
         movie={{}}
-    />
-  );
+      />
+    );
 };
 
 export default ViewMovie;

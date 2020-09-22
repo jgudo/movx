@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import MovieList from 'components/movies/MovieList';
 import Container from 'components/common/Container';
 import PaginationBar from 'components/common/PaginationBar';
+
+import useDocumentTitle from 'hooks/useDocumentTitle';
 import { fetchGenreCategory } from 'actions/genreActions';
 import { numberWithCommas } from 'helpers/helperFunctions';
 
@@ -16,6 +18,8 @@ const ViewGenre = (props) => {
   const dispatch = useDispatch();
   const query = `/discover/movie?&with_genres=${props.match.params.id}`;
 
+
+  useDocumentTitle('Genres | MOVX');
   useEffect(() => {
     dispatch(fetchGenreCategory(query));
   }, []);
@@ -34,21 +38,21 @@ const ViewGenre = (props) => {
           <h3>{numberWithCommas(genreMovies.total_results)} Movies</h3>
         </div>
       </div>
-      <MovieList 
-          category="movie"
-          favorites={favorites}
-          movies={genreMovies.results}
-          templateCount={10}
+      <MovieList
+        category="movie"
+        favorites={favorites}
+        movies={genreMovies.results}
+        templateCount={10}
       />
-      <PaginationBar 
-          activePage={genreMovies.page}
-          itemsCountPerPage={1}
-          onChange={handlePageChange}
-          pageRangeDisplayed={10}
-          totalItemsCount={genreMovies.total_pages}
-          totalPage={genreMovies.total_pages}
+      <PaginationBar
+        activePage={genreMovies.page}
+        itemsCountPerPage={1}
+        onChange={handlePageChange}
+        pageRangeDisplayed={10}
+        totalItemsCount={genreMovies.total_pages}
+        totalPage={genreMovies.total_pages}
       />
-    </Container>  
+    </Container>
   );
 };
 

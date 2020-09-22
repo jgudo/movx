@@ -8,6 +8,7 @@ import PaginationBar from 'components/common/PaginationBar';
 import Filter from 'components/common/Filter';
 
 import useDidMount from 'hooks/useDidMount';
+import useDocumentTitle from 'hooks/useDocumentTitle';
 import { fetchTvShows } from 'actions/movieActions';
 import { isEmpty, numberWithCommas } from 'helpers/helperFunctions';
 
@@ -22,6 +23,7 @@ const TvShows = (props) => {
   const didMount = useDidMount();
   const query = '/discover/tv?language=en-US';
 
+  useDocumentTitle('TV Shows | MOVX');
   useEffect(() => {
     if (isEmpty(tvShows) || didMount) {
       dispatch(fetchTvShows(`${query}${filter.tv.query}`));

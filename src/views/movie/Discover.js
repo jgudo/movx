@@ -12,6 +12,7 @@ import { fetchDiscoverMovies } from 'actions/movieActions';
 
 // hooks 
 import useDidMount from 'hooks/useDidMount';
+import useDocumentTitle from 'hooks/useDocumentTitle';
 
 // helpers
 import { isEmpty, numberWithCommas } from 'helpers/helperFunctions';
@@ -32,6 +33,7 @@ const DiscoverMovies = (props) => {
   const dispatch = useDispatch();
   const didMount = useDidMount();
 
+  useDocumentTitle('Discover Movies | MOVX')
   useEffect(() => {
     if (isEmpty(discoverMovies) || didMount) {
       dispatch(fetchDiscoverMovies(`${query}${filter.discover.query}`));

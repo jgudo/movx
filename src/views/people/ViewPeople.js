@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Casting from 'components/people/Casting';
 import PersonBiography from 'components/people/PersonBiography';
 import { fetchSelectedPerson } from 'actions/peopleActions';
+import useDocumentTitle from 'hooks/useDocumentTitle';
 import { isEmpty } from 'helpers/helperFunctions';
 
 const ViewPeople = (props) => {
@@ -16,7 +17,8 @@ const ViewPeople = (props) => {
   const dispatch = useDispatch();
   const actorId = props.match.params.id;
 
-  useEffect(() => { 
+  useDocumentTitle(actor.id ? `${actor.name} Details` : 'View Person | MOVX');
+  useEffect(() => {
     if (parseInt(actorId, 10) !== actor.id) {
       dispatch(fetchSelectedPerson(actorId));
     }
@@ -27,10 +29,10 @@ const ViewPeople = (props) => {
       <PersonBiography actor={actor} />
       {casting.length >= 1 && (
         <div className="container__wrapper">
-          <Casting 
-              actor={actor} 
-              casting={casting} 
-              favorites={favorites}
+          <Casting
+            actor={actor}
+            casting={casting}
+            favorites={favorites}
           />
         </div>
       )}

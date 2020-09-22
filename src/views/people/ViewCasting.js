@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import imgBackground from 'images/background.jpg';
 import MovieList from 'components/movies/MovieList';
 
+import useDocumentTitle from 'hooks/useDocumentTitle';
 import { isEmpty } from 'helpers/helperFunctions';
 
 const ViewPictures = ({ history }) => {
@@ -13,6 +14,7 @@ const ViewPictures = ({ history }) => {
     favorites: state._misc.favorites
   }));
 
+  useDocumentTitle('Castings | MOVX');
   useEffect(() => {
     if (isEmpty(actor)) {
       history.goBack();
@@ -22,12 +24,12 @@ const ViewPictures = ({ history }) => {
   return !isEmpty(actor) && (
     <>
       <div className="posters__banner">
-        <img src={imgBackground} alt=""/>
+        <img src={imgBackground} alt="" />
         <div className="posters__banner-content">
           <h1>{actor.name}</h1>
-          <button 
-              className="button--back"
-              onClick={history.goBack}>
+          <button
+            className="button--back"
+            onClick={history.goBack}>
             Back
           </button>
         </div>
@@ -38,11 +40,11 @@ const ViewPictures = ({ history }) => {
             <h1>Casted Movies</h1>
             <h3>{casting.length} Movies</h3>
           </div>
-        </div>  
+        </div>
         <MovieList
-            category="movie"
-            favorites={favorites}
-            movies={casting} 
+          category="movie"
+          favorites={favorites}
+          movies={casting}
         />
       </div>
     </>
