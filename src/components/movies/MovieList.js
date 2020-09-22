@@ -8,6 +8,7 @@ const MovieList = ({ movies, favorites, category, gridClass, templateCount, isLo
 			{!movies && templateCount != 0 ? new Array(templateCount).fill({}).map((item, index) => (
 				<MovieCard
 					category={category}
+					isLoading={isLoading}
 					key={`skeleton_movie_${index}`}
 					movie={{}}
 					favorites={[]}

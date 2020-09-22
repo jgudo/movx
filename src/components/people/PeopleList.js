@@ -8,6 +8,7 @@ const PeopleList = ({ people, gridClass, templateCount, isLoading }) => {
       {!people && templateCount != 0 ? new Array(templateCount).fill({}).map((item, index) => (
         <PeopleCard
           category="people"
+          isLoading={isLoading}
           key={`skeleton_people_${index}`}
           people={{}}
         />
