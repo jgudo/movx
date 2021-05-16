@@ -1,0 +1,28 @@
+.tooltip {
+  position: absolute;
+  bottom: 50px;
+  right: 0;
+  padding: $s-size;
+  font-size: 12px;
+  background: $blue;
+  border-radius: $border-radius;
+  opacity: 0;
+  visibility: hidden;
+  @include transition();
+  z-index: map-get($z-index, 'tooltip');
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 100%; 
+    right: 3%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: $blue transparent transparent transparent;
+  }
+
+  span {
+    color: #fff;
+  }
+}

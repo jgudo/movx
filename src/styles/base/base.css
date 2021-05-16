@@ -1,0 +1,109 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-bold leading-normal;
+  }
+
+  h1 {
+    @apply text-4xl;
+  }
+
+  h2 {
+    @apply text-2xl;
+  }
+
+  h3 {
+    @apply text-xl;
+  }
+
+  a {
+    @apply text-blue-600;
+  }
+
+  button {
+    @apply relative
+      disabled:opacity-50
+      disabled:cursor-not-allowed
+      flex
+      justify-center
+      py-3
+      px-4
+      border
+      outline-none
+      border-transparent
+      text-sm
+      font-medium
+      rounded-md
+      text-white
+      bg-blue-700;
+
+    &:hover {
+      @apply bg-blue-800;
+    }
+
+    &:focus {
+      @apply bg-blue-900;
+      @apply outline-none;
+    }
+  }
+
+  input[type='text'],
+  input[type='email'],
+  input[type='number'],
+  input[type='password'],
+  textarea {
+    font-weight: 400;
+    @apply px-4
+      py-3
+      outline-none
+      text-sm
+      font-medium
+      bg-white
+      border-solid
+      border-b
+      rounded-md
+      border-gray-400;
+
+    &:focus {
+      @apply border-b border-blue-500;
+    }
+
+    &:disabled,
+    &:read-only {
+      @apply opacity-60 cursor-default;
+    }
+  }
+}
+
+html {
+  @apply antialiased;
+}
+
+* {
+  font-family: 'Gilroy', sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Gilroy', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  line-height: 1.6;
+  font-weight: 400;
+  background: var(--background);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}

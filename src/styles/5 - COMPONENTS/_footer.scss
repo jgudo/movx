@@ -1,0 +1,17 @@
+.footer {
+  padding: $xl-1-size 0 $l-size;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: map-get($z-index, 'footer');
+
+  span {
+    @include mobile;
+    font-size: 1.3rem;
+  }
+
+  i {
+    color: $red;
+  }
+}

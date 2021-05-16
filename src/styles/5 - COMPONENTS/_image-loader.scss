@@ -1,0 +1,24 @@
+.img-loading {
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  object-fit: cover;
+}
+
+.img-loaded {
+  animation: fadeInImg .5s cubic-bezier(0.23, 1, 0.32, 1);
+  position: relative;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation-fill-mode: forwards;
+  animation-duration: 0.7s;
+  animation-delay: 0.1s;
+}
+
+.LazyLoad {
+  width: 100%;
+  height: 100%;
+}

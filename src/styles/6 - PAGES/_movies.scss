@@ -1,0 +1,144 @@
+
+.movie__overview {
+  width: 100%;
+  position: relative;
+}
+
+.movie__overview-wrapper {
+  padding-top: 12rem;
+
+  @include mobile {
+    padding-bottom: 0 !important;
+  }
+}
+
+.movie__header {
+  padding: $m-size;
+  padding-right: 0;
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  margin-top: 5rem;
+
+  @include mobile {
+    padding: $m-size 0;
+    margin-top: 0;
+    margin-bottom: 4rem;
+  }
+}
+
+.movie__header-title {
+  h1 {
+    text-transform: capitalize;
+    margin: 0;
+
+    @include mobile {
+      font-size: 2rem;
+      margin-bottom: 0;
+    }
+  }
+  
+  h3 {
+    color: #a1a1a1;
+    margin: 0;
+    font-size: 1.6rem;
+    
+    @include mobile {
+      font-size: 1rem;
+    }
+  }
+}
+
+.movie__casts {
+  @include desktop {
+    width: 1360px;
+    margin: auto;
+  }
+}
+
+.movie__casts-content {
+  display: flex;
+
+  @include laptop {
+    flex-direction: column;
+  }
+}
+
+.movie__casts-wrapper {
+  width: 75%;
+  padding-bottom: $xl-1-size;
+  padding-right: $xl-size;
+
+  @include tablet {
+    width: 100%;
+    padding: 0 $l-size;
+  }
+
+  @include only-mobile {
+    padding: 0;
+    margin-bottom: 5rem;
+  }
+}
+
+.movie__casts-header {
+  padding: $xl-size 0;
+
+  @include mobile {
+    padding-top: 0;
+    padding-bottom: $m-size;
+    text-align: center;
+  }
+}
+
+.header__title {
+  width: 100%;
+  
+  @include mobile {
+    text-align: center;
+
+    h1 {
+        font-size: 2rem;
+      }
+  }
+}
+
+.movie__details {
+  width: 25%;
+  padding: $xl-size $m-size;
+
+  @include tablet {
+    width: 100%;
+  }
+
+  @include mobile {
+    padding: 0;
+    padding-top: $m-size;
+  }
+
+  div {
+    margin-bottom: $l-size;
+
+    @include tablet {
+      display: inline-block;
+      margin-right: $l-size;
+    }
+
+    @include mobile {
+      margin-bottom: $s-size;
+    }
+  }
+
+  h4 {
+    margin-bottom: $s-size;
+  }
+
+  p, 
+  a {
+    font-size: rem(20);
+  }
+
+  p {
+    margin: 0;
+  }
+}
+

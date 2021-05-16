@@ -1,0 +1,39 @@
+.tab-list {
+  border-bottom: 1px solid var(--input-background);
+  padding: 0 $m-size;
+  display: flex;
+
+  @include mobile {
+    padding: 0;
+  }
+}
+
+.tab-list-item {
+  display: inline-block;
+  list-style: none;
+  margin-bottom: -1px;
+  padding: 2rem 2.5rem;
+  font-size: rem(28);
+  border: 1px solid var(--input-background);
+  border-top-left-radius: $border-radius;
+  border-top-right-radius: $border-radius;
+  opacity: .3;
+  color: var(--text-color);
+  background: var(--input-background);
+
+  @include mobile {
+    font-size: 1.1rem;
+    padding: $s-size;
+  }
+
+  &:hover {
+    cursor: pointer;
+    opacity: 1;
+    background: var(--input-background-focus);
+  }
+}
+
+.tab-list-active {
+  opacity: 1;
+  border-width: 1px 1px 0 1px;
+}

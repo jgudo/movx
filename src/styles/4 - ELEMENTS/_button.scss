@@ -1,0 +1,154 @@
+.button--primary {
+  background: $blue;
+  color: #fff;
+  border: 1px solid $blue;
+  font-size: rem(24);
+
+  &:hover {
+    background: darken($blue, 10%);
+  }
+
+  i { color: #fff }
+}
+
+.button--outlined {
+  border: 1px solid var(--text-color);
+  color: var(--text-color);
+
+  i { color: var(--text-color); }
+}
+
+.button--link {
+  padding: $s-size;
+
+  svg {
+    margin: 0;
+  }
+}
+
+.button--search {
+  margin-right: $m-size;
+  
+  div {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    position: relative;
+
+    &:after {
+      content: '';
+      position: absolute;
+      right: -8px;
+      bottom: -2px;
+      transform: rotate(45deg);
+      width: 10px;
+      height: 1px;
+      background: #fff;
+    }
+  }
+}
+
+.button--block { display: block; }
+
+.button--back {
+  color: #fff;
+  position: relative;
+  padding: 0 $m-size;
+  left: 0;
+  @include transition();
+
+  &:before {
+    content: '';
+    position: absolute;
+    left: -40px;
+    bottom: 10px;
+    margin: auto;
+    width: 40px;
+    height: 1px;
+    background: #fff;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    left: -40px;
+    bottom: 14px;
+    margin: auto;
+    width: 10px;
+    height: 1px;
+    background: #fff;
+    @include transform(rotate(-45deg));
+  }
+
+  &:hover {
+    left: -10px;
+  }
+}
+
+.button--add-favorite {
+  padding: 0;
+}
+
+.button--favorites {
+  border: 1px solid #fff;
+  color: #fff;
+
+  &:hover {
+    color: #fff;
+    background: $red;
+    border: 1px solid $red;
+
+    i { color: $text-color; }
+  }
+
+  @media (min-width: $tablet) {
+    color: $text-color !important; 
+    border: 1px solid $text-color !important;
+
+    i { color: $text-color !important; }
+  }
+
+  @include tablet {
+    color: var(--text-color);
+    border: 1px solid var(--text-color);
+
+    i { color: var(--text-color); }
+  }
+
+  i { color: #fff; }
+}
+
+.button--key {
+  text-decoration: none;
+  color: var(--text-color);
+  padding: $s-size;
+  border: 1px solid #cacaca;
+  border-radius: 15px;
+  display: inline-block;
+  margin-right: rem(12);
+  margin-bottom: $s-size;
+
+  &:hover {
+    background: rgba(255, 255, 255, .2);
+  }
+}
+
+.button--icon {
+  font-size: 1.6rem !important;
+}
+
+.button--muted {
+  background: $muted;
+  color: $off-black;
+
+  &:hover {
+    background: darken($muted, 10%);
+  }
+
+  &:disabled {
+    opacity: 1;
+  }
+
+  i { color: $off-black; }
+}

@@ -1,0 +1,142 @@
+* {
+    box-sizing: border-box;
+    letter-spacing: .5px;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: 'Yantramanav', Helvetica, Arial, sans-serif;
+  font-size: 1.6rem;
+  background: var(--background-color, $background);
+  color: var(--text-color, $text-color);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Yantramanav', Helvetica, Arial, sans-serif;
+  color: var(--heading-color, $heading-color);
+}
+
+h1 {
+  line-height: 5rem;
+
+  @include mobile {
+    font-size: 2.5rem;
+    line-height: 3.5rem;
+  }
+}
+
+p {
+  font-size: 1.6rem;
+  line-height: 3rem;
+  color: var(--text-color, $text-color);
+
+  @include mobile {
+    font-size: 1.3rem;
+    line-height: 2.4rem;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: $blue;
+
+  &:hover {
+    cursor: pointer;
+    color: lighten($blue, 10%);
+  }
+}
+
+span {
+  color: var(--text-color, $text-color);
+}
+
+i {
+  color: var(--text-color, $text-color);
+}
+
+li {
+  color: var(--text-color, $text-color);
+}
+
+button {
+  background: none;
+  border: none;
+  padding: $m-size $l-size;
+  border-radius: $border-radius;
+  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  @include transition();
+
+  @include mobile {
+    font-size: 1.2rem !important;
+    padding: 1.5rem;
+  }
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+button:focus {
+  outline: none;
+} 
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: .5;
+}
+
+body::-webkit-scrollbar {
+  width: 7px;
+}
+ 
+body::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 4px rgba(0,0,0,0.3);
+}
+ 
+body::-webkit-scrollbar-thumb {
+  background-color: $blue;
+  outline: 1px solid lighten($blue, 10%);
+  border-radius: $border-radius;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+textarea
+ {
+  color: var(--text-color, $text-color);
+  font-size: 1.6rem;
+  background: var(--input-background);
+  border: none;
+  border-radius: $border-radius;
+  padding: 1.4rem;
+
+  &:focus {
+    background: var(--input-background-focus);
+    outline: none;
+  }
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+#main {
+  width: 100%;
+  min-height: 100vh;
+  z-index: map-get($z-index, 'main');
+}

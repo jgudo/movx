@@ -1,0 +1,149 @@
+.search__input {
+  width: 100%;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.search__button {
+  border-radius: $border-radius;
+  padding: 1.5rem;
+  background: $yellow;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+
+  i {
+    color: $off-black;
+  }
+}
+
+.search-history {
+  position: absolute;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, .2);
+  width: 100%;
+  top: 70px;
+  left: 0;
+  border-radius: $border-radius;
+  background: $off-white;
+  max-height: rem(500);
+  overflow-y: scroll;
+  opacity: 0;
+  visibility: hidden;
+  @include transition();
+
+  @include tablet {
+    width: 90%;
+    top: 65px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+  }
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  &::-webkit-scrollbar-track {
+      background: darken($off-white, 10%);
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background-color: darken($blue, 15%);
+    outline: 1px solid lighten($blue, 10%);
+    border-radius: 2px;
+  }
+
+  p {
+    padding-left: $s-size;
+    color: $off-black;
+  }
+
+  a {
+    display: block;
+    text-decoration: none;
+    color: $off-black;
+    padding: $s-size;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  a:not(:last-child) {
+    border-bottom: 1px solid darken($off-white, 4%);
+  }
+
+  a:hover {
+    background: $blue;
+    color: #fff;
+  }
+  
+  &.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+
+.search__toggle {
+  position: absolute;
+  right: 10px;
+  display: none;
+  color: #fff;
+
+  @media (max-width: $tablet) {
+    display: block;
+  }
+}
+
+
+.search-history-action {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+.search-clear {
+  padding: 0;
+  color: $off-black;
+  font-weight: bold;
+  font-size: 14px;
+  margin-right: $m-size;
+}
+
+.search__no-result {
+  text-align: center;
+  margin-top: $xl-size; 
+  position: relative;
+
+  h1 {
+    opacity: 0.2;
+
+    @include mobile {
+      font-size: 1.5rem;
+    }
+  }
+
+  i {
+    color: var(--text-color);
+    opacity: 0.2;
+    font-size: 10rem;
+  }
+}
+
+.clear--button {
+  position: absolute;
+  left: -20px;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, .1);
+
+  @media (max-width: $tablet) {
+    display: none !important;
+  }
+}
+
+.result__keyword {
+  color: $blue;
+}

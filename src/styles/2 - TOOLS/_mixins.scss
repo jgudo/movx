@@ -1,0 +1,109 @@
+@mixin transition($prop: all, $speed: .3s, $func: ease) {
+  -webkit-transition: $prop $speed $func;
+  -moz-transition: $prop $speed $func;
+  -ms-transition: $prop $speed $func;
+  transition: $prop $speed $func;
+}
+
+@mixin transform($func) {
+  -webkit-transform: $func;
+  -moz-transform: $func;
+  -ms-transform: $func;
+  transform: $func;
+}
+
+@mixin linearGradient($deg, $top, $bottom) {
+  background: rgb(155,27,234);
+  background: -moz-linear-gradient($deg, $top 15%, $bottom 100%);
+  background: -webkit-linear-gradient($deg, $top 15%, $bottom 100%);
+  background: linear-gradient($deg, $top 15%, $bottom 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$top,endColorstr=$top,GradientType=1);
+}
+
+@mixin boxShadow($color) {
+  -webkit-box-shadow:0 0 50px transparentize($color, .5); 
+  -moz-box-shadow: 0 0 50px transparentize($color, .5); 
+  box-shadow:0 0 50px transparentize($color, .5);
+}
+
+@mixin textShadow($color) {
+  -webkit-text-shadow:0 0 30px transparentize($color, .5); 
+  -moz-text-shadow: 0 0 30px transparentize($color, .5); 
+  text-shadow:0 0 30px transparentize($color, .5);
+}
+
+@mixin animation($name, $duration, $timing: ease, $count: 1) {
+  -webkit-animation: $name $duration $timing $count;
+  -moz-animation: $name $duration $timing $count;
+  -o-animation: $name $duration $timing $count;
+   animation: $name $duration $timing $count;
+}
+
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content; 
+  }
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+  @-ms-keyframes #{$name} {
+    @content;
+  }
+  @keyframes #{$name} {
+    @content;
+  } 
+}
+
+@mixin l-desktop {
+  @media (min-width: $l-desktop) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: $desktop) {
+    @content;
+  }
+}
+
+@mixin laptop {
+  @media (max-width: $laptop) {
+    @content;
+  }
+}
+
+@mixin only-laptop {
+  @media (min-width: $tablet) and (max-width: $laptop) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: $tablet) {
+    @content;
+  }
+}
+
+@mixin only-tablet {
+  @media (min-width: $mobile) and (max-width: $tablet) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: $mobile) {
+    @content;
+  }
+}
+
+@mixin only-mobile {
+  @media (min-width: $x-mobile) and (max-width: $mobile) {
+    @content;
+  }
+}
+
+@mixin s-mobile {
+  @media (max-width: $x-mobile) {
+    @content;
+  }
+}

@@ -1,0 +1,28 @@
+.error {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;  
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: $l-size;
+  z-index: map-get($z-index, 'error');
+
+  h1 {
+    margin-bottom: 0;
+
+    @include mobile {
+      font-size: 2rem;
+    }
+  }
+  
+  p {
+    margin-bottom: $l-size;
+    opacity: .7;
+  }
+}

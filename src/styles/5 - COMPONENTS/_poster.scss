@@ -1,0 +1,104 @@
+.poster {
+  background: var(--background-color);
+  padding-bottom: $xl-size;
+}
+
+.poster__header {
+  padding-top: $xl-size;
+  padding-left: $l-size;
+
+  @include tablet {
+    padding-left: 0;
+  }
+
+  @include mobile {
+    text-align: center;
+    padding: $m-size;
+  }
+}
+
+.poster__card {
+  height: 270px;
+  overflow: hidden;
+
+  @include mobile {
+    height: 225px;
+    margin-bottom: 1rem;
+  }
+}
+
+.poster__download {
+  text-decoration: none;
+  text-align: center;
+  width: 100%;
+  padding: 1.5rem;
+  color: $off-black;
+
+  i { color: $off-black; }
+}
+
+.poster__details {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  z-index: 1;
+  text-align: center;
+  @include transition();
+}
+
+.posters__banner {
+  height: 300px;
+  position: relative;
+  padding-top: rem(180);
+  margin-bottom: $xl-size;
+
+  @include mobile {
+    margin-bottom: 0;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    background: transparentize($dark-blue-0, .2);
+  }
+
+  img {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.posters__banner-content {
+  width: 85%;
+  margin: auto;
+  position: relative;
+  z-index: 1;
+  color: #fff;
+
+  h1 {
+    color: $heading-color;
+    font-size: $l-size;
+
+    @include mobile {
+      font-size: rem(28);
+    }
+  }
+
+  span {
+    color: $text-color;
+  }
+
+  button {
+    @include mobile {
+      left: 20px;
+    }
+  }
+}

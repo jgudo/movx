@@ -1,0 +1,59 @@
+.is-navigation-open {
+	overflow: hidden;
+	
+	.navigation__menu {
+	  visibility: visible;
+	  opacity: 1;
+	  @include transform(scaleY(1));
+	}
+}
+
+.is-search-open {
+	.navigation__search {
+	  	visibility: visible;
+	    opacity: 1;
+	    @include transform(scaleY(1));
+	}
+}
+
+.is-filter-open {
+	.filter__wrapper {
+  		opacity: 1;
+  		transform: scaleY(1);
+	}
+}
+
+.is-scrolled {
+	.navigation {
+		position: fixed;
+		animation: slide-down .3s ease;
+		animation-fill-mode: forwards; 
+		background: var(--nav-background);
+		height: 80px;
+		box-shadow: 0 8px 20px rgba(0,0,0,.1);
+	}
+
+	.navigation__active:after {
+	  content: '';
+	  position: absolute;
+	  bottom: -30px;
+	  left: 0;
+	  margin: auto;
+	  width: 100%;
+	  height: 2px;
+	  background: $blue;
+	  
+	  @include laptop {
+	    right: 0;
+	  }
+
+	  @include tablet {
+	    bottom: 0;
+	    top: 0;
+	    width: 3px;
+	    height: 100%;
+	    margin: 0;
+	    // display: none;
+	  }
+	}
+}

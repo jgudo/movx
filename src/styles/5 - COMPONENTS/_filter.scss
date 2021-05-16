@@ -1,0 +1,104 @@
+.filter {
+  padding: $l-size;
+  padding-top: 0;
+  display: flex;
+  flex-direction: row;
+  z-index: map-get($z-index, 'controls');
+
+  @include tablet {
+    padding: 0;
+    position: fixed;
+    right: 5%;
+    box-shadow: 0 15px 20px rgba(0, 0, 0, .1);
+  }
+}
+
+.filter__wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  @include transition();
+
+
+  @include tablet {
+    position: fixed;
+    top: 50px;
+    left: 0;
+    z-index: 2;
+    padding: $m-size;
+    width: 100%;
+    background: var(--input-background);
+    transform-origin: top;
+    box-shadow: 0 10px 20px rgba(0,0,0, .2);
+    opacity: 0;
+    @include transform(scaleY(0));
+  }
+
+  .break {
+    flex-basis: 100%;
+    height: 0;
+    display: none;
+
+    @include tablet {
+      display: block;
+    }
+  }
+}
+
+.filter__item {
+
+  @include tablet {
+    flex-grow: 1;
+    padding: .5rem;
+
+    &:nth-child(1),
+    &:nth-child(2) {
+      flex-basis: 50%;
+    }
+  }
+
+  span {
+    color: var(--text-color);
+    font-size: 12px;
+    opacity: .7;
+    padding-left: $s-size;
+  }
+
+  select {
+    @include tablet {
+      width: 100%;
+      margin-bottom: 2rem;
+    }
+  }
+}
+
+.filter__toggle {
+  width: 35px;
+  height: 35px;
+  padding: 0;
+  margin: 0;
+  display: none;
+  margin-top: 2rem;
+  position: relative;
+
+  @include tablet {
+    display: block;
+    margin-top: 0;
+  }
+}
+
+.filter__close {
+  color: var(--text-color);
+  width: 100%;
+  padding: $s-size;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: $s-size;
+  display: none;
+
+  @include tablet {
+    display: block;
+  }
+}

@@ -1,0 +1,19 @@
+.modal__link {
+  @extend button;
+  @extend .button--primary; 
+  text-decoration: none;
+  display: block;
+  margin-top: $l-size;
+  margin: auto;
+}
+
+.styles_modal__gNwvD {
+  background: var(--background-color) !important;
+  @include mobile {
+    padding: $l-size !important;
+  }
+}
+
+.modal-video-close-btn {
+  right: -20px;
+}

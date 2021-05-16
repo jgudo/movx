@@ -1,0 +1,44 @@
+.Collapsible {
+  background: var(--input-background);
+  border: 1px solid var(--input-background-focus);
+  margin-bottom: $s-size;
+}
+
+.Collapsible__trigger {
+  display: block;
+  font-weight: 700;
+  text-decoration: none;
+  position: relative;
+  border: 1px solid var(--input-background);;
+  padding: $m-size;
+  background: var(--input-background-focus);
+  color: var(--text-color); 
+}
+
+.Collapsible__trigger:after {
+  content: '▼';
+  position: absolute;
+  right: 10px;
+  top: 15px;
+  font-size: 12px;
+  display: block;
+  color: var(--text-color);
+  transition: transform 300ms; 
+}
+
+.Collapsible__trigger.is-open:after {
+  transform: rotateZ(180deg); 
+}
+
+.Collapsible__trigger.is-disabled {
+  opacity: 0.5;
+  background-color: grey; 
+}
+
+.Collapsible__contentInner {
+  padding: $l-size;
+
+  @include mobile {
+    padding: $m-size $s-size;
+  }
+}
