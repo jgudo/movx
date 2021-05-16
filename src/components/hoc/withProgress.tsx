@@ -1,4 +1,4 @@
-import { isCurrentlyFetching } from '@app/redux/actions/miscActions';
+import { setLoading } from '@app/redux/actions/miscActions';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -11,7 +11,7 @@ const ProgressTrigger = (Component: React.ComponentType) => (props: any) => {
     window.scrollTo(0, 0);
 
     return () => {
-      dispatch(isCurrentlyFetching(false));
+      dispatch(setLoading(false));
     }
   }, [props.match.location]);
 

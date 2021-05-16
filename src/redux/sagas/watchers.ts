@@ -1,30 +1,44 @@
-import { takeLatest, takeEvery } from 'redux-saga/effects';
 import * as action from '@app/constants/actionType';
-
+import { takeEvery, takeLatest } from 'redux-saga/effects';
+import { genreSaga } from './genreSaga';
+import { movieSaga } from './movieSaga';
 import {
-  fetchRequestSaga,
-  updateFilterQuerySaga,
+  fetchMainMoviesSaga, fetchRequestSaga,
+
   fetchSelectedMovieSaga,
   fetchSelectedPersonSaga,
-  fetchMainMoviesSaga,
-  searchSaga,
+
+  searchSaga, updateFilterQuerySaga
 } from './rootSaga';
+
 
 function* rootSaga() {
   yield takeLatest(
     [
-      action.FETCH_TRENDING_MOVIES,
-      action.FETCH_DISCOVER_MOVIES,
       action.FETCH_TV_SHOWS,
       action.FETCH_PEOPLE,
-      action.FETCH_GENRES,
-      action.FETCH_GENRE_CATEGORY,
       action.SEARCH_TV_SHOWS,
       action.SEARCH_PEOPLE,
       action.SEARCH_MOVIES,
     ],
     fetchRequestSaga,
   );
+
+  yield takeLatest(
+    [
+      action.FETCH_DISCOVER_MOVIES,
+      action.FETCH_TRENDING_MOVIES,
+    ],
+    movieSaga
+  );
+
+  yield takeLatest(
+    [
+      action.FETCH_GENRES,
+      action.FETCH_CURRENT_GENRE,
+    ],
+    genreSaga
+  )
 
   yield takeEvery(
     [

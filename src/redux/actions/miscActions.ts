@@ -1,9 +1,9 @@
 import {
   IS_LOADING,
-  SET_DARK_MODE,
+  SET_DARK_MODE
 } from '@app/constants/actionType';
 
-export const isCurrentlyFetching = (bool = true) => (<const>{
+export const setLoading = (bool = true) => (<const>{
   type: IS_LOADING,
   payload: bool,
 });
@@ -14,5 +14,5 @@ export const setDarkMode = (bool = true) => (<const>{
 });
 
 export type TMiscActionType =
-  | ReturnType<typeof isCurrentlyFetching>
+  | ReturnType<typeof setLoading>
   | ReturnType<typeof setDarkMode>

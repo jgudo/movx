@@ -28,18 +28,17 @@ const DiscoverMovies = () => {
   const dispatch = useDispatch();
   const didMount = useDidMount();
   const { currentPage, setCurrentPage } = usePageSaver();
-  const path = `/discover/movie?${query}`;
 
   useDocumentTitle('Discover Movies | MOVX');
   useEffect(() => {
     if (!discoverMovies || didMount) {
-      dispatch(fetchDiscoverMovies(path, currentPage));
+      dispatch(fetchDiscoverMovies(query, currentPage));
     }
   }, [query]);
 
   const handlePageChange = (page: number) => {
     if (discoverMovies?.page !== page) {
-      dispatch(fetchDiscoverMovies(path, page));
+      dispatch(fetchDiscoverMovies(query, page));
       setCurrentPage(page);
     }
   };

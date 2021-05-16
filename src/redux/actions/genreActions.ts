@@ -1,29 +1,29 @@
-import { FETCH_GENRES, FETCH_GENRES_SUCCESS, FETCH_GENRE_CATEGORY, FETCH_GENRE_CATEGORY_SUCCESS } from '@app/constants/actionType';
+import {
+  FETCH_CURRENT_GENRE,
+  FETCH_CURRENT_GENRE_SUCCESS, FETCH_GENRES,
+  FETCH_GENRES_SUCCESS
+} from '@app/constants/actionType';
 import { IGenre, IMovieData } from '@app/types/types';
 
-export const fetchGenres = (query: string, page = 1) => (<const>{
-  type: FETCH_GENRES,
+export const fetchGenres = () => (<const>{
+  type: FETCH_GENRES
+});
+
+export const fetchGenreCategory = (genreId: string, page = 1) => (<const>{
+  type: FETCH_CURRENT_GENRE,
   payload: {
-    query,
+    genreId,
     page,
   },
 });
 
-export const fetchGenreCategory = (query: string, page = 1) => (<const>{
-  type: FETCH_GENRE_CATEGORY,
-  payload: {
-    query,
-    page,
-  },
-});
-
-export const fetchGenresSuccess = (data: IGenre[]) => (<const>{
+export const fetchGenresSuccess = (data: { genres: IGenre[] }) => (<const>{
   type: FETCH_GENRES_SUCCESS,
   payload: data
 });
 
 export const fetchGenreCategorySuccess = (data: IMovieData[]) => (<const>{
-  type: FETCH_GENRE_CATEGORY_SUCCESS,
+  type: FETCH_CURRENT_GENRE_SUCCESS,
   payload: data
 });
 

@@ -1,4 +1,26 @@
+import { IGenre, IMovieData, IResponse } from '@app/types/types';
 import axios from 'axios';
+import httpRequest from './fetcher';
+
+export const getGenres = () => httpRequest<{ genres: IGenre[] }>({ url: '/genre/movie/list' });
+
+export const getSelectedGenre = (genreId: string, page = 1) => {
+  return httpRequest<IResponse<IMovieData[]>>({
+    url: `/discover/movie?&with_genres=${genreId}&page=${page}`
+  })
+};
+
+export const getTrendingMovies = (page = 1) => {
+  return httpRequest<IResponse<IMovieData[]>>({
+    url: `/trending/all/day?page=${page}`
+  });
+}
+
+export const getDiscoverMovies = (query: string, page = 1) => {
+  return httpRequest<IResponse<IMovieData[]>>({
+    url: `/discover/movie?${query}&page=${page}`
+  });
+}
 
 // const cancelSource = axios.CancelToken.source();
 const tmdb = 'https://api.themoviedb.org/3';

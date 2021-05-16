@@ -3,12 +3,9 @@ import { IMovieData, IResponse, TMediaType } from '@app/types/types';
 
 type IMovieResponse = IResponse<IMovieData[]>;
 
-export const fetchTrendingMovies = (query: string, page = 1) => (<const>{
+export const fetchTrendingMovies = (page = 1) => (<const>{
   type: action.FETCH_TRENDING_MOVIES,
-  payload: {
-    query,
-    page,
-  },
+  payload: { page },
 });
 
 export const fetchDiscoverMovies = (query: string, page = 1) => (<const>{

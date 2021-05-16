@@ -1,6 +1,5 @@
 import {
-  FETCH_GENRES_SUCCESS,
-  FETCH_GENRE_CATEGORY_SUCCESS
+  FETCH_CURRENT_GENRE_SUCCESS, FETCH_GENRES_SUCCESS
 } from '@app/constants/actionType';
 import { IGenreState } from '@app/types/types';
 import { TGenreActionType } from '../actions/genreActions';
@@ -15,15 +14,13 @@ export default (state = defaultState, action: TGenreActionType) => {
     case FETCH_GENRES_SUCCESS:
       return {
         ...state,
-        genres: [...action.payload],
+        genres: action.payload.genres,
       };
-      break;
-    case FETCH_GENRE_CATEGORY_SUCCESS:
+    case FETCH_CURRENT_GENRE_SUCCESS:
       return {
         ...state,
-        genreMovies: action.payload,
+        current: action.payload,
       };
-      break;
     default:
       return state;
   }

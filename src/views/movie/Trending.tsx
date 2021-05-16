@@ -17,18 +17,17 @@ const TrendingMovies = () => {
   }));
   const { currentPage, setCurrentPage } = usePageSaver();
   const dispatch = useDispatch();
-  const query = '/trending/all/day';
 
   useDocumentTitle('Trending Movies | MOVX');
   useEffect(() => {
     if (!trendingMovies) {
-      dispatch(fetchTrendingMovies(query, currentPage));
+      dispatch(fetchTrendingMovies(currentPage));
     }
   }, []);
 
   const handlePageChange = (page: number) => {
     if (trendingMovies?.page !== page && !isLoading) {
-      dispatch(fetchTrendingMovies(query, page));
+      dispatch(fetchTrendingMovies(page));
       setCurrentPage(page)
     }
   };

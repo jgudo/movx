@@ -1,7 +1,6 @@
 import Container from '@app/components/common/Container';
 import LoadingScreen from '@app/components/common/LoadingScreen';
 import GenreCard from '@app/components/genres/GenreCard';
-import { isEmpty } from '@app/helpers/helperFunctions';
 import useDocumentTitle from '@app/hooks/useDocumentTitle';
 import { fetchGenres } from '@app/redux/actions/genreActions';
 import { IRootState } from '@app/types/types';
@@ -19,8 +18,8 @@ const Genres = () => {
 
   useDocumentTitle('Genres | MOVX');
   useEffect(() => {
-    if (isEmpty(genres)) {
-      dispatch(fetchGenres('/genre/movie/list?'));
+    if (genres.length === 0) {
+      dispatch(fetchGenres());
     }
   }, []);
 

@@ -13,24 +13,21 @@ import { RouteComponentProps } from 'react-router';
 type RouteProps = RouteComponentProps<{ id: string; genre: string; }>
 
 const ViewGenre: React.FC<RouteProps> = ({ match }) => {
-  const { currentGenre, isLoading, favorites } = useSelector((state: IRootState) => ({
+  const { currentGenre, isLoading } = useSelector((state: IRootState) => ({
     currentGenre: state.genre.current,
     isLoading: state.misc.isLoading,
-    favorites: state.favorites
   }));
   const { currentPage, setCurrentPage } = usePageSaver();
   const dispatch = useDispatch();
-  const query = `/discover/movie?&with_genres=${match.params.id}`;
-
 
   useDocumentTitle('Genres | MOVX');
   useEffect(() => {
-    dispatch(fetchGenreCategory(query, currentPage));
+    dispatch(fetchGenreCategory(match.params.id, currentPage));
   }, []);
 
   const handlePageChange = (page: number) => {
     if (currentGenre?.page !== page && !isLoading) {
-      dispatch(fetchGenreCategory(query, page));
+      dispatch(fetchGenreCategory(match.params.id, page));
       setCurrentPage(page)
     }
   };
