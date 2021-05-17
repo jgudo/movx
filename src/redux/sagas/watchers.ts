@@ -3,19 +3,15 @@ import { takeEvery, takeLatest } from 'redux-saga/effects';
 import { genreSaga } from './genreSaga';
 import { movieSaga } from './movieSaga';
 import {
-  fetchMainMoviesSaga, fetchRequestSaga,
-
-  fetchSelectedMovieSaga,
+  fetchRequestSaga,
   fetchSelectedPersonSaga,
-
-  searchSaga, updateFilterQuerySaga
+  searchSaga,
+  updateFilterQuerySaga
 } from './rootSaga';
-
 
 function* rootSaga() {
   yield takeLatest(
     [
-      action.FETCH_TV_SHOWS,
       action.FETCH_PEOPLE,
       action.SEARCH_TV_SHOWS,
       action.SEARCH_PEOPLE,
@@ -28,6 +24,12 @@ function* rootSaga() {
     [
       action.FETCH_DISCOVER_MOVIES,
       action.FETCH_TRENDING_MOVIES,
+      action.FETCH_UPCOMING_MOVIES,
+      action.FETCH_POPULAR_MOVIES,
+      action.FETCH_TOPRATED_MOVIES,
+      action.FETCH_TV_SHOWS,
+      action.FETCH_MAIN_MOVIES,
+      action.FETCH_SELECTED_MOVIE
     ],
     movieSaga
   );
@@ -41,22 +43,11 @@ function* rootSaga() {
   )
 
   yield takeEvery(
-    [
-      action.FETCH_POPULAR_MOVIES,
-      action.FETCH_TOPRATED_MOVIES,
-      action.FETCH_UPCOMING_MOVIES,
-    ],
-    fetchRequestSaga,
-  );
-
-  yield takeEvery(
     [action.SET_GENRE_FILTER, action.SET_SORT_FILTER, action.SET_YEAR_FILTER],
     updateFilterQuerySaga,
   );
 
-  yield takeLatest(action.FETCH_SELECTED_MOVIE, fetchSelectedMovieSaga);
   yield takeLatest(action.SEARCH, searchSaga);
-  yield takeLatest(action.FETCH_MAIN_MOVIES, fetchMainMoviesSaga);
   yield takeLatest(action.FETCH_SELECTED_PERSON, fetchSelectedPersonSaga);
 }
 

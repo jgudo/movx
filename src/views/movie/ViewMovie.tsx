@@ -74,7 +74,7 @@ const ViewMovie: React.FC<RouteParams> = ({ history, match }) => {
           )}
         </>
       )}
-      {(reviews && !!reviews.total_pages) && (
+      {reviews.length !== 0 && (
         <Reviews />
       )}
     </>

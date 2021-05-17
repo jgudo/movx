@@ -40,7 +40,7 @@ export interface IMovieState {
     movie: IMovieData | null,
     keywords: IKeyword[],
     casts: IActor[],
-    reviews: IResponse<IReview[]> | null,
+    reviews: IReview[],
   },
   popular: IResponse<IMovieData[]> | null,
   topRated: IResponse<IMovieData[]> | null,

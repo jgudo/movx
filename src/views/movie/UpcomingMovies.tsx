@@ -22,13 +22,13 @@ const UpcomingMovies = () => {
   useDocumentTitle('Upcoming Movies | MOVX');
   useEffect(() => {
     if (!upcomingMovies) {
-      dispatch(fetchUpcomingMovies(queryString, currentPage));
+      dispatch(fetchUpcomingMovies(currentPage));
     }
   }, []);
 
   const handlePageChange = (page: number) => {
     if (upcomingMovies?.page !== page && !isLoading) {
-      dispatch(fetchUpcomingMovies(queryString, page));
+      dispatch(fetchUpcomingMovies(page));
       setCurrentPage(page)
     }
   };

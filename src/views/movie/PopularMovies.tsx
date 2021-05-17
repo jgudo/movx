@@ -23,13 +23,13 @@ const PopularMovies = () => {
   useEffect(() => {
     if (!popularMovies) {
       console.log(currentPage)
-      dispatch(fetchPopularMovies(route, currentPage));
+      dispatch(fetchPopularMovies(currentPage));
     }
   }, []);
 
   const handlePageChange = (page: number) => {
     if (popularMovies?.page !== page && !isLoading) {
-      dispatch(fetchPopularMovies(route, page));
+      dispatch(fetchPopularMovies(page));
       setCurrentPage(page)
     }
   };

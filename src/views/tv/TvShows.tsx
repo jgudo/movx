@@ -20,18 +20,17 @@ const TvShows = () => {
   const { currentPage, setCurrentPage } = usePageSaver();
   const dispatch = useDispatch();
   const didMount = useDidMount();
-  const query = '/discover/tv?language=en-US';
 
   useDocumentTitle('TV Shows | MOVX');
   useEffect(() => {
     if (!tvShows || didMount) {
-      dispatch(fetchTvShows(`${query}${filter.tv.query}`, currentPage));
+      dispatch(fetchTvShows(currentPage));
     }
   }, [filter.tv.query]);
 
   const handlePageChange = (page: number) => {
     if (tvShows?.page !== page) {
-      dispatch(fetchTvShows(`${query}${filter.tv.query}`, page));
+      dispatch(fetchTvShows(page));
       setCurrentPage(page)
     }
   };

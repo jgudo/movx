@@ -1,8 +1,6 @@
 import * as api from '@app/api/api';
 import { history } from '@app/App';
 import {
-  FETCH_MAIN_MOVIES_SUCCESS,
-  FETCH_SELECTED_MOVIE_SUCCESS,
   FETCH_SELECTED_PERSON_SUCCESS,
   IS_LOADING,
   SEARCH_SUCCESS, UPDATE_QUERY,
@@ -66,34 +64,6 @@ export function* updateFilterQuerySaga({ payload }: ISagaParams): any {
   }
 }
 
-export function* fetchSelectedMovieSaga({ payload }: ISagaParams): any {
-  const { category, id } = payload;
-
-  try {
-    yield init();
-
-    const [movie, keywords, casts, reviews] = yield all([
-      call(api.fetchMovie, category, id),
-      call(api.fetchMovieKeywords, category, id),
-      call(api.fetchMovieCredits, category, id),
-      call(api.fetchMovieReviews, category, id),
-    ]);
-
-    yield put({
-      type: FETCH_SELECTED_MOVIE_SUCCESS,
-      payload: {
-        movie,
-        keywords,
-        casts,
-        reviews,
-      },
-    });
-    yield put({ type: IS_LOADING, payload: false });
-  } catch (e) {
-    yield call(errorHandler, e);
-  }
-}
-
 // Fetching movies, tv-shows, and people all together
 export function* searchSaga({ payload }: ISagaParams): any {
   const { query } = payload;
@@ -116,30 +86,6 @@ export function* searchSaga({ payload }: ISagaParams): any {
     });
     yield put({ type: IS_LOADING, payload: false });
     yield put({ type: UPDATE_SEARCH_QUERY, payload: query });
-  } catch (e) {
-    yield call(errorHandler, e);
-  }
-}
-
-// Fetching popular, top-rated, and upcoming movies for home page
-export function* fetchMainMoviesSaga(): any {
-  try {
-    yield init();
-    const [popular, topRated, upcoming] = yield all([
-      call(api.fetchRequest, '/movie/popular', 1),
-      call(api.fetchRequest, '/movie/top_rated', 1),
-      call(api.fetchRequest, '/movie/upcoming', 1),
-    ]);
-
-    yield put({
-      type: FETCH_MAIN_MOVIES_SUCCESS,
-      payload: {
-        popular,
-        topRated,
-        upcoming,
-      },
-    });
-    yield put({ type: IS_LOADING, payload: false });
   } catch (e) {
     yield call(errorHandler, e);
   }

@@ -1,4 +1,4 @@
-import { IGenre, IMovieData, IResponse } from '@app/types/types';
+import { ICast, IGenre, IKeyword, IMovieData, IResponse, IReview, TMediaType } from '@app/types/types';
 import axios from 'axios';
 import httpRequest from './fetcher';
 
@@ -19,6 +19,57 @@ export const getTrendingMovies = (page = 1) => {
 export const getDiscoverMovies = (query: string, page = 1) => {
   return httpRequest<IResponse<IMovieData[]>>({
     url: `/discover/movie?${query}&page=${page}`
+  });
+}
+
+export const getUpcomingMovies = (page = 1) => {
+  return httpRequest<IResponse<IMovieData[]>>({
+    url: `/movie/upcoming?page=${page}`
+  });
+}
+
+export const getPopularMovies = (page = 1) => {
+  return httpRequest<IResponse<IMovieData[]>>({
+    url: `/movie/popular?page=${page}`
+  });
+}
+
+export const getTopRatedMovies = (page = 1) => {
+  return httpRequest<IResponse<IMovieData[]>>({
+    url: `/movie/top_rated?page=${page}`
+  });
+}
+
+export const getTvShows = (queryParams: string, page = 1) => {
+  return httpRequest<IResponse<IMovieData[]>>({
+    url: `/discover/tv?language=en-US&page=${page}${queryParams}`
+  });
+}
+
+export const getSelectedMovie = (mediaType: TMediaType, id: string) => {
+  return httpRequest<IMovieData>({
+    url: `/${mediaType}/${id}`,
+    params: {
+      append_to_response: 'similar,videos,images',
+    },
+  });
+}
+
+export const getMovieCredits = (mediaType: TMediaType, id: string) => {
+  return httpRequest<{ id: string; cast: ICast[] }>({
+    url: `/${mediaType}/${id}/credits`
+  });
+}
+
+export const getMovieKeywords = (mediaType: TMediaType, id: string) => {
+  return httpRequest<{ id: string; keywords: IKeyword[] }>({
+    url: `/${mediaType}/${id}/keywords`
+  });
+}
+
+export const getMovieReviews = (mediaType: TMediaType, id: string) => {
+  return httpRequest<{ id: string; results: IReview[] }>({
+    url: `/${mediaType}/${id}/reviews`
   });
 }
 

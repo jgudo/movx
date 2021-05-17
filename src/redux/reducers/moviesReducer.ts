@@ -15,7 +15,7 @@ const defaultState: IMovieState = {
     movie: null,
     keywords: [],
     casts: [],
-    reviews: null,
+    reviews: [],
   },
   popular: null,
   topRated: null,

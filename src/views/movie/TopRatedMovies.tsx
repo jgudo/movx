@@ -17,18 +17,17 @@ const TopRatedMovies = () => {
   }));
   const { currentPage, setCurrentPage } = usePageSaver();
   const dispatch = useDispatch();
-  const queryString = '/movie/top_rated';
 
   useDocumentTitle('Top Rated Movies | MOVX');
   useEffect(() => {
     if (!topRatedMovies) {
-      dispatch(fetchTopRatedMovies(queryString, currentPage));
+      dispatch(fetchTopRatedMovies(currentPage));
     }
   }, []);
 
   const handlePageChange = (page: number) => {
     if (topRatedMovies?.page !== page && !isLoading) {
-      dispatch(fetchTopRatedMovies(queryString, page));
+      dispatch(fetchTopRatedMovies(page));
       setCurrentPage(page)
     }
   };

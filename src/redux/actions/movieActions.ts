@@ -1,5 +1,5 @@
 import * as action from '@app/constants/actionType';
-import { IMovieData, IResponse, TMediaType } from '@app/types/types';
+import { ICast, IKeyword, IMovieData, IResponse, IReview, TMediaType } from '@app/types/types';
 
 type IMovieResponse = IResponse<IMovieData[]>;
 
@@ -16,46 +16,34 @@ export const fetchDiscoverMovies = (query: string, page = 1) => (<const>{
   },
 });
 
-export const fetchTvShows = (query: string, page = 1) => (<const>{
+export const fetchTvShows = (page = 1) => (<const>{
   type: action.FETCH_TV_SHOWS,
-  payload: {
-    query,
-    page,
-  },
+  payload: { page },
 });
 
-export const fetchPopularMovies = (query: string, page = 1) => (<const>{
+export const fetchPopularMovies = (page = 1) => (<const>{
   type: action.FETCH_POPULAR_MOVIES,
-  payload: {
-    query,
-    page,
-  },
+  payload: { page },
 });
 
-export const fetchTopRatedMovies = (query: string, page = 1) => (<const>{
+export const fetchTopRatedMovies = (page = 1) => (<const>{
   type: action.FETCH_TOPRATED_MOVIES,
-  payload: {
-    query,
-    page,
-  },
+  payload: { page },
 });
 
-export const fetchUpcomingMovies = (query: string, page = 1) => (<const>{
+export const fetchUpcomingMovies = (page = 1) => (<const>{
   type: action.FETCH_UPCOMING_MOVIES,
-  payload: {
-    query,
-    page,
-  },
+  payload: { page },
 });
 
 export const fetchMainMovies = () => (<const>{
   type: action.FETCH_MAIN_MOVIES,
 });
 
-export const fetchSelectedMovie = (category: TMediaType, id: string) => (<const>{
+export const fetchSelectedMovie = (mediaType: TMediaType, id: string) => (<const>{
   type: action.FETCH_SELECTED_MOVIE,
   payload: {
-    category,
+    mediaType,
     id,
   },
 });
@@ -75,7 +63,14 @@ export const fetchTVShowSuccess = (data: IMovieResponse) => (<const>{
   payload: data
 });
 
-export const fetchSelectedMoviesSuccess = (data: IMovieResponse) => (<const>{
+interface TSelectedMovieParams {
+  movie: IMovieData;
+  casts: ICast[];
+  keywords: IKeyword[];
+  reviews: IReview[];
+}
+
+export const fetchSelectedMoviesSuccess = (data: TSelectedMovieParams) => (<const>{
   type: action.FETCH_SELECTED_MOVIE_SUCCESS,
   payload: data
 });
