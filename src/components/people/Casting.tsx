@@ -1,17 +1,24 @@
-import React from 'react';
-import { withRouter } from 'react-router-dom';
-
 import MovieList from '@app/components/movies/MovieList';
+import { IRootState } from '@app/types/types';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { useHistory, useParams, withRouter } from 'react-router-dom';
 
-const Casting = ({ casting, favorites, actor, match, history }) => {
-  const actorId = match.params.id;
+
+const Casting = () => {
+  const history = useHistory();
+  const { id: actorId } = useParams<{ id: string }>();
+  const { actor, casting } = useSelector((state: IRootState) => ({
+    actor: state.people.current.actor,
+    casting: state.people.current.casting
+  }))
 
   const onClickLink = () => {
     history.push(`/view/person/profile/${actorId}/casting`);
-    window.scrollTo(null, 0);
+    window.scrollTo(0, 0);
   };
 
-  return (
+  return casting.length === 0 ? null : (
     <div className="movie__casts">
       <div className="movie__casts-content">
         <div className="movie__casts-wrapper">
@@ -19,14 +26,13 @@ const Casting = ({ casting, favorites, actor, match, history }) => {
             <h1>Known For</h1>
           </div>
           <MovieList
-              favorites={favorites}
-              gridClass="movie__casts-grid"
-              movies={casting.slice(0, 8)}
+            gridClass="movie__casts-grid"
+            movies={casting.slice(0, 8)}
           />
           <div className="movie__casts-action">
             <button
-                className="button--primary m-auto"
-                onClick={onClickLink}
+              className="button--primary m-auto"
+              onClick={onClickLink}
             >
               View All Casting
             </button>
@@ -35,26 +41,26 @@ const Casting = ({ casting, favorites, actor, match, history }) => {
         <div className="movie__details">
           <div className="movie__details-genre">
             <h4>Birthday</h4>
-            <p>{actor.birthday}</p>
+            <p>{actor?.birthday}</p>
           </div>
           <div>
             <h4>Known For</h4>
-            <p>{actor.known_for_department}</p>
+            <p>{actor?.known_for_department}</p>
           </div>
           <div>
             <h4>Gender</h4>
-            <p>{actor.gender === 1 ? 'Female' : 'Male'}</p>
+            <p>{actor?.gender === 1 ? 'Female' : 'Male'}</p>
           </div>
-          {actor.place_of_birth && (
+          {actor?.place_of_birth && (
             <div>
               <h4>Place of Birth</h4>
-              <p>{actor.place_of_birth}</p>
+              <p>{actor?.place_of_birth}</p>
             </div>
           )}
-          {actor.also_known_as.length !== 0 && (
+          {actor?.also_known_as.length !== 0 && (
             <div>
               <h4>Also Known As</h4>
-              {actor.also_known_as && actor.also_known_as.map(name => (
+              {actor?.also_known_as && actor?.also_known_as.map(name => (
                 <p key={name}>{name}</p>
               ))}
             </div>

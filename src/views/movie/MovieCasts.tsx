@@ -10,7 +10,7 @@ import LazyLoad from 'react-lazy-load';
 import { useSelector } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 
-const ViewMoviePoster: React.FC<RouteComponentProps> = ({ history }) => {
+const MovieCasts: React.FC<RouteComponentProps> = ({ history }) => {
   const { movie, casts } = useSelector((state: IRootState) => ({
     movie: state.movies.current.movie,
     casts: state.movies.current.casts
@@ -83,4 +83,4 @@ const ViewMoviePoster: React.FC<RouteComponentProps> = ({ history }) => {
   );
 };
 
-export default ViewMoviePoster;
+export default MovieCasts;

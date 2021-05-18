@@ -24,7 +24,6 @@ const Filter: React.FC<IProps> = ({ filterCategory }) => {
     filters: state.filters[filterCategory]
   }));
 
-  const [y, setYear] = React.useState('');
   const dispatch = useDispatch();
 
   const onFilterToggle = () => {
@@ -37,7 +36,6 @@ const Filter: React.FC<IProps> = ({ filterCategory }) => {
 
   const onYearFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selected = e.target.value;
-    setYear(selected);
 
     onFilterClose();
     dispatch(setYearFilter(selected, filterCategory));

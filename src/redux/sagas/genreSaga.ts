@@ -1,4 +1,4 @@
-import { getGenres, getSelectedGenre } from '@app/api/api';
+import { getGenres, getSelectedGenre } from '@app/services/api';
 import { FETCH_CURRENT_GENRE, FETCH_GENRES } from '@app/constants/actionType';
 import { call, put } from 'redux-saga/effects';
 import { fetchGenreCategorySuccess, fetchGenresSuccess } from '../actions/genreActions';

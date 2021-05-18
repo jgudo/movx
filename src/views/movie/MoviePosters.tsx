@@ -11,7 +11,7 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { RouteChildrenProps } from 'react-router';
 
-const ViewMoviePoster: React.FC<RouteChildrenProps> = ({ history }) => {
+const MoviePosters: React.FC<RouteChildrenProps> = ({ history }) => {
   const movie = useSelector((state: IRootState) => state.movies.current.movie);
   const posters = movie?.images?.posters || [];
   const backdrops = movie?.images?.backdrops || [];
@@ -74,4 +74,4 @@ const ViewMoviePoster: React.FC<RouteChildrenProps> = ({ history }) => {
   );
 };
 
-export default ViewMoviePoster;
+export default MoviePosters;

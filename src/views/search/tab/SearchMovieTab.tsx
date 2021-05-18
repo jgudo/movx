@@ -15,7 +15,7 @@ const SearchMovieTab = () => {
   }))
   const handlePageChange = (page: number) => {
     if (movies?.page !== page && !isLoading) {
-      dispatch(searchMovies(`/search/movie?query=${query}`, page));
+      dispatch(searchMovies(query, page));
     }
   };
 

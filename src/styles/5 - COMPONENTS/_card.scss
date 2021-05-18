@@ -35,7 +35,7 @@
     height: 99%;
     background: var(--input-background);
     z-index: 0;
-  } 
+  }
 
   @include mobile {
     width: 150px;
@@ -44,24 +44,24 @@
 
   @media (max-width: $x-mobile) {
     width: 130px;
-    height: 190px  
+    height: 190px;
   }
 
   img {
     position: relative;
     border-radius: 6px;
-    box-shadow: 0 10px 30px rgba(0,0,0,.4);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
     z-index: 1;
   }
 
-  &>div, &>span {
+  & > div,
+  & > span {
     position: relative;
     z-index: 1;
   }
 }
 
 .card__details {
-
   .star-ratings {
     margin-top: $s-size;
 
@@ -118,7 +118,7 @@
   justify-content: space-between;
   align-items: center;
   position: relative;
-  padding-right: .5rem;
+  padding-right: 0.5rem;
 
   p {
     color: var(--text-color-subtle);
@@ -134,7 +134,7 @@
     fill: $red;
   }
 
-  button:hover+.tooltip {
+  button:hover + .tooltip {
     opacity: 1;
     visibility: visible;
   }
@@ -146,10 +146,10 @@
   text-align: center;
   border-radius: 10px;
   position: relative;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat !important;
   background-position: center;
-  background-size: cover;
-  box-shadow: 0 10px 30px rgba(0,0,0,.3);
+  background-size: cover !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   margin-bottom: $m-size;
   display: flex;
   align-items: center;
@@ -164,7 +164,7 @@
     margin: auto;
     width: 100%;
     height: 100%;
-    background: transparentize($dark-blue-0, .3);
+    background: transparentize($dark-blue-0, 0.3);
     border-radius: 10px;
     border: 1px solid var(--input-background);
     @include transition();
@@ -198,7 +198,7 @@
 }
 
 .genre__card:hover:after {
-  background: transparentize($blue, .1);
+  background: transparentize($blue, 0.1);
 }
 
 .genre__card-details {

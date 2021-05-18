@@ -9,6 +9,7 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "@types/webfontloader": "^1.6.32",
     "axios": "^0.21.1",
     "history": "4.10.0",
     "normalize.css": "^8.0.1",

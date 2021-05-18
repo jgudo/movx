@@ -16,7 +16,7 @@ const SearchTvTab = () => {
   }))
   const handlePageChange = (page: number) => {
     if (tvShows?.page !== page && !isLoading) {
-      dispatch(searchTvShows(`/search/tv?query=${query}`, page));
+      dispatch(searchTvShows(query, page));
     }
   };
 

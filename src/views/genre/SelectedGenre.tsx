@@ -12,7 +12,7 @@ import { RouteComponentProps } from 'react-router';
 
 type RouteProps = RouteComponentProps<{ id: string; genre: string; }>
 
-const ViewGenre: React.FC<RouteProps> = ({ match }) => {
+const SelectedGenre: React.FC<RouteProps> = ({ match }) => {
   const { currentGenre, isLoading } = useSelector((state: IRootState) => ({
     currentGenre: state.genre.current,
     isLoading: state.misc.isLoading,
@@ -59,4 +59,4 @@ const ViewGenre: React.FC<RouteProps> = ({ match }) => {
   );
 };
 
-export default ViewGenre;
+export default SelectedGenre;

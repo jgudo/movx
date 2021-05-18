@@ -18,14 +18,13 @@ export default (state = defaultState, action: TPeopleActionType) => {
     case FETCH_PEOPLE_SUCCESS:
       return {
         ...state,
-        people: { ...action.payload },
+        people: action.payload,
       };
       break;
     case FETCH_SELECTED_PERSON_SUCCESS:
       return {
         ...state,
-        person: {
-          ...state.current,
+        current: {
           actor: action.payload.actor,
           casting: action.payload.casting,
         },

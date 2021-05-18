@@ -1,18 +1,15 @@
 import imgBackground from '@app/assets/images/background.jpg';
-import MovieList from '@app/components/movies/MovieList';
+import PersonProfiles from '@app/components/people/PersonProfiles';
 import useDocumentTitle from '@app/hooks/useDocumentTitle';
 import { IRootState } from '@app/types/types';
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
 
-const ViewPictures: React.FC<RouteComponentProps> = ({ history }) => {
-  const { actor, casting } = useSelector((state: IRootState) => ({
-    actor: state.people.current.actor,
-    casting: state.people.current.casting,
-  }));
+const Pictures: React.FC<RouteComponentProps> = ({ history }) => {
+  const actor = useSelector((state: IRootState) => state.people.current.actor);
 
-  useDocumentTitle('Castings | MOVX');
+  useDocumentTitle('Profile Pictures');
   useEffect(() => {
     if (!actor) {
       history.goBack();
@@ -33,16 +30,10 @@ const ViewPictures: React.FC<RouteComponentProps> = ({ history }) => {
         </div>
       </div>
       <div className="container__wrapper">
-        <div className="movie__header">
-          <div className="movie__header-title">
-            <h1>Casted Movies</h1>
-            <h3>{casting.length} Movies</h3>
-          </div>
-        </div>
-        <MovieList movies={casting} />
+        <PersonProfiles />
       </div>
     </>
   );
 };
 
-export default ViewPictures;
+export default Pictures;

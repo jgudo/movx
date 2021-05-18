@@ -6,12 +6,9 @@ export const fetchSelectedPerson = (id: string | number) => (<const>{
   payload: id,
 });
 
-export const fetchPeople = (query: string, page = 1) => (<const>{
+export const fetchPeople = (page = 1) => (<const>{
   type: FETCH_PEOPLE,
-  payload: {
-    query,
-    page,
-  },
+  payload: { page },
 });
 
 export const fetchPeopleSuccess = (data: IResponse<ICast[]>) => (<const>{
@@ -19,7 +16,7 @@ export const fetchPeopleSuccess = (data: IResponse<ICast[]>) => (<const>{
   payload: data
 });
 
-export const fetchSelectedPersonSuccess = (data: Extract<IPeopleState, 'current'>) => (<const>{
+export const fetchSelectedPersonSuccess = (data: IPeopleState['current']) => (<const>{
   type: FETCH_SELECTED_PERSON_SUCCESS,
   payload: data
 });

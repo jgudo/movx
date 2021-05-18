@@ -1,45 +1,17 @@
-import React from 'react';
-import { Router, Switch, Route } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
-import { ToastContainer, Slide } from 'react-toastify';
-import * as route from '@app/constants/routes';
-
-import Navigation from '@app/components/common/Navigation';
 import Footer from '@app/components/common/Footer';
+import Navigation from '@app/components/common/Navigation';
 import ScrollTop from '@app/components/common/ScrollTop';
 import ThemeToggler from '@app/components/common/ThemeToggler';
 import ProgressTrigger from '@app/components/hoc/withProgress';
-
-import Home from '@app/views/home/Home';
-import DiscoverMovies from '@app/views/movie/Discover';
-import TrendingMovies from '@app/views/movie/Trending';
-import TopRatedMovies from '@app/views/movie/TopRatedMovies';
-import UpcomingMovies from '@app/views/movie/UpcomingMovies';
-import PopularMovies from '@app/views/movie/PopularMovies';
-import ViewMovie from '@app/views/movie/ViewMovie';
-import ViewMoviePoster from '@app/views/movie/ViewMoviePoster';
-import ViewMovieCasts from '@app/views/movie/ViewMovieCasts';
-
-import TvShows from '@app/views/tv/TvShows';
-
-import People from '@app/views/people/People';
-import ViewPeople from '@app/views/people/ViewPeople';
-import ViewCasting from '@app/views/people/ViewCasting';
-import ViewPeopleProfiles from '@app/views/people/ViewPictures';
-
-import Genres from '@app/views/genre/Genres';
-import ViewGenre from '@app/views/genre/ViewGenre';
-
-import Search from '@app/views/search/Search';
-import Favorites from '@app/views/favorite/Favorites';
-
-import Error from '@app/views/error/Error';
-import NetworkError from '@app/views/error/NetworkError';
-import PageNotFound from '@app/views/error/PageNotFound';
+import * as route from '@app/constants/routes';
+import * as view from '@app/views';
+import { createBrowserHistory } from 'history';
+import React from 'react';
+import { Route, Router, Switch } from 'react-router-dom';
+import { Slide, ToastContainer } from 'react-toastify';
 
 export const history = createBrowserHistory();
 
-/* eslint-disable react/jsx-boolean-value */
 const AppRouter = () => (
   <Router history={history}>
     <>
@@ -60,107 +32,107 @@ const AppRouter = () => (
       <main id="main">
         <Switch>
           <Route
-            component={ProgressTrigger(Home)}
+            component={ProgressTrigger(view.Home)}
             exact={true}
             path={route.HOME}
           />
           <Route
-            component={ProgressTrigger(DiscoverMovies)}
+            component={ProgressTrigger(view.DiscoverMovies)}
             exact={true}
             path={route.DISCOVER}
           />
           <Route
-            component={ProgressTrigger(TrendingMovies)}
+            component={ProgressTrigger(view.TrendingMovies)}
             exact={true}
             path={route.TRENDING}
           />
           <Route
-            component={ProgressTrigger(TvShows)}
+            component={ProgressTrigger(view.TvShows)}
             exact={true}
             path={route.TV}
           />
           <Route
-            component={ProgressTrigger(TopRatedMovies)}
+            component={ProgressTrigger(view.TopRatedMovies)}
             exact={true}
             path={route.TOP_RATED}
           />
           <Route
-            component={ProgressTrigger(UpcomingMovies)}
+            component={ProgressTrigger(view.UpcomingMovies)}
             exact={true}
             path={route.UPCOMING}
           />
           <Route
-            component={ProgressTrigger(PopularMovies)}
+            component={ProgressTrigger(view.PopularMovies)}
             exact={true}
             path={route.POPULAR}
           />
           <Route
-            component={ProgressTrigger(ViewMovie)}
+            component={ProgressTrigger(view.ViewMovie)}
             exact={true}
             path={route.VIEW_MOVIE}
           />
           <Route
-            component={ProgressTrigger(People)}
+            component={ProgressTrigger(view.People)}
             exact={true}
             path={route.PEOPLE}
           />
           <Route
-            component={ProgressTrigger(ViewPeople)}
+            component={ProgressTrigger(view.ViewPerson)}
             exact={true}
             path={route.VIEW_PEOPLE}
           />
           <Route
-            component={ProgressTrigger(ViewPeopleProfiles)}
+            component={ProgressTrigger(view.Pictures)}
             exact={true}
             path={route.VIEW_PEOPLE_PROFILE}
           />
           <Route
-            component={ProgressTrigger(ViewCasting)}
+            component={ProgressTrigger(view.Casting)}
             exact={true}
             path={route.VIEW_PEOPLE_CASTING}
           />
           <Route
-            component={ProgressTrigger(Genres)}
+            component={ProgressTrigger(view.Genres)}
             exact={true}
             path={route.GENRE}
           />
           <Route
-            component={ProgressTrigger(ViewGenre)}
+            component={ProgressTrigger(view.SelectedGenre)}
             exact={true}
             path={route.VIEW_GENRE}
           />
           <Route
-            component={ProgressTrigger(Search)}
+            component={ProgressTrigger(view.Search)}
             exact={true}
             path={route.SEARCH}
           />
           <Route
-            component={ProgressTrigger(ViewMoviePoster)}
+            component={ProgressTrigger(view.MoviePosters)}
             exact={true}
             path={route.VIEW_MOVIE_POSTER}
           />
           <Route
-            component={ProgressTrigger(ViewMovieCasts)}
+            component={ProgressTrigger(view.MovieCasts)}
             exact={true}
             path={route.VIEW_MOVIE_CASTS}
           />
           <Route
-            component={Favorites}
+            component={view.Favorites}
             exact={true}
             path={route.FAVORITES}
           />
           <Route
-            component={NetworkError}
+            component={view.NetworkError}
             exact={true}
             path={route.NETWORK_ERROR}
           />
           <Route
-            component={Error}
+            component={view.PageError}
             exact={true}
             path={route.ERROR}
           />
           <Route
-            component={PageNotFound}
+            component={view.PageNotFound}
           />
         </Switch>
       </main>

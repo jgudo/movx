@@ -1,19 +1,19 @@
 import {
+  FETCH_DISCOVER_MOVIES, FETCH_MAIN_MOVIES, FETCH_POPULAR_MOVIES,
+  FETCH_SELECTED_MOVIE, FETCH_TOPRATED_MOVIES, FETCH_TRENDING_MOVIES,
+  FETCH_TV_SHOWS, FETCH_UPCOMING_MOVIES
+} from '@app/constants/actionType';
+import {
   getDiscoverMovies,
   getMovieCredits,
   getMovieKeywords,
   getMovieReviews,
   getPopularMovies,
-
-
   getSelectedMovie,
-
-
   getTopRatedMovies, getTrendingMovies,
   getTvShows,
   getUpcomingMovies
-} from '@app/api/api';
-import { FETCH_DISCOVER_MOVIES, FETCH_MAIN_MOVIES, FETCH_POPULAR_MOVIES, FETCH_SELECTED_MOVIE, FETCH_TOPRATED_MOVIES, FETCH_TRENDING_MOVIES, FETCH_TV_SHOWS, FETCH_UPCOMING_MOVIES } from '@app/constants/actionType';
+} from '@app/services/api';
 import { IRootState } from '@app/types/types';
 import { all, call, put, select } from 'redux-saga/effects';
 import { setLoading } from '../actions/miscActions';
@@ -50,9 +50,10 @@ export function* movieSaga({ type, payload }: ISagaArgs): any {
     }
     case FETCH_DISCOVER_MOVIES: {
       try {
-        yield put(setLoading(true));
+        const filter = yield select((state: IRootState) => state.filters.discover);
 
-        const movies = yield call(getDiscoverMovies, payload.query, payload.page);
+        yield put(setLoading(true));
+        const movies = yield call(getDiscoverMovies, filter, payload.page);
         yield put(fetchDiscoverMoviesSuccess(movies));
         yield put(setLoading(false));
       } catch (err) {
@@ -102,10 +103,11 @@ export function* movieSaga({ type, payload }: ISagaArgs): any {
     }
     case FETCH_TV_SHOWS: {
       try {
+        const filter = yield select((state: IRootState) => state.filters.tv);
         yield put(setLoading(true));
-        const { query } = yield select((state: IRootState) => state.filters.tv);
-        const movies = yield call(getTvShows, query, payload.page);
-        yield put(fetchTVShowSuccess(movies));
+
+        const tvShows = yield call(getTvShows, filter, payload.page);
+        yield put(fetchTVShowSuccess(tvShows));
         yield put(setLoading(false));
       } catch (err) {
         yield put(setLoading(false));

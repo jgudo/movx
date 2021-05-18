@@ -10,26 +10,21 @@ import { IRootState } from '@app/types/types';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-
 const People = () => {
-  const { people, isLoading } = useSelector((state: IRootState) => ({
-    people: state.people.people,
-    isLoading: state.misc.isLoading
-  }));
+  const people = useSelector((state: IRootState) => state.people.people);
   const { currentPage, setCurrentPage } = usePageSaver();
   const dispatch = useDispatch();
-  const query = '/person/popular?';
 
   useDocumentTitle('Discover People | MOVX');
   useEffect(() => {
-    if (people) {
-      dispatch(fetchPeople(query, currentPage));
+    if (!people) {
+      dispatch(fetchPeople(currentPage));
     }
   }, []);
 
   const handlePageChange = (page: number) => {
     if (people?.page !== page) {
-      dispatch(fetchPeople(query, page));
+      dispatch(fetchPeople(page));
       setCurrentPage(page)
     }
   };

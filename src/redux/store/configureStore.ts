@@ -1,9 +1,9 @@
-import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
-import createSagaMiddleware from 'redux-saga';
-import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
-import rootSaga from '@app/redux/sagas/watchers';
 import reducers from '@app/redux/reducers';
+import rootSaga from '@app/redux/sagas/rootSaga';
+import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
+import { persistReducer, persistStore } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import createSagaMiddleware from 'redux-saga';
 
 declare global {
   interface Window {

@@ -8,12 +8,9 @@ export const fetchTrendingMovies = (page = 1) => (<const>{
   payload: { page },
 });
 
-export const fetchDiscoverMovies = (query: string, page = 1) => (<const>{
+export const fetchDiscoverMovies = (page = 1) => (<const>{
   type: action.FETCH_DISCOVER_MOVIES,
-  payload: {
-    query,
-    page,
-  },
+  payload: { page },
 });
 
 export const fetchTvShows = (page = 1) => (<const>{

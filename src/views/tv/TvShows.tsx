@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 const TvShows = () => {
   const { tvShows, filter } = useSelector((state: IRootState) => ({
     tvShows: state.movies.tvShows,
-    filter: state.filters,
+    filter: state.filters.tv,
   }));
   const { currentPage, setCurrentPage } = usePageSaver();
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ const TvShows = () => {
     if (!tvShows || didMount) {
       dispatch(fetchTvShows(currentPage));
     }
-  }, [filter.tv.query]);
+  }, [filter]);
 
   const handlePageChange = (page: number) => {
     if (tvShows?.page !== page) {

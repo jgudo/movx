@@ -15,7 +15,7 @@ const SearchPeopleTab = () => {
   }))
   const handlePageChange = (page: number) => {
     if (people?.page !== page && !isLoading) {
-      dispatch(searchPeople(`/search/person?query=${query}`, page));
+      dispatch(searchPeople(query, page));
     }
   };
 

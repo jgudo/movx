@@ -7,8 +7,8 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
 
-const ViewPeople: React.FC<RouteComponentProps<{ id: string }>> = ({ match }) => {
-  const { actor, casting, isLoading } = useSelector((state: IRootState) => ({
+const ViewPerson: React.FC<RouteComponentProps<{ id: string }>> = ({ match }) => {
+  const { actor, isLoading } = useSelector((state: IRootState) => ({
     actor: state.people.current.actor,
     casting: state.people.current.casting,
     isLoading: state.misc.isLoading,
@@ -26,13 +26,11 @@ const ViewPeople: React.FC<RouteComponentProps<{ id: string }>> = ({ match }) =>
   return !isLoading ? (
     <>
       <PersonBiography />
-      {casting.length >= 1 && (
-        <div className="container__wrapper">
-          <Casting />
-        </div>
-      )}
+      <div className="container__wrapper">
+        <Casting />
+      </div>
     </>
   ) : <PersonBiography />;
 };
 
-export default ViewPeople;
+export default ViewPerson;

@@ -15,15 +15,9 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 const DiscoverMovies = () => {
-  const {
-    discoverMovies,
-    query,
-    isLoading
-  } = useSelector((state: IRootState) => ({
+  const { discoverMovies, filter } = useSelector((state: IRootState) => ({
     discoverMovies: state.movies.discover,
-    query: state.filters.discover.query,
-    favorites: state.favorites,
-    isLoading: state.misc.isLoading
+    filter: state.filters.discover,
   }));
   const dispatch = useDispatch();
   const didMount = useDidMount();
@@ -32,13 +26,13 @@ const DiscoverMovies = () => {
   useDocumentTitle('Discover Movies | MOVX');
   useEffect(() => {
     if (!discoverMovies || didMount) {
-      dispatch(fetchDiscoverMovies(query, currentPage));
+      dispatch(fetchDiscoverMovies(currentPage));
     }
-  }, [query]);
+  }, [filter]);
 
   const handlePageChange = (page: number) => {
     if (discoverMovies?.page !== page) {
-      dispatch(fetchDiscoverMovies(query, page));
+      dispatch(fetchDiscoverMovies(page));
       setCurrentPage(page);
     }
   };

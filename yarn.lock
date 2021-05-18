@@ -552,6 +552,11 @@
   resolved "https://registry.npmjs.org/@types/scheduler/-/scheduler-0.16.1.tgz"
   integrity sha512-EaCxbanVeyxDRTQBkdLb3Bvl/HK7PBK6UJjsSixB0iHKoWxE5uu2Q/DgtpOhPIojN0Zl1whvOd7PoHs2P0s5eA==
 
+"@types/webfontloader@^1.6.32":
+  version "1.6.32"
+  resolved "https://registry.yarnpkg.com/@types/webfontloader/-/webfontloader-1.6.32.tgz#8a02698b7a07a9f2cc8e34d7223dc5d59ccff77a"
+  integrity sha512-l83V/2iHvBTIlKUM1+UlabS/Jd65HVfKmqS+zPhwDlgldPtd5ujPDt0Y1es19xLWcN8NC3wwSTd71Qxbst+Kpw==
+
 "@typescript-eslint/eslint-plugin@^4.22.0":
   version "4.22.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-4.22.0.tgz#3d5f29bb59e61a9dba1513d491b059e536e16dbc"

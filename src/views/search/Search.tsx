@@ -25,11 +25,12 @@ const Search: React.FC<RouteComponentProps<{ query: string }>> = ({ match }) => 
     peopleTotal: state.search.people?.total_results || 0,
     isLoading: state.misc.isLoading
   }));
-  useEffect(() => {
-    const queryString = match.params.query;
+  const query = match.params.query;
 
-    if (queryString !== state.query) {
-      dispatch(search(queryString));
+  useEffect(() => {
+
+    if (query !== state.query) {
+      dispatch(search(query));
     }
   }, []);
 
@@ -38,9 +39,9 @@ const Search: React.FC<RouteComponentProps<{ query: string }>> = ({ match }) => 
 
   useEffect(() => {
     if (didMount) {
-      dispatch(search(match.params.query));
+      dispatch(search(query));
     }
-  }, [match.params.query]);
+  }, [query]);
 
   return (!state.isLoading || !!state.moviesTotal || !!state.tvTotal || !!state.peopleTotal) ? (
     <Container>
