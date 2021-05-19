@@ -1,5 +1,4 @@
 import { Container, Pagination } from '@app/components/common';
-import withLoader from '@app/components/hoc/withLoader';
 import { PeopleList } from '@app/components/main';
 import { numberWithCommas } from '@app/helpers/helperFunctions';
 import { useDocumentTitle, usePageSaver } from '@app/hooks';
@@ -53,4 +52,4 @@ const People = () => {
   );
 };
 
-export default withLoader('people')(People);
+export default People;

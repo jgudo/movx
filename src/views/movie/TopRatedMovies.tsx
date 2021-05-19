@@ -1,5 +1,4 @@
 import { Container, Pagination } from '@app/components/common';
-import withLoader from '@app/components/hoc/withLoader';
 import { MovieList } from '@app/components/main';
 import { numberWithCommas } from '@app/helpers/helperFunctions';
 import { useDocumentTitle, usePageSaver } from '@app/hooks';
@@ -56,4 +55,4 @@ const TopRatedMovies = () => {
   );
 };
 
-export default withLoader('topRatedMovies')(TopRatedMovies);
+export default TopRatedMovies;

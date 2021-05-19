@@ -4,9 +4,9 @@ import Collapsible from 'react-collapsible';
 import { useSelector } from 'react-redux';
 
 const MovieReviews = () => {
-  const reviews = useSelector((state: IRootState) => state.movies.current.reviews);
+  const reviews = useSelector((state: IRootState) => (state.movies.current.reviews || []));
 
-  return (
+  return reviews.length === 0 ? null : (
     <div className="reviews">
       <div className="container__wrapper reviews__wrapper">
         <div className="reviews__header header__title">

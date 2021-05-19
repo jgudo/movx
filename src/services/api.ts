@@ -1,7 +1,6 @@
 import {
   IActor, ICast, IFilterProps, IGenre,
-  IKeyword, IMovieData, IResponse, IReview,
-  TMediaType
+  IKeyword, IMovieData, IResponse, IReview, TMediaType
 } from '@app/types/types';
 import axios, { AxiosRequestConfig } from "axios";
 
@@ -120,7 +119,7 @@ export const getMovieReviews = (mediaType: TMediaType, id: string) => {
 
 export const search = (category: TMediaType | 'person', query: string, page = 1) => {
   return httpRequest<IResponse<IMovieData[] | ICast[]>>({
-    url: `/search/${category}?query=${query}`,
+    url: `/search/${category}`,
     params: { query, page }
   });
 }

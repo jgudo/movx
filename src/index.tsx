@@ -1,4 +1,4 @@
-import LoadingScreen from '@app/components/common/Loader/ProgressLoader';
+import { ProgressLoader } from '@app/components/common';
 import configureStore from '@app/redux/store/configureStore';
 import '@app/styles/style.scss';
 import 'normalize.css/normalize.css';
@@ -20,7 +20,7 @@ const { store, persistor } = configureStore();
 
 render(
   <Provider store={store}>
-    <PersistGate loading={<LoadingScreen />} persistor={persistor}>
+    <PersistGate loading={<ProgressLoader />} persistor={persistor}>
       <AppRouter />
     </PersistGate>
   </Provider>,

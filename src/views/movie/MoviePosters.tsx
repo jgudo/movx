@@ -44,10 +44,7 @@ const MoviePosters: React.FC<RouteChildrenProps> = ({ history }) => {
         <Tabs>
           <TabContent index={0} label={`Posters (${posters.length})`}>
             {posters.length >= 1 ? (
-              <MoviePoster
-                id={movie.id}
-                posters={posters}
-              />
+              <MoviePoster posters={posters} />
             ) : (
               <div className="search__no-result">
                 <h1>No posters found.</h1>

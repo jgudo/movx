@@ -9,8 +9,7 @@ import { RouteComponentProps } from 'react-router';
 type RouteParams = RouteComponentProps<{ id: string; category: TMediaType }>;
 
 const ViewMovie: React.FC<RouteParams> = ({ history, match }) => {
-  const { favorites, movie, reviews, isLoading } = useSelector((state: IRootState) => ({
-    favorites: state.favorites,
+  const { movie, reviews, isLoading } = useSelector((state: IRootState) => ({
     movie: state.movies.current.movie,
     reviews: state.movies.current.reviews,
     isLoading: state.misc.isLoading
@@ -47,10 +46,7 @@ const ViewMovie: React.FC<RouteParams> = ({ history, match }) => {
       <MovieCast />
       {movie?.images && (
         <div className="container__wrapper">
-          <MoviePoster
-            id={movie.id}
-            posters={posters.length > 10 ? posters.slice(0, 10) : posters}
-          />
+          <MoviePoster posters={posters.length > 10 ? posters.slice(0, 10) : posters} />
           <button
             className="button--primary button--block m-auto"
             onClick={onClickViewImage}
@@ -59,16 +55,8 @@ const ViewMovie: React.FC<RouteParams> = ({ history, match }) => {
           </button>
         </div>
       )}
-      {movie?.similar && (
-        <>
-          {movie.similar.results.length !== 0 && (
-            <SimilarMovies movies={movie.similar.results} />
-          )}
-        </>
-      )}
-      {reviews.length !== 0 && (
-        <MovieReviews />
-      )}
+      <SimilarMovies movies={movie?.similar?.results || []} />
+      <MovieReviews />
     </>
   ) : (
     <MovieOverview />

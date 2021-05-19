@@ -1,5 +1,4 @@
 import { Container, Pagination } from '@app/components/common';
-import withLoader from '@app/components/hoc/withLoader';
 import { MovieList } from '@app/components/main';
 import { numberWithCommas } from '@app/helpers/helperFunctions';
 import { useDocumentTitle, usePageSaver } from '@app/hooks';
@@ -57,4 +56,4 @@ const UpcomingMovies = () => {
   );
 };
 
-export default withLoader('upcomingMovies')(UpcomingMovies);
+export default UpcomingMovies;

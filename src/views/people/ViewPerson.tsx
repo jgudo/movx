@@ -7,11 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
 
 const ViewPerson: React.FC<RouteComponentProps<{ id: string }>> = ({ match }) => {
-  const { actor, isLoading } = useSelector((state: IRootState) => ({
-    actor: state.people.current.actor,
-    casting: state.people.current.casting,
-    isLoading: state.misc.isLoading,
-  }));
+  const actor = useSelector((state: IRootState) => state.people.current.actor);
   const dispatch = useDispatch();
   const actorId = match.params.id;
 
@@ -22,12 +18,10 @@ const ViewPerson: React.FC<RouteComponentProps<{ id: string }>> = ({ match }) =>
     }
   }, []);
 
-  return !isLoading ? (
+  return actor ? (
     <>
       <PersonBiography />
-      <div className="container__wrapper">
-        <Casting />
-      </div>
+      <Casting />
     </>
   ) : <PersonBiography />;
 };

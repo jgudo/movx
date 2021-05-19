@@ -1,5 +1,4 @@
 import { Container, Filter, Pagination } from '@app/components/common';
-import withLoader from '@app/components/hoc/withLoader';
 import { MovieList } from '@app/components/main';
 import { numberWithCommas } from '@app/helpers';
 import { useDidMount, useDocumentTitle, usePageSaver } from '@app/hooks';
@@ -60,4 +59,4 @@ const DiscoverMovies = () => {
   );
 };
 
-export default withLoader('discoverMovies')(DiscoverMovies);
+export default DiscoverMovies;

@@ -7,7 +7,7 @@ interface IProps {
 }
 
 const SimilarMovies: React.FC<IProps> = ({ movies }) => {
-  return (
+  return movies.length === 0 ? null : (
     <div className="similar">
       <div className="container__wrapper similar__wrapper">
         <div className="poster__header header__title">

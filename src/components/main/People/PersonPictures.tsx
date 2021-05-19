@@ -1,10 +1,10 @@
-import React from 'react';
-
 import PosterCard from '@app/components/main/Poster/PosterCard';
-import { useSelector } from 'react-redux';
 import { IRootState } from '@app/types/types';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
-const PersonProfiles = () => {
+
+const PersonPictures = () => {
   const posters = useSelector((state: IRootState) => state.people.current.actor?.images.profiles);
 
   return (
@@ -32,4 +32,4 @@ const PersonProfiles = () => {
   );
 }
 
-export default PersonProfiles;
+export default PersonPictures;

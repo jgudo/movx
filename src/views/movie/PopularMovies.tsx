@@ -1,5 +1,4 @@
 import { Container, Pagination } from '@app/components/common';
-import withLoader from '@app/components/hoc/withLoader';
 import { MovieList } from '@app/components/main';
 import { numberWithCommas } from '@app/helpers';
 import { useDocumentTitle, usePageSaver } from '@app/hooks';
@@ -58,4 +57,4 @@ const PopularMovies = () => {
   );
 };
 
-export default withLoader('popularMovies')(PopularMovies);
+export default PopularMovies;
