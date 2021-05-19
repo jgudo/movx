@@ -1,11 +1,10 @@
-import Container from '@app/components/common/Container';
-import MovieList from '@app/components/movies/MovieList';
-import { numberWithCommas } from '@app/helpers/helperFunctions';
-import useDocumentTitle from '@app/hooks/useDocumentTitle';
+import { Container } from '@app/components/common';
+import { MovieList } from '@app/components/main';
+import { numberWithCommas } from '@app/helpers';
+import { useDocumentTitle } from '@app/hooks';
 import { IRootState } from '@app/types/types';
 import React from 'react';
 import { useSelector } from 'react-redux';
-
 
 const Favorites = () => {
   useDocumentTitle('My Favorites | MOVX');

@@ -1,6 +1,6 @@
-import PaginationBar from '@app/components/common/PaginationBar';
-import MovieList from '@app/components/movies/MovieList';
-import { searchMovies } from '@app/redux/actions/searchActions';
+import { Pagination } from '@app/components/common';
+import { MovieList } from '@app/components/main';
+import { searchMovies } from '@app/redux/actions';
 import { IRootState } from '@app/types/types';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,7 +22,7 @@ const SearchMovieTab = () => {
   return (movies && movies.results.length !== 0) ? (
     <>
       <MovieList movies={movies.results} />
-      <PaginationBar
+      <Pagination
         activePage={movies.page}
         itemsCountPerPage={1}
         onChange={handlePageChange}

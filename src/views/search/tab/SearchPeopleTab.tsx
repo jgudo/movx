@@ -1,6 +1,6 @@
-import PaginationBar from '@app/components/common/PaginationBar';
-import PeopleList from '@app/components/people/PeopleList';
-import { searchPeople } from '@app/redux/actions/searchActions';
+import { Pagination } from '@app/components/common';
+import { PeopleList } from '@app/components/main';
+import { searchPeople } from '@app/redux/actions';
 import { IRootState } from '@app/types/types';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,7 +22,7 @@ const SearchPeopleTab = () => {
   return people && people.results.length !== 0 ? (
     <>
       <PeopleList people={people.results} />
-      <PaginationBar
+      <Pagination
         activePage={people.page}
         itemsCountPerPage={1}
         onChange={handlePageChange}

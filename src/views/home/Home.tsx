@@ -1,7 +1,6 @@
-import MovieList from '@app/components/movies/MovieList';
-import MoviesSlider from '@app/components/slider/MoviesSlider';
-import useDocumentTitle from '@app/hooks/useDocumentTitle';
-import { fetchMainMovies } from '@app/redux/actions/movieActions';
+import { MovieList, MovieSlider } from '@app/components/main';
+import { useDocumentTitle } from '@app/hooks';
+import { fetchMainMovies } from '@app/redux/actions';
 import { IRootState } from '@app/types/types';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -30,10 +29,10 @@ const Home: React.FC<RouteComponentProps> = ({ history }) => {
   return (
     <>
       {popularMovies ? (
-        <MoviesSlider movies={popularMovies.results || []}
+        <MovieSlider movies={popularMovies.results || []}
         />
       ) : (
-        <MoviesSlider movies={[]}
+        <MovieSlider movies={[]}
         />
       )}
       <div className="container__wrapper">

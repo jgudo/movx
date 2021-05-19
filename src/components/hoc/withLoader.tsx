@@ -1,6 +1,6 @@
 import React from 'react';
 import { isEmpty } from '@app/helpers/helperFunctions'
-import LoadingScreen from '@app/components/common/LoadingScreen';
+import LoadingScreen from '@app/components/common/Loader/ProgressLoader';
 
 const withLoader = (propName: string | string[]) => (Component: React.ComponentType) => {
   return (props: any) => {

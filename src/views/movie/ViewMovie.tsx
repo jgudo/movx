@@ -1,11 +1,6 @@
-import MovieCast from '@app/components/movies/MovieCast';
-import MovieOverview from '@app/components/movies/MovieOverview';
-import MoviePoster from '@app/components/movies/MoviePoster';
-import Reviews from '@app/components/movies/Reviews';
-import SimilarMovies from '@app/components/movies/SimilarMovies';
-import useDidMount from '@app/hooks/useDidMount';
-import useDocumentTitle from '@app/hooks/useDocumentTitle';
-import { fetchSelectedMovie } from '@app/redux/actions/movieActions';
+import { MovieCast, MovieOverview, MoviePoster, MovieReviews, SimilarMovies } from '@app/components/main';
+import { useDidMount, useDocumentTitle } from '@app/hooks';
+import { fetchSelectedMovie } from '@app/redux/actions';
 import { IRootState, TMediaType } from '@app/types/types';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -67,15 +62,12 @@ const ViewMovie: React.FC<RouteParams> = ({ history, match }) => {
       {movie?.similar && (
         <>
           {movie.similar.results.length !== 0 && (
-            <SimilarMovies
-              favorites={favorites}
-              movies={movie.similar.results}
-            />
+            <SimilarMovies movies={movie.similar.results} />
           )}
         </>
       )}
       {reviews.length !== 0 && (
-        <Reviews />
+        <MovieReviews />
       )}
     </>
   ) : (

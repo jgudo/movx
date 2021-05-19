@@ -1,4 +1,4 @@
-import LoadingScreen from '@app/components/common/LoadingScreen';
+import LoadingScreen from '@app/components/common/Loader/ProgressLoader';
 import configureStore from '@app/redux/store/configureStore';
 import '@app/styles/style.scss';
 import 'normalize.css/normalize.css';

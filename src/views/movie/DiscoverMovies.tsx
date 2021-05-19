@@ -1,15 +1,9 @@
-import Container from '@app/components/common/Container';
-import Filter from '@app/components/common/Filter';
-import PaginationBar from '@app/components/common/PaginationBar';
+import { Container, Filter, Pagination } from '@app/components/common';
 import withLoader from '@app/components/hoc/withLoader';
-import MovieList from '@app/components/movies/MovieList';
-// helpers
-import { numberWithCommas } from '@app/helpers/helperFunctions';
-// hooks
-import useDidMount from '@app/hooks/useDidMount';
-import useDocumentTitle from '@app/hooks/useDocumentTitle';
-import usePageSaver from '@app/hooks/usePageSaver';
-import { fetchDiscoverMovies } from '@app/redux/actions/movieActions';
+import { MovieList } from '@app/components/main';
+import { numberWithCommas } from '@app/helpers';
+import { useDidMount, useDocumentTitle, usePageSaver } from '@app/hooks';
+import { fetchDiscoverMovies } from '@app/redux/actions';
 import { IRootState } from '@app/types/types';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -53,7 +47,7 @@ const DiscoverMovies = () => {
         templateCount={10}
       />
       {discoverMovies && (
-        <PaginationBar
+        <Pagination
           activePage={discoverMovies.page}
           itemsCountPerPage={1}
           onChange={handlePageChange}

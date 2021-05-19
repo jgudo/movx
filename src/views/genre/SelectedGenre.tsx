@@ -1,6 +1,6 @@
-import Container from '@app/components/common/Container';
-import PaginationBar from '@app/components/common/PaginationBar';
-import MovieList from '@app/components/movies/MovieList';
+import Container from '@app/components/common/Container/Container';
+import PaginationBar from '@app/components/common/Pagination/Pagination';
+import MovieList from '@app/components/main/Movies/MovieList';
 import { numberWithCommas } from '@app/helpers/helperFunctions';
 import useDocumentTitle from '@app/hooks/useDocumentTitle';
 import usePageSaver from '@app/hooks/usePageSaver';

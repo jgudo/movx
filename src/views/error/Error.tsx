@@ -1,6 +1,6 @@
+import { useDocumentTitle } from '@app/hooks';
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import useDocumentTitle from '@app/hooks/useDocumentTitle';
 
 const PageError: React.FC<RouteComponentProps> = ({ history }) => {
   useDocumentTitle('Error 😥');

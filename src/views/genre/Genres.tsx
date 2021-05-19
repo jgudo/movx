@@ -1,13 +1,10 @@
-import Container from '@app/components/common/Container';
-import LoadingScreen from '@app/components/common/LoadingScreen';
-import GenreCard from '@app/components/genres/GenreCard';
-import useDocumentTitle from '@app/hooks/useDocumentTitle';
-import { fetchGenres } from '@app/redux/actions/genreActions';
+import { Container, ProgressLoader } from '@app/components/common';
+import { GenreCard } from '@app/components/main';
+import { useDocumentTitle } from '@app/hooks';
+import { fetchGenres } from '@app/redux/actions';
 import { IRootState } from '@app/types/types';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
-
 
 const Genres = () => {
   const { genres, isLoading } = useSelector((state: IRootState) => ({
@@ -25,7 +22,7 @@ const Genres = () => {
 
   return (
     <Container>
-      {isLoading && <LoadingScreen message="Loading Genres" />}
+      {isLoading && <ProgressLoader message="Loading Genres" />}
       {genres.length >= 1 && (
         <>
           <div className="header__title text-center">

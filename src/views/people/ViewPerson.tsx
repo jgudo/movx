@@ -1,7 +1,6 @@
-import Casting from '@app/components/people/Casting';
-import PersonBiography from '@app/components/people/PersonBiography';
-import useDocumentTitle from '@app/hooks/useDocumentTitle';
-import { fetchSelectedPerson } from '@app/redux/actions/peopleActions';
+import { Casting, PersonBiography } from '@app/components/main';
+import { useDocumentTitle } from '@app/hooks';
+import { fetchSelectedPerson } from '@app/redux/actions';
 import { IRootState } from '@app/types/types';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';

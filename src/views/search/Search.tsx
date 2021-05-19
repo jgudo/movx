@@ -1,11 +1,8 @@
-import Container from '@app/components/common/Container';
-import LoadingScreen from '@app/components/common/LoadingScreen';
-import TabContent from '@app/components/tabs/TabContent';
-import Tabs from '@app/components/tabs/Tabs';
-import { numberWithCommas } from '@app/helpers/helperFunctions';
-import useDidMount from '@app/hooks/useDidMount';
-import useDocumentTitle from '@app/hooks/useDocumentTitle';
-import { search } from '@app/redux/actions/searchActions';
+import { Container, ProgressLoader, TabContent } from '@app/components/common';
+import Tabs from '@app/components/common/Tabs/Tabs';
+import { numberWithCommas } from '@app/helpers';
+import { useDidMount, useDocumentTitle } from '@app/hooks';
+import { search } from '@app/redux/actions';
 import { IRootState } from '@app/types/types';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,8 +10,6 @@ import { RouteComponentProps } from 'react-router';
 import SearchMovieTab from './tab/SearchMovieTab';
 import SearchPeopleTab from './tab/SearchPeopleTab';
 import SearchTvTab from './tab/SearchTvTab';
-
-
 
 const Search: React.FC<RouteComponentProps<{ query: string }>> = ({ match }) => {
   useDocumentTitle('Search | MOVX');
@@ -70,7 +65,7 @@ const Search: React.FC<RouteComponentProps<{ query: string }>> = ({ match }) => 
         </TabContent>
       </Tabs>
     </Container>
-  ) : <LoadingScreen message="Searching, Please wait..." />
+  ) : <ProgressLoader message="Searching, Please wait..." />
 };
 
 export default Search;

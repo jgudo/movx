@@ -1,8 +1,5 @@
-import Footer from '@app/components/common/Footer';
-import Navigation from '@app/components/common/Navigation';
-import ScrollTop from '@app/components/common/ScrollTop';
-import ThemeToggler from '@app/components/common/ThemeToggler';
-import ProgressTrigger from '@app/components/hoc/withProgress';
+import { Footer, Navigation, ScrollTop, ThemeToggler } from '@app/components/common';
+import withProgress from '@app/components/hoc/withProgress';
 import * as route from '@app/constants/routes';
 import * as view from '@app/views';
 import { createBrowserHistory } from 'history';
@@ -32,87 +29,87 @@ const AppRouter = () => (
       <main id="main">
         <Switch>
           <Route
-            component={ProgressTrigger(view.Home)}
+            component={withProgress(view.Home)}
             exact={true}
             path={route.HOME}
           />
           <Route
-            component={ProgressTrigger(view.DiscoverMovies)}
+            component={withProgress(view.DiscoverMovies)}
             exact={true}
             path={route.DISCOVER}
           />
           <Route
-            component={ProgressTrigger(view.TrendingMovies)}
+            component={withProgress(view.TrendingMovies)}
             exact={true}
             path={route.TRENDING}
           />
           <Route
-            component={ProgressTrigger(view.TvShows)}
+            component={withProgress(view.TvShows)}
             exact={true}
             path={route.TV}
           />
           <Route
-            component={ProgressTrigger(view.TopRatedMovies)}
+            component={withProgress(view.TopRatedMovies)}
             exact={true}
             path={route.TOP_RATED}
           />
           <Route
-            component={ProgressTrigger(view.UpcomingMovies)}
+            component={withProgress(view.UpcomingMovies)}
             exact={true}
             path={route.UPCOMING}
           />
           <Route
-            component={ProgressTrigger(view.PopularMovies)}
+            component={withProgress(view.PopularMovies)}
             exact={true}
             path={route.POPULAR}
           />
           <Route
-            component={ProgressTrigger(view.ViewMovie)}
+            component={withProgress(view.ViewMovie)}
             exact={true}
             path={route.VIEW_MOVIE}
           />
           <Route
-            component={ProgressTrigger(view.People)}
+            component={withProgress(view.People)}
             exact={true}
             path={route.PEOPLE}
           />
           <Route
-            component={ProgressTrigger(view.ViewPerson)}
+            component={withProgress(view.ViewPerson)}
             exact={true}
             path={route.VIEW_PEOPLE}
           />
           <Route
-            component={ProgressTrigger(view.Pictures)}
+            component={withProgress(view.Pictures)}
             exact={true}
             path={route.VIEW_PEOPLE_PROFILE}
           />
           <Route
-            component={ProgressTrigger(view.Casting)}
+            component={withProgress(view.Casting)}
             exact={true}
             path={route.VIEW_PEOPLE_CASTING}
           />
           <Route
-            component={ProgressTrigger(view.Genres)}
+            component={withProgress(view.Genres)}
             exact={true}
             path={route.GENRE}
           />
           <Route
-            component={ProgressTrigger(view.SelectedGenre)}
+            component={withProgress(view.SelectedGenre)}
             exact={true}
             path={route.VIEW_GENRE}
           />
           <Route
-            component={ProgressTrigger(view.Search)}
+            component={withProgress(view.Search)}
             exact={true}
             path={route.SEARCH}
           />
           <Route
-            component={ProgressTrigger(view.MoviePosters)}
+            component={withProgress(view.MoviePosters)}
             exact={true}
             path={route.VIEW_MOVIE_POSTER}
           />
           <Route
-            component={ProgressTrigger(view.MovieCasts)}
+            component={withProgress(view.MovieCasts)}
             exact={true}
             path={route.VIEW_MOVIE_CASTS}
           />

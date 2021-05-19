@@ -1,11 +1,9 @@
-import Container from '@app/components/common/Container';
-import PaginationBar from '@app/components/common/PaginationBar';
+import { Container, Pagination } from '@app/components/common';
 import withLoader from '@app/components/hoc/withLoader';
-import PeopleList from '@app/components/people/PeopleList';
+import { PeopleList } from '@app/components/main';
 import { numberWithCommas } from '@app/helpers/helperFunctions';
-import useDocumentTitle from '@app/hooks/useDocumentTitle';
-import usePageSaver from '@app/hooks/usePageSaver';
-import { fetchPeople } from '@app/redux/actions/peopleActions';
+import { useDocumentTitle, usePageSaver } from '@app/hooks';
+import { fetchPeople } from '@app/redux/actions';
 import { IRootState } from '@app/types/types';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -42,7 +40,7 @@ const People = () => {
         templateCount={10}
       />
       {people && (
-        <PaginationBar
+        <Pagination
           activePage={people.page}
           itemsCountPerPage={1}
           onChange={handlePageChange}

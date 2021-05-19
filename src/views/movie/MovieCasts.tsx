@@ -1,8 +1,8 @@
 import imgPlaceholder from '@app/assets/images/placeholder.jpg';
-import ImageLoader from '@app/components/common/ImageLoader';
+import { ImageLoader } from '@app/components/common';
 import { TMDB_BACKDROP_PATH, TMDB_POSTER_PATH } from '@app/constants/actionType';
-import { getYear, numberWithCommas } from '@app/helpers/helperFunctions';
-import useDocumentTitle from '@app/hooks/useDocumentTitle';
+import { getYear, numberWithCommas } from '@app/helpers';
+import { useDocumentTitle } from '@app/hooks';
 import { IRootState } from '@app/types/types';
 import React, { useEffect } from 'react';
 // @ts-ignore

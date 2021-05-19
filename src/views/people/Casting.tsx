@@ -1,6 +1,6 @@
 import imgBackground from '@app/assets/images/background.jpg';
-import MovieList from '@app/components/movies/MovieList';
-import useDocumentTitle from '@app/hooks/useDocumentTitle';
+import { MovieList } from '@app/components/main';
+import { useDocumentTitle } from '@app/hooks';
 import { IRootState } from '@app/types/types';
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';

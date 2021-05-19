@@ -1,11 +1,10 @@
-import PaginationBar from '@app/components/common/PaginationBar';
-import MovieList from '@app/components/movies/MovieList';
-import { searchTvShows } from '@app/redux/actions/searchActions';
+import { Pagination } from '@app/components/common';
+import { MovieList } from '@app/components/main';
+import { searchTvShows } from '@app/redux/actions';
 import { IRootState } from '@app/types/types';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
-
 
 const SearchTvTab = () => {
   const dispatch = useDispatch();
@@ -23,7 +22,7 @@ const SearchTvTab = () => {
   return tvShows && tvShows.results.length !== 0 ? (
     <>
       <MovieList category="tv" movies={tvShows.results} />
-      <PaginationBar
+      <Pagination
         activePage={tvShows.page}
         itemsCountPerPage={1}
         onChange={handlePageChange}

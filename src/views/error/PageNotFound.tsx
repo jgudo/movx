@@ -1,5 +1,5 @@
+import { useDocumentTitle } from '@app/hooks';
 import React from 'react';
-import useDocumentTitle from '@app/hooks/useDocumentTitle';
 import { RouteComponentProps } from 'react-router';
 
 const PageNotFound: React.FC<RouteComponentProps> = ({ history }) => {

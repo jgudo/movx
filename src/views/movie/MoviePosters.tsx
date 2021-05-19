@@ -1,11 +1,9 @@
 import imgBackground from '@app/assets/images/background.jpg';
-import MovieBackdrop from '@app/components/movies/MovieBackdrop';
-import MoviePoster from '@app/components/movies/MoviePoster';
-import TabContent from '@app/components/tabs/TabContent';
-import Tabs from '@app/components/tabs/Tabs';
+import { TabContent, Tabs } from '@app/components/common';
+import { MovieBackdrop, MoviePoster } from '@app/components/main';
 import { TMDB_BACKDROP_PATH } from '@app/constants/actionType';
-import { getYear } from '@app/helpers/helperFunctions';
-import useDocumentTitle from '@app/hooks/useDocumentTitle';
+import { getYear } from '@app/helpers';
+import { useDocumentTitle } from '@app/hooks';
 import { IRootState } from '@app/types/types';
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
