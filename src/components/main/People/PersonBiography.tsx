@@ -1,21 +1,21 @@
+import imgBackground from '@app/assets/images/background.jpg';
+import ImageLoader from '@app/components/common/Loader/ImageLoader';
+import { getCSSVar } from '@app/helpers/helperFunctions';
+import { IRootState } from '@app/types/types';
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 // @ts-ignore
 import LazyLoad from 'react-lazy-load';
-import Modal from 'react-responsive-modal';
-import ImageLoader from '@app/components/common/Loader/ImageLoader';
-import imgBackground from '@app/assets/images/background.jpg';
-
-import { getCSSVar } from '@app/helpers/helperFunctions';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { useSelector } from 'react-redux';
-import { IRootState } from '@app/types/types';
+import Modal from 'react-responsive-modal';
+import { useHistory } from 'react-router-dom';
+
+const tmdbPosterPath = 'https://image.tmdb.org/t/p/w300_and_h450_face/';
 
 const PersonBiography = () => {
   const history = useHistory();
   const actor = useSelector((state: IRootState) => state.people.current.actor);
   const [isOpenModal, setModalVisibility] = useState(false);
-  const tmdbPosterPath = 'https://image.tmdb.org/t/p/w300_and_h450_face/';
 
   const onClickLink = () => {
     history.push(`/view/person/profile/${actor?.id}/images`);
@@ -26,22 +26,6 @@ const PersonBiography = () => {
 
   const closeModal = () => setModalVisibility(false);
 
-  const modalStyle = {
-    modal: {
-      background: getCSSVar('--background-color'),
-      padding: '50px',
-      borderRadius: '6px'
-    },
-    closeButton: {
-      top: '10px',
-      right: '10px',
-      background: '#ff2e4f'
-    },
-    closeIcon: {
-      fill: '#fff'
-    }
-  };
-
   return (
     <SkeletonTheme
       color={getCSSVar('--skeleton-theme-color')}
@@ -51,7 +35,13 @@ const PersonBiography = () => {
         center
         onClose={closeModal}
         open={isOpenModal}
-        styles={modalStyle}
+        classNames={{
+          overlay: 'ModalOverlay',
+          modal: 'Modal',
+          modalContainer: 'ModalContainer',
+          closeButton: 'ModalCloseButton',
+          closeIcon: 'ModalCloseIcon'
+        }}
       >
         <h2>{actor?.name}'s Biography</h2>
         <p>{actor?.biography}</p>

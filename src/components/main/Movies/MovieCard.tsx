@@ -1,7 +1,6 @@
-import imgPlaceholder from '@app/assets/images/img-placeholder.jpg';
-import ImageLoader from '@app/components/common/Loader/ImageLoader';
-import { getCSSVar, getYear } from '@app/helpers/helperFunctions';
-import useFavorites from '@app/hooks/useFavorites';
+import { ImageLoader } from '@app/components/common';
+import { getCSSVar, getYear } from '@app/helpers';
+import { useFavorites } from '@app/hooks';
 import { IMovieData } from '@app/types/types';
 import React from 'react';
 // @ts-ignore
@@ -44,7 +43,7 @@ const MovieCard: React.FC<IProps> = ({ movie, category, isLoading }) => {
                 <ImageLoader
                   alt={movie.original_title || movie.original_name || movie.title}
                   imgId={movie.id}
-                  src={movie.poster_path ? `${tmdbPosterPath + movie.poster_path}` : imgPlaceholder}
+                  src={movie.poster_path ? `${tmdbPosterPath + movie.poster_path}` : '/img-placeholder.jpg'}
                 />
               </LazyLoad>
             ) : <Skeleton width={'100%'} height={'100%'} />}

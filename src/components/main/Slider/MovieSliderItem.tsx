@@ -12,7 +12,7 @@ import { useHistory } from 'react-router-dom';
 const tmdbPosterPath = 'https://image.tmdb.org/t/p/w300_and_h450_face/';
 const tmdbBackdropPath = 'https://image.tmdb.org/t/p/original';
 
-const MovieSliderItem: React.FC<{ movie: IMovieData }> = ({ movie }) => {
+const MovieSliderItem: React.FC<{ movie: IMovieData | null }> = ({ movie }) => {
   const history = useHistory();
 
   return (
@@ -21,7 +21,7 @@ const MovieSliderItem: React.FC<{ movie: IMovieData }> = ({ movie }) => {
       highlightColor={getCSSVar('--skeleton-theme-highlight')}
     >
       <div className="container__wrapper movie__slider-wrapper">
-        {movie.id && (
+        {movie && (
           <div className="movie__slider-backdrop">
             <img
               alt=""
@@ -32,10 +32,10 @@ const MovieSliderItem: React.FC<{ movie: IMovieData }> = ({ movie }) => {
         <div className="movie__slider-content">
           <div className="movie__slider-description">
             <h1>
-              {movie.original_title || <Skeleton width={'50%'} />}
+              {movie?.original_title || <Skeleton width={'50%'} />}
             </h1>
             <p className="movie__slider-rating">
-              {movie.vote_average ? (
+              {movie?.vote_average ? (
                 <>
                   <i className="fa fa-star" style={{ color: 'yellow' }} />
                   &nbsp;{movie.vote_average} Rating
@@ -45,11 +45,11 @@ const MovieSliderItem: React.FC<{ movie: IMovieData }> = ({ movie }) => {
               )}
             </p>
             <p className="view__overview">
-              {movie.overview || <Skeleton count={4} />}
+              {movie?.overview || <Skeleton count={4} />}
             </p>
             <br />
             <div className="movie__slider-button">
-              {movie.id ? (
+              {movie?.id ? (
                 <button
                   className="button--primary"
                   onClick={() => history.push(`/view/movie/${movie.id}`)}
@@ -62,7 +62,7 @@ const MovieSliderItem: React.FC<{ movie: IMovieData }> = ({ movie }) => {
             </div>
           </div>
           <div className="view__poster">
-            {movie.id ? (
+            {movie ? (
               <LazyLoad
                 debounce={false}
                 offsetVertical={500}

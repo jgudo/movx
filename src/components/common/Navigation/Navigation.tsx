@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-boolean-value */
-import logo from '@app/assets/images/logo-full.png';
 import { ThemeToggler, TopProgressLoader } from '@app/components/common';
 import * as route from '@app/constants/routes';
 import React, { useEffect, useState } from 'react';
@@ -61,7 +60,7 @@ const Navigation = () => {
           </button>
           <div className="navigation__logo">
             <Link to={route.HOME}>
-              <img src={logo} alt="" />
+              <img src="/logo-full.png" alt="" />
             </Link>
           </div>
           <div className="navigation__menu-wrapper">

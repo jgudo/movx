@@ -9,7 +9,7 @@
     padding: 0;
     position: fixed;
     right: 5%;
-    box-shadow: 0 15px 20px rgba(0, 0, 0, .1);
+    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.1);
   }
 }
 
@@ -18,7 +18,6 @@
   flex-wrap: wrap;
   align-items: center;
   @include transition();
-
 
   @include tablet {
     position: fixed;
@@ -29,7 +28,7 @@
     width: 100%;
     background: var(--input-background);
     transform-origin: top;
-    box-shadow: 0 10px 20px rgba(0,0,0, .2);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     opacity: 0;
     @include transform(scaleY(0));
   }
@@ -46,10 +45,11 @@
 }
 
 .filter__item {
+  margin: 0 5px;
 
   @include tablet {
     flex-grow: 1;
-    padding: .5rem;
+    padding: 0.5rem;
 
     &:nth-child(1),
     &:nth-child(2) {
@@ -60,7 +60,7 @@
   span {
     color: var(--text-color);
     font-size: 12px;
-    opacity: .7;
+    opacity: 0.7;
     padding-left: $s-size;
   }
 

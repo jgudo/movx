@@ -23,16 +23,21 @@ const sliderSettings = {
 };
 
 const MoviesSlider: React.FC<IProps> = ({ movies }) => {
+  console.log('MOVIES -------', movies)
   return (
     <div className="movie__slider">
-      <Slider {...sliderSettings}>
-        {movies.map((movie, index) => (
-          <SliderItem
-            key={movie.id || `movie_slider${index}`}
-            movie={movie}
-          />
-        ))}
-      </Slider>
+      {movies.length === 0 ? (
+        <SliderItem movie={null} />
+      ) : (
+        <Slider {...sliderSettings}>
+          {movies.map((movie, index) => (
+            <SliderItem
+              key={movie.id || `movie_slider${index}`}
+              movie={movie}
+            />
+          ))}
+        </Slider>
+      )}
     </div>
   );
 };

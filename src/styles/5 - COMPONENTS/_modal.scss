@@ -1,19 +1,46 @@
 .modal__link {
   @extend button;
-  @extend .button--primary; 
+  @extend .button--primary;
   text-decoration: none;
   display: block;
   margin-top: $l-size;
   margin: auto;
 }
 
-.styles_modal__gNwvD {
-  background: var(--background-color) !important;
+.ModalOverlay {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.Modal {
+  background: var(--background-color);
+  padding: 50px;
+  border-radius: 6px;
+  position: relative;
+  z-index: 9999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+
   @include mobile {
     padding: $l-size !important;
   }
 }
 
-.modal-video-close-btn {
-  right: -20px;
+.ModalContainer {
+  width: 90rem;
+}
+
+.ModalCloseButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #fff;
+  background: #ff2e4f;
+}
+
+.ModalCloseIcon {
+  color: #fff;
 }

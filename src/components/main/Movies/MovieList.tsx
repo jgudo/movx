@@ -16,7 +16,7 @@ const MovieList: React.FC<IProps> = ({ movies, category, gridClass, templateCoun
 
   return (
     <div className={gridClass}>
-      {!movies && templateCount != 0 ? new Array(templateCount).fill({}).map((item, index) => (
+      {movies.length === 0 && templateCount != 0 ? new Array(templateCount).fill({}).map((item, index) => (
         <MovieCard
           category={category!}
           isLoading={isLoading}

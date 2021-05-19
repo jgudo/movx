@@ -28,13 +28,7 @@ const Home: React.FC<RouteComponentProps> = ({ history }) => {
 
   return (
     <>
-      {popularMovies ? (
-        <MovieSlider movies={popularMovies.results || []}
-        />
-      ) : (
-        <MovieSlider movies={[]}
-        />
-      )}
+      <MovieSlider movies={popularMovies?.results || []} />
       <div className="container__wrapper">
         {upcomingMovies && (
           <>

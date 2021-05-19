@@ -1,4 +1,3 @@
-import imgPlaceholder from '@app/assets/images/placeholder.jpg';
 import ImageLoader from '@app/components/common/Loader/ImageLoader';
 import { getCSSVar } from '@app/helpers/helperFunctions';
 import { IActor, IRootState } from '@app/types/types';
@@ -40,7 +39,7 @@ const PersonCard: React.FC<IProps> = ({ data }) => {
                 <ImageLoader
                   alt={name}
                   imgId={data.id}
-                  src={data.profile_path ? `${tmdbPosterPath + data.profile_path}` : imgPlaceholder}
+                  src={data.profile_path ? `${tmdbPosterPath + data.profile_path}` : '/placeholder.jpg'}
                 />
               </LazyLoad>
             ) : <Skeleton width={'100%'} height={'100%'} />}
