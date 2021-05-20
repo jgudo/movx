@@ -12,6 +12,7 @@ const NetworkError: React.FC<RouteComponentProps> = ({ history }) => {
     <div className="error">
       <h1>Network Error</h1>
       <p>It looks like you don't have an intenet connection</p>
+      <br />
       <button
         className="button--primary"
         onClick={returnHome}

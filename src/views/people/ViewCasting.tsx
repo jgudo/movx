@@ -1,4 +1,3 @@
-import imgBackground from '@app/assets/images/background.jpg';
 import { MovieList } from '@app/components/main';
 import { useDocumentTitle } from '@app/hooks';
 import { IRootState } from '@app/types/types';
@@ -22,7 +21,7 @@ const Casting: React.FC<RouteComponentProps> = ({ history }) => {
   return !actor ? null : (
     <>
       <div className="posters__banner">
-        <img src={imgBackground} alt="" />
+        <img src="/background.jpg" alt="" />
         <div className="posters__banner-content">
           <h1>{actor.name}</h1>
           <button

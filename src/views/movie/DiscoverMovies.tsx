@@ -21,7 +21,9 @@ const DiscoverMovies = () => {
     if (!discoverMovies || didMount) {
       dispatch(fetchDiscoverMovies(currentPage));
     }
-  }, [filter]);
+
+    window.scrollTo(0, 0);
+  }, [filter, discoverMovies?.page]);
 
   const handlePageChange = (page: number) => {
     if (discoverMovies?.page !== page) {

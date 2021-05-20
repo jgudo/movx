@@ -12,35 +12,37 @@
 }
 
 .Modal {
-  background: var(--background-color);
-  padding: 50px;
+  background: var(--background-color) !important;
+  padding: 50px !important;
   border-radius: 6px;
   position: relative;
-  z-index: 9999;
-  position: fixed;
+  // z-index: 9999;
+  // position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   margin: auto;
+  // width: 80rem;
 
   @include mobile {
-    padding: $l-size !important;
+    padding: $l-size;
   }
 }
 
 .ModalContainer {
-  width: 90rem;
+  // width: 199;
 }
 
 .ModalCloseButton {
   position: absolute;
   top: 10px;
   right: 10px;
-  color: #fff;
-  background: #ff2e4f;
+  background: #ff2e4f !important;
 }
 
 .ModalCloseIcon {
-  color: #fff;
+  path {
+    fill: #fff;
+  }
 }

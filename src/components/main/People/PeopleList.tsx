@@ -12,7 +12,7 @@ interface IProps {
 const PeopleList: React.FC<IProps> = ({ people, gridClass, templateCount }) => {
   return (
     <div className={gridClass}>
-      {!people && templateCount != 0 ? new Array(templateCount).fill({}).map((item, index) => (
+      {people.length === 0 && templateCount != 0 ? new Array(templateCount).fill({}).map((item, index) => (
         <PeopleCard
           key={`skeleton_people_${index}`}
           data={null}

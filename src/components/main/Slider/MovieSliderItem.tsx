@@ -1,4 +1,3 @@
-import imgPlaceholder from '@app/assets/images/img-placeholder.jpg';
 import ImageLoader from '@app/components/common/Loader/ImageLoader';
 import { getCSSVar } from '@app/helpers/helperFunctions';
 import { IMovieData } from '@app/types/types';
@@ -70,7 +69,7 @@ const MovieSliderItem: React.FC<{ movie: IMovieData | null }> = ({ movie }) => {
                 <ImageLoader
                   alt={movie.original_title || movie.original_name || movie.title}
                   imgId={movie.id}
-                  src={movie.poster_path ? `${tmdbPosterPath + movie.poster_path}` : imgPlaceholder}
+                  src={movie.poster_path ? `${tmdbPosterPath + movie.poster_path}` : '/img-placeholder.jpg'}
                 />
               </LazyLoad>
             ) : <Skeleton width={'100%'} height={'100%'} />}

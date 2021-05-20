@@ -1,4 +1,3 @@
-import imgBackground from '@app/assets/images/background.jpg';
 import ImageLoader from '@app/components/common/Loader/ImageLoader';
 import { getCSSVar } from '@app/helpers/helperFunctions';
 import { IRootState } from '@app/types/types';
@@ -8,6 +7,7 @@ import LazyLoad from 'react-lazy-load';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { useSelector } from 'react-redux';
 import Modal from 'react-responsive-modal';
+import 'react-responsive-modal/styles.css';
 import { useHistory } from 'react-router-dom';
 
 const tmdbPosterPath = 'https://image.tmdb.org/t/p/w300_and_h450_face/';
@@ -40,7 +40,7 @@ const PersonBiography = () => {
           modal: 'Modal',
           modalContainer: 'ModalContainer',
           closeButton: 'ModalCloseButton',
-          closeIcon: 'ModalCloseIcon'
+          closeIcon: 'ModalCloseIcon',
         }}
       >
         <h2>{actor?.name}'s Biography</h2>
@@ -54,7 +54,7 @@ const PersonBiography = () => {
                 <img
                   alt=""
                   className="backdrop__image"
-                  src={imgBackground}
+                  src="/background.jpg"
                 />
               )}
             </div>

@@ -1,4 +1,3 @@
-import imgPlaceholder from '@app/assets/images/placeholder.jpg';
 import { ImageLoader } from '@app/components/common';
 import { TMDB_BACKDROP_PATH, TMDB_POSTER_PATH } from '@app/constants/actionType';
 import { getYear, numberWithCommas } from '@app/helpers';
@@ -63,7 +62,7 @@ const MovieCasts: React.FC<RouteComponentProps> = ({ history }) => {
                       <ImageLoader
                         alt={cast.name}
                         imgId={cast.id}
-                        src={cast.profile_path ? `${TMDB_POSTER_PATH + cast.profile_path}` : imgPlaceholder}
+                        src={cast.profile_path ? `${TMDB_POSTER_PATH + cast.profile_path}` : '/placeholder.jpg'}
                       />
                     </LazyLoad>
                   </div>

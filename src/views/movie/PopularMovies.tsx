@@ -24,6 +24,10 @@ const PopularMovies = () => {
     }
   }, []);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [popularMovies?.page]);
+
   const handlePageChange = (page: number) => {
     if (popularMovies?.page !== page && !isLoading) {
       dispatch(fetchPopularMovies(page));

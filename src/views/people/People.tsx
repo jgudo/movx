@@ -19,6 +19,10 @@ const People = () => {
     }
   }, []);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [people?.page]);
+
   const handlePageChange = (page: number) => {
     if (people?.page !== page) {
       dispatch(fetchPeople(page));

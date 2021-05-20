@@ -25,6 +25,10 @@ const SelectedGenre: React.FC<RouteProps> = ({ match }) => {
     dispatch(fetchGenreCategory(match.params.id, currentPage));
   }, []);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [currentGenre?.page]);
+
   const handlePageChange = (page: number) => {
     if (currentGenre?.page !== page && !isLoading) {
       dispatch(fetchGenreCategory(match.params.id, page));

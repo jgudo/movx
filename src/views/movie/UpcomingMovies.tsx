@@ -23,6 +23,10 @@ const UpcomingMovies = () => {
     }
   }, []);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [upcomingMovies?.page]);
+
   const handlePageChange = (page: number) => {
     if (upcomingMovies?.page !== page && !isLoading) {
       dispatch(fetchUpcomingMovies(page));

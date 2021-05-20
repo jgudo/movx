@@ -1,5 +1,3 @@
-import imgBackground from '@app/assets/images/background.jpg';
-import imgPlaceholder from '@app/assets/images/img-placeholder.jpg';
 import ImageLoader from '@app/components/common/Loader/ImageLoader';
 import { getCSSVar, getYear } from '@app/helpers/helperFunctions';
 import useFavorites from '@app/hooks/useFavorites';
@@ -89,7 +87,7 @@ const MovieOverview = () => {
               <img
                 alt=""
                 className="backdrop__image"
-                src={movie?.backdrop_path ? `${tmdbBackdropPath + movie?.backdrop_path}` : imgBackground}
+                src={movie?.backdrop_path ? `${tmdbBackdropPath + movie?.backdrop_path}` : '/background.jpg'}
               />
             </div>
           )}
@@ -113,7 +111,7 @@ const MovieOverview = () => {
                     <ImageLoader
                       alt={movie.original_title || movie.original_name || movie.title}
                       imgId={movie.id}
-                      src={movie.poster_path ? `${tmdbPosterPath + movie.poster_path}` : imgPlaceholder}
+                      src={movie.poster_path ? `${tmdbPosterPath + movie.poster_path}` : '/img-placeholder.jpg'}
                     />
                   </LazyLoad>
                 ) : <Skeleton width={'100%'} height={'100%'} />}

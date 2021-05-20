@@ -22,6 +22,10 @@ const TopRatedMovies = () => {
     }
   }, []);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [topRatedMovies?.page]);
+
   const handlePageChange = (page: number) => {
     if (topRatedMovies?.page !== page && !isLoading) {
       dispatch(fetchTopRatedMovies(page));

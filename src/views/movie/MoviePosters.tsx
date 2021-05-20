@@ -1,4 +1,3 @@
-import imgBackground from '@app/assets/images/background.jpg';
 import { TabContent, Tabs } from '@app/components/common';
 import { MovieBackdrop, MoviePoster } from '@app/components/main';
 import { TMDB_BACKDROP_PATH } from '@app/constants/actionType';
@@ -24,7 +23,7 @@ const MoviePosters: React.FC<RouteChildrenProps> = ({ history }) => {
   return !movie ? null : (
     <>
       <div className="posters__banner">
-        <img src={movie.backdrop_path ? `${TMDB_BACKDROP_PATH}${movie.backdrop_path}` : imgBackground} alt="" />
+        <img src={movie.backdrop_path ? `${TMDB_BACKDROP_PATH}${movie.backdrop_path}` : '/background.jpg'} alt="" />
         <div className="posters__banner-content">
           <h1>
             {movie.original_title || movie.original_name || movie.name || 'Movie Title Not Found'}

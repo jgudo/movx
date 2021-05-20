@@ -10,7 +10,8 @@ const PageNotFound: React.FC<RouteComponentProps> = ({ history }) => {
 
   return (
     <div className="error">
-      <h1>The Page Your Requested Could Not Be Found</h1>
+      <h1>The Page You Requested Could Not Be Found</h1>
+      <br />
       <button
         className="button--primary"
         onClick={returnHome}

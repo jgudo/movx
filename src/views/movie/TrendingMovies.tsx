@@ -22,6 +22,10 @@ const TrendingMovies = () => {
     }
   }, []);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [trendingMovies?.page]);
+
   const handlePageChange = (page: number) => {
     if (trendingMovies?.page !== page && !isLoading) {
       dispatch(fetchTrendingMovies(page));
