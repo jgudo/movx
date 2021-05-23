@@ -5,7 +5,7 @@
   "author": "Julius Guevarra",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build && cd dist && cp index.html 200.html",
     "serve": "vite preview"
   },
   "dependencies": {
