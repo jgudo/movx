@@ -18,7 +18,7 @@ const storageName = 'movx-v2';
 const config = {
   key: storageName,
   storage,
-  whitelist: ['_misc', '_search', '_filters', '_genre'],
+  whitelist: ['misc', 'search', 'filters', 'genre', 'favorites'],
 };
 
 const persistedReducer = persistReducer(config, combineReducers(reducers));
