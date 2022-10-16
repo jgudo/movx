@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@types/webfontloader": "^1.6.32",
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "history": "4.10.0",
     "normalize.css": "^8.0.1",
     "prop-types": "^15.7.2",
