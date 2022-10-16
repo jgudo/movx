@@ -5,7 +5,7 @@ const Footer: React.FC = () => (
     <span>
       Made by
       &nbsp;
-      <a href="https://juliusguevarra.tk" target="_blank">
+      <a href="https://juliusguevarra.com" target="_blank">
         Julius Guevarra
       </a>
       &nbsp;

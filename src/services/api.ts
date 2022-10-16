@@ -24,8 +24,8 @@ const httpRequest = <T>(req: AxiosRequestConfig): Promise<T> => {
       const request = await axiosClient(req);
 
       resolve(request.data)
-    } catch (e) {
-      reject(e?.response?.data || {});
+    } catch (e: any) {
+      reject(e?.response?.data || { status_code: 500 });
     }
   });
 }

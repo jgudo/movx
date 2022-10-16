@@ -1,12 +1,13 @@
 .search__input {
   width: 100%;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
+  padding: 1rem 1.5rem !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
 }
 
 .search__button {
   border-radius: $border-radius;
-  padding: 1.5rem;
+  padding: 1.2rem;
   background: $yellow;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
@@ -41,11 +42,11 @@
   &::-webkit-scrollbar {
     width: 5px;
   }
-  
+
   &::-webkit-scrollbar-track {
       background: darken($off-white, 10%);
   }
-  
+
   &::-webkit-scrollbar-thumb {
     background-color: darken($blue, 15%);
     outline: 1px solid lighten($blue, 10%);
@@ -76,7 +77,7 @@
     background: $blue;
     color: #fff;
   }
-  
+
   &.visible {
     opacity: 1;
     visibility: visible;
@@ -105,15 +106,15 @@
 
 .search-clear {
   padding: 0;
-  color: $off-black;
+  color: var(--text-color);
   font-weight: bold;
-  font-size: 14px;
+  font-size: 18px;
   margin-right: $m-size;
 }
 
 .search__no-result {
   text-align: center;
-  margin-top: $xl-size; 
+  margin-top: $xl-size;
   position: relative;
 
   h1 {
@@ -134,10 +135,10 @@
 .clear--button {
   position: absolute;
   left: -20px;
-  width: 25px;
-  height: 25px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, .1);
+  border: 1px solid var(--text-color);
 
   @media (max-width: $tablet) {
     display: none !important;

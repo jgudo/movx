@@ -10,7 +10,7 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import ModalVideo from 'react-modal-video';
 import { useSelector } from 'react-redux';
 import Modal from 'react-responsive-modal';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 const tmdbPosterPath = 'https://image.tmdb.org/t/p/w300_and_h450_face/';
 const tmdbBackdropPath = 'https://image.tmdb.org/t/p/original';
@@ -127,15 +127,17 @@ const MovieOverview = () => {
                 </h1>
                 <p className="view__rating mb-0">
                   {movie ? (
-                    <><i className="fa fa-star" />&nbsp;{movie.vote_average} Rating</>
+                    <><i className="fa fa-star" />&nbsp;{movie.vote_average?.toFixed(1)} Rating</>
                   ) : <Skeleton width={180} />}
                 </p>
                 {(movie && movie.genres.length >= 1) &&
-                  <p className="mt-0 text-subtle">
+                  <i className="mt-0 text-subtle">
                     {movie.genres.map((genre, index) => (
-                      <span key={`${movie.id}_genre${genre.id}`}>{genre.name} {(index < (movie.genres.length - 1)) && '/ '}</span>
+                      <Link className="view__genre" key={`${movie.id}_genre${genre.id}`} to={`/genre/${genre.name}/${genre.id}`}>
+                          {genre.name} {(index < (movie.genres.length - 1)) && '/ '}
+                      </Link>
                     ))}
-                  </p>
+                  </i>
                 }
                 <h4 className="view__overview-title">
                   {movie ? 'Overview' : <Skeleton width={150} />}

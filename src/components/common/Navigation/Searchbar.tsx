@@ -1,6 +1,7 @@
 import { addSearchHistory, clearSearchHistory } from '@app/redux/actions';
 import { IRootState } from '@app/types/types';
 import React, { useRef, useState } from 'react';
+import { HiSearch } from 'react-icons/hi';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
@@ -94,7 +95,7 @@ const Searchbar: React.FC<IProps> = ({ closeSearchForMobile }) => {
         disabled={isLoading}
         onClick={onSubmitQuery}
       >
-        <i className="fa fa-search" />
+        <HiSearch />
       </button>
       {recentSearch.length >= 1 && (
         <div className="search-history" ref={searchHistoryRef}>

@@ -10,6 +10,7 @@ html {
 body {
   font-family: 'Yantramanav', Helvetica, Arial, sans-serif;
   font-size: 1.6rem;
+  overflow-x: hidden;
   background: var(--background-color, $background);
   color: var(--text-color, $text-color);
 }

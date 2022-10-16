@@ -28,7 +28,7 @@
 
 .button--search {
   margin-right: $m-size;
-  
+
   div {
     width: 20px;
     height: 20px;
@@ -61,10 +61,10 @@
   &:before {
     content: '';
     position: absolute;
-    left: -40px;
+    left: -30px;
     bottom: 10px;
     margin: auto;
-    width: 40px;
+    width: 30px;
     height: 1px;
     background: #fff;
   }
@@ -72,7 +72,7 @@
   &:after {
     content: '';
     position: absolute;
-    left: -40px;
+    left: -30px;
     bottom: 14px;
     margin: auto;
     width: 10px;
@@ -103,7 +103,7 @@
   }
 
   @media (min-width: $tablet) {
-    color: $text-color !important; 
+    color: $text-color !important;
     border: 1px solid $text-color !important;
 
     i { color: $text-color !important; }

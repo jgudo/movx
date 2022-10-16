@@ -3,10 +3,10 @@ $yellow: #f7ef47;
 $off-black: #313131;
 $dark-blue-1: #111316;
 $dark-blue-0: #050607;
-$blue: #31adff;
+$blue: #0086e0;
 $red: #ff2e4f;
 $off-white: #f6f6f6;
-$muted: #dadada; 
+$muted: #dadada;
 $heading-color: #fff;
 $text-color: #f5f5f5;
 $text-subtle: #cacaca;
@@ -19,13 +19,13 @@ $background: lighten($dark-blue-0, 3%);
 	--nav-background-scrolled: transparent;
 	--nav-menu-background: #131519;
 	--nav-menu-border: #24272f;
-	
+
 	--heading-color: #fff;
 	--text-color: #fff;
 	--card-text-color: #fff;
 	--text-color-subtle: #cacaca;
 
-	--input-background: #131519;
+	--input-background: #1b1e24;
 	--input-background-focus: #181b21;
 
 	--skeleton-theme-color: #161a1d;
@@ -40,12 +40,12 @@ $background: lighten($dark-blue-0, 3%);
 
 	--nav-background: #f8f8f8;
 	--nav-background-scrolled: #f8f8f8;
-	--nav-menu-background: #f4f4f4;	
+	--nav-menu-background: #f4f4f4;
 	--nav-menu-border: #f0f0f0;
 
 	--heading-color: #1a1a1a;
 	--text-color: #313131;
-	--card-text-color: #313131;	
+	--card-text-color: #313131;
 	--text-color-subtle: #a1a1a1;
 
 	--input-background: #e4e4e4;
@@ -54,6 +54,6 @@ $background: lighten($dark-blue-0, 3%);
 	--skeleton-theme-color: #e4e4e4;
 	--skeleton-theme-highlight: #cccccc;
 
-	--star-color: #31adff;
+	--star-color: #0092f3;
 	--filter-invert: 1;
 }

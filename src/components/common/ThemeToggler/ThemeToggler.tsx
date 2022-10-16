@@ -1,6 +1,8 @@
 import { setDarkMode } from '@app/redux/actions/miscActions';
 import { IRootState } from '@app/types/types';
 import React, { useEffect } from 'react';
+import { ImSun } from 'react-icons/im';
+import { IoMdMoon } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux';
 
 const ThemeToggler: React.FC<{ toggleId?: string }> = ({ toggleId }) => {
@@ -40,6 +42,8 @@ const ThemeToggler: React.FC<{ toggleId?: string }> = ({ toggleId }) => {
       />
       <label htmlFor={toggleId} className="theme-switch__label">
         <span />
+        <ImSun className="theme-switch__icon theme-switch__icon--sun"/>
+        <IoMdMoon className="theme-switch__icon theme-switch__icon--moon"/>
       </label>
     </div>
   );

@@ -19,7 +19,7 @@ $dark: #1792c7;
 
     @include tablet {
         width: 100%;
-        padding: 0 3.2rem;
+        padding: 0 3rem;
         justify-content: space-between;
         background: var(--input-background);
     }
@@ -52,24 +52,41 @@ $dark: #1792c7;
 .theme-switch__input {
     opacity: 0;
     position: absolute;
-    
+
     &:hover,
     &:focus {
         // + .theme-switch__label {
             // background-color: lightSlateGray;
         // }
-        
+
         + .theme-switch__label span::after {
             background-color: lighten(lightBlue, 10%);
         }
     }
 }
 
+.theme-switch__icon {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  z-index: 2;
+  font-size: 18px;
+
+  &--sun {
+    left: 5px;
+  }
+
+  &--moon {
+    right: 5px;
+  }
+}
+
 .theme-switch__label {
     padding: 15px;
     // margin: 60px;
     transition: background-color 200ms ease;
-    width: 70px;
+    width: 60px;
     height: 25px;
     border-radius: 50px;
     text-align: center;
@@ -79,43 +96,21 @@ $dark: #1792c7;
     @include tablet {
         padding: 10px;
         width: 60px;
-        height: 20px;
+        height: 30px;
 
         &::before,
         &::after {
             font-size: 1.3rem;
         }
     }
-    
-    &::before,
-    &::after {
-        font-size: 2rem;
-        position: absolute;
-        transform: translate3d(0, -50%, 0);
-        top: 53%;
-    }
-    
-    &::after {
-        content: '\263C';
-        right: 50%;
-        margin-right: 10px;
-        color: #fff;
-    }
-    
-    &::before {
-        content: '\263E';
-        left: 50%;
-        margin-left: 10px;
-        color: #fff;
-    }
-    
     span {
         position: absolute;
-        bottom: calc(100% + 10px);
+        bottom: calc(100% + 9px);
         left: 0;
         width: 100%;
+        z-index: 10;
     }
-    
+
     span::after {
         position: absolute;
         top: calc(100% + 14px);
@@ -130,10 +125,10 @@ $dark: #1792c7;
         z-index: 3;
 
         @include tablet {
-            width: 18px;
-            height: 18px;
-            top: calc(100% + 11px);
-            left: 3px;
+            width: 20px;
+            height: 20px;
+            // top: calc(100% + 11px);
+            left: 6px;
         }
     }
 }
@@ -141,20 +136,20 @@ $dark: #1792c7;
 // Checked label styles
 .theme-switch__input:checked ~ .theme-switch__label {
     background-color: #f7ef47;
-    
+
     &::after {
         color: $off-black;
     }
-    
+
     &::before {
         color: #fff;
     }
-    
+
     span::after {
-        transform: translate3d(40px, 0, 0);
+        transform: translate3d(28px, 0, 0);
 
         @include tablet {
-            transform: translate3d(37px, 0, 0);
+            transform: translate3d(30px, 0, 0);
         }
     }
 }

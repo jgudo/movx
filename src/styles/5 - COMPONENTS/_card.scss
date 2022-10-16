@@ -16,6 +16,28 @@
   }
 }
 
+.card__rating {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0.7rem 1rem;
+  background: $red;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+
+  &-vote {
+    margin: 0;
+    color: white;
+    margin-left: 5px;
+  }
+
+  &-star {
+    color: white;
+  }
+}
+
 .card__image {
   width: 100%;
   height: 270px;

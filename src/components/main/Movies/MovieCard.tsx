@@ -3,12 +3,11 @@ import { getCSSVar, getYear } from '@app/helpers';
 import { useFavorites } from '@app/hooks';
 import { IMovieData } from '@app/types/types';
 import React from 'react';
+import { HiStar } from 'react-icons/hi';
 // @ts-ignore
 import LazyLoad from 'react-lazy-load';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { Link } from 'react-router-dom';
-// @ts-ignore
-import StarRatings from 'react-star-ratings';
 
 interface IProps {
   movie: IMovieData | null;
@@ -33,6 +32,10 @@ const MovieCard: React.FC<IProps> = ({ movie, category, isLoading }) => {
       highlightColor={getCSSVar('--skeleton-theme-highlight')}
     >
       <div className="card">
+        <div className="card__rating">
+          <HiStar className="card__rating-star"/>
+          <h4 className="card__rating-vote">{movie?.vote_average?.toFixed(1)}</h4>
+        </div>
         <Link to={`/view/${category}/${movie?.id}`} onClick={onClickCard}>
           <div className="card__image">
             {movie ? (
@@ -50,16 +53,6 @@ const MovieCard: React.FC<IProps> = ({ movie, category, isLoading }) => {
           </div>
         </Link>
         <div className="card__details">
-          {movie && (
-            <StarRatings
-              name="rating"
-              numberOfStars={10}
-              rating={movie.vote_average}
-              starDimension="14px"
-              starRatedColor={getCSSVar('--star-color')}
-              starSpacing="2px"
-            />
-          )}
           <h4>
             {movie ? (movie.original_title || movie.original_name || movie.title || 'Not Available') : (
               <Skeleton width={'80%'} height={15} />

@@ -1,6 +1,6 @@
 .navigation {
   width: 100%;
-  height: 80px;  
+  height: 70px;
   padding: 0 $xl-size;
   background: var(--nav-background-scrolled);
   position: absolute;
@@ -8,10 +8,10 @@
   transition: all .3s ease;
   box-shadow: none;
   z-index: map-get($z-index, 'navigation');
-  
+
   @include tablet {
     position: fixed !important;
-    height: 50px;  
+    height: 50px;
     background: var(--nav-background) !important;
     box-shadow: 0 8px 20px rgba(0,0,0,.1);
   }
@@ -32,7 +32,7 @@
   @include desktop {
     width: 1360px;
   }
-  
+
 }
 
 .navigation__menu {
@@ -95,7 +95,7 @@
   @include tablet {
     width: 100%;
     background: var(--nav-background);
-    position: absolute; 
+    position: absolute;
     right: 0;
     top: 0;
     justify-content: space-between;
@@ -176,7 +176,7 @@
   &:after {
     content: '';
     position: absolute;
-    top: -16px; 
+    top: -16px;
     left: 20%;
     margin-left: -5px;
     border-width: 8px;

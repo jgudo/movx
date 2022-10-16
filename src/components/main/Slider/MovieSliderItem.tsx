@@ -1,18 +1,20 @@
 import ImageLoader from '@app/components/common/Loader/ImageLoader';
 import { getCSSVar } from '@app/helpers/helperFunctions';
-import { IMovieData } from '@app/types/types';
+import { IMovieData, IRootState } from '@app/types/types';
 import React from 'react';
+import { HiStar } from 'react-icons/hi';
 // @ts-ignore
 import LazyLoad from 'react-lazy-load';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
-import { useHistory } from 'react-router-dom';
-
+import { useSelector } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
 
 const tmdbPosterPath = 'https://image.tmdb.org/t/p/w300_and_h450_face/';
 const tmdbBackdropPath = 'https://image.tmdb.org/t/p/original';
 
 const MovieSliderItem: React.FC<{ movie: IMovieData | null }> = ({ movie }) => {
   const history = useHistory();
+  const genres = useSelector((state: IRootState) => state.genre.genres);
 
   return (
     <SkeletonTheme
@@ -36,14 +38,23 @@ const MovieSliderItem: React.FC<{ movie: IMovieData | null }> = ({ movie }) => {
             <p className="movie__slider-rating">
               {movie?.vote_average ? (
                 <>
-                  <i className="fa fa-star" style={{ color: 'yellow' }} />
+                  <HiStar className="movie__slider-rating-star" />
                   &nbsp;{movie.vote_average} Rating
                 </>
               ) : (
                 <Skeleton width={'30%'} />
               )}
             </p>
-            <p className="view__overview">
+            <p className="movie__slider-genre">
+              {movie?.genre_ids ? movie.genre_ids?.map(a => (
+                <Link className="movie__slider-genre-pill" to={`/genre/${genres.find(b => b.id === a)?.name}/${a}`}>
+                  {genres.find(b => b.id === a)?.name}
+                </Link>
+              )) : (
+                <Skeleton width={'25%'} />
+              )}
+            </p>
+            <p className="view__overview mt-0">
               {movie?.overview || <Skeleton count={4} />}
             </p>
             <br />
